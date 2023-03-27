@@ -1,0 +1,32 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:49565",
+      "sslPort": 44336
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "notification",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "NotificationService": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "notification",
+      "applicationUrl": "http://localhost:5001",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DB_CONNECTION_STRING": "mongodb://admin:admin@localhost:6969",
+        "DB_NAME": "Notification"
+      }
+    }
+  }
+}

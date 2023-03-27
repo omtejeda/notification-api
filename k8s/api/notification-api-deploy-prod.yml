@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-api-deploy
+  labels:
+    app: notification-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification-api
+  template:
+    metadata:
+      labels:
+        app: notification-api
+    spec:
+      terminationGracePeriodSeconds: 1
+      containers:
+      - name: notification-api-ctr
+        image: omtejedahumano/notification-api:6.2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        env:
+        - name: DB_NAME
+          value: Notification
+        - name: DB_CONNECTION_STRING
+          value: mongodb://admin:sCTfUtnqE0CZ@mongodb-standalone-0.database.notification-api.svc.cluster.local?authSource=admin
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Production
+        - name: LIMIT_PAGE_SIZE
+          value: "50"
+        - name: GMT_TIMEZONE
+          value: "-4"

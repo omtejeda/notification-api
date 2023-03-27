@@ -1,0 +1,21 @@
+# NAMESPACE 
+kubectl create namespace notification-api
+
+# DB
+kubectl apply -f db/mongodb-secrets.yml -n notification-api
+kubectl apply -f db/mongodb-configmap.yml -n notification-api
+kubectl apply -f db/{env}/mongodb-pv.yml -n notification-api
+kubectl apply -f db/mongodb-pvc.yml -n notification-api
+kubectl apply -f db/{env}/mongodb-statefulset.yml -n notification-api
+kubectl apply -f db/mongodb-svc.yml -n notification-api
+
+-- Reemplazar {env} por 'dev' o 'prod' según ambiente correspondiente.
+
+-- Ya que es un componente statefulset está atado a un nodo especifico del cluster de Kubernetes.
+-- Dado esto, si se intenta desplegar en otro cluster, se debe modificar los valores de:
+-- 'nodeSelectorTerms' en mongodb-pv.yml y 'nodeSelector' en mongodb-statefulset.yml
+-- indicando puntualmente el nodo especifico donde va a persistir la data.
+
+# API
+kubectl apply -f api/notification-api-deploy.yml -n notification-api
+kubectl apply -f api/notification-api-svc.yml -n notification-api

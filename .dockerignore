@@ -1,0 +1,8 @@
+# .dockerignore
+
+Dockerfile
+[b|B]in
+[O|o]bj
+
+[L|l]og
+[L|l]ogs
