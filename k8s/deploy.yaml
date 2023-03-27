@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 1
       containers:
       - name: notification-api-ctr
-        image: omtejedahumano/notification-api:6.1
+        image: omtejedahumano/notification-api:6.2
         imagePullPolicy: Always
         ports:
         - containerPort: 80
