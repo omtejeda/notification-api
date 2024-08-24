@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+  db:
+    image: mongo
+    container_name: notificatinoservice_db
+    restart: on-failure:5
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    ports:
+      - 27018:27017
+    volumes:
+      - ~/db-notificatinoservice-vol:/data/db
+  api:
+    #image: ${IMAGE_REGISTRY}:$API_IMAGE_TAG
+    build: .
+    container_name: notificationservice-api
+    restart: on-failure:5
+    ports:
+      - 5002:80
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      DB_CONNECTION_STRING: mongodb://admin:admin@db
+      DB_NAME: Notification
+      GMT_TIMEZONE: -4
+      LIMIT_PAGE_SIZE: 50
+    depends_on:
+      - db
