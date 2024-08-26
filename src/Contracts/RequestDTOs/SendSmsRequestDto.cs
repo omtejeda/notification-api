@@ -4,19 +4,9 @@ using NotificationService.Core.Templates.Attributes;
 
 namespace NotificationService.Contracts.RequestDtos
 {
-    public class SendSmsRequestDto
+    public class SendSmsRequestDto : NotificationBaseRequestDto
     {
         [Required]
         public string ToPhoneNumber { get; set; }
-
-        [Required]
-        public string ProviderName { get; set; }
-
-        [Required]
-        [ValidateTemplate]
-        public TemplateDto Template { get; set; }
-
-        [JsonIgnore]
-        public string ParentNotificationId { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using NotificationService.Core.Common.Enums;
 
 namespace NotificationService.Contracts.RequestDtos
 {
-    public class SendMessageRequestDto
+    public class SendMessageRequestDto : NotificationBaseRequestDto
     {
         [Required]
         public string ToDestination { get; set; }
@@ -13,15 +13,5 @@ namespace NotificationService.Contracts.RequestDtos
         [Required]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public NotificationType NotificationType { get; set; }
-
-        [Required]
-        public string ProviderName { get; set; }
-
-        [Required]
-        [ValidateTemplate]
-        public TemplateDto Template { get; set; }
-
-        [JsonIgnore]
-        public string ParentNotificationId { get; set; }
     }
 }
