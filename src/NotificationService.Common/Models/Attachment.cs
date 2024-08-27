@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace NotificationService.Common.Entities
+namespace NotificationService.Common.Models
 {
     public class Attachment
     {

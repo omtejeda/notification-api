@@ -6,6 +6,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 using NotificationService.Common.Entities;
+using NotificationService.Common.Models;
 using NotificationService.Infrastructure.Repositories.Helpers;
 using LinqKit;
 using NotificationService.Common.Utils;

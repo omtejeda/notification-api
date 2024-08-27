@@ -1,4 +1,5 @@
 using NotificationService.Common.Enums;
+using NotificationService.Common.Models;
 
 namespace NotificationService.Common.Entities
 {

@@ -4,6 +4,7 @@ using NotificationService.Common.Dtos;
 using NotificationService.Contracts.RequestDtos;
 using NotificationService.Contracts.ResponseDtos;
 using NotificationService.Core.Common.Utils;
+using NotificationService.Common.Models;
 namespace NotificationService.Core.Common.Mappings
 {
     public class MappingProfiles : Profile

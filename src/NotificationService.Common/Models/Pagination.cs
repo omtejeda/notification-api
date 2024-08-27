@@ -1,5 +1,5 @@
 using System;
-namespace NotificationService.Common.Entities
+namespace NotificationService.Common.Models
 {
     public class Pagination
     {

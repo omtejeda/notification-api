@@ -12,6 +12,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using NotificationService.Contracts.Interfaces.Repositories;
 using NotificationService.Contracts.ResponseDtos;
+using NotificationService.Common.Models;
 
 namespace NotificationService.Core.Notifications.Services
 {
