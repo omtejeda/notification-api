@@ -1,7 +1,7 @@
 using System;
 namespace NotificationService.Common.Dtos
 {
-    public class ResponseDTO
+    public class ResponseDto
     {
         public bool? Success { get; set; }
         public int? Code { get; set; }

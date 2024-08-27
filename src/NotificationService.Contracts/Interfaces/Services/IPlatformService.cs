@@ -9,9 +9,9 @@ namespace NotificationService.Contracts.Interfaces.Services
 {
     public interface IPlatformService
     {
-        Task<FinalResponseDTO<PlatformDTO>> CreatePlatform(string name, string description, string owner);
+        Task<FinalResponseDto<PlatformDto>> CreatePlatform(string name, string description, string owner);
         Task DeletePlatform(string platformId, string owner);
-        Task<FinalResponseDTO<IEnumerable<PlatformDTO>>> GetPlatforms(Expression<Func<Platform, bool>> filter, string owner, int? page, int? pageSize);
-        Task<FinalResponseDTO<PlatformDTO>> GetPlatformById(string platformId, string owner);
+        Task<FinalResponseDto<IEnumerable<PlatformDto>>> GetPlatforms(Expression<Func<Platform, bool>> filter, string owner, int? page, int? pageSize);
+        Task<FinalResponseDto<PlatformDto>> GetPlatformById(string platformId, string owner);
     }
 }

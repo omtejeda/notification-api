@@ -30,7 +30,7 @@ namespace NotificationService.Core.Senders
             _templateService = templateService;
         }
 
-        public async Task<FinalResponseDTO<NotificationSentResponseDto>> SendMessageAsync(SendMessageRequestDto request, string owner)
+        public async Task<FinalResponseDto<NotificationSentResponseDto>> SendMessageAsync(SendMessageRequestDto request, string owner)
         {
             ThrowIfNotificationTypeIsNotValid(request.NotificationType);
 
@@ -74,7 +74,7 @@ namespace NotificationService.Core.Senders
 
             await _notificationsService.RegisterNotification(notification);
             
-            return new FinalResponseDTO<NotificationSentResponseDto>(code, message, new NotificationSentResponseDto { NotificationId = notification.NotificationId });
+            return new FinalResponseDto<NotificationSentResponseDto>(code, message, new NotificationSentResponseDto { NotificationId = notification.NotificationId });
         }
 
         private void ThrowIfNotificationTypeIsNotValid(NotificationType notificationType)

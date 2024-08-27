@@ -12,7 +12,7 @@ namespace NotificationService.Contracts.RequestDtos
         public string Type { get; set; }
 
         [Required]
-        public ProviderSettingsDTO Settings { get; set; }
+        public ProviderSettingsDto Settings { get; set; }
 
         [Required]
         public bool? IsActive { get; set; } = true;
@@ -20,7 +20,7 @@ namespace NotificationService.Contracts.RequestDtos
         [Required]
         public bool? IsPublic { get; set; }
 
-        public ProviderDevSettingsDTO DevSettings { get; set; }
+        public ProviderDevSettingsDto DevSettings { get; set; }
         public bool? SavesAttachments { get; set; } = false;
     }
 }

@@ -1,6 +1,6 @@
 namespace NotificationService.Contracts.ResponseDtos
 {
-    public class AttachmentContentDto : AttachmentDTO
+    public class AttachmentContentDto : AttachmentDto
     {
         public string EncodedContent { get; set; }
     }

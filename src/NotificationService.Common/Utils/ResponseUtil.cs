@@ -5,15 +5,15 @@ namespace NotificationService.Common.Utils
 {
     public static class ResponseUtil
     {
-        public static ResponseDTO GetResponseObject(int code)
+        public static ResponseDto GetResponseObject(int code)
         {
             var message = ((ErrorCode) code).ToString();
             return GetResponseObject(code, message);
         }
 
-        public static ResponseDTO GetResponseObject(int code, string message)
+        public static ResponseDto GetResponseObject(int code, string message)
         {
-            return new ResponseDTO
+            return new ResponseDto
             {
                 Success = IsSuccess(code),
                 Code = code,
@@ -22,16 +22,16 @@ namespace NotificationService.Common.Utils
             };
         }
 
-        public static ResponseDTO GetResponseObject(ErrorCode errorCode)
+        public static ResponseDto GetResponseObject(ErrorCode errorCode)
         {
             var message = errorCode.ToString();
             return GetResponseObject(errorCode, message);
         }
 
-        public static ResponseDTO GetResponseObject(ErrorCode errorCode, string message)
+        public static ResponseDto GetResponseObject(ErrorCode errorCode, string message)
         {
             int code = (int) errorCode;
-            return new ResponseDTO
+            return new ResponseDto
             {
                 Success = IsSuccess(code),
                 Code = code,

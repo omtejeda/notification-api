@@ -101,7 +101,7 @@ namespace NotificationService.Api.Controllers
             if (notification?.Request == null)
                 throw new RuleValidationException("Notification request couldn't be found");
             
-            FinalResponseDTO<NotificationSentResponseDto> response = null;
+            FinalResponseDto<NotificationSentResponseDto> response = null;
             if (notification.Type == NotificationType.Email)
             {
                 var request = notification.Request as SendEmailRequestDto;

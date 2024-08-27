@@ -33,7 +33,7 @@ namespace NotificationService.Core.Senders
             _emailProviderFactory = emailProviderFactory;
         }
 
-        public async Task<FinalResponseDTO<NotificationSentResponseDto>> SendEmailAsync(SendEmailRequestDto request, string owner, List<IFormFile> attachments = null)
+        public async Task<FinalResponseDto<NotificationSentResponseDto>> SendEmailAsync(SendEmailRequestDto request, string owner, List<IFormFile> attachments = null)
         {
             var runtimeTemplate = await _templateService.GetRuntimeTemplate(
                 name: request.Template.Name,
@@ -81,7 +81,7 @@ namespace NotificationService.Core.Senders
                 await _notificationsService.SaveAttachments(attachmentsCollection);
             }
             
-            return new FinalResponseDTO<NotificationSentResponseDto>(notificationResult.Code, notificationResult.Message, new NotificationSentResponseDto { NotificationId = notification.NotificationId });
+            return new FinalResponseDto<NotificationSentResponseDto>(notificationResult.Code, notificationResult.Message, new NotificationSentResponseDto { NotificationId = notification.NotificationId });
         }
     }
 }

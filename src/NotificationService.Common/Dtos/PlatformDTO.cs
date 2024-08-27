@@ -1,6 +1,6 @@
 namespace NotificationService.Common.Dtos
 {
-    public class PlatformDTO
+    public class PlatformDto
     {
         public string PlatformId { get; set; }
         public string Name { get; set; }

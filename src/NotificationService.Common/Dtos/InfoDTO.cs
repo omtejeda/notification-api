@@ -2,7 +2,7 @@ using System;
 using static NotificationService.Common.Utils.SystemUtil;
 namespace NotificationService.Common.Dtos
 {
-    public class InfoDTO
+    public class InfoDto
     {
         public bool IsProduction => IsProduction();
         public string Environment => GetEnvironment();

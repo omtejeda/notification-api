@@ -66,7 +66,7 @@ namespace NotificationService.Core.Notifications.Services
         private string RemoveLeadingSpaces(string value)
             => string.Join("\n", value.Split('\n').Select(line => line.TrimStart()));
 
-        private async Task ExportAttachmentsAsync(ExportNotificationResponseDto exportNotification, ICollection<AttachmentDTO> attachments)
+        private async Task ExportAttachmentsAsync(ExportNotificationResponseDto exportNotification, ICollection<AttachmentDto> attachments)
         {
             var attachmentsContent = _notificationsService.GetAttachmentsAsBase64(attachments);
             await foreach (var attachment in attachmentsContent)

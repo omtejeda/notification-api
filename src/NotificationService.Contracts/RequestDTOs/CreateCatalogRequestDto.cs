@@ -16,6 +16,6 @@ namespace NotificationService.Contracts.RequestDtos
         public bool IsActive { get; set; } = true;
 
         [Required]
-        public ICollection<ElementDTO> Elements { get; set; }
+        public ICollection<ElementDto> Elements { get; set; }
     }
 }

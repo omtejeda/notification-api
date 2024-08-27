@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 namespace NotificationService.Contracts.ResponseDtos
 {
-    public class NotificationDetailDto : NotificationDTO
+    public class NotificationDetailDto : NotificationDto
     {
         public object Request { get; set; }
         public string Content {get; set;}
-        public new ICollection<AttachmentDTO> Attachments { get; set; }
+        public new ICollection<AttachmentDto> Attachments { get; set; }
 
     }
 }

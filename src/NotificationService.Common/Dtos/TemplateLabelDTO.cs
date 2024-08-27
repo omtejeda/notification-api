@@ -1,6 +1,6 @@
 namespace NotificationService.Common.Dtos
 {
-    public class TemplateLabelDTO
+    public class TemplateLabelDto
     {
         public string Key { get; set; }
         public string Value { get; set; }

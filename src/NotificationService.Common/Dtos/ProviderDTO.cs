@@ -1,39 +1,39 @@
 namespace NotificationService.Common.Dtos
 {
-    public class ProviderDTO
+    public class ProviderDto
     {
         public string ProviderId { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
-        public ProviderSettingsDTO Settings { get; set; }
+        public ProviderSettingsDto Settings { get; set; }
         public bool? IsActive { get; set; }
         public bool? IsPublic { get; set; }
-        public ProviderDevSettingsDTO DevSettings { get; set; }
+        public ProviderDevSettingsDto DevSettings { get; set; }
         public bool SavesAttachments { get; set; } = false;
     }
 
-    public class ProviderDevSettingsDTO
+    public class ProviderDevSettingsDto
     {
         public ICollection<string> AllowedRecipients { get; set; } = new List<string>();
     }
 
-    public class ProviderSettingsDTO
+    public class ProviderSettingsDto
     {
-        public SendGridSettingDTO SendGrid { get; set; }
-        public SMTPSettingDTO Smtp { get; set; }
-        public HttpClientSettingDTO HttpClient { get; set; }
+        public SendGridSettingDto SendGrid { get; set; }
+        public SMTPSettingDto Smtp { get; set; }
+        public HttpClientSettingDto HttpClient { get; set; }
     }
 
-    public class HttpClientSettingDTO
+    public class HttpClientSettingDto
     {
         public string Host { get; set; }
         public string Uri { get; set; }
         public string Verb { get; set; }
-        public ICollection<HttpClientParamDTO> Params { get; set; } = new List<HttpClientParamDTO>();
-        public JsonBodyDTO JsonBody { get; set; }
+        public ICollection<HttpClientParamDto> Params { get; set; } = new List<HttpClientParamDto>();
+        public JsonBodyDto JsonBody { get; set; }
     }
 
-    public class HttpClientParamDTO
+    public class HttpClientParamDto
     {
         public string Type { get; set; }
         public string Name { get; set; }
@@ -43,14 +43,14 @@ namespace NotificationService.Common.Dtos
         public string ReadValueFrom { get; set; }
     }
 
-    public class SendGridSettingDTO
+    public class SendGridSettingDto
     {
         public string FromEmail { get; set; }
         public string FromDisplayName { get; set; }
         public string ApiKey { get; set; }
     }
 
-    public class SMTPSettingDTO
+    public class SMTPSettingDto
     {
         public string FromEmail { get; set; }
         public string FromDisplayName { get; set; }
@@ -60,17 +60,17 @@ namespace NotificationService.Common.Dtos
         public bool? Authenticate { get; set; }
     }
 
-    public class JsonBodyDTO
+    public class JsonBodyDto
     {
         public string RootIs { get; set; } = string.Empty;
-        public List<JsonKeyDTO> Definition { get; set; } = new();
+        public List<JsonKeyDto> Definition { get; set; } = new();
     }
 
-    public class JsonKeyDTO
+    public class JsonKeyDto
     {
         public string PropertyName { get; set; } = string.Empty;
         public string DataType { get; set; } = string.Empty;
         public bool IsRequired { get; set; }
-        public List<JsonKeyDTO> Childs { get; set; } = new();
+        public List<JsonKeyDto> Childs { get; set; } = new();
     }
 }

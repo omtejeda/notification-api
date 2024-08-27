@@ -32,9 +32,9 @@ namespace NotificationService.Core.Common.Utils
             return fullPath;
         }
         public static void CheckHTTPClientSettings(string host, string uri, string verb)
-            => CheckHTTPClientSettings(new HttpClientSettingDTO { Host = host, Uri = uri, Verb = verb });
+            => CheckHTTPClientSettings(new HttpClientSettingDto { Host = host, Uri = uri, Verb = verb });
 
-        public static void CheckHTTPClientSettings(HttpClientSettingDTO settings)
+        public static void CheckHTTPClientSettings(HttpClientSettingDto settings)
         {
             if (string.IsNullOrWhiteSpace(settings.Host)) throw new RuleValidationException($"A value for {nameof(settings.Host)} is required");
             if (string.IsNullOrWhiteSpace(settings.Uri)) throw new RuleValidationException($"A value for {nameof(settings.Uri)} is required");

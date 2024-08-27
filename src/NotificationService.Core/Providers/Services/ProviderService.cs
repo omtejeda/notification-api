@@ -26,7 +26,7 @@ namespace NotificationService.Core.Providers.Services
             _mapper = mapper;
         }
 
-        public async Task<FinalResponseDTO<ProviderDTO>> CreateProvider(CreateProviderRequestDto request, string owner)
+        public async Task<FinalResponseDto<ProviderDto>> CreateProvider(CreateProviderRequestDto request, string owner)
         {
             Enum.TryParse(request.Type, out ProviderType providerType);
 
@@ -65,23 +65,23 @@ namespace NotificationService.Core.Providers.Services
             provider.Type = providerType;
 
             var entity = await _providerRepository.InsertOneAsync(provider);
-            var providerDTO = _mapper.Map<ProviderDTO>(entity);
-            return new FinalResponseDTO<ProviderDTO>((int) ErrorCode.OK, providerDTO);
+            var providerDTO = _mapper.Map<ProviderDto>(entity);
+            return new FinalResponseDto<ProviderDto>((int) ErrorCode.OK, providerDTO);
         }
 
-        public async Task<FinalResponseDTO<IEnumerable<ProviderDTO>>> GetProviders(Expression<Func<Provider, bool>> filter, string owner, int? page, int? pageSize)
+        public async Task<FinalResponseDto<IEnumerable<ProviderDto>>> GetProviders(Expression<Func<Provider, bool>> filter, string owner, int? page, int? pageSize)
         {
             var filterByOwner = PredicateBuilder.New<Provider>().And(x => (x.CreatedBy == owner || x.IsPublic == true)).Expand();
             filter = filter.And(filterByOwner);
 
             var (providers, pagination) = await _providerRepository.FindAsync(filter, page, pageSize);
-            var providersDTO = _mapper.Map<IEnumerable<ProviderDTO>>(providers);
-            var paginationDTO = _mapper.Map<PaginationDTO>(pagination);
+            var providersDTO = _mapper.Map<IEnumerable<ProviderDto>>(providers);
+            var paginationDTO = _mapper.Map<PaginationDto>(pagination);
 
-            return new FinalResponseDTO<IEnumerable<ProviderDTO>>( (int) ErrorCode.OK, providersDTO, paginationDTO);
+            return new FinalResponseDto<IEnumerable<ProviderDto>>( (int) ErrorCode.OK, providersDTO, paginationDTO);
         }
 
-        public async Task<FinalResponseDTO<ProviderDTO>> GetProviderById(string providerId, string owner)
+        public async Task<FinalResponseDto<ProviderDto>> GetProviderById(string providerId, string owner)
         {
             var provider = await _providerRepository.FindOneAsync(x => x.ProviderId == providerId);
 
@@ -90,9 +90,9 @@ namespace NotificationService.Core.Providers.Services
             if (provider.CreatedBy != owner && !(provider.IsPublic ?? false))
                 throw new RuleValidationException($"Provider was not created by {owner} and is not public");
 
-            var providerDTO = _mapper.Map<ProviderDTO>(provider);
+            var providerDTO = _mapper.Map<ProviderDto>(provider);
 
-            return new FinalResponseDTO<ProviderDTO>((int) ErrorCode.OK, providerDTO);
+            return new FinalResponseDto<ProviderDto>((int) ErrorCode.OK, providerDTO);
         }
 
         public async Task DeleteProvider(string providerId, string owner)

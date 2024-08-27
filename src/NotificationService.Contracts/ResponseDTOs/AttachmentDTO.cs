@@ -1,6 +1,6 @@
 namespace NotificationService.Contracts.ResponseDtos
 {
-    public class AttachmentDTO
+    public class AttachmentDto
     {
         public string FileName { get; set; }
         public string OriginalFileName { get; set; }

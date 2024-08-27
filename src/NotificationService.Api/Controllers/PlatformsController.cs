@@ -40,8 +40,8 @@ namespace NotificationService.Api.Controllers
         [HttpGet("me")]
         public IActionResult GetMe()
         {
-            var platformDTO = GetCurrentPlatform();
-            var response = new FinalResponseDTO<PlatformDTO>((int) ErrorCode.OK, platformDTO);
+            var platformDto = GetCurrentPlatform();
+            var response = new FinalResponseDto<PlatformDto>((int) ErrorCode.OK, platformDto);
             return Ok(response);
         }
 

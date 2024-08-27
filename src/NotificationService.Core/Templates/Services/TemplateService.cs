@@ -29,7 +29,7 @@ namespace NotificationService.Core.Templates.Services
             _catalogRepository = catalogRepository;
             _mapper = mapper;
         }
-        public async Task<FinalResponseDTO<TemplateDTO>> CreateTemplate(CreateTemplateRequestDto request, string owner)
+        public async Task<FinalResponseDto<TemplateDto>> CreateTemplate(CreateTemplateRequestDto request, string owner)
         {
             Enum.TryParse(request.NotificationType, out NotificationType notificationType);
 
@@ -66,8 +66,8 @@ namespace NotificationService.Core.Templates.Services
             };
 
             var entity = await _repository.InsertOneAsync(template);
-            var templateDTO = _mapper.Map<TemplateDTO>(entity);
-            return new FinalResponseDTO<TemplateDTO>((int) ErrorCode.OK, templateDTO);
+            var templateDTO = _mapper.Map<TemplateDto>(entity);
+            return new FinalResponseDto<TemplateDto>((int) ErrorCode.OK, templateDTO);
         }
         public async Task DeleteTemplate(string templateId, string owner)
         {
@@ -90,19 +90,19 @@ namespace NotificationService.Core.Templates.Services
             return template;
         }
 
-        public async Task<FinalResponseDTO<IEnumerable<TemplateDTO>>> GetTemplates(Expression<Func<Template, bool>> filter, string owner, int? page, int? pageSize)
+        public async Task<FinalResponseDto<IEnumerable<TemplateDto>>> GetTemplates(Expression<Func<Template, bool>> filter, string owner, int? page, int? pageSize)
         {
             var filterByOwner = PredicateBuilder.New<Template>().And(x => x.CreatedBy == owner).Expand();
             filter = filter.And(filterByOwner);
             
             var (templates, pagination) = await _repository.FindAsync(filter, page, pageSize);
-            var templatesDTO = _mapper.Map<IEnumerable<TemplateDTO>>(templates);
-            var paginationDTO = _mapper.Map<PaginationDTO>(pagination);
+            var templatesDTO = _mapper.Map<IEnumerable<TemplateDto>>(templates);
+            var paginationDTO = _mapper.Map<PaginationDto>(pagination);
 
-            return new FinalResponseDTO<IEnumerable<TemplateDTO>>( (int) ErrorCode.OK, templatesDTO, paginationDTO);
+            return new FinalResponseDto<IEnumerable<TemplateDto>>( (int) ErrorCode.OK, templatesDTO, paginationDTO);
         }
 
-        public async Task<FinalResponseDTO<TemplateDTO>> GetTemplateById(string templateId, string owner)
+        public async Task<FinalResponseDto<TemplateDto>> GetTemplateById(string templateId, string owner)
         {
             var template = await _repository.FindOneAsync(x => x.TemplateId == templateId);
 
@@ -111,9 +111,9 @@ namespace NotificationService.Core.Templates.Services
             if (template.CreatedBy != owner)
                 throw new RuleValidationException($"Template was not created by platform {owner}");
             
-            var templateDTO = _mapper.Map<TemplateDTO>(template);
+            var templateDTO = _mapper.Map<TemplateDto>(template);
 
-            return new FinalResponseDTO<TemplateDTO>((int) ErrorCode.OK, templateDTO);
+            return new FinalResponseDto<TemplateDto>((int) ErrorCode.OK, templateDTO);
         }
 
         public async Task<RuntimeTemplate> GetRuntimeTemplate(string name, string platformName, Language language, List<MetadataDto> providedMetadata, string owner, NotificationType notificationType)

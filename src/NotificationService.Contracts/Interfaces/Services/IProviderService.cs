@@ -11,9 +11,9 @@ namespace NotificationService.Contracts.Interfaces.Services
 {
     public interface IProviderService
     {
-        Task<FinalResponseDTO<ProviderDTO>> CreateProvider(CreateProviderRequestDto request, string owner);
-        Task<FinalResponseDTO<IEnumerable<ProviderDTO>>> GetProviders(Expression<Func<Provider, bool>> filter, string owner, int? page, int? pageSize);
-        Task<FinalResponseDTO<ProviderDTO>> GetProviderById(string providerId, string owner);
+        Task<FinalResponseDto<ProviderDto>> CreateProvider(CreateProviderRequestDto request, string owner);
+        Task<FinalResponseDto<IEnumerable<ProviderDto>>> GetProviders(Expression<Func<Provider, bool>> filter, string owner, int? page, int? pageSize);
+        Task<FinalResponseDto<ProviderDto>> GetProviderById(string providerId, string owner);
         Task DeleteProvider(string providerId, string owner);
         Task AddToWhiteList(string providerId, string owner, string destination);
         Task DeleteFromWhiteList(string providerId, string owner, string destination);

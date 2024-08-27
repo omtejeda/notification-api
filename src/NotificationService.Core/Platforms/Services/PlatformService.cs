@@ -29,7 +29,7 @@ namespace NotificationService.Core.Platforms.Services
             _providerRepository = providerRepository;
         }
 
-        public async Task<FinalResponseDTO<PlatformDTO>> CreatePlatform(string name, string description, string owner)
+        public async Task<FinalResponseDto<PlatformDto>> CreatePlatform(string name, string description, string owner)
         {
             var existingPlatform = await _repository.FindOneAsync(x => x.Name.ToLower() == name.ToLower());
 
@@ -47,8 +47,8 @@ namespace NotificationService.Core.Platforms.Services
             };
 
             var entity = await _repository.InsertOneAsync(platform);
-            var platformDTO = _mapper.Map<PlatformDTO>(entity);
-            return new FinalResponseDTO<PlatformDTO>((int) ErrorCode.OK, platformDTO);
+            var platformDTO = _mapper.Map<PlatformDto>(entity);
+            return new FinalResponseDto<PlatformDto>((int) ErrorCode.OK, platformDTO);
         }
 
         public async Task DeletePlatform(string platformId, string owner)
@@ -64,19 +64,19 @@ namespace NotificationService.Core.Platforms.Services
             await _repository.DeleteOneAsync(x => x.PlatformId == platformId);
         }
 
-        public async Task<FinalResponseDTO<IEnumerable<PlatformDTO>>> GetPlatforms(Expression<Func<Platform, bool>> filter, string owner, int? page, int? pageSize)
+        public async Task<FinalResponseDto<IEnumerable<PlatformDto>>> GetPlatforms(Expression<Func<Platform, bool>> filter, string owner, int? page, int? pageSize)
         {
             var filterByOwner = PredicateBuilder.New<Platform>().And(x => x.CreatedBy == owner).Expand();
             filter = filter.And(filterByOwner);
 
             var (platforms, pagination) = await _repository.FindAsync(filter, page, pageSize);
-            var platformsDTO = _mapper.Map<IEnumerable<PlatformDTO>>(platforms);
-            var paginationDTO = _mapper.Map<PaginationDTO>(pagination);
+            var platformsDTO = _mapper.Map<IEnumerable<PlatformDto>>(platforms);
+            var paginationDTO = _mapper.Map<PaginationDto>(pagination);
 
-            return new FinalResponseDTO<IEnumerable<PlatformDTO>>( (int) ErrorCode.OK, platformsDTO, paginationDTO);
+            return new FinalResponseDto<IEnumerable<PlatformDto>>( (int) ErrorCode.OK, platformsDTO, paginationDTO);
         }
 
-        public async Task<FinalResponseDTO<PlatformDTO>> GetPlatformById(string platformId, string owner)
+        public async Task<FinalResponseDto<PlatformDto>> GetPlatformById(string platformId, string owner)
         {
             var platform = await _repository.FindOneAsync(x => x.PlatformId == platformId);
 
@@ -85,9 +85,9 @@ namespace NotificationService.Core.Platforms.Services
             if (platform.CreatedBy != owner)
                 throw new RuleValidationException($"Platform was not created by {owner}");
 
-            var platformDTO = _mapper.Map<PlatformDTO>(platform);
+            var platformDTO = _mapper.Map<PlatformDto>(platform);
 
-            return new FinalResponseDTO<PlatformDTO>((int) ErrorCode.OK, platformDTO);
+            return new FinalResponseDto<PlatformDto>((int) ErrorCode.OK, platformDTO);
         }
     }
 }

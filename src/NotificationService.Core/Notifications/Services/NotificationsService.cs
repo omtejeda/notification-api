@@ -45,7 +45,7 @@ namespace NotificationService.Core.Notifications.Services
                 sort.Split(delimiter).ToList() : new List<string> { sort };
         }
 
-        public async Task<FinalResponseDTO<IEnumerable<NotificationDTO>>> GetNotifications(Expression<Func<Notification, bool>> filter, string owner, int? page, int? pageSize, string sort)
+        public async Task<FinalResponseDto<IEnumerable<NotificationDto>>> GetNotifications(Expression<Func<Notification, bool>> filter, string owner, int? page, int? pageSize, string sort)
         {
             var filterByOwner = PredicateBuilder.New<Notification>().And(x => x.CreatedBy == owner).Expand();
             filter = filter.And(filterByOwner);
@@ -53,13 +53,13 @@ namespace NotificationService.Core.Notifications.Services
             var sortBy = GetSortItems(sort);
 
             var (notifications, pagination) = await _notificationRepository.FindAsync(filter, page, pageSize, sortBy);
-            var notificationsDTO = _mapper.Map<IEnumerable<NotificationDTO>>(notifications);
-            var paginationDTO = _mapper.Map<PaginationDTO>(pagination);
+            var notificationsDTO = _mapper.Map<IEnumerable<NotificationDto>>(notifications);
+            var paginationDTO = _mapper.Map<PaginationDto>(pagination);
 
-            return new FinalResponseDTO<IEnumerable<NotificationDTO>>( (int) ErrorCode.OK, notificationsDTO, paginationDTO);
+            return new FinalResponseDto<IEnumerable<NotificationDto>>( (int) ErrorCode.OK, notificationsDTO, paginationDTO);
         }
 
-        public async Task<FinalResponseDTO<NotificationDetailDto>> GetNotificationById(string notificationId, string owner)
+        public async Task<FinalResponseDto<NotificationDetailDto>> GetNotificationById(string notificationId, string owner)
         {
             var notification = await _notificationRepository.FindOneAsync(x => x.NotificationId == notificationId);
 
@@ -70,10 +70,10 @@ namespace NotificationService.Core.Notifications.Services
 
             var notificationDTO = _mapper.Map<NotificationDetailDto>(notification);
 
-            return new FinalResponseDTO<NotificationDetailDto>((int) ErrorCode.OK, notificationDTO);
+            return new FinalResponseDto<NotificationDetailDto>((int) ErrorCode.OK, notificationDTO);
         }
 
-        public async IAsyncEnumerable<AttachmentContentDto> GetAttachmentsAsBase64(IEnumerable<AttachmentDTO> attachments)
+        public async IAsyncEnumerable<AttachmentContentDto> GetAttachmentsAsBase64(IEnumerable<AttachmentDto> attachments)
         {
             if (attachments is null) yield break;
 

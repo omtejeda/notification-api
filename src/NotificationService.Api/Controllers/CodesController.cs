@@ -16,7 +16,7 @@ namespace NotificationService.Api.Controllers
         {
             var codes = Core.Common.Helpers.EnumHelper.GetCodesAndItsDescription(code);
 
-            var response = new FinalResponseDTO<object>((int) ErrorCode.OK, codes);
+            var response = new FinalResponseDto<object>((int) ErrorCode.OK, codes);
             return Ok(response);
         }
     }

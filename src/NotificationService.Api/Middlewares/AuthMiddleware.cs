@@ -53,7 +53,7 @@ namespace NotificationService.Api.Middlewares
                 return;
             }
 
-            var platformDto = new PlatformDTO
+            var platformDto = new PlatformDto
             {
                 PlatformId = platform.PlatformId,
                 Name = platform.Name,
@@ -62,7 +62,7 @@ namespace NotificationService.Api.Middlewares
                 IsAdmin = platform.IsAdmin,
                 ApiKey = platform.ApiKey
             };
-            context.Items[nameof(PlatformDTO)] = platformDto;
+            context.Items[nameof(PlatformDto)] = platformDto;
 
             await _next(context);
         }
@@ -72,7 +72,7 @@ namespace NotificationService.Api.Middlewares
             context.Response.StatusCode = 401;
             context.Response.ContentType = "application/json";
 
-            var finalResponse = new FinalResponseDTO<INoDataResponse>((int) ErrorCode.AccessDenied, message);
+            var finalResponse = new FinalResponseDto<INoDataResponse>((int) ErrorCode.AccessDenied, message);
 
             var result = JsonSerializer.Serialize(finalResponse, 
                 new JsonSerializerOptions

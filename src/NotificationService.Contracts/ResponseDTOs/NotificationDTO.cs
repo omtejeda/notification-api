@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 namespace NotificationService.Contracts.ResponseDtos
 {
-    public class NotificationDTO
+    public class NotificationDto
     {
         public string NotificationId { get; set; }
         public string Type { get; set; }
@@ -17,6 +17,6 @@ namespace NotificationService.Contracts.ResponseDtos
         public string ParentNotificationId { get; set; }
         public string Subject { get; set; }
         public string From { get; set; }
-        public ICollection<AttachmentDTO> Attachments { get; set; }
+        public ICollection<AttachmentDto> Attachments { get; set; }
     }
 }

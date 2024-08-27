@@ -10,34 +10,34 @@ namespace NotificationService.Core.Common.Mappings
     {
         public MappingProfiles()
         {
-            CreateMap<Template, TemplateDTO>();
-            CreateMap<Notification, NotificationDTO>();
+            CreateMap<Template, TemplateDto>();
+            CreateMap<Notification, NotificationDto>();
             CreateMap<Notification, NotificationDetailDto>();
-            CreateMap<Platform, PlatformDTO>();
-            CreateMap<Provider, ProviderDTO>().ReverseMap();
-            CreateMap<Pagination, PaginationDTO>();
-            CreateMap<ProviderSettings, ProviderSettingsDTO>().ReverseMap();
-            CreateMap<Catalog, CatalogDTO>().ReverseMap();
-            CreateMap<Element, ElementDTO>().ReverseMap();
-            CreateMap<Label, LabelDTO>().ReverseMap();
-            CreateMap<TemplateLabel, TemplateLabelDTO>().ReverseMap();
+            CreateMap<Platform, PlatformDto>();
+            CreateMap<Provider, ProviderDto>().ReverseMap();
+            CreateMap<Pagination, PaginationDto>();
+            CreateMap<ProviderSettings, ProviderSettingsDto>().ReverseMap();
+            CreateMap<Catalog, CatalogDto>().ReverseMap();
+            CreateMap<Element, ElementDto>().ReverseMap();
+            CreateMap<Label, LabelDto>().ReverseMap();
+            CreateMap<TemplateLabel, TemplateLabelDto>().ReverseMap();
             CreateMap<CreateProviderRequestDto, Provider>();
-            CreateMap<HttpClientSetting, HttpClientSettingDTO>().ReverseMap();
-            CreateMap<SendGridSettingDTO, SendGridSetting>();
-            CreateMap<SendGridSetting, SendGridSettingDTO>()
+            CreateMap<HttpClientSetting, HttpClientSettingDto>().ReverseMap();
+            CreateMap<SendGridSettingDto, SendGridSetting>();
+            CreateMap<SendGridSetting, SendGridSettingDto>()
                 .ForMember(dest => dest.ApiKey, opt => opt.MapFrom(src => SecretMasker.Mask(src.ApiKey)));
             
-            CreateMap<SMTPSettingDTO, SMTPSetting>();
-            CreateMap<SMTPSetting, SMTPSettingDTO>()
+            CreateMap<SMTPSettingDto, SMTPSetting>();
+            CreateMap<SMTPSetting, SMTPSettingDto>()
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => SecretMasker.Mask(src.Password)));
 
-            CreateMap<HttpClientSetting, HttpClientSettingDTO>().ReverseMap();
-            CreateMap<HttpClientParam, HttpClientParamDTO>().ReverseMap();
-            CreateMap<ProviderDevSettings, ProviderDevSettingsDTO>().ReverseMap();
-            CreateMap<Attachment, AttachmentDTO>().ReverseMap();
-            CreateMap<AttachmentDTO,AttachmentContentDto>().ReverseMap();
-            CreateMap<JsonBodyDTO, JsonBody>().ReverseMap();
-            CreateMap<JsonKeyDTO, JsonKey>().ReverseMap();
+            CreateMap<HttpClientSetting, HttpClientSettingDto>().ReverseMap();
+            CreateMap<HttpClientParam, HttpClientParamDto>().ReverseMap();
+            CreateMap<ProviderDevSettings, ProviderDevSettingsDto>().ReverseMap();
+            CreateMap<Attachment, AttachmentDto>().ReverseMap();
+            CreateMap<AttachmentDto,AttachmentContentDto>().ReverseMap();
+            CreateMap<JsonBodyDto, JsonBody>().ReverseMap();
+            CreateMap<JsonKeyDto, JsonKey>().ReverseMap();
 
             CreateMap<JsonBody, Providers.Libraries.JSONParser.JsonBody>();
             CreateMap<JsonKey, Providers.Libraries.JSONParser.JsonKey>();

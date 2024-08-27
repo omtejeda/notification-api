@@ -25,7 +25,7 @@ namespace NotificationService.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CatalogDTO>>> Get([FromQuery] string name, bool? isActive, 
+        public async Task<ActionResult<IEnumerable<CatalogDto>>> Get([FromQuery] string name, bool? isActive, 
             string elementHasKey, string elementHasKeyValue, string elementHasLabelKey, string elementHasLabelKeyValue,
             int? page, int? pageSize)
         {
@@ -67,7 +67,7 @@ namespace NotificationService.Api.Controllers
         }
 
         [HttpGet("{catalogId}")]
-        public async Task<ActionResult<CatalogDTO>> GetById([FromRoute] string catalogId, [FromQuery] string elementKey, string elementValue, string labelKey, string labelValue)
+        public async Task<ActionResult<CatalogDto>> GetById([FromRoute] string catalogId, [FromQuery] string elementKey, string elementValue, string labelKey, string labelValue)
         {
             var response = await _catalogService.GetCatalogById(catalogId, owner: Owner);
             if (response?.Data == null) return NotFound();
