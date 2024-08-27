@@ -1,0 +1,14 @@
+using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using NotificationService.Common.Entities;
+using NotificationService.Contracts.RequestDtos;
+using NotificationService.Common.Dtos;
+
+namespace NotificationService.Core.Providers.Interfaces
+{
+    public interface IHttpClientProvider
+    {
+        Task<Tuple<bool, int, string>> SendHttpClient(HttpClientSetting httpClientSetting, string templateContent, ICollection<MetadataDto> requestMetadata, string requestToDestination = null);
+    }
+}
