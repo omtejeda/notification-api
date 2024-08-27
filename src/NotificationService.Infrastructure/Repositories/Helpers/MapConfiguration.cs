@@ -7,6 +7,7 @@ using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Bson.Serialization.Conventions;
 using NotificationService.Common.Entities;
 using NotificationService.Common.Models;
+using NotificationService.Core.Dtos;
 
 namespace NotificationService.Infrastructure.Repositories.Helpers
 {
@@ -34,10 +35,9 @@ namespace NotificationService.Infrastructure.Repositories.Helpers
 
             // DTOs saved as part of Notification entity.
 
-            // TODO: uncomment it and set them accordingly.
-            // BsonClassMap.RegisterClassMap<SendEmailRequestDto>();
-            // BsonClassMap.RegisterClassMap<SendSmsRequestDto>();
-            // BsonClassMap.RegisterClassMap<SendMessageRequestDto>();
+            BsonClassMap.RegisterClassMap<SendEmailRequestDto>();
+            BsonClassMap.RegisterClassMap<SendSmsRequestDto>();
+            BsonClassMap.RegisterClassMap<SendMessageRequestDto>();
             return db;
         }
     }
