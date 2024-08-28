@@ -12,6 +12,7 @@ using NotificationService.Core.Interfaces;
 using NotificationService.Core.Providers.Interfaces;
 using NotificationService.Common.Dtos;
 using NotificationService.Core.Dtos;
+using NotificationService.Common.Resources;
 
 namespace NotificationService.Core.Senders
 {
@@ -45,10 +46,10 @@ namespace NotificationService.Core.Senders
             var provider = await _providerRepository.FindOneAsync(x => x.Name == request.ProviderName);
             
             if (provider is null)
-                throw new RuleValidationException($"Provider {request.ProviderName} does not exist");
+                throw new RuleValidationException(string.Format(Messages.ProviderSpecifiedNotExists, request.ProviderName));
 
             if (provider.Type != ProviderType.HttpClient)
-                throw new RuleValidationException($"No suitable provider found to perform this action. Current: {provider.Type}");
+                throw new RuleValidationException(string.Format(Messages.ProviderSpecifiedNotSuitable, provider.Type));
 
             ThrowIfDestinationNotAllowed(toDestination: request.ToDestination, provider: provider);
 
@@ -82,7 +83,7 @@ namespace NotificationService.Core.Senders
             if (notificationType == NotificationType.Email || 
                 notificationType == NotificationType.SMS)
             {
-                throw new RuleValidationException($"Notification type not allowed {notificationType}");
+                throw new RuleValidationException(string.Format(Messages.NotificationTypeSpecifiedNotAllowed, notificationType));
             }
         }
 
@@ -93,7 +94,7 @@ namespace NotificationService.Core.Senders
             var isDestinationAllowed = provider?.DevSettings?.AllowedRecipients?.Any(x => x == toDestination) ?? false;
             if (!isDestinationAllowed)
             {
-                throw new RuleValidationException($"Not allowed sending to {toDestination} in non production environment");
+                throw new RuleValidationException(string.Format(Messages.NotAllowedToSendInNonProd, toDestination));
             }
         }
     }

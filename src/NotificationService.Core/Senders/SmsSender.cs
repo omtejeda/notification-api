@@ -12,6 +12,7 @@ using NotificationService.Core.Interfaces;
 using NotificationService.Core.Providers.Interfaces;
 using NotificationService.Common.Dtos;
 using NotificationService.Core.Dtos;
+using NotificationService.Common.Resources;
 
 namespace NotificationService.Core.Senders
 {
@@ -37,7 +38,7 @@ namespace NotificationService.Core.Senders
             var isPhoneNumberAllowed = provider?.DevSettings?.AllowedRecipients?.Any(x => x == toPhoneNumber) ?? false;
             if (!isPhoneNumberAllowed)
             {
-                throw new RuleValidationException($"Not allowed sending to {toPhoneNumber} in non production environment");
+                throw new RuleValidationException(string.Format(Messages.NotAllowedToSendInNonProd, toPhoneNumber));
             }
         }
 
@@ -54,10 +55,10 @@ namespace NotificationService.Core.Senders
             var provider = await _providerRepository.FindOneAsync(x => x.Name == request.ProviderName);
             
             if (provider is null)
-                throw new RuleValidationException($"Provider {request.ProviderName} does not exist");
+                throw new RuleValidationException(string.Format(Messages.ProviderSpecifiedNotExists, request.ProviderName));
 
             if (provider.Type != ProviderType.HttpClient)
-                throw new RuleValidationException($"No suitable provider found to perform this action. Current: {provider.Type}");
+                throw new RuleValidationException(string.Format(Messages.ProviderSpecifiedNotSuitable, provider.Type));
 
             ThrowIfPhoneNotAllowed(toPhoneNumber: request.ToPhoneNumber, provider: provider);
 

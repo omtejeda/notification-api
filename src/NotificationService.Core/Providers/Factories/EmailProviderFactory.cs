@@ -7,6 +7,7 @@ using NotificationService.Core.Providers.Factories.Interfaces;
 using NotificationService.Core.Common.Exceptions;
 using NotificationService.Contracts.Interfaces.Repositories;
 using NotificationService.Core.Providers.Interfaces;
+using NotificationService.Common.Resources;
 
 namespace NotificationService.Core.Providers.Factories
 {
@@ -41,10 +42,10 @@ namespace NotificationService.Core.Providers.Factories
             var provider = await _providerRepository.FindOneAsync(x => x.Name.Equals(providerName));
 
             if (provider is null)
-                throw new RuleValidationException($"Provider {providerName} does not exist");
+                throw new RuleValidationException(string.Format(Messages.ProviderSpecifiedNotExists, providerName));
 
             if (!(provider.IsPublic ?? false) && provider.CreatedBy != createdBy)
-                throw new RuleValidationException($"Provider provided is not public. It wasn't created by you either!");
+                throw new RuleValidationException(Messages.ProviderIsNotPublicNeitherWasCreatedByYou);
 
             return provider;
         }

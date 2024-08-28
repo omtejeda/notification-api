@@ -13,6 +13,7 @@ using NotificationService.Contracts.Interfaces.Services;
 using NotificationService.Contracts.Interfaces.Repositories;
 using NotificationService.Contracts.ResponseDtos;
 using System.Linq;
+using NotificationService.Common.Resources;
 namespace NotificationService.Core.Providers.Services
 {
     public class ProviderService : IProviderService
@@ -31,27 +32,27 @@ namespace NotificationService.Core.Providers.Services
             Enum.TryParse(request.Type, out ProviderType providerType);
 
             if (providerType == ProviderType.None)
-                throw new RuleValidationException($"Provider type [{request.Type}] not valid");
+                throw new RuleValidationException(string.Format(Messages.ProviderTypeNotValid, request.Type));
 
             var existingProvider = await _providerRepository.FindOneAsync(x => x.Name.ToLower() == request.Name.ToLower());
             if (existingProvider is not null)
-                throw new RuleValidationException($"Provider with name [{request.Name}] already exists. Created by {existingProvider.CreatedBy}");
+                throw new RuleValidationException(string.Format(Messages.ProviderAlreadyExists, request.Name, existingProvider.CreatedBy));
             
             if (providerType == ProviderType.SMTP)
             {
-                if (string.IsNullOrWhiteSpace(request.Settings?.Smtp.Host)) throw new RuleValidationException($"SMTP: value for {nameof(request.Settings.Smtp.Host)} is required.");
-                if (!(request.Settings?.Smtp.Port).HasValue) throw new RuleValidationException($"SMTP: value for {nameof(request.Settings.Smtp.Port)} is required.");
-                if (string.IsNullOrWhiteSpace(request.Settings?.Smtp.Password)) throw new RuleValidationException($"SMTP: value for {nameof(request.Settings.Smtp.Password)} is required.");
+                if (string.IsNullOrWhiteSpace(request.Settings?.Smtp.Host)) throw new RuleValidationException(string.Format(Messages.RequiredValue, nameof(request.Settings.Smtp.Host)));
+                if (!(request.Settings?.Smtp.Port).HasValue) throw new RuleValidationException(string.Format(Messages.RequiredValue, nameof(request.Settings.Smtp.Port)));
+                if (string.IsNullOrWhiteSpace(request.Settings?.Smtp.Password)) throw new RuleValidationException(string.Format(Messages.RequiredValue, nameof(request.Settings.Smtp.Password)));
             }
 
             if ( (request.Settings?.Smtp is not null && providerType != ProviderType.SMTP) 
               || (request.Settings?.SendGrid is not null && providerType != ProviderType.SendGrid)
               || (request.Settings?.HttpClient is not null && providerType != ProviderType.HttpClient))
-                throw new RuleValidationException($"Provider specified {request.Type} - no need to provide settings for another provider type!");
+                throw new RuleValidationException(string.Format(Messages.ProviderSettingsConflict, request.Type));
 
             if (providerType == ProviderType.SendGrid)
             {
-                if (string.IsNullOrWhiteSpace(request.Settings?.SendGrid.ApiKey)) throw new RuleValidationException($"SMTP: value for {nameof(request.Settings.SendGrid.ApiKey)} is required.");
+                if (string.IsNullOrWhiteSpace(request.Settings?.SendGrid.ApiKey)) throw new RuleValidationException(string.Format(Messages.RequiredValue, nameof(request.Settings.SendGrid.ApiKey)));
             }
 
             if (providerType == ProviderType.HttpClient)
@@ -88,7 +89,7 @@ namespace NotificationService.Core.Providers.Services
             if (provider is null) return default;
             
             if (provider.CreatedBy != owner && !(provider.IsPublic ?? false))
-                throw new RuleValidationException($"Provider was not created by {owner} and is not public");
+                throw new RuleValidationException(string.Format(Messages.ProviderIsNotPublicNeitherWasCreatedByYou, owner));
 
             var providerDTO = _mapper.Map<ProviderDto>(provider);
 
@@ -100,10 +101,10 @@ namespace NotificationService.Core.Providers.Services
             var existingProvider = await _providerRepository.FindOneAsync(x => x.ProviderId == providerId);
 
             if (existingProvider is null)
-                throw new RuleValidationException($"Does not exist a provider with ID [{providerId}]");
+                throw new RuleValidationException(string.Format(Messages.ProviderWithGivenIdNotExists, providerId));
 
             if (existingProvider.CreatedBy != owner)
-                throw new RuleValidationException($"Provider was not created by {owner}");
+                throw new RuleValidationException(string.Format(Messages.ProviderWasNotCreatedByYou, owner));
 
             await _providerRepository.DeleteOneAsync(x => x.ProviderId == providerId);
         }
@@ -113,16 +114,16 @@ namespace NotificationService.Core.Providers.Services
             var provider = await _providerRepository.FindOneAsync(x => x.ProviderId == providerId);
             
             if (provider is null)
-                throw new RuleValidationException($"Does not exist a provider with ID [{providerId}]");
+                throw new RuleValidationException(string.Format(Messages.ProviderWithGivenIdNotExists, providerId));
 
             if (provider.CreatedBy != owner && !(provider.IsPublic ?? false))
-                throw new RuleValidationException($"Provider was not created by {owner} and is not public");
+                throw new RuleValidationException(string.Format(Messages.ProviderIsNotPublicNeitherWasCreatedByYou, owner));
             
             provider.DevSettings ??= new();
             provider.DevSettings.AllowedRecipients ??= new List<string>();
             if (provider.DevSettings.AllowedRecipients.Any(x => x.ToLower() == recipient.ToLower()))
             {
-                throw new RuleValidationException($"Recipient already exists");
+                throw new RuleValidationException(Messages.RecipientAlreadyExists);
             }
 
             provider.DevSettings.AllowedRecipients.Add(recipient.ToLower());
@@ -135,15 +136,15 @@ namespace NotificationService.Core.Providers.Services
             var provider = await _providerRepository.FindOneAsync(x => x.ProviderId == providerId);
             
             if (provider is null)
-                throw new RuleValidationException($"Does not exist a provider with ID [{providerId}]");
+                throw new RuleValidationException(string.Format(Messages.ProviderWithGivenIdNotExists, providerId));
 
             if (provider.CreatedBy != owner && !(provider.IsPublic ?? false))
-                throw new RuleValidationException($"Provider was not created by {owner} and is not public");
+                throw new RuleValidationException(string.Format(Messages.ProviderIsNotPublicNeitherWasCreatedByYou, owner));
             
             var existingRecipient = provider?.DevSettings?.AllowedRecipients.FirstOrDefault(x => x.ToLower() == recipient.ToLower());
 
             if (existingRecipient is null)
-                throw new RuleValidationException($"Does not exist recipient: {recipient}");
+                throw new RuleValidationException(string.Format(Messages.RecipientNotExists, recipient));
 
             provider.DevSettings.AllowedRecipients.Remove(existingRecipient);
             

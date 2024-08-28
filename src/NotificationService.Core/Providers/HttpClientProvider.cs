@@ -12,6 +12,7 @@ using NotificationService.Core.Providers.Interfaces;
 using System.Text;
 using AutoMapper;
 using NotificationService.Common.Dtos;
+using NotificationService.Common.Resources;
 
 namespace NotificationService.Core.Providers
 {
@@ -43,7 +44,7 @@ namespace NotificationService.Core.Providers
                     requestToDestination: requestToDestination);
                 
                 if (!param.IsValid(value))
-                    throw new RuleValidationException($"Provider require this metadata [{param.Name}] to be specified.");
+                    throw new RuleValidationException(string.Format(Messages.MetadataRequiredByProvider, param.Name));
                 
                 if (param.Type == HttpClientParamType.QueryString)
                     SetQueryString(queryString, param.Name, value);

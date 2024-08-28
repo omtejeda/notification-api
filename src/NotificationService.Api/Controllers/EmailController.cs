@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
 using NotificationService.Core.Interfaces;
 using NotificationService.Core.Dtos;
+using NotificationService.Common.Resources;
 
 namespace NotificationService.Api.Controllers
 {   
@@ -33,7 +34,7 @@ namespace NotificationService.Api.Controllers
         {
             if (!attachments.Any())
             {
-                throw new Core.Common.Exceptions.RuleValidationException("Must specify at least one attachment");
+                throw new Core.Common.Exceptions.RuleValidationException(Messages.AttachmentIsRequired);
             }
             var res = await _emailSender.SendEmailAsync(request: request, owner: Owner, attachments: attachments);
             return Ok(res);

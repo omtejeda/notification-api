@@ -9,6 +9,7 @@ using NotificationService.Common.Enums;
 using NotificationService.Api.Attributes;
 using NotificationService.Common.Dtos;
 using NotificationService.Contracts.Interfaces.Repositories;
+using NotificationService.Common.Resources;
 
 namespace NotificationService.Api.Middlewares
 {
@@ -40,16 +41,22 @@ namespace NotificationService.Api.Middlewares
 
             if (!context.Request.Headers.TryGetValue("apiKey", out var headerApiKey))
             {
-                await UnauthorizedResponse(context, "Api key was not provided");
+                await UnauthorizedResponse(context, Messages.ApiKeyNotProvided);
                 return;
             }
             
             _platformRepository = context.RequestServices.GetRequiredService<IRepository<Platform>>();
             var platform = await _platformRepository.FindOneAsync(x => x.ApiKey == headerApiKey);
 
-            if (platform is null || !(platform.IsActive ?? false))
+            if (platform is null)
             {
-                await UnauthorizedResponse(context, $"Unathorized client. {(platform is null ? "It's not valid" : "It's not active")}");
+                await UnauthorizedResponse(context, Messages.ApiKeyNotValid);
+                return;
+            }
+            
+            if (!(platform.IsActive ?? false))
+            {
+                await UnauthorizedResponse(context, Messages.ApiKeyNotActive);
                 return;
             }
 
