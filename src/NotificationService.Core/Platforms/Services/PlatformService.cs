@@ -13,6 +13,7 @@ using NotificationService.Contracts.Interfaces.Services;
 using NotificationService.Contracts.Interfaces.Repositories;
 using NotificationService.Contracts.ResponseDtos;
 using NotificationService.Common.Utils;
+using NotificationService.Common.Resources;
 
 namespace NotificationService.Core.Platforms.Services
 {
@@ -34,7 +35,7 @@ namespace NotificationService.Core.Platforms.Services
             var existingPlatform = await _repository.FindOneAsync(x => x.Name.ToLower() == name.ToLower());
 
             if (existingPlatform is not null)
-                throw new RuleValidationException($"There is already a platform named [{name}], created by {existingPlatform.CreatedBy}");
+                throw new RuleValidationException(string.Format(Messages.PlatformAlreadyExists, name, existingPlatform.CreatedBy));
 
             var platform = new Platform
             {
@@ -56,10 +57,10 @@ namespace NotificationService.Core.Platforms.Services
             var existingPlatform = await _repository.FindOneAsync(x => x.PlatformId == platformId);
 
             if (existingPlatform is null)
-                throw new RuleValidationException($"Does not exist a platform with ID [{platformId}]");
+                throw new RuleValidationException(string.Format(Messages.PlatformWithGivenIdNotExists, platformId));
 
             if (existingPlatform.CreatedBy != owner)
-                throw new RuleValidationException($"Platform was not created by {owner}");
+                throw new RuleValidationException(string.Format(Messages.PlatformWasNotCreatedByYou, owner));
 
             await _repository.DeleteOneAsync(x => x.PlatformId == platformId);
         }
@@ -83,7 +84,7 @@ namespace NotificationService.Core.Platforms.Services
             if (platform is null) return default;
 
             if (platform.CreatedBy != owner)
-                throw new RuleValidationException($"Platform was not created by {owner}");
+                throw new RuleValidationException(string.Format(Messages.PlatformWasNotCreatedByYou, owner));
 
             var platformDTO = _mapper.Map<PlatformDto>(platform);
 

@@ -14,6 +14,7 @@ using NotificationService.Contracts.Interfaces.Factories;
 using NotificationService.Core.Interfaces;
 using NotificationService.Common.Dtos;
 using NotificationService.Core.Dtos;
+using NotificationService.Common.Resources;
 
 namespace NotificationService.Api.Controllers
 {   
@@ -93,13 +94,13 @@ namespace NotificationService.Api.Controllers
             var notification = await _notificationRepository.FindOneAsync(x => x.NotificationId == notificationId);
 
             if (notification == null)
-                throw new RuleValidationException("Notification does not exist");
+                throw new RuleValidationException(Messages.NotificationNotExists);
             
             if (notification.CreatedBy != Owner)
-                throw new RuleValidationException($"Notification was not created by {Owner}");
+                throw new RuleValidationException(string.Format(Messages.NotificationWasNotCreatedByYou, Owner));
             
             if (notification?.Request == null)
-                throw new RuleValidationException("Notification request couldn't be found");
+                throw new RuleValidationException(Messages.NotificationRequestNotFound);
             
             FinalResponseDto<NotificationSentResponseDto> response = null;
             if (notification.Type == NotificationType.Email)

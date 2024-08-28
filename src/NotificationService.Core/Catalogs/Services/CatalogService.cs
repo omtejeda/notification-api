@@ -12,6 +12,7 @@ using NotificationService.Contracts.Interfaces.Repositories;
 using NotificationService.Contracts.Interfaces.Services;
 using NotificationService.Contracts.ResponseDtos;
 using NotificationService.Common.Dtos;
+using NotificationService.Common.Resources;
 
 namespace NotificationService.Core.Catalogs.Services
 {
@@ -31,7 +32,7 @@ namespace NotificationService.Core.Catalogs.Services
             var existingCatalog = await _catalogRepository.FindOneAsync(x => x.Name.ToLower() == name.ToLower() && x.CreatedBy == owner);
 
             if (existingCatalog is not null)
-                throw new RuleValidationException($"There is already a catalog named [{name}], created by {(existingCatalog.CreatedBy == owner ? "You! :p" : existingCatalog.CreatedBy)}");
+                throw new RuleValidationException(string.Format(Messages.CatalogAlreadyExists, name, existingCatalog.CreatedBy));
             
             var elementsEntity = _mapper.Map<ICollection<Element>>(elements);
             var catalog = new Catalog
@@ -54,10 +55,10 @@ namespace NotificationService.Core.Catalogs.Services
             var existingCatalog = await _catalogRepository.FindOneAsync(x => x.CatalogId == catalogId);
 
             if (existingCatalog is null)
-                throw new RuleValidationException($"Does not exist a catalog with ID [{catalogId}]");
+                throw new RuleValidationException(string.Format(Messages.CatalogWithGivenIdNotExists, catalogId));
 
             if (existingCatalog.CreatedBy != owner)
-                throw new RuleValidationException($"Catalog was not created by {owner}");
+                throw new RuleValidationException(string.Format(Messages.CatalogWasNotCreatedByYou, owner));
 
             await _catalogRepository.DeleteOneAsync(x => x.CatalogId == catalogId);
         }
@@ -81,7 +82,7 @@ namespace NotificationService.Core.Catalogs.Services
             if (catalog is null) return default;
 
             if (catalog.CreatedBy != owner)
-                throw new RuleValidationException($"Catalog was not created by {owner}");
+                throw new RuleValidationException(string.Format(Messages.CatalogWasNotCreatedByYou, owner));
 
             var catalogDTO = _mapper.Map<CatalogDto>(catalog);
 

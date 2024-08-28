@@ -14,6 +14,7 @@ using NotificationService.Common.Models;
 using NotificationService.Contracts.RequestDtos;
 using NotificationService.Contracts.Interfaces.Services;
 using NotificationService.Contracts.Interfaces.Repositories;
+using NotificationService.Common.Resources;
 
 namespace NotificationService.Core.Templates.Services
 {
@@ -34,12 +35,12 @@ namespace NotificationService.Core.Templates.Services
             Enum.TryParse(request.NotificationType, out NotificationType notificationType);
 
             if (notificationType == NotificationType.None)
-                throw new RuleValidationException($"Notification type [{request.NotificationType}] not valid");
+                throw new RuleValidationException(string.Format(Messages.NotificationTypeNotValid, request.NotificationType));
 
             var existingTemplate = await FindByCompositeKeyAsync(request.Name, platformName: owner, request.Language, owner);
             
             if (existingTemplate is not null)
-                throw new RuleValidationException("Template already exists");
+                throw new RuleValidationException(Messages.TemplateAlreadyExists);
 
             var metadata = request.Metadata.Select(x => new Metadata { Key = x.Key, Description = x.Description, IsRequired = x.IsRequired }).ToList();
             var labels = _mapper.Map<ICollection<TemplateLabel>>(request.Labels);
@@ -47,8 +48,8 @@ namespace NotificationService.Core.Templates.Services
             foreach(var label in labels.Where(x => !string.IsNullOrWhiteSpace(x.CatalogNameToCheckAgainst)))
             {
                 var catalog = await _catalogRepository.FindOneAsync(x => x.Name == label.CatalogNameToCheckAgainst);
-                if (catalog is null) throw new RuleValidationException($"Catalog [{label.CatalogNameToCheckAgainst}] does not exist");
-                if (!catalog.Elements.Any(x => x.Key == label.Value)) throw new RuleValidationException($"Catalog [{catalog.Name}] does not have key: [{label.Value}]");
+                if (catalog is null) throw new RuleValidationException(string.Format(Messages.CatalogSpecifiedNotExists, label.CatalogNameToCheckAgainst));
+                if (!catalog.Elements.Any(x => x.Key == label.Value)) throw new RuleValidationException(string.Format(Messages.CatalogSpecifiedNotHaveGivenKey, catalog.Name, label.Value));
             }
 
             var template = new Template
@@ -74,10 +75,10 @@ namespace NotificationService.Core.Templates.Services
             var existingTemplate = await _repository.FindOneAsync(x => x.TemplateId == templateId);
 
             if (existingTemplate.CreatedBy != owner)
-                throw new RuleValidationException($"Template was not created by {owner}");
+                throw new RuleValidationException(string.Format(Messages.TemplateWasNotCreatedByYou, owner));
 
             if (existingTemplate is null)
-                throw new RuleValidationException("Template you're trying to delete does not exist");
+                throw new RuleValidationException(Messages.TemplateTryingToDeleteNotExists);
             
             await _repository.DeleteOneAsync(x => x.Id == existingTemplate.Id);
         }
@@ -109,7 +110,7 @@ namespace NotificationService.Core.Templates.Services
             if (template is null) return default;
             
             if (template.CreatedBy != owner)
-                throw new RuleValidationException($"Template was not created by platform {owner}");
+                throw new RuleValidationException(string.Format(Messages.TemplateWasNotCreatedByYou, owner));
             
             var templateDTO = _mapper.Map<TemplateDto>(template);
 
@@ -145,32 +146,32 @@ namespace NotificationService.Core.Templates.Services
         private void ThrowIfTemplateNotValid(Template template, string owner, NotificationType notificationType)
         {
             if (template is null)
-                throw new RuleValidationException("Couldn't find template");
+                throw new RuleValidationException(Messages.TemplateNotExists);
             
             if (template.CreatedBy != owner && template.PlatformName != owner)
-                throw new RuleValidationException("Template does not belong to your platform!");
+                throw new RuleValidationException(Messages.TemplateNotBelongsToYou);
 
             if (template.NotificationType != notificationType)
-                throw new RuleValidationException($"Template specified does not correspond to {notificationType}. It corresponds to {template.NotificationType}");
+                throw new RuleValidationException(string.Format(Messages.TemplateSpecifiedNotCorrespondToGivenNotificationType, notificationType, template.NotificationType));
 
             if (template?.Content is null)
-                throw new RuleValidationException("Template provided does not have content");
+                throw new RuleValidationException(Messages.TemplateWithNoContent);
         }
 
         public async Task UpdateTemplateContent(string templateId, UpdateTemplateContentRequestDto request, string owner)
         {
             var template = await _repository.FindOneAsync(x => x.TemplateId == templateId);
             if (template is null)
-                throw new RuleValidationException("Template does not exist");
+                throw new RuleValidationException(Messages.TemplateNotExists);
 
             if (template.CreatedBy != owner)
-                throw new RuleValidationException($"Template was not created by platform {owner}");
+                throw new RuleValidationException(string.Format(Messages.TemplateWasNotCreatedByYou, owner));
 
             
             var content = request.Base64Content.DecodeBase64();
 
             if (string.IsNullOrWhiteSpace(content))
-                throw new RuleValidationException("Content provided not valid");
+                throw new RuleValidationException(Messages.TemplateContentNotValid);
 
             template.Content = content;
             

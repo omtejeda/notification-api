@@ -5,6 +5,7 @@ using System.Linq;
 using NotificationService.Core.Common.Exceptions;
 using NotificationService.Common.Dtos;
 using NotificationService.Common.Entities;
+using NotificationService.Common.Resources;
 
 namespace NotificationService.Core.Common.Utils
 {
@@ -36,19 +37,19 @@ namespace NotificationService.Core.Common.Utils
 
         public static void CheckHTTPClientSettings(HttpClientSettingDto settings)
         {
-            if (string.IsNullOrWhiteSpace(settings.Host)) throw new RuleValidationException($"A value for {nameof(settings.Host)} is required");
-            if (string.IsNullOrWhiteSpace(settings.Uri)) throw new RuleValidationException($"A value for {nameof(settings.Uri)} is required");
-            if (string.IsNullOrWhiteSpace(settings.Verb)) throw new RuleValidationException($"A value for {nameof(settings.Verb)} is required");
-            if (!GetVerbsAllowed().Any(x => x == settings.Verb)) throw new RuleValidationException($"HTTP verb: {settings.Verb} not allowed");
+            if (string.IsNullOrWhiteSpace(settings.Host)) throw new RuleValidationException(string.Format(Messages.RequiredValue, nameof(settings.Host)));
+            if (string.IsNullOrWhiteSpace(settings.Uri)) throw new RuleValidationException(string.Format(Messages.RequiredValue, nameof(settings.Uri)));
+            if (string.IsNullOrWhiteSpace(settings.Verb)) throw new RuleValidationException(string.Format(Messages.RequiredValue, nameof(settings.Verb)));
+            if (!GetVerbsAllowed().Any(x => x == settings.Verb)) throw new RuleValidationException(string.Format(Messages.HttpVerbNotAllowed, settings.Verb));
 
             foreach (var param in settings?.Params)
             {
                 
                 try { Enum.Parse<HttpClientParamType>(param.Type, true); }
-                catch (Exception) { throw new RuleValidationException($"Value not valid [{param.Type}]"); }
+                catch (Exception) { throw new RuleValidationException(string.Format(Messages.ValueNotValid, param.Type)); }
 
                 try { Enum.Parse<HttpClientParamValueReader>(param.ReadValueFrom, true); }
-                catch (Exception) { throw new RuleValidationException($"Value not valid [{param.ReadValueFrom}]"); }
+                catch (Exception) { throw new RuleValidationException(string.Format(Messages.ValueNotValid, param.ReadValueFrom)); }
             }
         }
     }

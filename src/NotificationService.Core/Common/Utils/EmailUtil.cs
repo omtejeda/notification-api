@@ -9,6 +9,7 @@ using SendGrid.Helpers.Mail;
 using NotificationService.Common.Dtos;
 using NotificationService.Core.Templates.Models;
 using NotificationService.Common.Utils;
+using NotificationService.Common.Resources;
 
 namespace NotificationService.Core.Common.Utils
 {
@@ -109,7 +110,7 @@ namespace NotificationService.Core.Common.Utils
             var isEmailAllowed = provider?.DevSettings?.AllowedRecipients?.Any(x => x.ToLower() == to.ToLower()) ?? false;
             if (!isEmailAllowed)
             {
-                throw new RuleValidationException($"Not allowed sending to {to} in non production environment");
+                throw new RuleValidationException(string.Format(Messages.NotAllowedToSendInNonProd, to));
             }
         }
 

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using NotificationService.Contracts.Interfaces.Repositories;
 using NotificationService.Contracts.ResponseDtos;
 using NotificationService.Common.Models;
+using NotificationService.Common.Resources;
 
 namespace NotificationService.Core.Notifications.Services
 {
@@ -67,7 +68,7 @@ namespace NotificationService.Core.Notifications.Services
             if (notification is null) return default;
 
             if (notification.CreatedBy != owner)
-                throw new RuleValidationException($"Notification was not created by platform {owner}");
+                throw new RuleValidationException(string.Format(Messages.NotificationWasNotCreatedByYou, owner));
 
             var notificationDTO = _mapper.Map<NotificationDetailDto>(notification);
 
@@ -91,11 +92,11 @@ namespace NotificationService.Core.Notifications.Services
         {
             var notification = await GetNotificationById(notificationId, owner);
             if (notification is null)
-                throw new RuleValidationException("Notification does not exist");
+                throw new RuleValidationException(Messages.NotificationNotExists);
 
             var attachment = notification?.Data?.Attachments?.FirstOrDefault(x => x.FileName == fileName);
             if (attachment is null)
-                throw new RuleValidationException($"Attachment: {fileName} not found");
+                throw new RuleValidationException(string.Format(Messages.AttachmentNotFound, fileName));
 
             var file = await _notificationRepository.GetFileByNameAsync(fileName);
             return (file, attachment.ContentType);
