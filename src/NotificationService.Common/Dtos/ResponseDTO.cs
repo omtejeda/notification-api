@@ -12,15 +12,11 @@ namespace NotificationService.Common.Dtos
 
         private ResponseDto() {}
 
-        public static ResponseDto CreateResponse(int code)
-        {
-            return CreateResponse(code, message: ((ResultCode) code).ToString());
-        }
+        public static ResponseDto CreateResponse(int code) 
+            => GetInstance(code, message: ((ResultCode) code).ToString());
 
         public static ResponseDto CreateResponse(int code, string message)
-        {
-            return GetInstance(code, message);
-        }
+            => GetInstance(code, message);
 
         private static ResponseDto GetInstance(int code, string? message)
             => new()
@@ -33,6 +29,5 @@ namespace NotificationService.Common.Dtos
         
         private static bool IsSuccess(int code)
             => code % 10 == 0;
-        
     }
 }
