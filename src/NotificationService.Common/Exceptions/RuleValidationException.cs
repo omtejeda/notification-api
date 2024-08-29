@@ -1,6 +1,5 @@
-using System;
 using NotificationService.Common.Enums;
-namespace NotificationService.Core.Common.Exceptions
+namespace NotificationService.Common.Exceptions
 {
     public class RuleValidationException : Exception
     {

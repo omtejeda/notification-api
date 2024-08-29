@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
 using NotificationService.Core.Interfaces;
 using NotificationService.Core.Dtos;
-using NotificationService.Common.Resources;
+using NotificationService.Common.Utils;
 
 namespace NotificationService.Api.Controllers
 {   
@@ -32,10 +32,7 @@ namespace NotificationService.Api.Controllers
         [HttpPost("send/attachments")]
         public async Task<IActionResult> SendWithAttachments([FromForm] SendEmailRequestDto request, List<IFormFile> attachments)
         {
-            if (!attachments.Any())
-            {
-                throw new Core.Common.Exceptions.RuleValidationException(Messages.AttachmentIsRequired);
-            }
+            Guard.HasAttachments(attachments);
             var res = await _emailSender.SendEmailAsync(request: request, owner: Owner, attachments: attachments);
             return Ok(res);
         }

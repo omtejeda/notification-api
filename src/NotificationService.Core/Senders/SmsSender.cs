@@ -3,8 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using NotificationService.Common.Enums;
 using NotificationService.Common.Entities;
-using NotificationService.Core.Common.Exceptions;
-using static NotificationService.Common.Utils.SystemUtil;
 using NotificationService.Contracts.Interfaces.Services;
 using NotificationService.Contracts.ResponseDtos;
 using NotificationService.Contracts.Interfaces.Repositories;
@@ -12,7 +10,7 @@ using NotificationService.Core.Interfaces;
 using NotificationService.Core.Providers.Interfaces;
 using NotificationService.Common.Dtos;
 using NotificationService.Core.Dtos;
-using NotificationService.Common.Resources;
+using NotificationService.Common.Utils;
 
 namespace NotificationService.Core.Senders
 {
@@ -31,17 +29,6 @@ namespace NotificationService.Core.Senders
             _templateService = templateService;
         }
 
-        private void ThrowIfPhoneNotAllowed(string toPhoneNumber, Provider provider)
-        {
-            if (IsProduction()) return;
-
-            var isPhoneNumberAllowed = provider?.DevSettings?.AllowedRecipients?.Any(x => x == toPhoneNumber) ?? false;
-            if (!isPhoneNumberAllowed)
-            {
-                throw new RuleValidationException(string.Format(Messages.NotAllowedToSendInNonProd, toPhoneNumber));
-            }
-        }
-
         public async Task<FinalResponseDto<NotificationSentResponseDto>> SendSmsAsync(SendSmsRequestDto request, string owner)
         {
             var runtimeTemplate = await _templateService.GetRuntimeTemplate(
@@ -54,13 +41,9 @@ namespace NotificationService.Core.Senders
 
             var provider = await _providerRepository.FindOneAsync(x => x.Name == request.ProviderName);
             
-            if (provider is null)
-                throw new RuleValidationException(string.Format(Messages.ProviderSpecifiedNotExists, request.ProviderName));
-
-            if (provider.Type != ProviderType.HttpClient)
-                throw new RuleValidationException(string.Format(Messages.ProviderSpecifiedNotSuitable, provider.Type));
-
-            ThrowIfPhoneNotAllowed(toPhoneNumber: request.ToPhoneNumber, provider: provider);
+            Guard.ProviderIsNotNull(provider, request.ProviderName);
+            Guard.ProviderIsSuitable(provider.Type, ProviderType.HttpClient);
+            Guard.CanSendToDestination(provider, request.ToPhoneNumber);
 
             var (success, code, message) = await _httpClientProvider
                 .SendHttpClient(httpClientSetting: provider?.Settings?.HttpClient,

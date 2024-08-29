@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using MimeKit;
 using NotificationService.Common.Entities;
-using NotificationService.Core.Common.Exceptions;
+using NotificationService.Common.Exceptions;
 using SendGrid.Helpers.Mail;
 using NotificationService.Common.Dtos;
 using NotificationService.Core.Templates.Models;
@@ -94,24 +94,13 @@ namespace NotificationService.Core.Common.Utils
 
         public static void ThrowIfEmailNotAllowed(Provider provider, string to = null, ICollection<string> cc = null, ICollection<string> bcc = null)
         {
-            ThrowIfEmailNotAllowed(provider, to);
+            Guard.CanSendToDestination(provider, to);
 
             foreach (var ccEmail in cc ?? Enumerable.Empty<string>())
-                ThrowIfEmailNotAllowed(provider, ccEmail);
+                Guard.CanSendToDestination(provider, ccEmail);
 
             foreach (var bccEmail in bcc ?? Enumerable.Empty<string>())
-                ThrowIfEmailNotAllowed(provider, bccEmail);
-        }
-
-        private static void ThrowIfEmailNotAllowed(Provider provider, string to)
-        {
-            if (SystemUtil.IsProduction()) return;
-
-            var isEmailAllowed = provider?.DevSettings?.AllowedRecipients?.Any(x => x.ToLower() == to.ToLower()) ?? false;
-            if (!isEmailAllowed)
-            {
-                throw new RuleValidationException(string.Format(Messages.NotAllowedToSendInNonProd, to));
-            }
+                Guard.CanSendToDestination(provider, bccEmail);
         }
 
         internal static class Parameters

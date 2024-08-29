@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using NotificationService.Common.Entities;
-using NotificationService.Core.Common.Exceptions;
+using NotificationService.Common.Exceptions;
 using NotificationService.Common.Enums;
 using System.Net.Http;
 using Microsoft.Extensions.Logging;
@@ -123,7 +123,7 @@ namespace NotificationService.Core.Providers
                 value = requestMetadata
                     .Where(x => x.Key == httpClientParam.Name)
                     .Select(x => x.Value)
-                    .FirstOrDefault();
+                    .FirstOrDefault()!;
             }
             return value;
         }
