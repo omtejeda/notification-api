@@ -4,10 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using NotificationService.Common.Entities;
 using NotificationService.Core.Providers.Factories.Interfaces;
-using NotificationService.Core.Common.Exceptions;
 using NotificationService.Contracts.Interfaces.Repositories;
 using NotificationService.Core.Providers.Interfaces;
-using NotificationService.Common.Resources;
+using NotificationService.Common.Utils;
 
 namespace NotificationService.Core.Providers.Factories
 {
@@ -24,15 +23,12 @@ namespace NotificationService.Core.Providers.Factories
 
         public async Task<IEmailProvider> CreateProviderAsync(string providerName, string createdBy)
         {
-            ThrowIfProviderNameOrCreatedByIsNull(providerName, createdBy);
+            Guard.ProviderNameOrCreatedByHasValue(providerName, createdBy);
             var provider = await FindProviderAsync(providerName, createdBy);
-
             var emailProvider = _emailProviders.FirstOrDefault(x => x.ProviderType == provider.Type);
 
-            if (emailProvider is null)
-                throw new ArgumentException("Underlying provider could not be found");
-
-            emailProvider.SetProvider(provider);
+            Guard.EmailProviderIsNotNull(emailProvider);
+            emailProvider!.SetProvider(provider);
             
             return emailProvider;
         }
@@ -41,22 +37,10 @@ namespace NotificationService.Core.Providers.Factories
         {
             var provider = await _providerRepository.FindOneAsync(x => x.Name.Equals(providerName));
 
-            if (provider is null)
-                throw new RuleValidationException(string.Format(Messages.ProviderSpecifiedNotExists, providerName));
-
-            if (!(provider.IsPublic ?? false) && provider.CreatedBy != createdBy)
-                throw new RuleValidationException(Messages.ProviderIsNotPublicNeitherWasCreatedByYou);
+            Guard.ProviderIsNotNull(provider, providerName);
+            Guard.ProviderIsCreatedByRequesterOrPublic(provider, createdBy);
 
             return provider;
-        }
-
-        private void ThrowIfProviderNameOrCreatedByIsNull(string providerName, string createdBy)
-        {
-            if (string.IsNullOrWhiteSpace(providerName))
-                throw new ArgumentNullException(nameof(providerName));
-            
-            if (string.IsNullOrWhiteSpace(createdBy))
-                throw new ArgumentNullException(nameof(createdBy));
         }
     }
 }

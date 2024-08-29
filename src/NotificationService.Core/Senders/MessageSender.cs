@@ -3,8 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using NotificationService.Common.Enums;
 using NotificationService.Common.Entities;
-using NotificationService.Core.Common.Exceptions;
-using static NotificationService.Common.Utils.SystemUtil;
 using NotificationService.Contracts.Interfaces.Services;
 using NotificationService.Contracts.ResponseDtos;
 using NotificationService.Contracts.Interfaces.Repositories;
@@ -12,7 +10,7 @@ using NotificationService.Core.Interfaces;
 using NotificationService.Core.Providers.Interfaces;
 using NotificationService.Common.Dtos;
 using NotificationService.Core.Dtos;
-using NotificationService.Common.Resources;
+using NotificationService.Common.Utils;
 
 namespace NotificationService.Core.Senders
 {
@@ -33,25 +31,21 @@ namespace NotificationService.Core.Senders
 
         public async Task<FinalResponseDto<NotificationSentResponseDto>> SendMessageAsync(SendMessageRequestDto request, string owner)
         {
-            ThrowIfNotificationTypeIsNotValid(request.NotificationType);
+            Guard.NotificationTypeIsValidForBasicMessage(request.NotificationType);
 
             var runtimeTemplate = await _templateService.GetRuntimeTemplate(
                 name: request.Template.Name,
                 platformName: request.Template.PlatformName,
                 language: request.Template.Language,
-                providedMetadata: request.Template?.Metadata?.ToList(),
+                providedMetadata: request.Template?.Metadata?.ToList()!,
                 owner: owner,
                 notificationType: request.NotificationType);
 
             var provider = await _providerRepository.FindOneAsync(x => x.Name == request.ProviderName);
             
-            if (provider is null)
-                throw new RuleValidationException(string.Format(Messages.ProviderSpecifiedNotExists, request.ProviderName));
-
-            if (provider.Type != ProviderType.HttpClient)
-                throw new RuleValidationException(string.Format(Messages.ProviderSpecifiedNotSuitable, provider.Type));
-
-            ThrowIfDestinationNotAllowed(toDestination: request.ToDestination, provider: provider);
+            Guard.ProviderIsNotNull(provider, request.ProviderName);
+            Guard.ProviderIsSuitable(provider.Type, ProviderType.HttpClient);
+            Guard.CanSendToDestination(provider, request.ToDestination);
 
             var (success, code, message) = await _httpClientProvider
                 .SendHttpClient(httpClientSetting: provider?.Settings?.HttpClient,
@@ -76,26 +70,6 @@ namespace NotificationService.Core.Senders
             await _notificationsService.RegisterNotification(notification);
             
             return new FinalResponseDto<NotificationSentResponseDto>(code, message, new NotificationSentResponseDto { NotificationId = notification.NotificationId });
-        }
-
-        private void ThrowIfNotificationTypeIsNotValid(NotificationType notificationType)
-        {
-            if (notificationType == NotificationType.Email || 
-                notificationType == NotificationType.SMS)
-            {
-                throw new RuleValidationException(string.Format(Messages.NotificationTypeSpecifiedNotAllowed, notificationType));
-            }
-        }
-
-        private void ThrowIfDestinationNotAllowed(string toDestination, Provider provider)
-        {
-            if (IsProduction()) return;
-
-            var isDestinationAllowed = provider?.DevSettings?.AllowedRecipients?.Any(x => x == toDestination) ?? false;
-            if (!isDestinationAllowed)
-            {
-                throw new RuleValidationException(string.Format(Messages.NotAllowedToSendInNonProd, toDestination));
-            }
         }
     }
 }

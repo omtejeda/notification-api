@@ -2,10 +2,11 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using NotificationService.Core.Common.Exceptions;
+using NotificationService.Common.Exceptions;
 using NotificationService.Common.Dtos;
 using NotificationService.Common.Entities;
 using NotificationService.Common.Resources;
+using NotificationService.Common.Utils;
 
 namespace NotificationService.Core.Common.Utils
 {
@@ -37,14 +38,13 @@ namespace NotificationService.Core.Common.Utils
 
         public static void CheckHTTPClientSettings(HttpClientSettingDto settings)
         {
-            if (string.IsNullOrWhiteSpace(settings.Host)) throw new RuleValidationException(string.Format(Messages.RequiredValue, nameof(settings.Host)));
-            if (string.IsNullOrWhiteSpace(settings.Uri)) throw new RuleValidationException(string.Format(Messages.RequiredValue, nameof(settings.Uri)));
-            if (string.IsNullOrWhiteSpace(settings.Verb)) throw new RuleValidationException(string.Format(Messages.RequiredValue, nameof(settings.Verb)));
+            Guard.RequiredValueIsPresent(settings.Host, nameof(settings.Host));
+            Guard.RequiredValueIsPresent(settings.Uri, nameof(settings.Uri));
+            Guard.RequiredValueIsPresent(settings.Verb, nameof(settings.Verb));
             if (!GetVerbsAllowed().Any(x => x == settings.Verb)) throw new RuleValidationException(string.Format(Messages.HttpVerbNotAllowed, settings.Verb));
 
-            foreach (var param in settings?.Params)
+            foreach (var param in settings?.Params!)
             {
-                
                 try { Enum.Parse<HttpClientParamType>(param.Type, true); }
                 catch (Exception) { throw new RuleValidationException(string.Format(Messages.ValueNotValid, param.Type)); }
 

@@ -6,7 +6,6 @@ using LinqKit;
 using NotificationService.Common.Entities;
 using NotificationService.Api.Utils;
 using NotificationService.Common.Enums;
-using NotificationService.Core.Common.Exceptions;
 using NotificationService.Contracts.Interfaces.Services;
 using NotificationService.Contracts.ResponseDtos;
 using NotificationService.Contracts.Interfaces.Repositories;
@@ -14,7 +13,7 @@ using NotificationService.Contracts.Interfaces.Factories;
 using NotificationService.Core.Interfaces;
 using NotificationService.Common.Dtos;
 using NotificationService.Core.Dtos;
-using NotificationService.Common.Resources;
+using NotificationService.Common.Utils;
 
 namespace NotificationService.Api.Controllers
 {   
@@ -92,15 +91,10 @@ namespace NotificationService.Api.Controllers
         public async Task<IActionResult> Resend(string notificationId)
         {
             var notification = await _notificationRepository.FindOneAsync(x => x.NotificationId == notificationId);
-
-            if (notification == null)
-                throw new RuleValidationException(Messages.NotificationNotExists);
             
-            if (notification.CreatedBy != Owner)
-                throw new RuleValidationException(string.Format(Messages.NotificationWasNotCreatedByYou, Owner));
-            
-            if (notification?.Request == null)
-                throw new RuleValidationException(Messages.NotificationRequestNotFound);
+            Guard.NotificationIsNotNull(notification);
+            Guard.NotificationWasCreatedByRequester(notification.CreatedBy, Owner);
+            Guard.NotificationRequestExists(notification?.Request);
             
             FinalResponseDto<NotificationSentResponseDto> response = null;
             if (notification.Type == NotificationType.Email)

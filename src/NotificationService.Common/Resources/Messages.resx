@@ -59,7 +59,7 @@
 	</data>
 
 	<data name="TemplateWithNoContent" xml:space="preserve">
-        <value>Template provided does not have content</value>
+        <value>Template does not have content</value>
 	</data>
 
 	<data name="TemplateContentNotValid" xml:space="preserve">

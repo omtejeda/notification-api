@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using AutoMapper;
 using NotificationService.Common.Enums;
-using NotificationService.Core.Common.Exceptions;
+using NotificationService.Common.Exceptions;
 using NotificationService.Core.Common.Utils;
 using LinqKit;
 using NotificationService.Common.Entities;
@@ -34,9 +34,7 @@ namespace NotificationService.Core.Platforms.Services
         {
             var existingPlatform = await _repository.FindOneAsync(x => x.Name.ToLower() == name.ToLower());
 
-            if (existingPlatform is not null)
-                throw new RuleValidationException(string.Format(Messages.PlatformAlreadyExists, name, existingPlatform.CreatedBy));
-
+            Guard.PlatformNotExists(existingPlatform, name, existingPlatform.CreatedBy);
             var platform = new Platform
             {
                 PlatformId = Guid.NewGuid().ToString(),
@@ -55,12 +53,9 @@ namespace NotificationService.Core.Platforms.Services
         public async Task DeletePlatform(string platformId, string owner)
         {
             var existingPlatform = await _repository.FindOneAsync(x => x.PlatformId == platformId);
-
-            if (existingPlatform is null)
-                throw new RuleValidationException(string.Format(Messages.PlatformWithGivenIdNotExists, platformId));
-
-            if (existingPlatform.CreatedBy != owner)
-                throw new RuleValidationException(string.Format(Messages.PlatformWasNotCreatedByYou, owner));
+            
+            Guard.PlatformWithIdExists(existingPlatform, platformId);
+            Guard.PlatformIsCreatedByRequester(existingPlatform.CreatedBy, owner);
 
             await _repository.DeleteOneAsync(x => x.PlatformId == platformId);
         }
@@ -80,11 +75,9 @@ namespace NotificationService.Core.Platforms.Services
         public async Task<FinalResponseDto<PlatformDto>> GetPlatformById(string platformId, string owner)
         {
             var platform = await _repository.FindOneAsync(x => x.PlatformId == platformId);
+            if (platform is null) return default!;
 
-            if (platform is null) return default;
-
-            if (platform.CreatedBy != owner)
-                throw new RuleValidationException(string.Format(Messages.PlatformWasNotCreatedByYou, owner));
+            Guard.PlatformIsCreatedByRequester(platform.CreatedBy, owner);
 
             var platformDTO = _mapper.Map<PlatformDto>(platform);
 
