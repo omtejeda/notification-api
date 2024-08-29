@@ -15,7 +15,7 @@ namespace NotificationService.Common.Dtos
         public static ResponseDto CreateResponse(int code, string? message = null)
         {
             var resultMessage 
-                = message ?? (ResultCode (code)).ToString();
+                = message ?? ((ResultCode) code).ToString();
             
             return new()
             {
