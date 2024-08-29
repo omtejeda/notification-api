@@ -41,7 +41,7 @@ namespace NotificationService.Api.Controllers
         public IActionResult GetMe()
         {
             var platformDto = GetCurrentPlatform();
-            var response = new BaseResponse<PlatformDto>((int) ErrorCode.OK, platformDto);
+            var response = new BaseResponse<PlatformDto>((int) ResultCode.OK, platformDto);
             return Ok(response);
         }
 

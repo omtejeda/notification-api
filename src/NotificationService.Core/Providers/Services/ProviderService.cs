@@ -64,7 +64,7 @@ namespace NotificationService.Core.Providers.Services
 
             var entity = await _providerRepository.InsertOneAsync(provider);
             var providerDTO = _mapper.Map<ProviderDto>(entity);
-            return new BaseResponse<ProviderDto>((int) ErrorCode.OK, providerDTO);
+            return new BaseResponse<ProviderDto>((int) ResultCode.OK, providerDTO);
         }
 
         public async Task<BaseResponse<IEnumerable<ProviderDto>>> GetProviders(Expression<Func<Provider, bool>> filter, string owner, int? page, int? pageSize)
@@ -76,7 +76,7 @@ namespace NotificationService.Core.Providers.Services
             var providersDTO = _mapper.Map<IEnumerable<ProviderDto>>(providers);
             var paginationDTO = _mapper.Map<PaginationDto>(pagination);
 
-            return new BaseResponse<IEnumerable<ProviderDto>>( (int) ErrorCode.OK, providersDTO, paginationDTO);
+            return new BaseResponse<IEnumerable<ProviderDto>>( (int) ResultCode.OK, providersDTO, paginationDTO);
         }
 
         public async Task<BaseResponse<ProviderDto>> GetProviderById(string providerId, string owner)
@@ -89,7 +89,7 @@ namespace NotificationService.Core.Providers.Services
 
             var providerDTO = _mapper.Map<ProviderDto>(provider);
 
-            return new BaseResponse<ProviderDto>((int) ErrorCode.OK, providerDTO);
+            return new BaseResponse<ProviderDto>((int) ResultCode.OK, providerDTO);
         }
 
         public async Task DeleteProvider(string providerId, string owner)

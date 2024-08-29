@@ -25,15 +25,15 @@ namespace NotificationService.Api.Middlewares
             }
             catch (RuleValidationException ex)
             {
-                await Response(context, StatusCodes.Status400BadRequest, (int) ErrorCode.ValidationError, ex.Message);
+                await Response(context, StatusCodes.Status400BadRequest, (int) ResultCode.ValidationError, ex.Message);
             }
             catch (TimeoutException ex)
             {
-                await Response(context, StatusCodes.Status408RequestTimeout, (int) ErrorCode.Warning, ex.Message);
+                await Response(context, StatusCodes.Status408RequestTimeout, (int) ResultCode.Warning, ex.Message);
             }
             catch (Exception ex)
             {
-                await Response(context, StatusCodes.Status500InternalServerError, (int) ErrorCode.Error, ex.Message);
+                await Response(context, StatusCodes.Status500InternalServerError, (int) ResultCode.Error, ex.Message);
                 Console.WriteLine(ex.StackTrace);
             }
         }

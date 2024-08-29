@@ -70,7 +70,7 @@ namespace NotificationService.Core.Providers.Decorators
                     + previousMessage
                     + $": {ex.Message}";
 
-                notificationResult = NotificationResult.Fail((int)ErrorCode.EmailNotSent, errorMessage);
+                notificationResult = NotificationResult.Fail((int)ResultCode.EmailNotSent, errorMessage);
             }
 
             notificationResult.TriesCount = _triesCount;

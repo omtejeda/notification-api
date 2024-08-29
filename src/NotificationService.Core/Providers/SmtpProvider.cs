@@ -57,7 +57,7 @@ namespace NotificationService.Core.Providers
                 smtp.Disconnect(true);
 
                 return NotificationResult.Ok(
-                    code: (int) ErrorCode.OK,
+                    code: (int) ResultCode.OK,
                     message: "Email sent successfully using SMTP", 
                     from: _provider.Settings.Smtp.FromEmail, 
                     savesAttachments: _provider.SavesAttachments);
@@ -65,7 +65,7 @@ namespace NotificationService.Core.Providers
             catch (Exception e)
             {
                 return NotificationResult.Fail(
-                    code: (int) ErrorCode.EmailNotSent, 
+                    code: (int) ResultCode.EmailNotSent, 
                     message: $"Something went wrong when trying to send email: {e.Message}");
             }
         }

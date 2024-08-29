@@ -1,6 +1,6 @@
 namespace NotificationService.Common.Enums
 {
-    public enum ErrorCode
+    public enum ResultCode
     {
         OK = 0,
         Error = 1,

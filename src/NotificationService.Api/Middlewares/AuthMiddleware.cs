@@ -79,7 +79,7 @@ namespace NotificationService.Api.Middlewares
             context.Response.StatusCode = 401;
             context.Response.ContentType = "application/json";
 
-            var finalResponse = new BaseResponse<INoDataResponse>((int) ErrorCode.AccessDenied, message);
+            var finalResponse = new BaseResponse<INoDataResponse>((int) ResultCode.AccessDenied, message);
 
             var result = JsonSerializer.Serialize(finalResponse, 
                 new JsonSerializerOptions

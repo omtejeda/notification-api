@@ -59,7 +59,7 @@ namespace NotificationService.Core.Notifications.Services
             var notificationsDTO = _mapper.Map<IEnumerable<NotificationDto>>(notifications);
             var paginationDTO = _mapper.Map<PaginationDto>(pagination);
 
-            return new BaseResponse<IEnumerable<NotificationDto>>( (int) ErrorCode.OK, notificationsDTO, paginationDTO);
+            return new BaseResponse<IEnumerable<NotificationDto>>( (int) ResultCode.OK, notificationsDTO, paginationDTO);
         }
 
         public async Task<BaseResponse<NotificationDetailDto>> GetNotificationById(string notificationId, string owner)
@@ -71,7 +71,7 @@ namespace NotificationService.Core.Notifications.Services
 
             var notificationDTO = _mapper.Map<NotificationDetailDto>(notification);
 
-            return new BaseResponse<NotificationDetailDto>((int) ErrorCode.OK, notificationDTO);
+            return new BaseResponse<NotificationDetailDto>((int) ResultCode.OK, notificationDTO);
         }
 
         public async IAsyncEnumerable<AttachmentContentDto> GetAttachmentsAsBase64(IEnumerable<AttachmentDto> attachments)

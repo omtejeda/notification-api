@@ -62,12 +62,12 @@ namespace NotificationService.Core.Providers
             if (!response.IsSuccessStatusCode)
             {
                 return NotificationResult.Fail(
-                    code: (int)ErrorCode.EmailNotSent,
+                    code: (int)ResultCode.EmailNotSent,
                     message: $"Something went wrong when trying to send email: {response.StatusCode} {response?.ToString()}");
             }
 
             return NotificationResult.Ok(
-                code: (int)ErrorCode.OK,
+                code: (int)ResultCode.OK,
                 message: "Email queued successfully using SendGrid!",
                 from: _provider.Settings.SendGrid.FromEmail,
                 savesAttachments: _provider.SavesAttachments);

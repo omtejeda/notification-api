@@ -70,7 +70,7 @@ namespace NotificationService.Core.Providers
                 var response = await _httpClient.SendAsync(request);
                 var responseJson = await response.Content.ReadAsStringAsync();
                 
-                var code = (int) ErrorCode.HttpRequestOK;
+                var code = (int) ResultCode.HttpRequestOK;
                 var message = $"Sent succesfully using HTTPClient. Status code: {response.StatusCode} with message: {responseJson}";
                 var success = response.IsSuccessStatusCode;
 
@@ -78,7 +78,7 @@ namespace NotificationService.Core.Providers
                     _logger.LogInformation("HTTP request sent succesfully {statusCode} {message}", response.StatusCode, responseJson);
                 else
                 {
-                    code = (int) ErrorCode.HttpRequestNotSent;
+                    code = (int) ResultCode.HttpRequestNotSent;
                     message = $"HTTP Request failed. Status code: {response.StatusCode} with message: {responseJson}";
                     _logger.LogWarning("HTTP request sent but failed. {statusCode} {message}", response.StatusCode, responseJson);
                 }
@@ -89,7 +89,7 @@ namespace NotificationService.Core.Providers
             {
                 var errorMsg = $"An error ocurred trying to send HTTP request {e.Message}"; 
                 _logger.LogError("An error ocurred trying to send HTTP request {message}", e.Message);
-                return (success: false, code: (int) ErrorCode.HttpRequestNotSent, message: errorMsg).ToTuple();
+                return (success: false, code: (int) ResultCode.HttpRequestNotSent, message: errorMsg).ToTuple();
             }
         }
 

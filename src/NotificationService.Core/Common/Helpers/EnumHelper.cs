@@ -11,7 +11,7 @@ namespace NotificationService.Core.Common.Helpers
         {
             var filterByCode = code.HasValue ? true : false;
 
-            var codes = ( (ErrorCode[]) Enum.GetValues(typeof(ErrorCode)))
+            var codes = ( (ResultCode[]) Enum.GetValues(typeof(ResultCode)))
                     .Where(x => filterByCode ? (int) x == (int) code : true )
                     .Select(c => new  { Code = (int) c, Description = c.ToString() }).ToList();
             

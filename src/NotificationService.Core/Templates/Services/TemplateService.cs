@@ -67,7 +67,7 @@ namespace NotificationService.Core.Templates.Services
 
             var entity = await _repository.InsertOneAsync(template);
             var templateDTO = _mapper.Map<TemplateDto>(entity);
-            return new BaseResponse<TemplateDto>((int) ErrorCode.OK, templateDTO);
+            return new BaseResponse<TemplateDto>((int) ResultCode.OK, templateDTO);
         }
         public async Task DeleteTemplate(string templateId, string owner)
         {
@@ -96,7 +96,7 @@ namespace NotificationService.Core.Templates.Services
             var templatesDTO = _mapper.Map<IEnumerable<TemplateDto>>(templates);
             var paginationDTO = _mapper.Map<PaginationDto>(pagination);
 
-            return new BaseResponse<IEnumerable<TemplateDto>>( (int) ErrorCode.OK, templatesDTO, paginationDTO);
+            return new BaseResponse<IEnumerable<TemplateDto>>( (int) ResultCode.OK, templatesDTO, paginationDTO);
         }
 
         public async Task<BaseResponse<TemplateDto>> GetTemplateById(string templateId, string owner)
@@ -108,7 +108,7 @@ namespace NotificationService.Core.Templates.Services
             
             var templateDTO = _mapper.Map<TemplateDto>(template);
 
-            return new BaseResponse<TemplateDto>((int) ErrorCode.OK, templateDTO);
+            return new BaseResponse<TemplateDto>((int) ResultCode.OK, templateDTO);
         }
 
         public async Task<RuntimeTemplate> GetRuntimeTemplate(string name, string platformName, Language language, List<MetadataDto> providedMetadata, string owner, NotificationType notificationType)
