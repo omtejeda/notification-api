@@ -15,7 +15,7 @@ namespace NotificationService.Api.Controllers
         [HttpGet]
         public IActionResult GetInfo()
         {
-            var response = new FinalResponseDto<InfoDto>((int) ErrorCode.OK, new InfoDto());
+            var response = new BaseResponse<InfoDto>((int) ErrorCode.OK, new InfoDto());
             return Ok(response);
         }
     }

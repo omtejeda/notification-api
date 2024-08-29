@@ -48,7 +48,7 @@ namespace NotificationService.Core.Notifications.Services
                 sort.Split(delimiter).ToList() : new List<string> { sort };
         }
 
-        public async Task<FinalResponseDto<IEnumerable<NotificationDto>>> GetNotifications(Expression<Func<Notification, bool>> filter, string owner, int? page, int? pageSize, string sort)
+        public async Task<BaseResponse<IEnumerable<NotificationDto>>> GetNotifications(Expression<Func<Notification, bool>> filter, string owner, int? page, int? pageSize, string sort)
         {
             var filterByOwner = PredicateBuilder.New<Notification>().And(x => x.CreatedBy == owner).Expand();
             filter = filter.And(filterByOwner);
@@ -59,10 +59,10 @@ namespace NotificationService.Core.Notifications.Services
             var notificationsDTO = _mapper.Map<IEnumerable<NotificationDto>>(notifications);
             var paginationDTO = _mapper.Map<PaginationDto>(pagination);
 
-            return new FinalResponseDto<IEnumerable<NotificationDto>>( (int) ErrorCode.OK, notificationsDTO, paginationDTO);
+            return new BaseResponse<IEnumerable<NotificationDto>>( (int) ErrorCode.OK, notificationsDTO, paginationDTO);
         }
 
-        public async Task<FinalResponseDto<NotificationDetailDto>> GetNotificationById(string notificationId, string owner)
+        public async Task<BaseResponse<NotificationDetailDto>> GetNotificationById(string notificationId, string owner)
         {
             var notification = await _notificationRepository.FindOneAsync(x => x.NotificationId == notificationId);
             if (notification is null) return default!;
@@ -71,7 +71,7 @@ namespace NotificationService.Core.Notifications.Services
 
             var notificationDTO = _mapper.Map<NotificationDetailDto>(notification);
 
-            return new FinalResponseDto<NotificationDetailDto>((int) ErrorCode.OK, notificationDTO);
+            return new BaseResponse<NotificationDetailDto>((int) ErrorCode.OK, notificationDTO);
         }
 
         public async IAsyncEnumerable<AttachmentContentDto> GetAttachmentsAsBase64(IEnumerable<AttachmentDto> attachments)

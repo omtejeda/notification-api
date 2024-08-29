@@ -29,7 +29,7 @@ namespace NotificationService.Core.Senders
             _templateService = templateService;
         }
 
-        public async Task<FinalResponseDto<NotificationSentResponseDto>> SendMessageAsync(SendMessageRequestDto request, string owner)
+        public async Task<BaseResponse<NotificationSentResponseDto>> SendMessageAsync(SendMessageRequestDto request, string owner)
         {
             Guard.NotificationTypeIsValidForBasicMessage(request.NotificationType);
 
@@ -69,7 +69,7 @@ namespace NotificationService.Core.Senders
 
             await _notificationsService.RegisterNotification(notification);
             
-            return new FinalResponseDto<NotificationSentResponseDto>(code, message, new NotificationSentResponseDto { NotificationId = notification.NotificationId });
+            return new BaseResponse<NotificationSentResponseDto>(code, message, new NotificationSentResponseDto { NotificationId = notification.NotificationId });
         }
     }
 }

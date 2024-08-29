@@ -12,10 +12,10 @@ namespace NotificationService.Contracts.Interfaces.Services
 {
     public interface ITemplateService
     {
-        Task<FinalResponseDto<TemplateDto>> CreateTemplate(CreateTemplateRequestDto request, string owner);
+        Task<BaseResponse<TemplateDto>> CreateTemplate(CreateTemplateRequestDto request, string owner);
         Task DeleteTemplate(string templateId, string owner);
-        Task<FinalResponseDto<IEnumerable<TemplateDto>>> GetTemplates(Expression<Func<Template, bool>> filter, string owner, int? page, int? pageSize);
-        Task<FinalResponseDto<TemplateDto>> GetTemplateById(string templateId, string owner);
+        Task<BaseResponse<IEnumerable<TemplateDto>>> GetTemplates(Expression<Func<Template, bool>> filter, string owner, int? page, int? pageSize);
+        Task<BaseResponse<TemplateDto>> GetTemplateById(string templateId, string owner);
         Task<RuntimeTemplate> GetRuntimeTemplate(string name, string platformName, Language language, List<MetadataDto> providedMetadata, string owner, NotificationType notificationType);
         Task UpdateTemplateContent(string templateId, UpdateTemplateContentRequestDto request, string owner);
     }

@@ -26,7 +26,7 @@ namespace NotificationService.Core.Providers.Services
             _mapper = mapper;
         }
 
-        public async Task<FinalResponseDto<ProviderDto>> CreateProvider(CreateProviderRequestDto request, string owner)
+        public async Task<BaseResponse<ProviderDto>> CreateProvider(CreateProviderRequestDto request, string owner)
         {
             Enum.TryParse(request.Type, out ProviderType providerType);
 
@@ -64,10 +64,10 @@ namespace NotificationService.Core.Providers.Services
 
             var entity = await _providerRepository.InsertOneAsync(provider);
             var providerDTO = _mapper.Map<ProviderDto>(entity);
-            return new FinalResponseDto<ProviderDto>((int) ErrorCode.OK, providerDTO);
+            return new BaseResponse<ProviderDto>((int) ErrorCode.OK, providerDTO);
         }
 
-        public async Task<FinalResponseDto<IEnumerable<ProviderDto>>> GetProviders(Expression<Func<Provider, bool>> filter, string owner, int? page, int? pageSize)
+        public async Task<BaseResponse<IEnumerable<ProviderDto>>> GetProviders(Expression<Func<Provider, bool>> filter, string owner, int? page, int? pageSize)
         {
             var filterByOwner = PredicateBuilder.New<Provider>().And(x => (x.CreatedBy == owner || x.IsPublic == true)).Expand();
             filter = filter.And(filterByOwner);
@@ -76,10 +76,10 @@ namespace NotificationService.Core.Providers.Services
             var providersDTO = _mapper.Map<IEnumerable<ProviderDto>>(providers);
             var paginationDTO = _mapper.Map<PaginationDto>(pagination);
 
-            return new FinalResponseDto<IEnumerable<ProviderDto>>( (int) ErrorCode.OK, providersDTO, paginationDTO);
+            return new BaseResponse<IEnumerable<ProviderDto>>( (int) ErrorCode.OK, providersDTO, paginationDTO);
         }
 
-        public async Task<FinalResponseDto<ProviderDto>> GetProviderById(string providerId, string owner)
+        public async Task<BaseResponse<ProviderDto>> GetProviderById(string providerId, string owner)
         {
             var provider = await _providerRepository.FindOneAsync(x => x.ProviderId == providerId);
 
@@ -89,7 +89,7 @@ namespace NotificationService.Core.Providers.Services
 
             var providerDTO = _mapper.Map<ProviderDto>(provider);
 
-            return new FinalResponseDto<ProviderDto>((int) ErrorCode.OK, providerDTO);
+            return new BaseResponse<ProviderDto>((int) ErrorCode.OK, providerDTO);
         }
 
         public async Task DeleteProvider(string providerId, string owner)

@@ -26,7 +26,7 @@ namespace NotificationService.Core.Catalogs.Services
             _catalogRepository = catalogRepository;
         }
 
-        public async Task<FinalResponseDto<CatalogDto>> CreateCatalog(string name, string description, bool isActive, ICollection<ElementDto> elements, string owner)
+        public async Task<BaseResponse<CatalogDto>> CreateCatalog(string name, string description, bool isActive, ICollection<ElementDto> elements, string owner)
         {
             var existingCatalog = await _catalogRepository.FindOneAsync(x => x.Name.ToLower() == name.ToLower() && x.CreatedBy == owner);
 
@@ -45,7 +45,7 @@ namespace NotificationService.Core.Catalogs.Services
 
             var entity = await _catalogRepository.InsertOneAsync(catalog);
             var catalogDTO = _mapper.Map<CatalogDto>(entity);
-            return new FinalResponseDto<CatalogDto>((int) ErrorCode.OK, catalogDTO);
+            return new BaseResponse<CatalogDto>((int) ErrorCode.OK, catalogDTO);
         }
 
         public async Task DeleteCatalog(string catalogId, string owner)
@@ -58,7 +58,7 @@ namespace NotificationService.Core.Catalogs.Services
             await _catalogRepository.DeleteOneAsync(x => x.CatalogId == catalogId);
         }
 
-        public async Task<FinalResponseDto<IEnumerable<CatalogDto>>> GetCatalogs(Expression<Func<Catalog, bool>> filter, string owner, int? page, int? pageSize)
+        public async Task<BaseResponse<IEnumerable<CatalogDto>>> GetCatalogs(Expression<Func<Catalog, bool>> filter, string owner, int? page, int? pageSize)
         {
             var filterByOwner = PredicateBuilder.New<Catalog>().And(x => x.CreatedBy == owner).Expand();
             filter = filter.And(filterByOwner);
@@ -67,10 +67,10 @@ namespace NotificationService.Core.Catalogs.Services
             var catalogsDTO = _mapper.Map<IEnumerable<CatalogDto>>(catalogs);
             var paginationDTO = _mapper.Map<PaginationDto>(pagination);
 
-            return new FinalResponseDto<IEnumerable<CatalogDto>>( (int) ErrorCode.OK, catalogsDTO, paginationDTO);
+            return new BaseResponse<IEnumerable<CatalogDto>>( (int) ErrorCode.OK, catalogsDTO, paginationDTO);
         }
 
-        public async Task<FinalResponseDto<CatalogDto>> GetCatalogById(string catalogId, string owner)
+        public async Task<BaseResponse<CatalogDto>> GetCatalogById(string catalogId, string owner)
         {
             var catalog = await _catalogRepository.FindOneAsync(x => x.CatalogId == catalogId);
             if (catalog is null) return default!;
@@ -78,7 +78,7 @@ namespace NotificationService.Core.Catalogs.Services
             Guard.CatalogIsCreatedByRequester(catalog.CreatedBy, owner);
             var catalogDTO = _mapper.Map<CatalogDto>(catalog);
 
-            return new FinalResponseDto<CatalogDto>((int) ErrorCode.OK, catalogDTO);
+            return new BaseResponse<CatalogDto>((int) ErrorCode.OK, catalogDTO);
         }
     }
 }

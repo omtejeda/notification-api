@@ -43,7 +43,7 @@ namespace NotificationService.Api.Middlewares
             context.Response.StatusCode = statusCode;
             context.Response.ContentType = "application/json";
 
-            var finalResponse = new FinalResponseDto<object>(code, message);
+            var finalResponse = new BaseResponse<object>(code, message);
 
             var result = JsonSerializer.Serialize(finalResponse, 
                 new JsonSerializerOptions

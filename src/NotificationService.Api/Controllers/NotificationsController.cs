@@ -96,7 +96,7 @@ namespace NotificationService.Api.Controllers
             Guard.NotificationWasCreatedByRequester(notification.CreatedBy, Owner);
             Guard.NotificationRequestExists(notification?.Request);
             
-            FinalResponseDto<NotificationSentResponseDto> response = null;
+            BaseResponse<NotificationSentResponseDto> response = null;
             if (notification.Type == NotificationType.Email)
             {
                 var request = notification.Request as SendEmailRequestDto;

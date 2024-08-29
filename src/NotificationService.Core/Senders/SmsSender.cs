@@ -29,7 +29,7 @@ namespace NotificationService.Core.Senders
             _templateService = templateService;
         }
 
-        public async Task<FinalResponseDto<NotificationSentResponseDto>> SendSmsAsync(SendSmsRequestDto request, string owner)
+        public async Task<BaseResponse<NotificationSentResponseDto>> SendSmsAsync(SendSmsRequestDto request, string owner)
         {
             var runtimeTemplate = await _templateService.GetRuntimeTemplate(
                 name: request.Template.Name,
@@ -67,7 +67,7 @@ namespace NotificationService.Core.Senders
 
             await _notificationsService.RegisterNotification(notification);
             
-            return new FinalResponseDto<NotificationSentResponseDto>(code, message, new NotificationSentResponseDto { NotificationId = notification.NotificationId });
+            return new BaseResponse<NotificationSentResponseDto>(code, message, new NotificationSentResponseDto { NotificationId = notification.NotificationId });
         }
     }
 }

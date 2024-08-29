@@ -7,6 +7,6 @@ namespace NotificationService.Core.Interfaces
 {
     public interface IMessageSender
     {
-        Task<FinalResponseDto<NotificationSentResponseDto>> SendMessageAsync(SendMessageRequestDto request, string owner);
+        Task<BaseResponse<NotificationSentResponseDto>> SendMessageAsync(SendMessageRequestDto request, string owner);
     }
 }
