@@ -27,7 +27,7 @@ namespace NotificationService.Common.Entities
         public int? TriesCount { get; private set; } = 0;
         private bool _savesAttachments;
 
-        public bool AppliesSavesAttachments => _savesAttachments && HasAttachments;
+        public bool MustSaveAttachments => _savesAttachments && HasAttachments;
 
         public void AddNotificationResult(NotificationResult notificationResult)
         {

@@ -76,7 +76,7 @@ namespace NotificationService.Core.Senders
 
             await _notificationsService.RegisterNotification(notification);
 
-            if (notification.AppliesSavesAttachments)
+            if (notification.MustSaveAttachments)
             {
                 await _notificationsService.SaveAttachments(attachmentsCollection);
             }
