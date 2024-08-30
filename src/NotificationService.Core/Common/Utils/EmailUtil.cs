@@ -13,7 +13,7 @@ using NotificationService.Common.Resources;
 
 namespace NotificationService.Core.Common.Utils
 {
-    internal static class EmailUtil
+    public static class EmailUtil
     {
         public static string ReplaceParameters(string text, IEnumerable<MetadataDto> metadata)
         {

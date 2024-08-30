@@ -14,7 +14,7 @@ using AutoMapper;
 using NotificationService.Common.Dtos;
 using NotificationService.Common.Resources;
 
-namespace NotificationService.Core.Providers
+namespace NotificationService.Infrastructure.Providers
 {
     public class HttpClientProvider : IHttpClientProvider
     {
@@ -93,7 +93,7 @@ namespace NotificationService.Core.Providers
             }
         }
 
-        private HttpRequestMessage NewHttpRequest(string verb, string uri, string jsonBody)
+        private static HttpRequestMessage NewHttpRequest(string verb, string uri, string jsonBody)
         {
             var stringContent = new StringContent(jsonBody, Encoding.UTF8, "application/json");
 
@@ -128,16 +128,16 @@ namespace NotificationService.Core.Providers
             return value;
         }
 
-        private void SetQueryString(Dictionary<string, string> queryString, string name, string value)
+        private static void SetQueryString(Dictionary<string, string> queryString, string name, string value)
             => queryString.Add(name, value);
         
         private void SetHeader(string name, string value)
             => _httpClient.DefaultRequestHeaders.Add(name, value);
         
-        private void SetRoute(string uri, string name, string value)
+        private static void SetRoute(string uri, string name, string value)
             => uri = uri.Replace($"{{{name}}}", value);
         
-        private void SetMetadataToJsonBodyDefinition(ICollection<MetadataDto> metadata, string name, string value)
+        private static void SetMetadataToJsonBodyDefinition(ICollection<MetadataDto> metadata, string name, string value)
             => metadata.Add(new MetadataDto { Key = name, Value = value });
 
         private string GetJson(JsonBody jsonBody, ICollection<MetadataDto> requestMetadata)
@@ -145,8 +145,8 @@ namespace NotificationService.Core.Providers
             if (jsonBody is null)
                 return string.Empty;
             
-            var body = _mapper.Map<Libraries.JSONParser.JsonBody>(jsonBody);
-            var metadata = _mapper.Map<List<Libraries.JSONParser.Metadata>>(requestMetadata);
+            var body = _mapper.Map<Core.Providers.Libraries.JSONParser.JsonBody>(jsonBody);
+            var metadata = _mapper.Map<List<Core.Providers.Libraries.JSONParser.Metadata>>(requestMetadata);
             body.Metadata = metadata;
 
             var json = body

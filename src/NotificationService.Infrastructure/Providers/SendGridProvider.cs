@@ -10,8 +10,9 @@ using NotificationService.Core.Providers.Interfaces;
 using System.Collections.Generic;
 using NotificationService.Core.Common;
 using NotificationService.Common.Models;
+using MongoDB.Driver.Core.Misc;
 
-namespace NotificationService.Core.Providers
+namespace NotificationService.Infrastructure.Providers
 {
     public class SendGridProvider : IEmailProvider
     {

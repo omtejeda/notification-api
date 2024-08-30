@@ -2,6 +2,8 @@ using System;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using NotificationService.Contracts.Interfaces.Repositories;
+using NotificationService.Core.Providers.Interfaces;
+using NotificationService.Infrastructure.Providers;
 using NotificationService.Infrastructure.Repositories;
 using NotificationService.Infrastructure.Repositories.Helpers;
 
@@ -17,6 +19,10 @@ namespace NotificationService.Infrastructure.IoC
                     .InitializeMappings()
             );
             services.AddScoped(typeof(IRepository<>), typeof(MongoRepository<>));
+
+            services.AddTransient<IEmailProvider, SendGridProvider>();
+            services.AddTransient<IEmailProvider, SmtpProvider>();
+            services.AddTransient<IHttpClientProvider, HttpClientProvider>();
             return services;
         }
     }

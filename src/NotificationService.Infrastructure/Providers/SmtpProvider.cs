@@ -11,7 +11,7 @@ using NotificationService.Core.Providers.Interfaces;
 using System.Threading;
 using NotificationService.Common.Models;
 
-namespace NotificationService.Core.Providers
+namespace NotificationService.Infrastructure.Providers
 {
     public class SmtpProvider : IEmailProvider
     {
@@ -78,11 +78,12 @@ namespace NotificationService.Core.Providers
             try
             {
                 await smtpClient.ConnectAsync(host, port, options, cancellationTokenSource.Token);
-                Console.WriteLine("Conectado a server SMTP");
+                Console.WriteLine("Connected to SMTP server");
             }
             catch (OperationCanceledException)
             {
-                throw new OperationCanceledException($"No se logró conectar al servidor SMTP dentro del tiempo establecido: {_timeout.Seconds} segundos");
+                
+                throw new OperationCanceledException($"Could not connect to SMTP server within the estabilished time {_timeout.Seconds} seconds");
             }
         }
 

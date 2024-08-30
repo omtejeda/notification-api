@@ -14,10 +14,10 @@ namespace NotificationService.Core.Providers.IoC
         {
             services.AddTransient<IProviderService, ProviderService>();
             services.AddTransient<IEmailProviderFactory, EmailProviderFactory>();
-            services.AddTransient<IEmailProvider, SendGridProvider>();
-            services.AddTransient<IEmailProvider, SmtpProvider>();
+
+            // Concrete providers services must be registered before this one
             services.Decorate<IEmailProvider, EmailProviderRetryDecorator>();
-            services.AddTransient<IHttpClientProvider, HttpClientProvider>();
+            
             return services;
         }
     }
