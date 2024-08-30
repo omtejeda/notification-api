@@ -47,7 +47,7 @@ namespace NotificationService.Api.Controllers
         public IActionResult GetProviderTypes()
         {
             var providerTypes = Core.Common.Helpers.EnumHelper.GetProviderTypes();
-            var response = new BaseResponse<object>((int) ResultCode.OK, providerTypes);
+            var response = BaseResponse<object>.Success(providerTypes);
             return Ok(response);
         }
 

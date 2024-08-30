@@ -45,7 +45,7 @@ namespace NotificationService.Core.Catalogs.Services
 
             var entity = await _catalogRepository.InsertOneAsync(catalog);
             var catalogDTO = _mapper.Map<CatalogDto>(entity);
-            return new BaseResponse<CatalogDto>((int) ResultCode.OK, catalogDTO);
+            return BaseResponse<CatalogDto>.Success(catalogDTO);
         }
 
         public async Task DeleteCatalog(string catalogId, string owner)
@@ -67,7 +67,7 @@ namespace NotificationService.Core.Catalogs.Services
             var catalogsDTO = _mapper.Map<IEnumerable<CatalogDto>>(catalogs);
             var paginationDTO = _mapper.Map<PaginationDto>(pagination);
 
-            return new BaseResponse<IEnumerable<CatalogDto>>( (int) ResultCode.OK, catalogsDTO, paginationDTO);
+            return BaseResponse<IEnumerable<CatalogDto>>.Success(catalogsDTO, paginationDTO);
         }
 
         public async Task<BaseResponse<CatalogDto>> GetCatalogById(string catalogId, string owner)
@@ -78,7 +78,7 @@ namespace NotificationService.Core.Catalogs.Services
             Guard.CatalogIsCreatedByRequester(catalog.CreatedBy, owner);
             var catalogDTO = _mapper.Map<CatalogDto>(catalog);
 
-            return new BaseResponse<CatalogDto>((int) ResultCode.OK, catalogDTO);
+            return BaseResponse<CatalogDto>.Success(catalogDTO);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace NotificationService.Core.Platforms.Services
 
             var entity = await _repository.InsertOneAsync(platform);
             var platformDTO = _mapper.Map<PlatformDto>(entity);
-            return new BaseResponse<PlatformDto>((int) ResultCode.OK, platformDTO);
+            return BaseResponse<PlatformDto>.Success(platformDTO);
         }
 
         public async Task DeletePlatform(string platformId, string owner)
@@ -69,7 +69,7 @@ namespace NotificationService.Core.Platforms.Services
             var platformsDTO = _mapper.Map<IEnumerable<PlatformDto>>(platforms);
             var paginationDTO = _mapper.Map<PaginationDto>(pagination);
 
-            return new BaseResponse<IEnumerable<PlatformDto>>( (int) ResultCode.OK, platformsDTO, paginationDTO);
+            return BaseResponse<IEnumerable<PlatformDto>>.Success(platformsDTO, paginationDTO);
         }
 
         public async Task<BaseResponse<PlatformDto>> GetPlatformById(string platformId, string owner)
@@ -81,7 +81,7 @@ namespace NotificationService.Core.Platforms.Services
 
             var platformDTO = _mapper.Map<PlatformDto>(platform);
 
-            return new BaseResponse<PlatformDto>((int) ResultCode.OK, platformDTO);
+            return BaseResponse<PlatformDto>.Success(platformDTO);
         }
     }
 }
