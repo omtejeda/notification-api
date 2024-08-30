@@ -77,11 +77,15 @@ namespace NotificationService.Core.Senders
             await _notificationsService.RegisterNotification(notification);
 
             if (notification.MustSaveAttachments)
-            {
                 await _notificationsService.SaveAttachments(attachmentsCollection);
-            }
             
-            return new BaseResponse<NotificationSentResponseDto>(notificationResult.Code, notificationResult.Message, new NotificationSentResponseDto { NotificationId = notification.NotificationId });
+            return new BaseResponse<NotificationSentResponseDto>(
+                code: notificationResult.Code,
+                message: notificationResult.Message,
+                data: new NotificationSentResponseDto
+                {
+                    NotificationId = notification.NotificationId
+                });
         }
     }
 }
