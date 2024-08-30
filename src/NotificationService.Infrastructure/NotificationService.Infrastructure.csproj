@@ -9,6 +9,7 @@
     <PackageReference Include="MongoDB.Driver" Version="2.18.0" />
     <PackageReference Include="MongoDB.Driver.GridFS" Version="2.18.0" />
     <PackageReference Include="LinqKit" Version="1.2.3" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
   </ItemGroup>
 
   <PropertyGroup>
