@@ -23,7 +23,7 @@ namespace NotificationService.Core.Providers.Factories
 
         public async Task<IEmailProvider> CreateProviderAsync(string providerName, string createdBy)
         {
-            Guard.ProviderNameOrCreatedByHasValue(providerName, createdBy);
+            Guard.ProviderNameAndCreatedByHasValue(providerName, createdBy);
             var provider = await FindProviderAsync(providerName, createdBy);
             var emailProvider = _emailProviders.FirstOrDefault(x => x.ProviderType == provider.Type);
 

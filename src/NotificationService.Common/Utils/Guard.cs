@@ -159,7 +159,7 @@ namespace NotificationService.Common.Utils
             }
         }
 
-        public static void ProviderNameOrCreatedByHasValue(string providerName, string createdBy)
+        public static void ProviderNameAndCreatedByHasValue(string providerName, string createdBy)
         {
             if (string.IsNullOrWhiteSpace(providerName))
             {
