@@ -57,9 +57,9 @@ namespace NotificationService.Core.Notifications.Services
 
             var (notifications, pagination) = await _notificationRepository.FindAsync(filter, page, pageSize, sortBy);
             var notificationsDTO = _mapper.Map<IEnumerable<NotificationDto>>(notifications);
-            var paginationDTO = _mapper.Map<PaginationDto>(pagination);
+            var paginationDto = _mapper.Map<PaginationDto>(pagination);
 
-            return BaseResponse<IEnumerable<NotificationDto>>.Success(notificationsDTO, paginationDTO);
+            return BaseResponse<IEnumerable<NotificationDto>>.Success(notificationsDTO, paginationDto);
         }
 
         public async Task<BaseResponse<NotificationDetailDto>> GetNotificationById(string notificationId, string owner)
@@ -68,10 +68,9 @@ namespace NotificationService.Core.Notifications.Services
             if (notification is null) return default!;
 
             Guard.NotificationWasCreatedByRequester(notification.CreatedBy, owner);
+            var notificationDto = _mapper.Map<NotificationDetailDto>(notification);
 
-            var notificationDTO = _mapper.Map<NotificationDetailDto>(notification);
-
-            return BaseResponse<NotificationDetailDto>.Success(notificationDTO);
+            return BaseResponse<NotificationDetailDto>.Success(notificationDto);
         }
 
         public async IAsyncEnumerable<AttachmentContentDto> GetAttachmentsAsBase64(IEnumerable<AttachmentDto> attachments)

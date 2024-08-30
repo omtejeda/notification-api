@@ -66,8 +66,9 @@ namespace NotificationService.Core.Templates.Services
             };
 
             var entity = await _repository.InsertOneAsync(template);
-            var templateDTO = _mapper.Map<TemplateDto>(entity);
-            return BaseResponse<TemplateDto>.Success(templateDTO);
+            var templateDto = _mapper.Map<TemplateDto>(entity);
+            
+            return BaseResponse<TemplateDto>.Success(templateDto);
         }
         public async Task DeleteTemplate(string templateId, string owner)
         {
@@ -93,10 +94,10 @@ namespace NotificationService.Core.Templates.Services
             filter = filter.And(filterByOwner);
             
             var (templates, pagination) = await _repository.FindAsync(filter, page, pageSize);
-            var templatesDTO = _mapper.Map<IEnumerable<TemplateDto>>(templates);
-            var paginationDTO = _mapper.Map<PaginationDto>(pagination);
+            var templatesDto = _mapper.Map<IEnumerable<TemplateDto>>(templates);
+            var paginationDto = _mapper.Map<PaginationDto>(pagination);
 
-            return BaseResponse<IEnumerable<TemplateDto>>.Success(templatesDTO, paginationDTO);
+            return BaseResponse<IEnumerable<TemplateDto>>.Success(templatesDto, paginationDto);
         }
 
         public async Task<BaseResponse<TemplateDto>> GetTemplateById(string templateId, string owner)
@@ -105,10 +106,9 @@ namespace NotificationService.Core.Templates.Services
             if (template is null) return default!;
             
             Guard.TemplateBelongsToRequester(template.CreatedBy, owner);
-            
-            var templateDTO = _mapper.Map<TemplateDto>(template);
+            var templateDto = _mapper.Map<TemplateDto>(template);
 
-            return BaseResponse<TemplateDto>.Success(templateDTO);
+            return BaseResponse<TemplateDto>.Success(templateDto);
         }
 
         public async Task<RuntimeTemplate> GetRuntimeTemplate(string name, string platformName, Language language, List<MetadataDto> providedMetadata, string owner, NotificationType notificationType)

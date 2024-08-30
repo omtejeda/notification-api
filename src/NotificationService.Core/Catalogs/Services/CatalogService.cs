@@ -44,8 +44,9 @@ namespace NotificationService.Core.Catalogs.Services
             };
 
             var entity = await _catalogRepository.InsertOneAsync(catalog);
-            var catalogDTO = _mapper.Map<CatalogDto>(entity);
-            return BaseResponse<CatalogDto>.Success(catalogDTO);
+            var catalogDto = _mapper.Map<CatalogDto>(entity);
+            
+            return BaseResponse<CatalogDto>.Success(catalogDto);
         }
 
         public async Task DeleteCatalog(string catalogId, string owner)
@@ -64,10 +65,10 @@ namespace NotificationService.Core.Catalogs.Services
             filter = filter.And(filterByOwner);
 
             var (catalogs, pagination) = await _catalogRepository.FindAsync(filter, page, pageSize);
-            var catalogsDTO = _mapper.Map<IEnumerable<CatalogDto>>(catalogs);
-            var paginationDTO = _mapper.Map<PaginationDto>(pagination);
+            var catalogsDto = _mapper.Map<IEnumerable<CatalogDto>>(catalogs);
+            var paginationDto = _mapper.Map<PaginationDto>(pagination);
 
-            return BaseResponse<IEnumerable<CatalogDto>>.Success(catalogsDTO, paginationDTO);
+            return BaseResponse<IEnumerable<CatalogDto>>.Success(catalogsDto, paginationDto);
         }
 
         public async Task<BaseResponse<CatalogDto>> GetCatalogById(string catalogId, string owner)
@@ -76,9 +77,9 @@ namespace NotificationService.Core.Catalogs.Services
             if (catalog is null) return default!;
 
             Guard.CatalogIsCreatedByRequester(catalog.CreatedBy, owner);
-            var catalogDTO = _mapper.Map<CatalogDto>(catalog);
+            var catalogDto = _mapper.Map<CatalogDto>(catalog);
 
-            return BaseResponse<CatalogDto>.Success(catalogDTO);
+            return BaseResponse<CatalogDto>.Success(catalogDto);
         }
     }
 }

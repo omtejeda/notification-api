@@ -46,8 +46,9 @@ namespace NotificationService.Core.Platforms.Services
             };
 
             var entity = await _repository.InsertOneAsync(platform);
-            var platformDTO = _mapper.Map<PlatformDto>(entity);
-            return BaseResponse<PlatformDto>.Success(platformDTO);
+            var platformDto = _mapper.Map<PlatformDto>(entity);
+
+            return BaseResponse<PlatformDto>.Success(platformDto);
         }
 
         public async Task DeletePlatform(string platformId, string owner)
@@ -66,10 +67,10 @@ namespace NotificationService.Core.Platforms.Services
             filter = filter.And(filterByOwner);
 
             var (platforms, pagination) = await _repository.FindAsync(filter, page, pageSize);
-            var platformsDTO = _mapper.Map<IEnumerable<PlatformDto>>(platforms);
-            var paginationDTO = _mapper.Map<PaginationDto>(pagination);
+            var platformsDto = _mapper.Map<IEnumerable<PlatformDto>>(platforms);
+            var paginationDto = _mapper.Map<PaginationDto>(pagination);
 
-            return BaseResponse<IEnumerable<PlatformDto>>.Success(platformsDTO, paginationDTO);
+            return BaseResponse<IEnumerable<PlatformDto>>.Success(platformsDto, paginationDto);
         }
 
         public async Task<BaseResponse<PlatformDto>> GetPlatformById(string platformId, string owner)
@@ -78,10 +79,9 @@ namespace NotificationService.Core.Platforms.Services
             if (platform is null) return default!;
 
             Guard.PlatformIsCreatedByRequester(platform.CreatedBy, owner);
+            var platformDto = _mapper.Map<PlatformDto>(platform);
 
-            var platformDTO = _mapper.Map<PlatformDto>(platform);
-
-            return BaseResponse<PlatformDto>.Success(platformDTO);
+            return BaseResponse<PlatformDto>.Success(platformDto);
         }
     }
 }

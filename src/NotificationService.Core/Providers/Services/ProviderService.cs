@@ -63,8 +63,9 @@ namespace NotificationService.Core.Providers.Services
             provider.Type = providerType;
 
             var entity = await _providerRepository.InsertOneAsync(provider);
-            var providerDTO = _mapper.Map<ProviderDto>(entity);
-            return BaseResponse<ProviderDto>.Success(providerDTO);
+            var providerDto = _mapper.Map<ProviderDto>(entity);
+            
+            return BaseResponse<ProviderDto>.Success(providerDto);
         }
 
         public async Task<BaseResponse<IEnumerable<ProviderDto>>> GetProviders(Expression<Func<Provider, bool>> filter, string owner, int? page, int? pageSize)
@@ -73,10 +74,10 @@ namespace NotificationService.Core.Providers.Services
             filter = filter.And(filterByOwner);
 
             var (providers, pagination) = await _providerRepository.FindAsync(filter, page, pageSize);
-            var providersDTO = _mapper.Map<IEnumerable<ProviderDto>>(providers);
-            var paginationDTO = _mapper.Map<PaginationDto>(pagination);
+            var providersDto = _mapper.Map<IEnumerable<ProviderDto>>(providers);
+            var paginationDto = _mapper.Map<PaginationDto>(pagination);
 
-            return BaseResponse<IEnumerable<ProviderDto>>.Success(providersDTO, paginationDTO);
+            return BaseResponse<IEnumerable<ProviderDto>>.Success(providersDto, paginationDto);
         }
 
         public async Task<BaseResponse<ProviderDto>> GetProviderById(string providerId, string owner)
@@ -86,10 +87,9 @@ namespace NotificationService.Core.Providers.Services
             if (provider is null) return default!;
 
             Guard.ProviderIsCreatedByRequesterOrPublic(provider, owner);
+            var providerDto = _mapper.Map<ProviderDto>(provider);
 
-            var providerDTO = _mapper.Map<ProviderDto>(provider);
-
-            return BaseResponse<ProviderDto>.Success(providerDTO);
+            return BaseResponse<ProviderDto>.Success(providerDto);
         }
 
         public async Task DeleteProvider(string providerId, string owner)
