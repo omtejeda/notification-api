@@ -10,7 +10,7 @@ public static class SecretMasker
     /// </summary>
     /// <param name="secret">The secret string to be masked.</param>
     /// <returns>The masked string.</returns>
-    internal static string Mask(string secret)
+    public static string Mask(string secret)
     {
         int visibleCharacters = Math.Min(secret.Length / 2, MaxVisibleCharacter);
         int totalVisibleCharacters = visibleCharacters * 2;
