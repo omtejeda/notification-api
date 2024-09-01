@@ -1,11 +1,11 @@
 using NotificationService.Common.Interfaces;
+using NotificationService.Common.Utils;
 
 namespace NotificationService.Common.Services;
 
 public class EnvironmentService : IEnvironmentService
 {
     private const string EnvironmentKey = "ASPNETCORE_ENVIRONMENT";
-    private const string ProductionEnvironment = "PRODUCTION";
     private const string GmtTimezoneKey = "GMT_TIMEZONE";
     private const string LimitPageSizeKey = "LIMIT_PAGE_SIZE";
 
@@ -13,7 +13,10 @@ public class EnvironmentService : IEnvironmentService
         => Environment.GetEnvironmentVariable(EnvironmentKey)?.ToString();
     
     public bool IsProduction
-        => string.Equals(CurrentEnvironment, ProductionEnvironment, StringComparison.OrdinalIgnoreCase);
+        => string.Equals(
+            CurrentEnvironment,
+            EnvironmentConstants.ProductionEnvironmentName,
+            StringComparison.OrdinalIgnoreCase);
     
     public int? GmtOffset
         => GetIntEnvironmentVariable(GmtTimezoneKey);
