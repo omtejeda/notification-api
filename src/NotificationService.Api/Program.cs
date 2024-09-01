@@ -5,10 +5,14 @@ using NotificationService.Api.Middlewares;
 using NotificationService.Api.IoC;
 using NotificationService.Core.IoC;
 using NotificationService.Infrastructure.IoC;
+using NotificationService.Common.Interfaces;
+using NotificationService.Common.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<IDateTimeService, DateTimeService>();
+builder.Services.AddSingleton<IEnvironmentService, EnvironmentService>();
 
 builder.Services.AddInfrastructure();
 builder.Services.AddCore();
