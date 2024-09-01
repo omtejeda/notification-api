@@ -1,6 +1,6 @@
+using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using NotificationService.Common.Utils;
 
 namespace NotificationService.Api.Extensions
 {
@@ -15,7 +15,7 @@ namespace NotificationService.Api.Extensions
                     Title = "Notification API",
                     Version = "v1",
                     Contact = new OpenApiContact { Name = "Software Engineer | Omarky Tejeda", Email = "omarkytejeda@gmail.com" },
-                    Description = $"Environment: {SystemUtil.GetEnvironment()}"
+                    Description = $"Environment: {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}"
                 });
 
                 c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme()
