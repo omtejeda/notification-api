@@ -1,7 +1,4 @@
-using System;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
@@ -9,9 +6,8 @@ using NotificationService.Common.Entities;
 using NotificationService.Common.Models;
 using NotificationService.Infrastructure.Repositories.Helpers;
 using LinqKit;
-using NotificationService.Common.Utils;
 using NotificationService.Contracts.Interfaces.Repositories;
-using System.Linq;
+using NotificationService.Common.Interfaces;
 
 namespace NotificationService.Infrastructure.Repositories
 {
@@ -21,7 +17,9 @@ namespace NotificationService.Infrastructure.Repositories
         private readonly IGridFSBucket _bucket;
         private readonly Expression<Func<TEntity, bool>> _nonDeletedRecords;
 
-        public MongoRepository(IMongoDatabase database)
+        private readonly IDateTimeService _dateTimeService;
+
+        public MongoRepository(IMongoDatabase database, IDateTimeService dateTimeService)
         {
             var collectionName = string.Concat(typeof(TEntity).Name, 's');
 
@@ -29,6 +27,8 @@ namespace NotificationService.Infrastructure.Repositories
             _bucket = new GridFSBucket(database, new GridFSBucketOptions { BucketName = collectionName });
 
             _nonDeletedRecords = PredicateBuilder.New<TEntity>().And(x => x.Deleted != true).Expand();
+
+            _dateTimeService = dateTimeService;
         }
 
         public async Task<(IEnumerable<TEntity>, Pagination)> FindAsync(Expression<Func<TEntity, bool>> filter, int? page = null, int? pageSize = null, IReadOnlyList<string> sortsBy = null) 
@@ -87,7 +87,7 @@ namespace NotificationService.Infrastructure.Repositories
 
         public async Task DeleteOneAsync(Expression<Func<TEntity, bool>> filter, bool hardDelete = false)
         {
-            var now = SystemUtil.GetSystemDate();
+            var now = _dateTimeService.UtcToLocalTime;
             if (hardDelete)
             {
                 await _collection.FindOneAndDeleteAsync(filter);
@@ -104,7 +104,7 @@ namespace NotificationService.Infrastructure.Repositories
 
         public async Task DeleteManyAsync(Expression<Func<TEntity, bool>> filter, bool hardDelete = false)
         {
-            var now = SystemUtil.GetSystemDate();
+            var now = _dateTimeService.UtcToLocalTime;
             if (hardDelete)
             {
                 await _collection.DeleteManyAsync(filter);
@@ -121,7 +121,7 @@ namespace NotificationService.Infrastructure.Repositories
 
         private void AddTimestamp(TEntity entity, bool isUpdate = false)
         {
-            var now = SystemUtil.GetSystemDate();
+            var now = _dateTimeService.UtcToLocalTime;
 
             if (isUpdate) entity.ModifiedOn = now;
             else entity.CreatedOn ??= now;
@@ -157,7 +157,7 @@ namespace NotificationService.Infrastructure.Repositories
             if (id is null || entity is null || entity.Id != id || entity.CreatedOn is null)
                 return false;
 
-            entity.ModifiedOn = SystemUtil.GetSystemDate();
+            entity.ModifiedOn = _dateTimeService.UtcToLocalTime;
 
             var result = await _collection.ReplaceOneAsync(x => x.Id == id, entity);
             return result.IsAcknowledged && result.ModifiedCount == 1;
