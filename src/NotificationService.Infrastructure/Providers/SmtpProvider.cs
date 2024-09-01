@@ -10,6 +10,7 @@ using NotificationService.Common.Entities;
 using NotificationService.Core.Providers.Interfaces;
 using System.Threading;
 using NotificationService.Common.Models;
+using NotificationService.Common.Interfaces;
 
 namespace NotificationService.Infrastructure.Providers
 {
@@ -19,6 +20,13 @@ namespace NotificationService.Infrastructure.Providers
         private Provider _provider;
         private readonly TimeSpan _timeout = TimeSpan.FromSeconds(10);
 
+        private readonly IEnvironmentService _environmentService;
+
+        public SmtpProvider(IEnvironmentService environmentService)
+        {
+            _environmentService = environmentService;
+        }
+
         public void SetProvider(Provider provider)
         {
             _provider = provider;
@@ -26,7 +34,13 @@ namespace NotificationService.Infrastructure.Providers
         
         public async Task<NotificationResult> SendAsync(EmailMessage emailMessage)
         {
-            EmailUtil.ThrowIfEmailNotAllowed(provider: _provider, to: emailMessage.To, cc: emailMessage.Cc, bcc: emailMessage.Bcc);
+            EmailUtil.ThrowIfEmailNotAllowed(
+                environment: _environmentService.CurrentEnvironment,
+                provider: _provider,
+                to: emailMessage.To,
+                cc: emailMessage.Cc,
+                bcc: emailMessage.Bcc);
+            
             ThrowIfSettingsNotValid();
             
             try

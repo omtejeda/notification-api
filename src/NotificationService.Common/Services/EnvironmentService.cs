@@ -15,7 +15,7 @@ public class EnvironmentService : IEnvironmentService
     public bool IsProduction
         => string.Equals(
             CurrentEnvironment,
-            EnvironmentConstants.ProductionEnvironmentName,
+            EnvironmentConstants.ProductionName,
             StringComparison.OrdinalIgnoreCase);
     
     public int? GmtOffset

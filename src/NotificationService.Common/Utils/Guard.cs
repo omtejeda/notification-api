@@ -3,7 +3,6 @@ using NotificationService.Common.Entities;
 using NotificationService.Common.Enums;
 using NotificationService.Common.Exceptions;
 using NotificationService.Common.Resources;
-using static NotificationService.Common.Utils.SystemUtil;
 
 namespace NotificationService.Common.Utils
 {
@@ -119,9 +118,15 @@ namespace NotificationService.Common.Utils
             }
         }
 
-        public static void CanSendToDestination(Provider provider, string toDestination)
+        public static void CanSendToDestination(Provider provider, string toDestination, string? environment)
         {
-            if (IsProduction()) return;
+            if (string.Equals(
+                environment,
+                EnvironmentConstants.ProductionName,
+                StringComparison.OrdinalIgnoreCase))
+            {
+                return;
+            }
 
             var isDestinationAllowed = provider?
                 .DevSettings?

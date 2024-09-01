@@ -22,19 +22,22 @@ namespace NotificationService.Core.Senders
         private readonly IHttpClientProvider _httpClientProvider;
         private readonly ITemplateService _templateService;
         private readonly IDateTimeService _dateTimeService;
+        private readonly IEnvironmentService _environmentService;
 
         public SmsSender(
             INotificationsService notificationsService,
             IRepository<Provider> providerRepository,
             IHttpClientProvider httpClientProvider,
             ITemplateService templateService,
-            IDateTimeService dateTimeService)
+            IDateTimeService dateTimeService,
+            IEnvironmentService environmentService)
         {
             _notificationsService = notificationsService;
             _providerRepository = providerRepository;
             _httpClientProvider = httpClientProvider;
             _templateService = templateService;
             _dateTimeService = dateTimeService;
+            _environmentService = environmentService;
         }
 
         public async Task<BaseResponse<NotificationSentResponseDto>> SendSmsAsync(SendSmsRequestDto request, string owner)
@@ -51,7 +54,7 @@ namespace NotificationService.Core.Senders
             
             Guard.ProviderIsNotNull(provider, request.ProviderName);
             Guard.ProviderIsSuitable(provider.Type, ProviderType.HttpClient);
-            Guard.CanSendToDestination(provider, request.ToPhoneNumber);
+            Guard.CanSendToDestination(provider, request.ToPhoneNumber, _environmentService.CurrentEnvironment);
 
             var (success, code, message) = await _httpClientProvider
                 .SendHttpClient(httpClientSetting: provider?.Settings?.HttpClient,

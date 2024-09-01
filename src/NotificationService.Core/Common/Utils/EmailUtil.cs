@@ -92,15 +92,15 @@ namespace NotificationService.Core.Common.Utils
             return result;
         }
 
-        public static void ThrowIfEmailNotAllowed(Provider provider, string to = null, ICollection<string> cc = null, ICollection<string> bcc = null)
+        public static void ThrowIfEmailNotAllowed(string? environment, Provider provider, string to = null, ICollection<string> cc = null, ICollection<string> bcc = null)
         {
-            Guard.CanSendToDestination(provider, to);
+            Guard.CanSendToDestination(provider, to, environment);
 
             foreach (var ccEmail in cc ?? Enumerable.Empty<string>())
-                Guard.CanSendToDestination(provider, ccEmail);
+                Guard.CanSendToDestination(provider, ccEmail, environment);
 
             foreach (var bccEmail in bcc ?? Enumerable.Empty<string>())
-                Guard.CanSendToDestination(provider, bccEmail);
+                Guard.CanSendToDestination(provider, bccEmail, environment);
         }
 
         internal static class Parameters

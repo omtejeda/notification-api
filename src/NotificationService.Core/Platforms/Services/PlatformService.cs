@@ -14,6 +14,7 @@ using NotificationService.Contracts.Interfaces.Repositories;
 using NotificationService.Contracts.ResponseDtos;
 using NotificationService.Common.Utils;
 using NotificationService.Common.Resources;
+using NotificationService.Common.Interfaces;
 
 namespace NotificationService.Core.Platforms.Services
 {
@@ -21,13 +22,16 @@ namespace NotificationService.Core.Platforms.Services
     {
         private readonly IMapper _mapper;
         private readonly IRepository<Platform> _repository;
-        private readonly IRepository<Provider> _providerRepository;
+        private readonly IEnvironmentService _environmentService;
 
-        public PlatformService(IRepository<Platform> repository, IRepository<Provider> providerRepository, IMapper mapper)
+        public PlatformService(
+            IRepository<Platform> repository,
+            IMapper mapper,
+            IEnvironmentService environmentService)
         {
             _repository = repository;
             _mapper = mapper;
-            _providerRepository = providerRepository;
+            _environmentService = environmentService;
         }
 
         public async Task<BaseResponse<PlatformDto>> CreatePlatform(string name, string description, string owner)
@@ -40,7 +44,7 @@ namespace NotificationService.Core.Platforms.Services
                 PlatformId = Guid.NewGuid().ToString(),
                 Name = name,
                 Description = description,
-                IsActive = SystemUtil.IsProduction() == false,
+                IsActive = _environmentService.IsProduction == false,
                 ApiKey = Guid.NewGuid().ToString(),
                 CreatedBy = owner ?? name
             };

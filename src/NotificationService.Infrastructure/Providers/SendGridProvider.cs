@@ -10,7 +10,7 @@ using NotificationService.Core.Providers.Interfaces;
 using System.Collections.Generic;
 using NotificationService.Core.Common;
 using NotificationService.Common.Models;
-using MongoDB.Driver.Core.Misc;
+using NotificationService.Common.Interfaces;
 
 namespace NotificationService.Infrastructure.Providers
 {
@@ -19,6 +19,13 @@ namespace NotificationService.Infrastructure.Providers
         public ProviderType ProviderType => ProviderType.SendGrid;
         private Provider _provider;
 
+        private readonly IEnvironmentService _environmentService;
+
+        public SendGridProvider(IEnvironmentService environmentService)
+        {
+            _environmentService = environmentService;
+        }
+
         public void SetProvider(Provider provider)
         {
             _provider = provider;
@@ -26,7 +33,13 @@ namespace NotificationService.Infrastructure.Providers
 
         public async Task<NotificationResult> SendAsync(EmailMessage emailMessage)
         {
-            EmailUtil.ThrowIfEmailNotAllowed(provider: _provider, to: emailMessage.To, cc: emailMessage.Cc, bcc: emailMessage.Bcc);
+            EmailUtil.ThrowIfEmailNotAllowed(
+                environment: _environmentService.CurrentEnvironment,
+                provider: _provider,
+                to: emailMessage.To,
+                cc: emailMessage.Cc,
+                bcc: emailMessage.Bcc);
+
             ThrowIfSettingsNotValid();
 
             var sendGridTemplate = EmailUtil.GetSendgridTemplateFromMetadata(emailMessage.ProvidedMetadata);
