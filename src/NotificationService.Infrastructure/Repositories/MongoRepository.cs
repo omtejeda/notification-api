@@ -18,8 +18,9 @@ namespace NotificationService.Infrastructure.Repositories
         private readonly Expression<Func<TEntity, bool>> _nonDeletedRecords;
 
         private readonly IDateTimeService _dateTimeService;
+        private readonly IEnvironmentService _environmentService;
 
-        public MongoRepository(IMongoDatabase database, IDateTimeService dateTimeService)
+        public MongoRepository(IMongoDatabase database, IDateTimeService dateTimeService, IEnvironmentService environmentService)
         {
             var collectionName = string.Concat(typeof(TEntity).Name, 's');
 
@@ -29,6 +30,7 @@ namespace NotificationService.Infrastructure.Repositories
             _nonDeletedRecords = PredicateBuilder.New<TEntity>().And(x => x.Deleted != true).Expand();
 
             _dateTimeService = dateTimeService;
+            _environmentService = environmentService;
         }
 
         public async Task<(IEnumerable<TEntity>, Pagination)> FindAsync(Expression<Func<TEntity, bool>> filter, int? page = null, int? pageSize = null, IReadOnlyList<string> sortsBy = null) 
@@ -41,8 +43,16 @@ namespace NotificationService.Infrastructure.Repositories
             
             var totalCount = await query.CountDocumentsAsync();
 
-            var documents = await query.Paginate(page, pageSize).ToListAsync();
-            var pagination = new Pagination(page, RepositoryHelper.GetPageSizeBasedOnLimit(pageSize), documents.Count, (int)totalCount);
+            var documents = await query.Paginate(
+                page,
+                GetPageSizeBasedOnLimit(pageSize))
+                .ToListAsync();
+
+            var pagination = new Pagination(
+                page,
+                GetPageSizeBasedOnLimit(pageSize),
+                documents.Count,
+                (int)totalCount);
 
             return (documents, pagination);
         }
@@ -179,6 +189,17 @@ namespace NotificationService.Infrastructure.Repositories
             });
 
             return Builders<TEntity>.Sort.Combine(sortDefinitions);
+        }
+
+        private int? GetPageSizeBasedOnLimit(int? pageSize)
+        {
+            int? limitPageSize = _environmentService.LimitPageSize;
+            pageSize ??= limitPageSize;
+            
+            if (limitPageSize == default(int?)) return pageSize;
+            if (pageSize > limitPageSize) return limitPageSize;
+            
+            return pageSize;
         }
     }
 }
