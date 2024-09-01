@@ -126,10 +126,15 @@ namespace NotificationService.Common.Entities
                 return this;
             }
 
+            public Builder WithDate(DateTime date)
+            {
+                _notification.Date = date;
+                return this;
+            }
+
             public Notification Build()
             {
                 _notification.NotificationId = Guid.NewGuid().ToString();
-                _notification.Date = Utils.SystemUtil.GetSystemDate();
                 _notification.HasAttachments = _notification.Attachments?.Any() ?? false;
 
                 return _notification;

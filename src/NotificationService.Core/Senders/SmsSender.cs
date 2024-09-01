@@ -11,6 +11,7 @@ using NotificationService.Core.Providers.Interfaces;
 using NotificationService.Common.Dtos;
 using NotificationService.Core.Dtos;
 using NotificationService.Common.Utils;
+using NotificationService.Common.Interfaces;
 
 namespace NotificationService.Core.Senders
 {
@@ -20,13 +21,20 @@ namespace NotificationService.Core.Senders
         private readonly IRepository<Provider> _providerRepository;
         private readonly IHttpClientProvider _httpClientProvider;
         private readonly ITemplateService _templateService;
+        private readonly IDateTimeService _dateTimeService;
 
-        public SmsSender(INotificationsService notificationsService, IRepository<Provider> providerRepository, IHttpClientProvider httpClientProvider, ITemplateService templateService)
+        public SmsSender(
+            INotificationsService notificationsService,
+            IRepository<Provider> providerRepository,
+            IHttpClientProvider httpClientProvider,
+            ITemplateService templateService,
+            IDateTimeService dateTimeService)
         {
             _notificationsService = notificationsService;
             _providerRepository = providerRepository;
             _httpClientProvider = httpClientProvider;
             _templateService = templateService;
+            _dateTimeService = dateTimeService;
         }
 
         public async Task<BaseResponse<NotificationSentResponseDto>> SendSmsAsync(SendSmsRequestDto request, string owner)
@@ -63,6 +71,7 @@ namespace NotificationService.Core.Senders
                     .WasSuccess(success)
                     .WithResultMessage(message)
                     .CreatedBy(owner)
+                    .WithDate(_dateTimeService.UtcToLocalTime)
                     .Build();
 
             await _notificationsService.RegisterNotification(notification);

@@ -14,6 +14,7 @@ using NotificationService.Core.Providers.Interfaces;
 using NotificationService.Common.Dtos;
 using NotificationService.Core.Dtos;
 using NotificationService.Common.Models;
+using NotificationService.Common.Interfaces;
 
 namespace NotificationService.Core.Senders
 {
@@ -22,15 +23,18 @@ namespace NotificationService.Core.Senders
         private readonly ITemplateService _templateService;
         private readonly INotificationsService _notificationsService;
         private readonly IEmailProviderFactory _emailProviderFactory;
+        private readonly IDateTimeService _dateTimeService;
 
         public EmailSender(
             ITemplateService templateService, 
             INotificationsService notificationsService,
-            IEmailProviderFactory emailProviderFactory)
+            IEmailProviderFactory emailProviderFactory,
+            IDateTimeService dateTimeService)
         {
             _templateService = templateService;
             _notificationsService = notificationsService;
             _emailProviderFactory = emailProviderFactory;
+            _dateTimeService = dateTimeService;
         }
 
         public async Task<BaseResponse<NotificationSentResponseDto>> SendEmailAsync(SendEmailRequestDto request, string owner, List<IFormFile> attachments = null)
@@ -55,6 +59,7 @@ namespace NotificationService.Core.Senders
                     .WithRuntimeTemplate(runtimeTemplate)
                     .WithUserRequest(request)
                     .HasParentNotificationId(request.ParentNotificationId)
+                    .WithDate(_dateTimeService.UtcToLocalTime)
                     .Build();
 
             IEmailProvider emailProvider = await _emailProviderFactory.CreateProviderAsync(providerName: request.ProviderName, createdBy: owner);
