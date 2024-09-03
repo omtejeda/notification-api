@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Common.Entities;
 using NotificationService.Common.Enums;
@@ -14,6 +15,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.ProviderSpecifiedNotExists,
                         providerName));
             }
@@ -25,6 +27,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.ProviderSpecifiedNotSuitable,
                         providerTypeSource));
             }
@@ -36,6 +39,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.ProviderWasNotCreatedByYou,
                         requester));
             }
@@ -47,6 +51,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.CatalogWasNotCreatedByYou,
                         requester));
             }
@@ -58,6 +63,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.CatalogWithGivenIdNotExists,
                         catalogId));
             }
@@ -69,6 +75,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.CatalogAlreadyExists,
                         catalog.Name,
                         catalog.CreatedBy));
@@ -90,6 +97,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.ProviderTypeNotValid,
                         providerType.ToString()));
             }
@@ -101,6 +109,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.ProviderAlreadyExists,
                         provider.Name,
                         provider.CreatedBy));
@@ -113,6 +122,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.ProviderWithGivenIdNotExists,
                         providerId));
             }
@@ -138,6 +148,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.NotAllowedToSendInNonProd,
                         toDestination));
             }
@@ -150,6 +161,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.NotificationTypeSpecifiedNotAllowed,
                         notificationTypeSource));
             }
@@ -203,7 +215,9 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
-                        Messages.NotificationWasNotCreatedByYou, requester));
+                        CultureInfo.CurrentCulture,
+                        Messages.NotificationWasNotCreatedByYou,
+                        requester));
             }
         }
 
@@ -222,6 +236,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.NotificationTypeNotValid,
                         notificationType));
             }
@@ -274,6 +289,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.TemplateWasNotCreatedByYou,
                         requester));
             }
@@ -285,6 +301,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.TemplateSpecifiedNotCorrespondToGivenNotificationType,
                         notificationTypeSource,
                         notificationTypeTarget));
@@ -307,6 +324,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.CatalogSpecifiedNotExists,
                         catalogName));
             }
@@ -320,6 +338,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.CatalogSpecifiedNotHaveGivenKey,
                         catalog.Name,
                         key));
@@ -332,6 +351,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.PlatformAlreadyExists,
                         platformName,
                         createdBy));
@@ -344,6 +364,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.PlatformWithGivenIdNotExists,
                         platformId));
             }
@@ -355,6 +376,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.PlatformWasNotCreatedByYou,
                         requester));
             }
@@ -366,6 +388,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.AttachmentNotFound,
                         fileName));
             }
@@ -377,6 +400,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.RequiredValue,
                         parameterName));
             }
@@ -388,6 +412,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.RequiredValue,
                         parameterName));
             }
@@ -413,6 +438,7 @@ namespace NotificationService.Common.Utils
             {
                 throw new RuleValidationException(
                     string.Format(
+                        CultureInfo.CurrentCulture,
                         Messages.RecipientNotExists,
                         recipient));
             }
