@@ -62,14 +62,14 @@ namespace NotificationService.Api.Controllers
             if (!string.IsNullOrWhiteSpace(elementHasLabelKey))
                 predicate = predicate.And(x => x.Elements.Any(y => y.Labels.Any(z => z.Key == elementHasLabelKey)));
 
-            var response = await _catalogService.GetCatalogs(predicate, owner: Owner, page, pageSize);
+            var response = await _catalogService.GetCatalogs(predicate, owner: CurrentPlatform.Name, page, pageSize);
             return Ok(response);
         }
 
         [HttpGet("{catalogId}")]
         public async Task<ActionResult<CatalogDto>> GetById([FromRoute] string catalogId, [FromQuery] string elementKey, string elementValue, string labelKey, string labelValue)
         {
-            var response = await _catalogService.GetCatalogById(catalogId, owner: Owner);
+            var response = await _catalogService.GetCatalogById(catalogId, owner: CurrentPlatform.Name);
             if (response?.Data == null) return NotFound();
             
             if (!string.IsNullOrWhiteSpace(elementKey))
@@ -90,14 +90,14 @@ namespace NotificationService.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateCatalogRequestDto request)
         {
-            var platformCreated = await _catalogService.CreateCatalog(request.Name, request.Description, request.IsActive, request.Elements, owner: Owner);
+            var platformCreated = await _catalogService.CreateCatalog(request.Name, request.Description, request.IsActive, request.Elements, owner: CurrentPlatform.Name);
             return StatusCode(StatusCodes.Status201Created, platformCreated);
         }
 
         [HttpDelete("{catalogId}")]
         public async Task<IActionResult> Delete([FromRoute] string catalogId)
         {
-            await _catalogService.DeleteCatalog(catalogId, owner: Owner);
+            await _catalogService.DeleteCatalog(catalogId, owner: CurrentPlatform.Name);
             return Ok();
         }
     }

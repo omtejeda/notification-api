@@ -20,7 +20,7 @@ namespace NotificationService.Api.Controllers
         [HttpPost("send")]
         public async Task<IActionResult> Send([FromBody] SendMessageRequestDto request)
         {
-            var res = await _messageSender.SendMessageAsync(request, Owner);
+            var res = await _messageSender.SendMessageAsync(request, CurrentPlatform.Name);
             return Ok(res);
         }
     }

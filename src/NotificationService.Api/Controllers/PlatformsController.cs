@@ -25,14 +25,14 @@ namespace NotificationService.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] string name, bool? isActive, int? page, int? pageSize)
         {
-            var response = await _platformService.GetPlatforms(x => (x.Name == name || name == null) && (x.IsActive == isActive || isActive == null), owner: Owner, page, pageSize);
+            var response = await _platformService.GetPlatforms(x => (x.Name == name || name == null) && (x.IsActive == isActive || isActive == null), owner: CurrentPlatform.Name, page, pageSize);
             return Ok(response);
         }
 
         [HttpGet("{platformId}")]
         public async Task<IActionResult> GetById([FromRoute] string platformId)
         {
-            var response = await _platformService.GetPlatformById(platformId, owner: Owner);
+            var response = await _platformService.GetPlatformById(platformId, owner: CurrentPlatform.Name);
             if (response?.Data == null) return NotFound();
             return Ok(response);
         }
@@ -40,7 +40,7 @@ namespace NotificationService.Api.Controllers
         [HttpGet("me")]
         public IActionResult GetMe()
         {
-            var platformDto = GetCurrentPlatform();
+            PlatformDto platformDto = CurrentPlatform;
             var response = BaseResponse<PlatformDto>.Success(platformDto);
             return Ok(response);
         }
@@ -49,14 +49,14 @@ namespace NotificationService.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreatePlatformRequestDto request)
         {
-            var platformCreated = await _platformService.CreatePlatform(request.Name, request.Description, owner: Owner);
+            var platformCreated = await _platformService.CreatePlatform(request.Name, request.Description, owner: CurrentPlatform.Name);
             return StatusCode(StatusCodes.Status201Created, platformCreated);
         }
 
         [HttpDelete("{platformId}")]
         public async Task<IActionResult> Delete([FromRoute] string platformId)
         {
-            await _platformService.DeletePlatform(platformId, owner: Owner);
+            await _platformService.DeletePlatform(platformId, owner: CurrentPlatform.Name);
             return Ok();
         }
     }

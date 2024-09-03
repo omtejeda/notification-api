@@ -25,7 +25,7 @@ namespace NotificationService.Api.Controllers
         [HttpPost("send")]
         public async Task<IActionResult> Send([FromBody] SendEmailRequestDto request)
         {
-            var res = await _emailSender.SendEmailAsync(request, Owner);
+            var res = await _emailSender.SendEmailAsync(request, CurrentPlatform.Name);
             return Ok(res);
         }
 
@@ -33,7 +33,7 @@ namespace NotificationService.Api.Controllers
         public async Task<IActionResult> SendWithAttachments([FromForm] SendEmailRequestDto request, List<IFormFile> attachments)
         {
             Guard.HasAttachments(attachments);
-            var res = await _emailSender.SendEmailAsync(request: request, owner: Owner, attachments: attachments);
+            var res = await _emailSender.SendEmailAsync(request: request, owner: CurrentPlatform.Name, attachments: attachments);
             return Ok(res);
         }
     }

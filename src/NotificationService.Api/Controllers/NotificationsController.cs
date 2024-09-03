@@ -75,14 +75,14 @@ namespace NotificationService.Api.Controllers
             if (subject is not null)
                 filter = filter.And(x => x.Subject.ToLower().Contains(subject.ToLower()));
             
-            var response = await _notificationsService.GetNotifications(filter, owner: Owner, page, pageSize, sort);
+            var response = await _notificationsService.GetNotifications(filter, owner: CurrentPlatform.Name, page, pageSize, sort);
             return Ok(response);
         }
 
         [HttpGet("{notificationId}")]
         public async Task<IActionResult> Get([FromRoute] string notificationId)
         {
-            var response = await _notificationsService.GetNotificationById(notificationId, owner: Owner);
+            var response = await _notificationsService.GetNotificationById(notificationId, owner: CurrentPlatform.Name);
             if (response?.Data == null) return NotFound();
             return Ok(response);
         }
@@ -93,7 +93,7 @@ namespace NotificationService.Api.Controllers
             var notification = await _notificationRepository.FindOneAsync(x => x.NotificationId == notificationId);
             
             Guard.NotificationIsNotNull(notification);
-            Guard.NotificationWasCreatedByRequester(notification.CreatedBy, Owner);
+            Guard.NotificationWasCreatedByRequester(notification.CreatedBy, CurrentPlatform.Name);
             Guard.NotificationRequestExists(notification?.Request);
             
             BaseResponse<NotificationSentResponseDto> response = null;
@@ -101,14 +101,14 @@ namespace NotificationService.Api.Controllers
             {
                 var request = notification.Request as SendEmailRequestDto;
                 request.ParentNotificationId = notificationId;
-                response = await _emailSender.SendEmailAsync(request, Owner);
+                response = await _emailSender.SendEmailAsync(request, CurrentPlatform.Name);
             }
             
             if (notification.Type == NotificationType.SMS)
             {
                 var request = notification.Request as SendSmsRequestDto;
                 request.ParentNotificationId = notificationId;
-                response = await _smsSender.SendSmsAsync(request, Owner);
+                response = await _smsSender.SendSmsAsync(request, CurrentPlatform.Name);
             }
             
             if (notification.Type != NotificationType.Email && 
@@ -116,7 +116,7 @@ namespace NotificationService.Api.Controllers
             {
                 var request = notification.Request as SendMessageRequestDto;
                 request.ParentNotificationId = notificationId;
-                response = await _messageSender.SendMessageAsync(request, Owner);
+                response = await _messageSender.SendMessageAsync(request, CurrentPlatform.Name);
 
             }
             
@@ -126,7 +126,7 @@ namespace NotificationService.Api.Controllers
         [HttpGet("{notificationId}/content")]
         public async Task<IActionResult> GetNotificationContent(string notificationId)
         {
-            var notificationContent = await _notificationsService.GetNotificationById(notificationId, owner: Owner);
+            var notificationContent = await _notificationsService.GetNotificationById(notificationId, owner: CurrentPlatform.Name);
 
             var contentResult = new ContentResult { ContentType = "text/html", StatusCode = StatusCodes.Status200OK };
 
@@ -144,7 +144,7 @@ namespace NotificationService.Api.Controllers
         [HttpGet("{notificationId}/attachments/{fileName}")]
         public async Task<IActionResult> GetFile(string notificationId, string fileName)
         {
-            var (file, contentType) = await _notificationsService.GetNotificationAttachment(notificationId, fileName, owner: Owner);
+            var (file, contentType) = await _notificationsService.GetNotificationAttachment(notificationId, fileName, owner: CurrentPlatform.Name);
             return File(file, contentType);
         }
 
@@ -157,7 +157,7 @@ namespace NotificationService.Api.Controllers
             if (exportService == null)
                 return NotFound($"The specified format '{format}' doesn't exists");
 
-            var response = await exportService.Export(notificationId, Owner);
+            var response = await exportService.Export(notificationId, CurrentPlatform.Name);
 
             if (response == null)
                 return NotFound("The specified notificationId doesn't exists");

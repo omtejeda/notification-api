@@ -31,14 +31,14 @@ namespace NotificationService.Api.Controllers
         {
             Enum.TryParse(type, out ProviderType providerType);
             
-            var response = await _providerService.GetProviders(x => (x.Name == name || name == null) && (x.Type == providerType || type == null), owner: Owner, page: page, pageSize: pageSize);
+            var response = await _providerService.GetProviders(x => (x.Name == name || name == null) && (x.Type == providerType || type == null), owner: CurrentPlatform.Name, page: page, pageSize: pageSize);
             return Ok(response);
         }
 
         [HttpGet("{providerId}")]
         public async Task<IActionResult> Get(string providerId)
         {
-            var response = await _providerService.GetProviderById(providerId, owner: Owner);
+            var response = await _providerService.GetProviderById(providerId, owner: CurrentPlatform.Name);
             if (response?.Data == null) return NotFound();
             return Ok(response);
         }
@@ -54,21 +54,21 @@ namespace NotificationService.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateProviderRequestDto request)
         {
-            var providerCreated = await _providerService.CreateProvider(request, owner: Owner);
+            var providerCreated = await _providerService.CreateProvider(request, owner: CurrentPlatform.Name);
             return StatusCode(StatusCodes.Status201Created, providerCreated);
         }
 
         [HttpDelete("{providerId}")]
         public async Task<IActionResult> Delete([FromRoute] string providerId)
         {
-            await _providerService.DeleteProvider(providerId, owner: Owner);
+            await _providerService.DeleteProvider(providerId, owner: CurrentPlatform.Name);
             return StatusCode(StatusCodes.Status200OK);
         }
 
         [HttpPost("{providerId}/whitelist")]
         public async Task<ActionResult> AddToWhiteList([FromRoute] string providerId, [FromBody] AddToWhiteListRequestDto request)
         {
-            await _providerService.AddToWhiteList(providerId, owner: Owner, request.Recipient);
+            await _providerService.AddToWhiteList(providerId, owner: CurrentPlatform.Name, request.Recipient);
 
             return StatusCode(StatusCodes.Status201Created);
         }
@@ -76,7 +76,7 @@ namespace NotificationService.Api.Controllers
         [HttpDelete("{providerId}/whitelist")]
         public async Task<ActionResult> DeleteFromWhiteList([FromRoute] string providerId, [FromBody] DeleteFromWhiteListRequestDto request)
         {
-            await _providerService.DeleteFromWhiteList(providerId, owner: Owner, request.Recipient);
+            await _providerService.DeleteFromWhiteList(providerId, owner: CurrentPlatform.Name, request.Recipient);
 
             return StatusCode(StatusCodes.Status200OK);
         }

@@ -26,14 +26,14 @@ namespace NotificationService.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] string name, string subject, string platformName, int? page, int? pageSize)
         {
-            var response = await _templateService.GetTemplates(x => (x.Name == name || name == null) && (x.Subject == subject || subject == null) && (x.PlatformName == platformName  || platformName == null), owner: Owner, page, pageSize);
+            var response = await _templateService.GetTemplates(x => (x.Name == name || name == null) && (x.Subject == subject || subject == null) && (x.PlatformName == platformName  || platformName == null), owner: CurrentPlatform.Name, page, pageSize);
             return Ok(response);
         }
 
         [HttpGet("{templateId}")]
         public async Task<IActionResult> GetById([FromRoute] string templateId)
         {
-            var response = await _templateService.GetTemplateById(templateId, Owner);
+            var response = await _templateService.GetTemplateById(templateId, CurrentPlatform.Name);
             if (response?.Data is null) return NotFound();
             return Ok(response);
         }
@@ -41,7 +41,7 @@ namespace NotificationService.Api.Controllers
         [HttpGet("{templateId}/preview")]
         public async Task<ContentResult> GetHtml(string templateId)
         {
-            var template = await _repository.FindOneAsync(x => x.TemplateId == templateId && x.CreatedBy == Owner);
+            var template = await _repository.FindOneAsync(x => x.TemplateId == templateId && x.CreatedBy == CurrentPlatform.Name);
             
             if (template is null)
             {
@@ -59,21 +59,21 @@ namespace NotificationService.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateTemplateRequestDto request)
         {
-            var templateCreated = await _templateService.CreateTemplate(request, owner: Owner);
+            var templateCreated = await _templateService.CreateTemplate(request, owner: CurrentPlatform.Name);
             return StatusCode(StatusCodes.Status201Created, templateCreated);
         }
 
         [HttpDelete("{templateId}")]
         public async Task<IActionResult> Delete([FromRoute] string templateId)
         {
-            await _templateService.DeleteTemplate(templateId, Owner);
+            await _templateService.DeleteTemplate(templateId, CurrentPlatform.Name);
             return Ok();
         }
 
         [HttpPatch("{templateId}/content")]
         public async Task<IActionResult> PatchContent([FromRoute] string templateId, [FromBody] UpdateTemplateContentRequestDto request)
         {
-            await _templateService.UpdateTemplateContent(templateId, request, owner: Owner);
+            await _templateService.UpdateTemplateContent(templateId, request, owner: CurrentPlatform.Name);
             return StatusCode(StatusCodes.Status204NoContent);
         }
     }
