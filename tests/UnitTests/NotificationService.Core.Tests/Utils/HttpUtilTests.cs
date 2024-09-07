@@ -53,8 +53,18 @@ public class HttpUtilTests
 
         return new()
         {
-            { "10.0.0.1", "get-catalogs",  queryStringForTestCaseNumberOne, "10.0.0.1/get-catalogs?key1=value1" },
-            { "https://google.com/", "/search", queryStringForTestCaseNumberTwo, "https://google.com/search?key1=value1&key2=value2" }
+            { 
+                "10.0.0.1",
+                "get-catalogs",
+                queryStringForTestCaseNumberOne,
+                "10.0.0.1/get-catalogs?key1=value1" 
+            },
+            { 
+                "https://google.com/",
+                "/search",
+                queryStringForTestCaseNumberTwo,
+                "https://google.com/search?key1=value1&key2=value2"
+            }
         };
     }
     #endregion
