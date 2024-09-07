@@ -5,10 +5,7 @@ namespace NotificationService.Core.Tests.Utils;
 public class HttpUtilTests
 {
     [Theory]
-    [InlineData("10.0.0.1", "get-catalogs", "10.0.0.1/get-catalogs")]
-    [InlineData("http://10.0.0.1", "/get-catalogs", "http://10.0.0.1/get-catalogs")]
-    [InlineData("https://10.0.0.1/", "get-catalogs", "https://10.0.0.1/get-catalogs")]
-    [InlineData("10.0.0.1/", "/get-catalogs", "10.0.0.1/get-catalogs")]
+    [MemberData(nameof(GetFullPathTestData))]
     public void GetFullPath_ShouldReturnCorrectPath(string host, string uri, string expected)
     {
         string actual = HttpUtil.GetFullPath(host, uri);
@@ -17,7 +14,7 @@ public class HttpUtilTests
     }
 
     [Theory]
-    [MemberData(nameof(GetQueryStringTestData))]
+    [MemberData(nameof(GetFullPathWithQueryStringTestData))]
     public void GetFullPath_WithQueryString_ShouldReturnCorrectPath(
         string host,
         string uri,
@@ -29,29 +26,36 @@ public class HttpUtilTests
         Assert.Equal(expected, actual);
     }
 
-    public static IEnumerable<object[]> GetQueryStringTestData()
+    #region TestData
+    public static TheoryData<string, string, string> GetFullPathTestData()
     {
-        yield return new object[]
+        return new()
         {
-            "10.0.0.1",
-            "get-catalogs",
-            new Dictionary<string, string>
-            {
-                {"key1", "value1"}
-            },
-            "10.0.0.1/get-catalogs?key1=value1"
-        };
-
-        yield return new object[]
-        {
-            "https://google.com/",
-            "/search",
-            new Dictionary<string, string>
-            { 
-                { "key1", "value1" }, 
-                { "key2", "value2" } 
-            },
-            "https://google.com/search?key1=value1&key2=value2"
+            { "10.0.0.1", "get-catalogs", "10.0.0.1/get-catalogs" },
+            { "http://10.0.0.1", "/get-catalogs", "http://10.0.0.1/get-catalogs" },
+            { "https://10.0.0.1/", "get-catalogs", "https://10.0.0.1/get-catalogs" },
+            { "10.0.0.1/", "/get-catalogs", "10.0.0.1/get-catalogs" }
         };
     }
+
+    public static TheoryData<string, string, Dictionary<string, string>, string> GetFullPathWithQueryStringTestData()
+    {
+        var queryStringForTestCaseNumberOne = new Dictionary<string, string>
+        {
+            { "key1", "value1" }
+        };
+
+        var queryStringForTestCaseNumberTwo = new Dictionary<string, string>
+        {
+            { "key1", "value1" },
+            { "key2", "value2" }
+        };
+
+        return new()
+        {
+            { "10.0.0.1", "get-catalogs",  queryStringForTestCaseNumberOne, "10.0.0.1/get-catalogs?key1=value1" },
+            { "https://google.com/", "/search", queryStringForTestCaseNumberTwo, "https://google.com/search?key1=value1&key2=value2" }
+        };
+    }
+    #endregion
 }

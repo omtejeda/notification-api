@@ -31,31 +31,35 @@ public class EmailUtilTests
         }
     }
     #region TestData
-    public static IEnumerable<object[]> GetReplaceParametersTestData()
+    public static TheoryData<string, List<MetadataDto>, string> GetReplaceParametersTestData()
     {
-        yield return new object[]
+        var metadataForFirstTestCase = new List<MetadataDto>
         {
-            "Hi, $[username]",
-            new List<MetadataDto>
-            {
-                new () { Key = "username", Value = "John Doe" }
-            },
-            "Hi, John Doe"
+            new () { Key = "username", Value = "John Doe" }
         };
 
-        yield return new object[]
+        var metadataForSecondTestCase = new List<MetadataDto>
         {
-            "Welcome to our platform $[PLATFORM_NAME]. Hit the following link to know more about us! $[Link]",
-            new List<MetadataDto>
-            {
-                new () { Key = "PLATFORM_NAME", Value = "ClientExpenses" },
-                new () { Key = "Link", Value = "https://our-dummy-website.com/" }
+            new () { Key = "PLATFORM_NAME", Value = "ClientExpenses" },
+            new () { Key = "Link", Value = "https://our-dummy-website.com/" }
+        };
+
+        return new()
+        {
+            { 
+                "Hi, $[username]",
+                metadataForFirstTestCase,
+                "Hi, John Doe" 
             },
-            "Welcome to our platform ClientExpenses. Hit the following link to know more about us! https://our-dummy-website.com/"
+            { 
+                "Welcome to our platform $[PLATFORM_NAME]. Hit the following link to know more about us! $[Link]",
+                metadataForSecondTestCase,
+                "Welcome to our platform ClientExpenses. Hit the following link to know more about us! https://our-dummy-website.com/"
+            }
         };
     }
 
-    public static IEnumerable<object[]> GetThrowIfEmailNotAllowedTestData()
+    public static TheoryData<string, Provider, string, Type> GetThrowIfEmailNotAllowedTestData()
     {
         var provider = new Provider
         {
@@ -67,49 +71,20 @@ public class EmailUtilTests
             DevSettings = new ProviderDevSettings
             {
                 AllowedRecipients = new[]
-                {"johndoe@github.com", "johndoe@gmail.com", "johndoe@clientexpenses.com"}
+                { 
+                    "johndoe@github.com",
+                    "johndoe@gmail.com",
+                    "johndoe@clientexpenses.com"
+                }
             }
         };
-        
 
-        yield return new object[]
+        return new()
         {
-            "Development",
-            provider,
-            "johndoe@github.com",
-            null
-        };
-
-        yield return new object[]
-        {
-            "Development",
-            provider,
-            "johndoe@github.com",
-            null
-        };
-
-        yield return new object[]
-        {
-            "Development",
-            provider,
-            "davidb@user.com",
-            typeof(RuleValidationException)
-        };
-
-        yield return new object[]
-        {
-            "Staging",
-            provider,
-            "my-custom-user@my-custom-domain.com",
-            typeof(RuleValidationException)
-        };
-
-        yield return new object[]
-        {
-            "Production",
-            provider,
-            "my-custom-user@my-custom-domain.com",
-            null
+            { "Development", provider, "johndoe@github.com", null },
+            { "Development", provider, "davidb@user.com", typeof(RuleValidationException) },
+            { "Staging", provider, "my-custom-user@my-custom-domain.com", typeof(RuleValidationException) },
+            { "Production", provider, "my-custom-user@my-custom-domain.com", null }
         };
     }
     #endregion
