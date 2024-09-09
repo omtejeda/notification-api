@@ -17,24 +17,24 @@ using Microsoft.AspNetCore.Http;
 namespace NotificationService.Core.Tests.Senders;
 public class EmailSenderTests
 {
-    private readonly Mock<ITemplateService> _templateService;
-    private readonly Mock<INotificationsService> _notificationsService;
-    private readonly Mock<IEmailProviderFactory> _emailProviderFactory;
-    private readonly Mock<IDateTimeService> _dateTimeService;
+    private readonly Mock<ITemplateService> _templateServiceMock;
+    private readonly Mock<INotificationsService> _notificationsServiceMock;
+    private readonly Mock<IEmailProviderFactory> _emailProviderFactoryMock;
+    private readonly Mock<IDateTimeService> _dateTimeServiceMock;
     private readonly EmailSender _emailSender;
 
     public EmailSenderTests()
     {
-        _templateService = new Mock<ITemplateService>();
-        _notificationsService = new Mock<INotificationsService>();
-        _emailProviderFactory = new Mock<IEmailProviderFactory>();
-        _dateTimeService = new Mock<IDateTimeService>();
+        _templateServiceMock = new Mock<ITemplateService>();
+        _notificationsServiceMock = new Mock<INotificationsService>();
+        _emailProviderFactoryMock = new Mock<IEmailProviderFactory>();
+        _dateTimeServiceMock = new Mock<IDateTimeService>();
 
         _emailSender = new(
-            _templateService.Object,
-            _notificationsService.Object,
-            _emailProviderFactory.Object,
-            _dateTimeService.Object
+            _templateServiceMock.Object,
+            _notificationsServiceMock.Object,
+            _emailProviderFactoryMock.Object,
+            _dateTimeServiceMock.Object
         );
     }
 
@@ -43,7 +43,7 @@ public class EmailSenderTests
     {
         // Arrange
         SendEmailRequestDto request = CreateValidRequestDto();
-        _templateService.Setup(x => 
+        _templateServiceMock.Setup(x => 
             x.GetRuntimeTemplate(
                 It.IsAny<string>(),
                 It.IsAny<string>(),
@@ -65,7 +65,7 @@ public class EmailSenderTests
         SendEmailRequestDto request = CreateValidRequestDto();
         SetupValidRuntimeTemplate();
 
-        _emailProviderFactory.Setup(
+        _emailProviderFactoryMock.Setup(
             x => x.CreateProviderAsync(
                 It.IsAny<string>(),
                 It.IsAny<string>()
@@ -90,7 +90,7 @@ public class EmailSenderTests
         await _emailSender.SendEmailAsync(request, request.Template.PlatformName, attachments);
         
         // Assert
-        _notificationsService
+        _notificationsServiceMock
             .Verify(x => x.SaveAttachments(It.IsAny<IEnumerable<Attachment>>()), Times.Once);
     }
 
@@ -109,7 +109,7 @@ public class EmailSenderTests
         await _emailSender.SendEmailAsync(request, request.Template.PlatformName);
         
         // Assert
-        _notificationsService
+        _notificationsServiceMock
             .Verify(x => x.SaveAttachments(It.IsAny<IEnumerable<Attachment>>()), Times.Never);
     }
 
@@ -162,7 +162,7 @@ public class EmailSenderTests
         var actual = await _emailSender.SendEmailAsync(request, request.Template.PlatformName);
 
         // Assert
-        _notificationsService
+        _notificationsServiceMock
             .Verify(x => x.RegisterNotification(It.IsAny<Notification>()), Times.Once);
     }
 
@@ -179,7 +179,7 @@ public class EmailSenderTests
         var actual = await _emailSender.SendEmailAsync(request, request.Template.PlatformName);
 
         // Assert
-        _notificationsService
+        _notificationsServiceMock
             .Verify(x => x.RegisterNotification(It.IsAny<Notification>()), Times.Once);
     }
 
@@ -215,7 +215,7 @@ public class EmailSenderTests
             Subject = "Greetings"
         };
 
-        _templateService.Setup(x => 
+        _templateServiceMock.Setup(x => 
             x.GetRuntimeTemplate(
                 It.IsAny<string>(),
                 It.IsAny<string>(),
@@ -236,7 +236,7 @@ public class EmailSenderTests
                 "no-reply@customer-service.com",
                 savesAttachments: true);
 
-        _emailProviderFactory
+        _emailProviderFactoryMock
                 .Setup(
                     f => f.CreateProviderAsync(
                         It.IsAny<string>(),
@@ -252,7 +252,7 @@ public class EmailSenderTests
                 (int) ResultCode.Error,
                 "Sent failed");
 
-        _emailProviderFactory
+        _emailProviderFactoryMock
                 .Setup(
                     f => f.CreateProviderAsync(
                         It.IsAny<string>(),
