@@ -13,7 +13,7 @@ namespace NotificationService.Common.Utils
         {
             if (provider is null)
             {
-                throw new RuleValidationException(
+                throw new ProviderException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.ProviderSpecifiedNotExists,
@@ -25,7 +25,7 @@ namespace NotificationService.Common.Utils
         {
             if (providerTypeSource != providerTypeTarget)
             {
-                throw new RuleValidationException(
+                throw new ProviderException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.ProviderSpecifiedNotSuitable,
@@ -37,7 +37,7 @@ namespace NotificationService.Common.Utils
         {
             if (createdBy != requester)
             {
-                throw new RuleValidationException(
+                throw new ProviderException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.ProviderWasNotCreatedByYou,
@@ -49,7 +49,7 @@ namespace NotificationService.Common.Utils
         {
             if (createdBy != requester)
             {
-                throw new RuleValidationException(
+                throw new CatalogException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.CatalogWasNotCreatedByYou,
@@ -61,7 +61,7 @@ namespace NotificationService.Common.Utils
         {
             if (catalog is null)
             {
-                throw new RuleValidationException(
+                throw new CatalogException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.CatalogWithGivenIdNotExists,
@@ -73,7 +73,7 @@ namespace NotificationService.Common.Utils
         {
             if (catalog is not null)
             {
-                throw new RuleValidationException(
+                throw new CatalogException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.CatalogAlreadyExists,
@@ -86,7 +86,7 @@ namespace NotificationService.Common.Utils
         {
             if (!(provider.IsPublic ?? false) && provider.CreatedBy != requester)
             {
-                throw new RuleValidationException(
+                throw new ProviderException(
                     Messages.ProviderIsNotPublicNeitherWasCreatedByYou);
             }
         }
@@ -95,7 +95,7 @@ namespace NotificationService.Common.Utils
         {
             if (providerType == ProviderType.None)
             {
-                throw new RuleValidationException(
+                throw new ProviderException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.ProviderTypeNotValid,
@@ -107,7 +107,7 @@ namespace NotificationService.Common.Utils
         {
             if (provider is not null)
             {
-                throw new RuleValidationException(
+                throw new ProviderException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.ProviderAlreadyExists,
@@ -120,7 +120,7 @@ namespace NotificationService.Common.Utils
         {
             if (provider is null)
             {
-                throw new RuleValidationException(
+                throw new ProviderException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.ProviderWithGivenIdNotExists,
@@ -159,7 +159,7 @@ namespace NotificationService.Common.Utils
             if (notificationTypeSource == NotificationType.Email || 
                 notificationTypeSource == NotificationType.SMS)
             {
-                throw new RuleValidationException(
+                throw new NotificationException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.NotificationTypeSpecifiedNotAllowed,
@@ -171,7 +171,7 @@ namespace NotificationService.Common.Utils
         {
             if (emailProvider is null)
             {
-                throw new ArgumentException(
+                throw new ProviderException(
                     "Underlying provider could not be found");
             }
         }
@@ -204,7 +204,7 @@ namespace NotificationService.Common.Utils
         {
             if (notification is null)
             {
-                throw new RuleValidationException(
+                throw new NotificationException(
                     Messages.NotificationNotExists);
             }
         }
@@ -213,7 +213,7 @@ namespace NotificationService.Common.Utils
         {
             if (createdBy != requester)
             {
-                throw new RuleValidationException(
+                throw new NotificationException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.NotificationWasNotCreatedByYou,
@@ -225,7 +225,7 @@ namespace NotificationService.Common.Utils
         {
             if (notificationRequest is null)
             {
-                throw new RuleValidationException(
+                throw new NotificationException(
                     Messages.NotificationRequestNotFound);
             }
         }
@@ -234,7 +234,7 @@ namespace NotificationService.Common.Utils
         {
             if (notificationType == NotificationType.None)
             {
-                throw new RuleValidationException(
+                throw new NotificationException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.NotificationTypeNotValid,
@@ -246,7 +246,7 @@ namespace NotificationService.Common.Utils
         {
             if (string.IsNullOrWhiteSpace(content))
             {
-                throw new RuleValidationException(
+                throw new TemplateException(
                     Messages.TemplateContentNotValid);
             }
         }
@@ -260,7 +260,7 @@ namespace NotificationService.Common.Utils
         {
             if (template is not null)
             {
-                throw new RuleValidationException(
+                throw new TemplateException(
                     Messages.TemplateAlreadyExists);
             }
         }
@@ -269,7 +269,7 @@ namespace NotificationService.Common.Utils
         {
             if (template is null)
             {
-                throw new RuleValidationException(
+                throw new TemplateException(
                     Messages.TemplateTryingToDeleteNotExists);
             }
         }
@@ -278,7 +278,7 @@ namespace NotificationService.Common.Utils
         {
             if (template is null)
             {
-                throw new RuleValidationException(
+                throw new TemplateException(
                     Messages.TemplateNotExists);
             }
         }
@@ -287,7 +287,7 @@ namespace NotificationService.Common.Utils
         {
             if (createdBy != requester)
             {
-                throw new RuleValidationException(
+                throw new TemplateException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.TemplateWasNotCreatedByYou,
@@ -299,7 +299,7 @@ namespace NotificationService.Common.Utils
         {
             if (notificationTypeSource != notificationTypeTarget)
             {
-                throw new RuleValidationException(
+                throw new TemplateException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.TemplateSpecifiedNotCorrespondToGivenNotificationType,
@@ -313,7 +313,7 @@ namespace NotificationService.Common.Utils
         {
             if (string.IsNullOrWhiteSpace(content))
             {
-                throw new RuleValidationException(
+                throw new TemplateException(
                     Messages.TemplateWithNoContent);
             }
         }
@@ -322,7 +322,7 @@ namespace NotificationService.Common.Utils
         {
             if (catalog is null)
             {
-                throw new RuleValidationException(
+                throw new CatalogException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.CatalogSpecifiedNotExists,
@@ -336,7 +336,7 @@ namespace NotificationService.Common.Utils
             
             if (!catalog.Elements.Any(x => x.Key == key))
             {
-                throw new RuleValidationException(
+                throw new CatalogException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.CatalogSpecifiedNotHaveGivenKey,
@@ -349,7 +349,7 @@ namespace NotificationService.Common.Utils
         {
             if (platform is not null)
             {
-                throw new RuleValidationException(
+                throw new PlatformException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.PlatformAlreadyExists,
@@ -362,7 +362,7 @@ namespace NotificationService.Common.Utils
         {
             if (platform is null)
             {
-                throw new RuleValidationException(
+                throw new PlatformException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.PlatformWithGivenIdNotExists,
@@ -374,7 +374,7 @@ namespace NotificationService.Common.Utils
         {
             if (createdBy != requester)
             {
-                throw new RuleValidationException(
+                throw new PlatformException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.PlatformWasNotCreatedByYou,
@@ -427,7 +427,7 @@ namespace NotificationService.Common.Utils
             
             if (recipientExists)
             {
-                throw new RuleValidationException(
+                throw new ProviderException(
                     Messages.RecipientAlreadyExists);
             }
         }
@@ -436,7 +436,7 @@ namespace NotificationService.Common.Utils
         {
             if (string.IsNullOrWhiteSpace(recipient))
             {
-                throw new RuleValidationException(
+                throw new ProviderException(
                     string.Format(
                         CultureInfo.CurrentCulture,
                         Messages.RecipientNotExists,
