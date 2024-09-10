@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+
+	<data name="NotAllowedToSendInNonProd" xml:space="preserve">
+        <value>Not allowed sending to {0} in non production environment</value>
+    </data>
+    <data name="ApiKeyNotProvided" xml:space="preserve">
+        <value>No se proporcionó api key</value>
+	</data>
+	<data name="ApiKeyNotValid" xml:space="preserve">
+        <value>Api key proporcionado no es válido</value>
+	</data>
+	<data name="ApiKeyNotActive" xml:space="preserve">
+        <value>Api key proporcionado corresponde a una plataforma inactiva</value>
+	</data>
+
+	<data name="AttachmentIsRequired" xml:space="preserve">
+        <value>Debe especificar al menos un attachment</value>
+	</data>
+
+	<data name="NotificationNotExists" xml:space="preserve">
+        <value>Notification no existe</value>
+	</data>
+
+	<data name="NotificationWasNotCreatedByYou" xml:space="preserve">
+        <value>Notification no fue creada por {0}</value>
+	</data>
+
+	<data name="NotificationRequestNotFound" xml:space="preserve">
+        <value>Notification request no fue encontrada</value>
+	</data>
+
+	<data name="TemplateAlreadyExists" xml:space="preserve">
+        <value>Template ya existe</value>
+	</data>
+
+	<data name="TemplateTryingToDeleteNotExists" xml:space="preserve">
+        <value>Template que intenta eliminar no existe</value>
+	</data>
+
+	<data name="TemplateNotExists" xml:space="preserve">
+        <value>Template no existe</value>
+	</data>
+
+	<data name="TemplateNotBelongsToYou" xml:space="preserve">
+        <value>Template no corresponde a esta plataforma</value>
+	</data>
+
+	<data name="TemplateWithNoContent" xml:space="preserve">
+        <value>Template no posee contenido</value>
+	</data>
+
+	<data name="TemplateContentNotValid" xml:space="preserve">
+        <value>Contenido proporcionado no es válido</value>
+	</data>
+
+	<data name="TemplateWasNotCreatedByYou" xml:space="preserve">
+        <value>Template no fue creado por {0}</value>
+	</data>
+
+	<data name="NotificationTypeNotValid" xml:space="preserve">
+        <value>Tipo de notification {0} no es válido</value>
+	</data>
+
+	<data name="CatalogSpecifiedNotExists" xml:space="preserve">
+        <value>Catalogo {0} no existe</value>
+	</data>
+
+	<data name="CatalogSpecifiedNotHaveGivenKey" xml:space="preserve">
+        <value>Catalogo {0} no posee key: {1}</value>
+	</data>
+
+	<data name="CatalogAlreadyExists" xml:space="preserve">
+        <value>"Ya existe un catalogo con el nombre [{0}], creado por {1}</value>
+	</data>
+
+	<data name="CatalogWithGivenIdNotExists" xml:space="preserve">
+        <value>No existe catalogo con ID [{0}]</value>
+	</data>
+
+	<data name="CatalogWasNotCreatedByYou" xml:space="preserve">
+        <value>Catalogo no fue creado por {0}</value>
+	</data>
+
+	<data name="TemplateSpecifiedNotCorrespondToGivenNotificationType" xml:space="preserve">
+        <value>Template especificado no corresponde a {0}. Corresponde a {1}</value>
+	</data>
+
+	<data name="ProviderWasNotCreatedByYou" xml:space="preserve">
+        <value>Provider no fue creado por {0}</value>
+	</data>
+
+	<data name="ProviderWithGivenIdNotExists" xml:space="preserve">
+        <value>No existe provider con ID [{0}]</value>
+	</data>
+
+	<data name="ProviderSpecifiedNotExists" xml:space="preserve">
+        <value>Provider {0} no existe</value>
+	</data>
+
+	<data name="ProviderIsNotPublicNeitherWasCreatedByYou" xml:space="preserve">
+        <value>Provider no fue creado por {0} y tampoco es público</value>
+	</data>
+
+	<data name="ProviderSpecifiedNotSuitable" xml:space="preserve">
+        <value>No se encontró provider adecuado para esta acción. Proporcionado: {0}</value>
+	</data>
+
+	<data name="ProviderTypeNotValid" xml:space="preserve">
+        <value>Tipo de provider {0} no es válido</value>
+	</data>
+
+	<data name="ProviderAlreadyExists" xml:space="preserve">
+        <value>Provider {0} ya existe. Creado por {1}"</value>
+	</data>
+
+	<data name="NotificationTypeSpecifiedNotAllowed" xml:space="preserve">
+        <value>Tipo de Notification no permitido {0}</value>
+	</data>
+
+	<data name="AttachmentNotFound" xml:space="preserve">
+        <value>Adjunto: {0} no encontrado"</value>
+	</data>
+
+	<data name="PlatformAlreadyExists" xml:space="preserve">
+        <value>Ya existe plataforma {0} creada por {1}</value>
+	</data>
+
+	<data name="PlatformWithGivenIdNotExists" xml:space="preserve">
+        <value>No existe plataforma con ID {0}</value>
+	</data>
+
+	<data name="PlatformWasNotCreatedByYou" xml:space="preserve">
+        <value>Platform no fue creada por {0}</value>
+	</data>
+
+	<data name="RequiredValue" xml:space="preserve">
+        <value>Se requiere especificar valor para {0}</value>
+	</data>
+
+	<data name="ValueNotValid" xml:space="preserve">
+        <value>"Valor no válido para {0}"</value>
+	</data>
+
+	<data name="HttpVerbNotAllowed" xml:space="preserve">
+        <value>Verbo HTTP: {0} no permitido</value>
+	</data>
+
+	<data name="MetadataRequiredByProvider" xml:space="preserve">
+        <value>Provider requiere que se especifique esta metadata: [{0}]</value>
+	</data>
+
+	<data name="RecipientNotExists" xml:space="preserve">
+        <value>No existe destinatario: {0}</value>
+	</data>
+
+	<data name="RecipientAlreadyExists" xml:space="preserve">
+        <value>Destinatario ya existe</value>
+	</data>
+
+	<data name="ProviderSettingsConflict" xml:space="preserve">
+        <value>Provider especificado {0} - no se requiere especificar la configuracion de otro tipo de provider!</value>
+	</data>
+</root>
