@@ -11,6 +11,7 @@ using NotificationService.Core.Dtos;
 using NotificationService.Common.Exceptions;
 using NotificationService.Core.Providers.Interfaces;
 using NotificationService.Core.Common;
+using NotificationService.Core.Interfaces;
 using Moq;
 using Microsoft.AspNetCore.Http;
 
@@ -21,7 +22,7 @@ public class EmailSenderTests
     private readonly Mock<INotificationsService> _notificationsServiceMock;
     private readonly Mock<IEmailProviderFactory> _emailProviderFactoryMock;
     private readonly Mock<IDateTimeService> _dateTimeServiceMock;
-    private readonly EmailSender _emailSender;
+    private readonly IEmailSender _emailSender;
 
     public EmailSenderTests()
     {
@@ -30,7 +31,7 @@ public class EmailSenderTests
         _emailProviderFactoryMock = new Mock<IEmailProviderFactory>();
         _dateTimeServiceMock = new Mock<IDateTimeService>();
 
-        _emailSender = new(
+        _emailSender = new EmailSender(
             _templateServiceMock.Object,
             _notificationsServiceMock.Object,
             _emailProviderFactoryMock.Object,
