@@ -7,6 +7,7 @@ using NotificationService.Core.IoC;
 using NotificationService.Infrastructure.IoC;
 using NotificationService.Common.Interfaces;
 using NotificationService.Common.Services;
+using NotificationService.Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,8 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseLocalization(builder.Configuration);
+
 app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseCors("NonProductionPolicy");
@@ -48,7 +51,7 @@ app.UseMiddleware<AuthMiddleware>();
 
 app.UseEndpoints(x =>
 {
-    x.MapControllers();
+    _ = x.MapControllers();
 });
 
 app.Run();
