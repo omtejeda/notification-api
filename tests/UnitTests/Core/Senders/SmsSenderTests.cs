@@ -163,7 +163,7 @@ public class SmsSenderTests
             },
             DevSettings = new ProviderDevSettings
             {
-                AllowedRecipients = new[] { allowedRecipient }
+                AllowedRecipients = [ allowedRecipient ]
             }
         };
 

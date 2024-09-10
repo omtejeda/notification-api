@@ -70,12 +70,12 @@ public class EmailUtilTests
             IsPublic = false,
             DevSettings = new ProviderDevSettings
             {
-                AllowedRecipients = new[]
-                { 
+                AllowedRecipients =
+                [
                     "johndoe@github.com",
                     "johndoe@gmail.com",
                     "johndoe@clientexpenses.com"
-                }
+                ]
             }
         };
 
