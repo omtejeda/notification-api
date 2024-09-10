@@ -24,7 +24,7 @@ ___
 
 ## Technologies
 ___
-- .NET 6.0
+- .NET 8.0
 - MongoDB
 - Docker
 - Kubernetes
