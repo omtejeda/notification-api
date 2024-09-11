@@ -4,14 +4,14 @@ using NotificationService.Common.Dtos;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
 using NotificationService.Common.Exceptions;
-using NotificationService.Contracts.Interfaces.Services;
+using NotificationService.Core.Contracts.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using NotificationService.Contracts.Interfaces.Repositories;
-using NotificationService.Contracts.ResponseDtos;
+using NotificationService.Core.Contracts.Interfaces.Repositories;
+using NotificationService.Core.Contracts.ResponseDtos;
 using NotificationService.Domain.Models;
 using NotificationService.Common.Utils;
 

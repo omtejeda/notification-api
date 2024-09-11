@@ -7,9 +7,9 @@ using NotificationService.Common.Dtos;
 using NotificationService.Domain.Dtos;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
-using NotificationService.Contracts.RequestDtos;
+using NotificationService.Core.Contracts.RequestDtos;
 
-namespace NotificationService.Contracts.Interfaces.Services
+namespace NotificationService.Core.Contracts.Interfaces.Services
 {
     public interface ITemplateService
     {

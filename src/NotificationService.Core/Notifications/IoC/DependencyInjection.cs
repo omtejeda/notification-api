@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
-using NotificationService.Contracts.Interfaces.Services;
+using NotificationService.Core.Contracts.Interfaces.Services;
 using NotificationService.Core.Notifications.Services;
 using NotificationService.Core.Notifications.Factories;
-using NotificationService.Contracts.Interfaces.Factories;
+using NotificationService.Core.Contracts.Interfaces.Factories;
 
 namespace NotificationService.Core.Notifications.IoC
 {

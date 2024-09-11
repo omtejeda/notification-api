@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using NotificationService.Contracts.Interfaces.Services;
+using NotificationService.Core.Contracts.Interfaces.Services;
 using NotificationService.Core.Providers.Decorators;
 using NotificationService.Core.Providers.Factories;
 using NotificationService.Core.Providers.Factories.Interfaces;

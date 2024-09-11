@@ -6,7 +6,7 @@ using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 using NotificationService.Infrastructure.Repositories.Helpers;
 using LinqKit;
-using NotificationService.Contracts.Interfaces.Repositories;
+using NotificationService.Core.Contracts.Interfaces.Repositories;
 using NotificationService.Common.Interfaces;
 
 namespace NotificationService.Infrastructure.Repositories

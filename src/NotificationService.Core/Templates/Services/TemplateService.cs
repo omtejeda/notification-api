@@ -11,9 +11,9 @@ using NotificationService.Core.Common.Utils;
 using NotificationService.Domain.Dtos;
 using NotificationService.Common.Dtos;
 using NotificationService.Domain.Models;
-using NotificationService.Contracts.RequestDtos;
-using NotificationService.Contracts.Interfaces.Services;
-using NotificationService.Contracts.Interfaces.Repositories;
+using NotificationService.Core.Contracts.RequestDtos;
+using NotificationService.Core.Contracts.Interfaces.Services;
+using NotificationService.Core.Contracts.Interfaces.Repositories;
 using NotificationService.Common.Utils;
 
 namespace NotificationService.Core.Templates.Services

@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NotificationService.Contracts.Interfaces.Services;
-using NotificationService.Contracts.ResponseDtos;
+using NotificationService.Core.Contracts.Interfaces.Services;
+using NotificationService.Core.Contracts.ResponseDtos;
 using NotificationService.Domain.Enums;
 
 namespace NotificationService.Core.Notifications.Services

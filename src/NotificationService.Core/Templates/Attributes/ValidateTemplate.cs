@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using NotificationService.Domain.Entities;
-using NotificationService.Contracts.Interfaces.Repositories;
+using NotificationService.Core.Contracts.Interfaces.Repositories;
 using NotificationService.Core.Dtos;
 namespace NotificationService.Core.Templates.Attributes
 {

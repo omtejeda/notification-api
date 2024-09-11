@@ -8,7 +8,7 @@ using NotificationService.Core.Common.Interfaces;
 using NotificationService.Domain.Enums;
 using NotificationService.Api.Attributes;
 using NotificationService.Common.Dtos;
-using NotificationService.Contracts.Interfaces.Repositories;
+using NotificationService.Core.Contracts.Interfaces.Repositories;
 using NotificationService.Common.Resources;
 
 namespace NotificationService.Api.Middlewares

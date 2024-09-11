@@ -1,8 +1,8 @@
 using System.Linq;
 using System.Collections.Generic;
 using NotificationService.Domain.Enums;
-using NotificationService.Contracts.Interfaces.Services;
-using NotificationService.Contracts.Interfaces.Factories;
+using NotificationService.Core.Contracts.Interfaces.Services;
+using NotificationService.Core.Contracts.Interfaces.Factories;
 
 namespace NotificationService.Core.Notifications.Factories
 {

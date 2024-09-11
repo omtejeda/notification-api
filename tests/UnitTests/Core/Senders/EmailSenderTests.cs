@@ -1,5 +1,5 @@
 
-using NotificationService.Contracts.Interfaces.Services;
+using NotificationService.Core.Contracts.Interfaces.Services;
 using NotificationService.Core.Providers.Factories.Interfaces;
 using NotificationService.Common.Interfaces;
 using NotificationService.Core.Senders;

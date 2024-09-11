@@ -1,7 +1,7 @@
-using NotificationService.Contracts.Interfaces.Services;
+using NotificationService.Core.Contracts.Interfaces.Services;
 using NotificationService.Domain.Enums;
 
-namespace NotificationService.Contracts.Interfaces.Factories
+namespace NotificationService.Core.Contracts.Interfaces.Factories
 {
     public interface IExportNotificationsFactory
     {

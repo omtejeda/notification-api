@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 using NotificationService.Domain.Entities;
-using NotificationService.Contracts.ResponseDtos;
+using NotificationService.Core.Contracts.ResponseDtos;
 using NotificationService.Common.Dtos;
-namespace NotificationService.Contracts.Interfaces.Services
+namespace NotificationService.Core.Contracts.Interfaces.Services
 {
     public interface ICatalogService
     {

@@ -4,8 +4,8 @@ using System.Linq.Expressions;
 using System.Collections.Generic;
 using NotificationService.Domain.Entities;
 using NotificationService.Common.Dtos;
-using NotificationService.Contracts.ResponseDtos;
-namespace NotificationService.Contracts.Interfaces.Services
+using NotificationService.Core.Contracts.ResponseDtos;
+namespace NotificationService.Core.Contracts.Interfaces.Services
 {
     public interface IPlatformService
     {

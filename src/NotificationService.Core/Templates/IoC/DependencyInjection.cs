@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using NotificationService.Contracts.Interfaces.Services;
+using NotificationService.Core.Contracts.Interfaces.Services;
 using NotificationService.Core.Templates.Services;
 
 namespace NotificationService.Core.Templates.IoC

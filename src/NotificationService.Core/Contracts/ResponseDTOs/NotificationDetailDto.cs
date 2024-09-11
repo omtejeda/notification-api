@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-namespace NotificationService.Contracts.ResponseDtos
+namespace NotificationService.Core.Contracts.ResponseDtos
 {
     public class NotificationDetailDto : NotificationDto
     {

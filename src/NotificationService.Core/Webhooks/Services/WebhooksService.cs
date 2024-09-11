@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NotificationService.Contracts.Interfaces.Repositories;
-using NotificationService.Contracts.Interfaces.Services;
+using NotificationService.Core.Contracts.Interfaces.Repositories;
+using NotificationService.Core.Contracts.Interfaces.Services;
 using NotificationService.Domain.Entities;
 using static NotificationService.Core.Common.Utils.EmailUtil;
 

@@ -1,4 +1,4 @@
-using NotificationService.Contracts.Interfaces.Services;
+using NotificationService.Core.Contracts.Interfaces.Services;
 using NotificationService.Core.Providers.Factories.Interfaces;
 using NotificationService.Common.Interfaces;
 using NotificationService.Core.Senders;
@@ -11,7 +11,7 @@ using NotificationService.Common.Exceptions;
 using NotificationService.Core.Providers.Interfaces;
 using NotificationService.Core.Common;
 using NotificationService.Core.Interfaces;
-using NotificationService.Contracts.Interfaces.Repositories;
+using NotificationService.Core.Contracts.Interfaces.Repositories;
 using Moq;
 using System.Linq.Expressions;
 

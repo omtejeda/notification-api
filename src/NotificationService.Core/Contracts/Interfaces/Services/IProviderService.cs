@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using NotificationService.Domain.Entities;
 using NotificationService.Common.Dtos;
-using NotificationService.Contracts.RequestDtos;
-using NotificationService.Contracts.ResponseDtos;
+using NotificationService.Core.Contracts.RequestDtos;
+using NotificationService.Core.Contracts.ResponseDtos;
 
-namespace NotificationService.Contracts.Interfaces.Services
+namespace NotificationService.Core.Contracts.Interfaces.Services
 {
     public interface IProviderService
     {

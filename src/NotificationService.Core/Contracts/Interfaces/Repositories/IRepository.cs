@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 
-namespace NotificationService.Contracts.Interfaces.Repositories
+namespace NotificationService.Core.Contracts.Interfaces.Repositories
 {
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {

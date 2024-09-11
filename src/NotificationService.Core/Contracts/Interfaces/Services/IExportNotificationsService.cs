@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using NotificationService.Contracts.ResponseDtos;
+using NotificationService.Core.Contracts.ResponseDtos;
 using NotificationService.Domain.Enums;
 
-namespace NotificationService.Contracts.Interfaces.Services
+namespace NotificationService.Core.Contracts.Interfaces.Services
 {
     public interface IExportNotificationsService
     {

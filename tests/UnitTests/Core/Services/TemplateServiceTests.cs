@@ -7,10 +7,10 @@ using NotificationService.Common.Dtos;
 using NotificationService.Common.Exceptions;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
-using NotificationService.Contracts.RequestDtos;
+using NotificationService.Core.Contracts.RequestDtos;
 using NotificationService.Core.Templates.Services;
-using NotificationService.Contracts.Interfaces.Repositories;
-using NotificationService.Contracts.Interfaces.Services;
+using NotificationService.Core.Contracts.Interfaces.Repositories;
+using NotificationService.Core.Contracts.Interfaces.Services;
 using Moq;
 using AutoMapper;
 

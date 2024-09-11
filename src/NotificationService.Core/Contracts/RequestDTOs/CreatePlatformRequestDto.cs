@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace NotificationService.Contracts.RequestDtos
+namespace NotificationService.Core.Contracts.RequestDtos
 {
     public class CreatePlatformRequestDto
     {

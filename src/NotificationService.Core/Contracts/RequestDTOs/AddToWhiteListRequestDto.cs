@@ -1,3 +1,3 @@
-namespace NotificationService.Contracts.RequestDtos;
+namespace NotificationService.Core.Contracts.RequestDtos;
 
 public record AddToWhiteListRequestDto(string Recipient);
