@@ -74,7 +74,7 @@ public class SmsSenderTests
         SetupProvider(request.ProviderName, ProviderType.SendGrid);
 
         // Act & Assert
-        var exception = await Assert.ThrowsAsync<RuleValidationException>(() => _smsSender.SendSmsAsync(request, request.Template.PlatformName));
+        var exception = await Assert.ThrowsAsync<ProviderException>(() => _smsSender.SendSmsAsync(request, request.Template.PlatformName));
         var expectedMessage = "No suitable provider found";
         
         Assert.Contains(expectedMessage, exception.Message);
@@ -92,7 +92,7 @@ public class SmsSenderTests
             .ReturnsAsync(nullProvider);
 
         // Act & Assert
-        var exception = await Assert.ThrowsAsync<RuleValidationException>(() => _smsSender.SendSmsAsync(request, request.Template.PlatformName));
+        var exception = await Assert.ThrowsAsync<ProviderException>(() => _smsSender.SendSmsAsync(request, request.Template.PlatformName));
         var expectedMessage = $"Provider {request.ProviderName} does not exist";
         
         Assert.Contains(expectedMessage, exception.Message);

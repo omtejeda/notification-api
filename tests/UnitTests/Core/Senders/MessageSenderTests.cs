@@ -74,7 +74,7 @@ public class MessageSenderTests
         SetupProvider(request.ProviderName, ProviderType.SendGrid);
 
         // Act & Assert
-        var exception = await Assert.ThrowsAsync<RuleValidationException>(() => _messageSender.SendMessageAsync(request, request.Template.PlatformName));
+        var exception = await Assert.ThrowsAsync<ProviderException>(() => _messageSender.SendMessageAsync(request, request.Template.PlatformName));
         var expectedMessage = "No suitable provider found";
         
         Assert.Contains(expectedMessage, exception.Message);
@@ -92,7 +92,7 @@ public class MessageSenderTests
             .ReturnsAsync(nullProvider);
 
         // Act & Assert
-        var exception = await Assert.ThrowsAsync<RuleValidationException>(() => _messageSender.SendMessageAsync(request, request.Template.PlatformName));
+        var exception = await Assert.ThrowsAsync<ProviderException>(() => _messageSender.SendMessageAsync(request, request.Template.PlatformName));
         var expectedMessage = $"Provider {request.ProviderName} does not exist";
         
         Assert.Contains(expectedMessage, exception.Message);
@@ -106,7 +106,7 @@ public class MessageSenderTests
         request.NotificationType = NotificationType.Email;
 
         // Act & Assert
-        var exception = await Assert.ThrowsAsync<RuleValidationException>(() => _messageSender.SendMessageAsync(request, request.Template.PlatformName));
+        var exception = await Assert.ThrowsAsync<NotificationException>(() => _messageSender.SendMessageAsync(request, request.Template.PlatformName));
 
         Assert.Contains("Notification type not allowed", exception.Message);
     }
