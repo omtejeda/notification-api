@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using AutoMapper;
 using NotificationService.Common.Entities;
 using NotificationService.Common.Enums;
-using NotificationService.Common.Exceptions;
 using LinqKit;
 using NotificationService.Core.Common.Utils;
 using NotificationService.Common.Dtos;
@@ -14,7 +13,6 @@ using NotificationService.Common.Models;
 using NotificationService.Contracts.RequestDtos;
 using NotificationService.Contracts.Interfaces.Services;
 using NotificationService.Contracts.Interfaces.Repositories;
-using NotificationService.Common.Resources;
 using NotificationService.Common.Utils;
 
 namespace NotificationService.Core.Templates.Services
@@ -41,9 +39,10 @@ namespace NotificationService.Core.Templates.Services
             Guard.TemplateNotExists(existingTemplate);
 
             var metadata = request.Metadata.Select(x => new Metadata { Key = x.Key, Description = x.Description, IsRequired = x.IsRequired }).ToList();
-            var labels = _mapper.Map<ICollection<TemplateLabel>>(request.Labels);
+            var labels = _mapper.Map<ICollection<TemplateLabel>>(request.Labels) ?? Array.Empty<TemplateLabel>();
 
-            foreach(var label in labels.Where(x => !string.IsNullOrWhiteSpace(x.CatalogNameToCheckAgainst)))
+
+            foreach (var label in labels.Where(x => !string.IsNullOrWhiteSpace(x.CatalogNameToCheckAgainst)))
             {
                 var catalog = await _catalogRepository.FindOneAsync(x => x.Name == label.CatalogNameToCheckAgainst);
                 
