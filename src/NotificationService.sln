@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Api", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Core", "NotificationService.Core\NotificationService.Core.csproj", "{4DC59B94-E8FE-47B9-9336-9F3AE373533E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Contracts", "NotificationService.Contracts\NotificationService.Contracts.csproj", "{3034224A-BF21-4506-A9EA-B3B6CBDFD81D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Infrastructure", "NotificationService.Infrastructure\NotificationService.Infrastructure.csproj", "{50E56C42-1F51-4A4C-852D-FEE6263837A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Common", "NotificationService.Common\NotificationService.Common.csproj", "{3432DE31-5012-450B-9B08-1EB7593A73EE}"
