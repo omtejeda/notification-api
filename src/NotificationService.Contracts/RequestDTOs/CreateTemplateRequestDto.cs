@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Enums;
 using NotificationService.Common.Dtos;
 using System.Text.Json.Serialization;
 

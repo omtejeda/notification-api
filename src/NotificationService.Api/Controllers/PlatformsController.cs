@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Enums;
 using NotificationService.Contracts.Interfaces.Services;
 using NotificationService.Api.Attributes;
 using NotificationService.Contracts.RequestDtos;

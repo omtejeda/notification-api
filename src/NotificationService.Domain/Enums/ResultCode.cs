@@ -1,4 +1,4 @@
-namespace NotificationService.Common.Enums
+namespace NotificationService.Domain.Enums
 {
     public enum ResultCode
     {

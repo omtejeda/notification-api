@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.AspNetCore.Http;
-using NotificationService.Common.Models;
+using NotificationService.Domain.Models;
 
 namespace NotificationService.Core.Common.Utils
 {

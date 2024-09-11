@@ -6,7 +6,7 @@ using NotificationService.Api.Utils;
 using System.Collections.Generic;
 using NotificationService.Contracts.Interfaces.Services;
 using LinqKit;
-using NotificationService.Common.Entities;
+using NotificationService.Domain.Entities;
 using NotificationService.Contracts.RequestDtos;
 using NotificationService.Contracts.ResponseDtos;
 

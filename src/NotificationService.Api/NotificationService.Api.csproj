@@ -14,5 +14,6 @@
     <ProjectReference Include="..\NotificationService.Core\NotificationService.Core.csproj" />
     <ProjectReference Include="..\NotificationService.Common\NotificationService.Common.csproj" />
     <ProjectReference Include="..\NotificationService.Infrastructure\NotificationService.Infrastructure.csproj" />
+    <ProjectReference Include="..\NotificationService.Domain\NotificationService.Domain.csproj" />
   </ItemGroup>
 </Project>

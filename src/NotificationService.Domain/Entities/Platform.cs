@@ -1,4 +1,4 @@
-namespace NotificationService.Common.Entities
+namespace NotificationService.Domain.Entities
 {
     public class Platform : BaseEntity
     {

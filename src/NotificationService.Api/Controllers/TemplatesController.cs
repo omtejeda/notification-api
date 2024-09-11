@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
-using NotificationService.Common.Entities;
+using NotificationService.Domain.Entities;
 using NotificationService.Contracts.RequestDtos;
 using NotificationService.Contracts.Interfaces.Services;
 using NotificationService.Contracts.Interfaces.Repositories;

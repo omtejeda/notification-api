@@ -2,7 +2,7 @@ using System;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NotificationService.Common.Entities;
+using NotificationService.Domain.Entities;
 using NotificationService.Common.Dtos;
 using NotificationService.Contracts.RequestDtos;
 using NotificationService.Contracts.ResponseDtos;

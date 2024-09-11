@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using NotificationService.Common.Dtos;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Dtos;
+using NotificationService.Domain.Enums;
 
-namespace NotificationService.Common.Models
+namespace NotificationService.Domain.Models
 {
     public class RuntimeTemplate
     {

@@ -2,8 +2,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using NotificationService.Common.Enums;
-using NotificationService.Common.Entities;
+using NotificationService.Domain.Enums;
+using NotificationService.Domain.Entities;
 using NotificationService.Core.Common.Utils;
 using NotificationService.Contracts.Interfaces.Services;
 using NotificationService.Core.Providers.Factories.Interfaces;
@@ -13,7 +13,7 @@ using NotificationService.Core.Interfaces;
 using NotificationService.Core.Providers.Interfaces;
 using NotificationService.Common.Dtos;
 using NotificationService.Core.Dtos;
-using NotificationService.Common.Models;
+using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
 
 namespace NotificationService.Core.Senders

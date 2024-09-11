@@ -1,9 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using NotificationService.Common.Entities;
+using NotificationService.Domain.Entities;
 using NotificationService.Contracts.RequestDtos;
-using NotificationService.Common.Dtos;
+using NotificationService.Domain.Dtos;
 
 namespace NotificationService.Core.Providers.Interfaces
 {

@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\NotificationService.Core\NotificationService.Core.csproj"/>
     <ProjectReference Include="..\..\..\src\NotificationService.Common\NotificationService.Common.csproj"/>
+    <ProjectReference Include="..\..\..\src\NotificationService.Domain\NotificationService.Domain.csproj"/>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0"/>

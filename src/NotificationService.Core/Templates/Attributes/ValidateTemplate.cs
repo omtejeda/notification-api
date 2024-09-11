@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using NotificationService.Common.Entities;
+using NotificationService.Domain.Entities;
 using NotificationService.Contracts.Interfaces.Repositories;
 using NotificationService.Core.Dtos;
 namespace NotificationService.Core.Templates.Attributes

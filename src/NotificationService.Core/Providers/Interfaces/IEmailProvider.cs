@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using NotificationService.Core.Common;
-using NotificationService.Common.Entities;
-using NotificationService.Common.Enums;
-using NotificationService.Common.Models;
+using NotificationService.Domain.Entities;
+using NotificationService.Domain.Enums;
+using NotificationService.Domain.Models;
 
 namespace NotificationService.Core.Providers.Interfaces
 {

@@ -1,6 +1,4 @@
-using System.Collections.Generic;
-
-namespace NotificationService.Common.Entities
+namespace NotificationService.Domain.Entities
 {
     public class Catalog : BaseEntity
     {

@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using NotificationService.Common.Enums;
-using NotificationService.Common.Entities;
+using NotificationService.Domain.Enums;
+using NotificationService.Domain.Entities;
 using NotificationService.Contracts.Interfaces.Services;
 using NotificationService.Contracts.ResponseDtos;
 using NotificationService.Contracts.Interfaces.Repositories;

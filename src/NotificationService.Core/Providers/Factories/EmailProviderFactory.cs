@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NotificationService.Common.Entities;
+using NotificationService.Domain.Entities;
 using NotificationService.Core.Providers.Factories.Interfaces;
 using NotificationService.Contracts.Interfaces.Repositories;
 using NotificationService.Core.Providers.Interfaces;

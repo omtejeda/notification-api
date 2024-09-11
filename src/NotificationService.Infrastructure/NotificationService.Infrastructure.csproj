@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NotificationService.Contracts\NotificationService.Contracts.csproj" />
     <ProjectReference Include="..\NotificationService.Core\NotificationService.Core.csproj" />
+    <ProjectReference Include="..\NotificationService.Domain\NotificationService.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using NotificationService.Core.Templates.Attributes;
-using NotificationService.Common.Enums;
-using NotificationService.Common.Dtos;
+using NotificationService.Domain.Enums;
+using NotificationService.Domain.Dtos;
 
 namespace NotificationService.Core.Dtos
 {

@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Enums;
 
 namespace NotificationService.Core.Common.Helpers
 {

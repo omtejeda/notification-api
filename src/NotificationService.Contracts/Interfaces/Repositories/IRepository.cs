@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
-using NotificationService.Common.Entities;
-using NotificationService.Common.Models;
+using NotificationService.Domain.Entities;
+using NotificationService.Domain.Models;
 
 namespace NotificationService.Contracts.Interfaces.Repositories
 {

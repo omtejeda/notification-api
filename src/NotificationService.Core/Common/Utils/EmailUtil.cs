@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using MimeKit;
-using NotificationService.Common.Entities;
-using NotificationService.Common.Exceptions;
+using NotificationService.Domain.Entities;
 using SendGrid.Helpers.Mail;
-using NotificationService.Common.Dtos;
+using NotificationService.Domain.Dtos;
 using NotificationService.Core.Templates.Models;
 using NotificationService.Common.Utils;
-using NotificationService.Common.Resources;
 
 namespace NotificationService.Core.Common.Utils
 {

@@ -1,5 +1,4 @@
-using System;
-namespace NotificationService.Common.Models
+namespace NotificationService.Domain.Models
 {
     public class Pagination
     {

@@ -1,7 +1,7 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
-using NotificationService.Common.Entities;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Entities;
+using NotificationService.Domain.Enums;
 using NotificationService.Common.Exceptions;
 using NotificationService.Common.Resources;
 

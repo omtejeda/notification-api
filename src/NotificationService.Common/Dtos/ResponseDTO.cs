@@ -1,5 +1,5 @@
 using System;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Enums;
 using NotificationService.Common.Utils;
 namespace NotificationService.Common.Dtos
 {

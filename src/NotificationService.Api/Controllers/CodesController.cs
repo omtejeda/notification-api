@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Enums;
 using NotificationService.Common.Dtos;
 namespace NotificationService.Api.Controllers
 {   

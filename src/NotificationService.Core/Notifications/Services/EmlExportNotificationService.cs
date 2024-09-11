@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NotificationService.Contracts.Interfaces.Services;
 using NotificationService.Contracts.ResponseDtos;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Enums;
 
 namespace NotificationService.Core.Notifications.Services
 {

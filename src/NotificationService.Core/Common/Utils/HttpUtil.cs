@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NotificationService.Common.Exceptions;
 using NotificationService.Common.Dtos;
-using NotificationService.Common.Entities;
+using NotificationService.Domain.Entities;
 using NotificationService.Common.Resources;
 using NotificationService.Common.Utils;
 

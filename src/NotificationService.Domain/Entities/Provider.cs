@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using NotificationService.Common.Enums;
-namespace NotificationService.Common.Entities
+using NotificationService.Domain.Enums;
+namespace NotificationService.Domain.Entities
 {
     public class Provider : BaseEntity
     {

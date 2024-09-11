@@ -1,7 +1,7 @@
 using NotificationService.Core.Common.Utils;
 using NotificationService.Common.Dtos;
-using NotificationService.Common.Entities;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Entities;
+using NotificationService.Domain.Enums;
 using NotificationService.Common.Exceptions;
 
 namespace NotificationService.Core.Tests.Utils;

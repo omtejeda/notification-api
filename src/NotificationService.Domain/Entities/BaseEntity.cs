@@ -1,5 +1,4 @@
-using System;
-namespace NotificationService.Common.Entities
+namespace NotificationService.Domain.Entities
 {
     public abstract class BaseEntity
     {

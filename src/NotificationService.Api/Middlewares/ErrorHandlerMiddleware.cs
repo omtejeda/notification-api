@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Enums;
 using NotificationService.Common.Exceptions;
 using NotificationService.Common.Dtos;
 

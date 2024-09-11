@@ -1,4 +1,4 @@
-namespace NotificationService.Common.Dtos
+namespace NotificationService.Domain.Dtos
 {
     public class MetadataDto
     {

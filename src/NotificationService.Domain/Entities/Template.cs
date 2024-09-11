@@ -1,7 +1,7 @@
-using NotificationService.Common.Enums;
-using NotificationService.Common.Models;
+using NotificationService.Domain.Enums;
+using NotificationService.Domain.Models;
 
-namespace NotificationService.Common.Entities
+namespace NotificationService.Domain.Entities
 {
     public class Template : BaseEntity
     {

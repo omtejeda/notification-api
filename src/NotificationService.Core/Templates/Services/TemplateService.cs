@@ -4,12 +4,13 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using AutoMapper;
-using NotificationService.Common.Entities;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Entities;
+using NotificationService.Domain.Enums;
 using LinqKit;
 using NotificationService.Core.Common.Utils;
+using NotificationService.Domain.Dtos;
 using NotificationService.Common.Dtos;
-using NotificationService.Common.Models;
+using NotificationService.Domain.Models;
 using NotificationService.Contracts.RequestDtos;
 using NotificationService.Contracts.Interfaces.Services;
 using NotificationService.Contracts.Interfaces.Repositories;
@@ -38,7 +39,7 @@ namespace NotificationService.Core.Templates.Services
             
             Guard.TemplateNotExists(existingTemplate);
 
-            var metadata = request.Metadata.Select(x => new Metadata { Key = x.Key, Description = x.Description, IsRequired = x.IsRequired }).ToList();
+            var metadata = request.Metadata.Select(x => new Domain.Models.Metadata { Key = x.Key, Description = x.Description, IsRequired = x.IsRequired }).ToList();
             var labels = _mapper.Map<ICollection<TemplateLabel>>(request.Labels) ?? Array.Empty<TemplateLabel>();
 
 
@@ -110,7 +111,7 @@ namespace NotificationService.Core.Templates.Services
             return BaseResponse<TemplateDto>.Success(templateDto);
         }
 
-        public async Task<RuntimeTemplate> GetRuntimeTemplate(string name, string platformName, Language language, List<MetadataDto> providedMetadata, string owner, NotificationType notificationType)
+        public async Task<RuntimeTemplate> GetRuntimeTemplate(string name, string platformName, Language language, List<Domain.Dtos.MetadataDto> providedMetadata, string owner, NotificationType notificationType)
         {
             var (templates, _) = await _repository
                 .FindAsync(t => t.Name == name && t.PlatformName == platformName);

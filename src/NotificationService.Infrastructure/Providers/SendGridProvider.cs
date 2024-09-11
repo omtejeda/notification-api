@@ -3,13 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using SendGrid.Helpers.Mail;
 using SendGrid;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Enums;
 using NotificationService.Core.Common.Utils;
-using NotificationService.Common.Entities;
+using NotificationService.Domain.Entities;
 using NotificationService.Core.Providers.Interfaces;
 using System.Collections.Generic;
 using NotificationService.Core.Common;
-using NotificationService.Common.Models;
+using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
 
 namespace NotificationService.Infrastructure.Providers

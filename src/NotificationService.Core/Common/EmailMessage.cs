@@ -1,6 +1,6 @@
-﻿using NotificationService.Common.Dtos;
-using NotificationService.Common.Entities;
-using NotificationService.Common.Models;
+﻿using NotificationService.Domain.Dtos;
+using NotificationService.Domain.Entities;
+using NotificationService.Domain.Models;
 using System.Collections.Generic;
 
 namespace NotificationService.Core.Common

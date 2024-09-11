@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using NotificationService.Contracts.Interfaces.Repositories;
 using NotificationService.Contracts.Interfaces.Services;
-using NotificationService.Common.Entities;
+using NotificationService.Domain.Entities;
 using static NotificationService.Core.Common.Utils.EmailUtil;
 
 namespace NotificationService.Core.Webhooks.Services;

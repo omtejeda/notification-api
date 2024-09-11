@@ -2,16 +2,16 @@ using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
-using NotificationService.Common.Entities;
+using NotificationService.Domain.Entities;
 using NotificationService.Common.Exceptions;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Enums;
 using System.Net.Http;
 using Microsoft.Extensions.Logging;
 using NotificationService.Core.Common.Utils;
 using NotificationService.Core.Providers.Interfaces;
 using System.Text;
 using AutoMapper;
-using NotificationService.Common.Dtos;
+using NotificationService.Domain.Dtos;
 using NotificationService.Common.Resources;
 
 namespace NotificationService.Infrastructure.Providers

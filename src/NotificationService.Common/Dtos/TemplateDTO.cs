@@ -1,5 +1,4 @@
-using NotificationService.Common.Entities;
-using NotificationService.Common.Models;
+using NotificationService.Domain.Models;
 
 namespace NotificationService.Common.Dtos
 {

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Infrast
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Common", "NotificationService.Common\NotificationService.Common.csproj", "{3432DE31-5012-450B-9B08-1EB7593A73EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Domain", "NotificationService.Domain\NotificationService.Domain.csproj", "{D12974F6-9157-4432-9291-6453D282E4AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{3432DE31-5012-450B-9B08-1EB7593A73EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3432DE31-5012-450B-9B08-1EB7593A73EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3432DE31-5012-450B-9B08-1EB7593A73EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D12974F6-9157-4432-9291-6453D282E4AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D12974F6-9157-4432-9291-6453D282E4AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D12974F6-9157-4432-9291-6453D282E4AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D12974F6-9157-4432-9291-6453D282E4AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

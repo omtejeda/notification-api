@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using NotificationService.Contracts.ResponseDtos;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Enums;
 
 namespace NotificationService.Contracts.Interfaces.Services
 {

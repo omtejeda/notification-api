@@ -6,8 +6,8 @@ using Polly.Retry;
 using Polly.Timeout;
 using Polly.Wrap;
 using NotificationService.Core.Providers.Interfaces;
-using NotificationService.Common.Enums;
-using NotificationService.Common.Models;
+using NotificationService.Domain.Enums;
+using NotificationService.Domain.Models;
 using NotificationService.Core.Common;
 
 namespace NotificationService.Core.Providers.Decorators

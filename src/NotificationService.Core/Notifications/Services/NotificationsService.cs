@@ -1,8 +1,8 @@
 using AutoMapper;
 using LinqKit;
 using NotificationService.Common.Dtos;
-using NotificationService.Common.Entities;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Entities;
+using NotificationService.Domain.Enums;
 using NotificationService.Common.Exceptions;
 using NotificationService.Contracts.Interfaces.Services;
 using System;
@@ -12,8 +12,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using NotificationService.Contracts.Interfaces.Repositories;
 using NotificationService.Contracts.ResponseDtos;
-using NotificationService.Common.Models;
-using NotificationService.Common.Resources;
+using NotificationService.Domain.Models;
 using NotificationService.Common.Utils;
 
 namespace NotificationService.Core.Notifications.Services
