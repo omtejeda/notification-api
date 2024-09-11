@@ -7,7 +7,7 @@ namespace NotificationService.Api.Extensions;
 
 public static class LocalizationExtensions
 {
-    private const string LocalizationOptionsName = "Localization";
+    private const string LocalizationSectionName = "Localization";
 
     public static IApplicationBuilder UseLocalization(this IApplicationBuilder app, IConfiguration configuration)
     {
@@ -20,7 +20,7 @@ public static class LocalizationExtensions
     public static RequestLocalizationOptions GetRequestLocalizationOptions(IConfiguration configuration)
     {
         LocalizationOptions options = configuration
-            .GetSection(LocalizationOptionsName)
+            .GetSection(LocalizationSectionName)
             .Get<LocalizationOptions>();
         
         return new RequestLocalizationOptions()
