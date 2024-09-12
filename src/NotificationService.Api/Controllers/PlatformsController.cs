@@ -9,6 +9,7 @@ using NotificationService.Common.Dtos;
 using MediatR;
 using NotificationService.Application.Features.Platforms.Commands.Create;
 using NotificationService.Application.Features.Platforms.Commands.Delete;
+using NotificationService.Application.Features.Platforms.Queries.GetById;
 
 namespace NotificationService.Api.Controllers
 {   
@@ -41,8 +42,11 @@ namespace NotificationService.Api.Controllers
         [HttpGet("{platformId}")]
         public async Task<IActionResult> GetById([FromRoute] string platformId)
         {
-            var response = await _platformService.GetPlatformById(platformId, owner: CurrentPlatform.Name);
-            if (response?.Data == null) return NotFound();
+            var query = new GetPlatformByIdQuery(platformId, CurrentPlatform.Name);
+            var response = await _sender.Send(query);
+
+            if (response?.Data is null) return NotFound();
+
             return Ok(response);
         }
 
