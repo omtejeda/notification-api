@@ -22,7 +22,7 @@ namespace NotificationService.Common.Dtos
                 Success = IsSuccess(code),
                 Code = code,
                 Message = resultMessage,
-                Date = SystemUtil.GetSystemDate()
+                Date = AppUtil.CurrentDate
             };
         }
         
