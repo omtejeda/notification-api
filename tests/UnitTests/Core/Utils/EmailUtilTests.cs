@@ -1,10 +1,10 @@
-using NotificationService.Core.Common.Utils;
+using NotificationService.Application.Common.Utils;
 using NotificationService.Common.Dtos;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
 using NotificationService.Common.Exceptions;
 
-namespace NotificationService.Core.Tests.Utils;
+namespace NotificationService.Application.Tests.Utils;
 
 public class EmailUtilTests
 {

@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Http;
 using NotificationService.Domain.Entities;
 using NotificationService.Api.Utils;
 using NotificationService.Domain.Enums;
-using NotificationService.Core.Contracts.RequestDtos;
-using NotificationService.Core.Contracts.Interfaces.Services;
-using NotificationService.Core.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Contracts.RequestDtos;
+using NotificationService.Application.Contracts.Interfaces.Services;
+using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Common.Dtos;
 
 namespace NotificationService.Api.Controllers
@@ -46,7 +46,7 @@ namespace NotificationService.Api.Controllers
         [HttpGet("types")]
         public IActionResult GetProviderTypes()
         {
-            var providerTypes = Core.Common.Helpers.EnumHelper.GetProviderTypes();
+            var providerTypes = Application.Common.Helpers.EnumHelper.GetProviderTypes();
             var response = BaseResponse<object>.Success(providerTypes);
             return Ok(response);
         }

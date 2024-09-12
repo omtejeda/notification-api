@@ -1,21 +1,21 @@
 
-using NotificationService.Core.Contracts.Interfaces.Services;
-using NotificationService.Core.Providers.Factories.Interfaces;
+using NotificationService.Application.Contracts.Interfaces.Services;
+using NotificationService.Application.Providers.Factories.Interfaces;
 using NotificationService.Common.Interfaces;
-using NotificationService.Core.Senders;
+using NotificationService.Application.Senders;
 using NotificationService.Domain.Enums;
 using NotificationService.Common.Dtos;
 using NotificationService.Domain.Models;
 using NotificationService.Domain.Entities;
-using NotificationService.Core.Dtos;
+using NotificationService.Application.Dtos;
 using NotificationService.Common.Exceptions;
-using NotificationService.Core.Providers.Interfaces;
-using NotificationService.Core.Common;
-using NotificationService.Core.Interfaces;
+using NotificationService.Application.Providers.Interfaces;
+using NotificationService.Application.Common;
+using NotificationService.Application.Interfaces;
 using Moq;
 using Microsoft.AspNetCore.Http;
 
-namespace NotificationService.Core.Tests.Senders;
+namespace NotificationService.Application.Tests.Senders;
 public class EmailSenderTests
 {
     private readonly Mock<ITemplateService> _templateServiceMock;
@@ -190,7 +190,7 @@ public class EmailSenderTests
         return new()
         {
             ToEmail = "johndoe@custom-domain.com",
-            Template = new NotificationService.Core.Dtos.TemplateDto
+            Template = new NotificationService.Application.Dtos.TemplateDto
             {
                 Name = "MyCustomTemplate",
                 PlatformName = "MyCustomPlatform",

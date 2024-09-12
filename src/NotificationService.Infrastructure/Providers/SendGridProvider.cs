@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using SendGrid.Helpers.Mail;
 using SendGrid;
 using NotificationService.Domain.Enums;
-using NotificationService.Core.Common.Utils;
+using NotificationService.Application.Common.Utils;
 using NotificationService.Domain.Entities;
-using NotificationService.Core.Providers.Interfaces;
+using NotificationService.Application.Providers.Interfaces;
 using System.Collections.Generic;
-using NotificationService.Core.Common;
+using NotificationService.Application.Common;
 using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
 

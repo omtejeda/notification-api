@@ -7,14 +7,14 @@ using NotificationService.Common.Dtos;
 using NotificationService.Common.Exceptions;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
-using NotificationService.Core.Contracts.RequestDtos;
-using NotificationService.Core.Templates.Services;
-using NotificationService.Core.Contracts.Interfaces.Repositories;
-using NotificationService.Core.Contracts.Interfaces.Services;
+using NotificationService.Application.Contracts.RequestDtos;
+using NotificationService.Application.Templates.Services;
+using NotificationService.Application.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Contracts.Interfaces.Services;
 using Moq;
 using AutoMapper;
 
-namespace NotificationService.Core.Tests.Services;
+namespace NotificationService.Application.Tests.Services;
 
 public class TemplateServiceTests
 {

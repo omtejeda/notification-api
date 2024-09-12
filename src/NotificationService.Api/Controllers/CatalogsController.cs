@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
 using System.Collections.Generic;
-using NotificationService.Core.Contracts.Interfaces.Services;
+using NotificationService.Application.Contracts.Interfaces.Services;
 using LinqKit;
 using NotificationService.Domain.Entities;
-using NotificationService.Core.Contracts.RequestDtos;
-using NotificationService.Core.Contracts.ResponseDtos;
+using NotificationService.Application.Contracts.RequestDtos;
+using NotificationService.Application.Contracts.ResponseDtos;
 
 namespace NotificationService.Api.Controllers
 {   

@@ -1,8 +1,8 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
-using NotificationService.Core.Contracts.Interfaces.Repositories;
-using NotificationService.Core.Providers.Interfaces;
+using NotificationService.Application.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Providers.Interfaces;
 using NotificationService.Infrastructure.Providers;
 using NotificationService.Infrastructure.Repositories;
 using NotificationService.Infrastructure.Repositories.Helpers;

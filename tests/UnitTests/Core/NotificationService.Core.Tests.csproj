@@ -7,7 +7,7 @@
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\NotificationService.Core\NotificationService.Core.csproj"/>
+    <ProjectReference Include="..\..\..\src\NotificationService.Application\NotificationService.Application.csproj"/>
     <ProjectReference Include="..\..\..\src\NotificationService.Common\NotificationService.Common.csproj"/>
     <ProjectReference Include="..\..\..\src\NotificationService.Domain\NotificationService.Domain.csproj"/>
   </ItemGroup>

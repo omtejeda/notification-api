@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
-using NotificationService.Core.Interfaces;
-using NotificationService.Core.Dtos;
+using NotificationService.Application.Interfaces;
+using NotificationService.Application.Dtos;
 using NotificationService.Common.Utils;
 
 namespace NotificationService.Api.Controllers

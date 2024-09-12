@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
-using NotificationService.Core.Contracts.Interfaces.Services;
-using NotificationService.Core.Webhooks.Dtos;
+using NotificationService.Application.Contracts.Interfaces.Services;
+using NotificationService.Application.Webhooks.Dtos;
 
 namespace NotificationService.Api.Controllers
 {

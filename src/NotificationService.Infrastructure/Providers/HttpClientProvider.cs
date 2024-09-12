@@ -7,8 +7,8 @@ using NotificationService.Common.Exceptions;
 using NotificationService.Domain.Enums;
 using System.Net.Http;
 using Microsoft.Extensions.Logging;
-using NotificationService.Core.Common.Utils;
-using NotificationService.Core.Providers.Interfaces;
+using NotificationService.Application.Common.Utils;
+using NotificationService.Application.Providers.Interfaces;
 using System.Text;
 using AutoMapper;
 using NotificationService.Domain.Dtos;
@@ -145,8 +145,8 @@ namespace NotificationService.Infrastructure.Providers
             if (jsonBody is null)
                 return string.Empty;
             
-            var body = _mapper.Map<Core.Providers.Libraries.JSONParser.JsonBody>(jsonBody);
-            var metadata = _mapper.Map<List<Core.Providers.Libraries.JSONParser.Metadata>>(requestMetadata);
+            var body = _mapper.Map<Application.Providers.Libraries.JSONParser.JsonBody>(jsonBody);
+            var metadata = _mapper.Map<List<Application.Providers.Libraries.JSONParser.Metadata>>(requestMetadata);
             body.Metadata = metadata;
 
             var json = body

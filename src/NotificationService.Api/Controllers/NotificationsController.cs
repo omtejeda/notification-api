@@ -6,13 +6,13 @@ using LinqKit;
 using NotificationService.Domain.Entities;
 using NotificationService.Api.Utils;
 using NotificationService.Domain.Enums;
-using NotificationService.Core.Contracts.Interfaces.Services;
-using NotificationService.Core.Contracts.ResponseDtos;
-using NotificationService.Core.Contracts.Interfaces.Repositories;
-using NotificationService.Core.Contracts.Interfaces.Factories;
-using NotificationService.Core.Interfaces;
+using NotificationService.Application.Contracts.Interfaces.Services;
+using NotificationService.Application.Contracts.ResponseDtos;
+using NotificationService.Application.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Contracts.Interfaces.Factories;
+using NotificationService.Application.Interfaces;
 using NotificationService.Common.Dtos;
-using NotificationService.Core.Dtos;
+using NotificationService.Application.Dtos;
 using NotificationService.Common.Utils;
 
 namespace NotificationService.Api.Controllers

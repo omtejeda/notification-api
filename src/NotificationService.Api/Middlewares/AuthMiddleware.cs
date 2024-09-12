@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using NotificationService.Domain.Entities;
-using NotificationService.Core.Common.Interfaces;
+using NotificationService.Application.Common.Interfaces;
 using NotificationService.Domain.Enums;
 using NotificationService.Api.Attributes;
 using NotificationService.Common.Dtos;
-using NotificationService.Core.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Common.Resources;
 
 namespace NotificationService.Api.Middlewares

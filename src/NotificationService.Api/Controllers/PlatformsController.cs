@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
 using NotificationService.Domain.Enums;
-using NotificationService.Core.Contracts.Interfaces.Services;
+using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Api.Attributes;
-using NotificationService.Core.Contracts.RequestDtos;
+using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Common.Dtos;
 
 namespace NotificationService.Api.Controllers

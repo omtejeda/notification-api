@@ -14,7 +14,7 @@ namespace NotificationService.Api.Controllers
         [HttpGet]
         public IActionResult Get([FromQuery] int? code)
         {
-            var codes = Core.Common.Helpers.EnumHelper.GetCodesAndItsDescription(code);
+            var codes = Application.Common.Helpers.EnumHelper.GetCodesAndItsDescription(code);
 
             var response = BaseResponse<object>.Success(codes);
             return Ok(response);
