@@ -8,6 +8,7 @@ using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Common.Dtos;
 using MediatR;
 using NotificationService.Application.Features.Platforms.Commands.Create;
+using NotificationService.Application.Features.Platforms.Commands.Delete;
 
 namespace NotificationService.Api.Controllers
 {   
@@ -26,7 +27,7 @@ namespace NotificationService.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] string name, bool? isActive, int? page, int? pageSize)
+        public async Task<IActionResult> GetAll([FromQuery] string name, bool? isActive, int? page, int? pageSize)
         {
             var response = await _platformService
                 .GetPlatforms(x => (x.Name == name || name == null) && 
@@ -46,7 +47,7 @@ namespace NotificationService.Api.Controllers
         }
 
         [HttpGet("me")]
-        public IActionResult GetMe()
+        public IActionResult GetCurrent()
         {
             PlatformDto platformDto = CurrentPlatform;
             var response = BaseResponse<PlatformDto>.Success(platformDto);
@@ -61,7 +62,7 @@ namespace NotificationService.Api.Controllers
             {
                 Name = request.Name,
                 Description = request.Description,
-                Owner = request.Name
+                Owner = CurrentPlatform?.Name ?? request.Name
             };
 
             var result = await _sender.Send(command);
@@ -71,7 +72,13 @@ namespace NotificationService.Api.Controllers
         [HttpDelete("{platformId}")]
         public async Task<IActionResult> Delete([FromRoute] string platformId)
         {
-            await _platformService.DeletePlatform(platformId, owner: CurrentPlatform.Name);
+            var command = new DeletePlatformCommand
+            {
+                PlatformId = platformId,
+                Owner = CurrentPlatform.Name
+            };
+
+            await _sender.Send(command);
             return Ok();
         }
     }
