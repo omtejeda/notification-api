@@ -16,7 +16,7 @@ builder.Services.AddSingleton<IDateTimeService, DateTimeService>();
 builder.Services.AddSingleton<IEnvironmentService, EnvironmentService>();
 
 builder.Services.AddInfrastructure();
-builder.Services.AddCore();
+builder.Services.AddApplication();
 builder.Services.AddApi();
 
 var app = builder.Build();
