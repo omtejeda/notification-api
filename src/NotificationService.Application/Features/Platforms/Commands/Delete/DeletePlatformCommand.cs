@@ -1,3 +1,5 @@
+using NotificationService.Application.Common.Interfaces;
+
 namespace NotificationService.Application.Features.Platforms.Commands.Delete;
 
 public record DeletePlatformCommand : ICommand
