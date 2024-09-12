@@ -1,8 +1,7 @@
-using NotificationService.Application.Common.Interfaces;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Common.Dtos;
 
-namespace NotificationService.Application.Features.Platforms.Commands.CreatePlatform;
+namespace NotificationService.Application.Features.Platforms.Commands.Create;
 
 public class CreatePlatformCommandHandler(IPlatformService platformService) 
     : ICommandHandler<CreatePlatformCommand, BaseResponse<PlatformDto>>

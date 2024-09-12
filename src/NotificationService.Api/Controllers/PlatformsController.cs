@@ -7,7 +7,7 @@ using NotificationService.Api.Attributes;
 using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Common.Dtos;
 using MediatR;
-using NotificationService.Application.Features.Platforms.Commands.CreatePlatform;
+using NotificationService.Application.Features.Platforms.Commands.Create;
 
 namespace NotificationService.Api.Controllers
 {   
@@ -17,12 +17,12 @@ namespace NotificationService.Api.Controllers
     public class PlatformsController : ApiController
     {
         private readonly IPlatformService _platformService;
-        private readonly IMediator _mediator;
+        private readonly ISender _sender;
 
-        public PlatformsController(IPlatformService platformService, IMediator mediator)
+        public PlatformsController(IPlatformService platformService, ISender sender)
         {
             _platformService = platformService;
-            _mediator = mediator;
+            _sender = sender;
         }
 
         [HttpGet]
@@ -55,7 +55,7 @@ namespace NotificationService.Api.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreatePlatformRequestDto request)
+        public async Task<IActionResult> Create([FromBody] CreatePlatformRequestDto request)
         {
             var command = new CreatePlatformCommand
             {
@@ -64,7 +64,7 @@ namespace NotificationService.Api.Controllers
                 Owner = request.Name
             };
 
-            var result = await _mediator.Send(command);
+            var result = await _sender.Send(command);
             return StatusCode(StatusCodes.Status201Created, result);
         }
 
