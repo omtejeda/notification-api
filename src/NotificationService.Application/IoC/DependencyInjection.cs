@@ -6,6 +6,7 @@ using NotificationService.Application.Providers.IoC;
 using NotificationService.Application.Senders.IoC;
 using NotificationService.Application.Templates.IoC;
 using NotificationService.Application.Webhooks.IoC;
+using System.Reflection;
 
 namespace NotificationService.Application.IoC
 {
@@ -13,6 +14,7 @@ namespace NotificationService.Application.IoC
     {
         public static IServiceCollection AddCore(this IServiceCollection services)
         {
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddCatalogs();
             services.AddNotififications();
             services.AddPlatforms();
