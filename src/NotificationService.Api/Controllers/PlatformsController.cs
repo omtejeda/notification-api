@@ -55,6 +55,7 @@ namespace NotificationService.Api.Controllers
         {
             PlatformDto platformDto = CurrentPlatform;
             var response = BaseResponse<PlatformDto>.Success(platformDto);
+            
             return Ok(response);
         }
 
@@ -69,8 +70,8 @@ namespace NotificationService.Api.Controllers
                 Owner = CurrentPlatform?.Name ?? request.Name
             };
 
-            var result = await _sender.Send(command);
-            return StatusCode(StatusCodes.Status201Created, result);
+            var response = await _sender.Send(command);
+            return StatusCode(StatusCodes.Status201Created, response);
         }
 
         [HttpDelete("{platformId}")]
