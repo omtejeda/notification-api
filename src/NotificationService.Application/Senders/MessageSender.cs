@@ -11,7 +11,7 @@ using NotificationService.Application.Providers.Interfaces;
 using NotificationService.Common.Dtos;
 using NotificationService.Application.Dtos;
 using NotificationService.Common.Utils;
-using NotificationService.Common.Interfaces;
+using NotificationService.Application.Common.Interfaces;
 
 namespace NotificationService.Application.Senders
 {

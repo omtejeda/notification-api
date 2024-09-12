@@ -10,7 +10,7 @@ using NotificationService.Domain.Entities;
 using NotificationService.Application.Providers.Interfaces;
 using System.Threading;
 using NotificationService.Domain.Models;
-using NotificationService.Common.Interfaces;
+using NotificationService.Application.Common.Interfaces;
 
 namespace NotificationService.Infrastructure.Providers
 {

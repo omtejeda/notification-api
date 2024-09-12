@@ -14,7 +14,7 @@ using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Common.Utils;
 using NotificationService.Common.Resources;
-using NotificationService.Common.Interfaces;
+using NotificationService.Application.Common.Interfaces;
 
 namespace NotificationService.Application.Platforms.Services
 {
@@ -38,7 +38,7 @@ namespace NotificationService.Application.Platforms.Services
         {
             var existingPlatform = await _repository.FindOneAsync(x => x.Name.ToLower() == name.ToLower());
 
-            Guard.PlatformNotExists(existingPlatform, name, existingPlatform.CreatedBy);
+            Guard.PlatformNotExists(existingPlatform, name, existingPlatform?.CreatedBy);
             var platform = new Platform
             {
                 PlatformId = Guid.NewGuid().ToString(),

@@ -1,7 +1,7 @@
-using NotificationService.Common.Interfaces;
+using NotificationService.Application.Common.Interfaces;
 using NotificationService.Common.Utils;
 
-namespace NotificationService.Common.Services;
+namespace NotificationService.Application.Common.Services;
 
 public class EnvironmentService : IEnvironmentService
 {

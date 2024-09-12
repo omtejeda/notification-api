@@ -1,4 +1,4 @@
-namespace NotificationService.Common.Interfaces;
+namespace NotificationService.Application.Common.Interfaces;
 
 public interface IDateTimeService
 {

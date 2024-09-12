@@ -2,11 +2,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
-using NotificationService.Domain.Enums;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Api.Attributes;
 using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Common.Dtos;
+using MediatR;
+using NotificationService.Application.Features.Platforms.Commands.CreatePlatform;
 
 namespace NotificationService.Api.Controllers
 {   
@@ -16,16 +17,23 @@ namespace NotificationService.Api.Controllers
     public class PlatformsController : ApiController
     {
         private readonly IPlatformService _platformService;
+        private readonly IMediator _mediator;
 
-        public PlatformsController(IPlatformService platformService)
+        public PlatformsController(IPlatformService platformService, IMediator mediator)
         {
             _platformService = platformService;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] string name, bool? isActive, int? page, int? pageSize)
         {
-            var response = await _platformService.GetPlatforms(x => (x.Name == name || name == null) && (x.IsActive == isActive || isActive == null), owner: CurrentPlatform.Name, page, pageSize);
+            var response = await _platformService
+                .GetPlatforms(x => (x.Name == name || name == null) && 
+                    (x.IsActive == isActive || isActive == null),
+                    owner: CurrentPlatform.Name,
+                    page,
+                    pageSize);
             return Ok(response);
         }
 
@@ -49,8 +57,15 @@ namespace NotificationService.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreatePlatformRequestDto request)
         {
-            var platformCreated = await _platformService.CreatePlatform(request.Name, request.Description, owner: CurrentPlatform.Name);
-            return StatusCode(StatusCodes.Status201Created, platformCreated);
+            var command = new CreatePlatformCommand
+            {
+                Name = request.Name,
+                Description = request.Description,
+                Owner = request.Name
+            };
+
+            var result = await _mediator.Send(command);
+            return StatusCode(StatusCodes.Status201Created, result);
         }
 
         [HttpDelete("{platformId}")]
