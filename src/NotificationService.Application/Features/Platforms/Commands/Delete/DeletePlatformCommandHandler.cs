@@ -6,8 +6,8 @@ public class DeleteCommandHandler(IPlatformService platformService) : ICommandHa
 {
     private readonly IPlatformService _platformService = platformService;
 
-    public Task Handle(DeletePlatformCommand request, CancellationToken cancellationToken)
+    public async Task Handle(DeletePlatformCommand request, CancellationToken cancellationToken)
     {
-        return _platformService.DeletePlatform(request.PlatformId, request.Owner);
+        await _platformService.DeletePlatform(request.PlatformId, request.Owner);
     }
 }
