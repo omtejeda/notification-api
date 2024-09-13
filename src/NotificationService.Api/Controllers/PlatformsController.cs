@@ -10,6 +10,7 @@ using MediatR;
 using NotificationService.Application.Features.Platforms.Commands.Create;
 using NotificationService.Application.Features.Platforms.Commands.Delete;
 using NotificationService.Application.Features.Platforms.Queries.GetById;
+using NotificationService.Application.Features.Platforms.Queries.GetAll;
 
 namespace NotificationService.Api.Controllers
 {   
@@ -30,12 +31,16 @@ namespace NotificationService.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] string name, bool? isActive, int? page, int? pageSize)
         {
-            var response = await _platformService
-                .GetPlatforms(x => (x.Name == name || name == null) && 
-                    (x.IsActive == isActive || isActive == null),
-                    owner: CurrentPlatform.Name,
-                    page,
-                    pageSize);
+            var query = new GetAllPlatformsQuery
+            {
+                Name = name,
+                IsActive = isActive,
+                Page = page,
+                PageSize = pageSize,
+                Owner = CurrentPlatform.Name
+            };
+
+            var response = await _sender.Send(query);
             return Ok(response);
         }
 
