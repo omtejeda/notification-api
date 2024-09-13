@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
-using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Api.Attributes;
 using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Common.Dtos;
@@ -19,12 +18,10 @@ namespace NotificationService.Api.Controllers
     [Route(Routes.ControllerRoute)]
     public class PlatformsController : ApiController
     {
-        private readonly IPlatformService _platformService;
         private readonly ISender _sender;
 
-        public PlatformsController(IPlatformService platformService, ISender sender)
+        public PlatformsController(ISender sender)
         {
-            _platformService = platformService;
             _sender = sender;
         }
 
@@ -50,9 +47,7 @@ namespace NotificationService.Api.Controllers
             var query = new GetPlatformByIdQuery(platformId, CurrentPlatform.Name);
             var response = await _sender.Send(query);
 
-            if (response?.Data is null) return NotFound();
-
-            return Ok(response);
+            return (response?.Data is null) ?  NotFound() : Ok(response);
         }
 
         [HttpGet("me")]
