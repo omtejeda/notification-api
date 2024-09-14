@@ -18,15 +18,10 @@ namespace NotificationService.Api.Controllers
     [ApiController]
     [ApiVersion(ApiVersions.v1)]
     [Route(Routes.ControllerRoute)]
-    public class ProvidersController : ApiController
+    public class ProvidersController(ISender sender) : ApiController
     {
-        private readonly ISender _sender;
-
-        public ProvidersController(ISender sender)
-        {
-            _sender = sender;
-        }
-
+        private readonly ISender _sender = sender;
+        
         [HttpGet]
         public async Task<IActionResult> GetAll(string name, string type, int? page, int? pageSize)
         {
