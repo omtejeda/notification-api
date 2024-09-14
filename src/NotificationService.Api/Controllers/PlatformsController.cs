@@ -47,7 +47,7 @@ namespace NotificationService.Api.Controllers
             var query = new GetPlatformByIdQuery(platformId, CurrentPlatform.Name);
             var response = await _sender.Send(query);
 
-            return (response?.Data is null) ?  NotFound() : Ok(response);
+            return GetActionResult(response);
         }
 
         [HttpGet("me")]

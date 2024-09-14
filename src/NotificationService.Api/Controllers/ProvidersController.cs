@@ -2,12 +2,8 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using NotificationService.Domain.Entities;
 using NotificationService.Api.Utils;
-using NotificationService.Domain.Enums;
 using NotificationService.Application.Contracts.RequestDtos;
-using NotificationService.Application.Contracts.Interfaces.Services;
-using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Common.Dtos;
 using NotificationService.Application.Features.Providers.Commands.Create;
 using NotificationService.Application.Features.Providers.Commands.Delete;
@@ -53,7 +49,7 @@ namespace NotificationService.Api.Controllers
             var query = new GetProviderByIdQuery(providerId, CurrentPlatform.Name);
             var response = await _sender.Send(query);
             
-            return (response?.Data is null) ? NotFound() : Ok(response);
+            return GetActionResult(response);
         }
 
         [HttpGet("types")]
