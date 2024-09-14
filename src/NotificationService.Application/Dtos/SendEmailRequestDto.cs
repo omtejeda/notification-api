@@ -6,7 +6,7 @@ using NotificationService.Domain.Dtos;
 
 namespace NotificationService.Application.Dtos
 {
-    public class SendEmailRequestDto
+    public class SendEmailRequestDto : ISendRequest
     {
         [Required]
         public string ToEmail { get; set; }
@@ -22,7 +22,7 @@ namespace NotificationService.Application.Dtos
         public TemplateDto Template { get; set; }
 
         [JsonIgnore]
-        public string ParentNotificationId { get; set; }
+        public string? ParentNotificationId { get; set; }
     }
 
     public class TemplateDto

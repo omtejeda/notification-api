@@ -5,7 +5,7 @@ using NotificationService.Domain.Enums;
 
 namespace NotificationService.Application.Dtos
 {
-    public class SendMessageRequestDto
+    public class SendMessageRequestDto : ISendRequest
     {
         [Required]
         public string ToDestination { get; set; }
@@ -22,6 +22,6 @@ namespace NotificationService.Application.Dtos
         public TemplateDto Template { get; set; }
 
         [JsonIgnore]
-        public string ParentNotificationId { get; set; }
+        public string? ParentNotificationId { get; set; }
     }
 }

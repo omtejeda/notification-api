@@ -4,7 +4,7 @@ using NotificationService.Application.Templates.Attributes;
 
 namespace NotificationService.Application.Dtos
 {
-    public class SendSmsRequestDto
+    public class SendSmsRequestDto : ISendRequest
     {
         [Required]
         public string ToPhoneNumber { get; set; }
@@ -17,6 +17,6 @@ namespace NotificationService.Application.Dtos
         public TemplateDto Template { get; set; }
 
         [JsonIgnore]
-        public string ParentNotificationId { get; set; }
+        public string? ParentNotificationId { get; set; }
     }
 }

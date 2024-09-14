@@ -2,18 +2,13 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using LinqKit;
-using NotificationService.Domain.Entities;
 using NotificationService.Api.Utils;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Contracts.Interfaces.Services;
-using NotificationService.Application.Contracts.ResponseDtos;
-using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Contracts.Interfaces.Factories;
-using NotificationService.Application.Interfaces;
-using NotificationService.Common.Dtos;
-using NotificationService.Application.Dtos;
-using NotificationService.Common.Utils;
+using NotificationService.Application.Features.Notifications.Commands.Resend;
+using MediatR;
+using NotificationService.Application.Features.Notifications.Queries.GetAll;
 
 namespace NotificationService.Api.Controllers
 {   
@@ -22,104 +17,42 @@ namespace NotificationService.Api.Controllers
     [Route(Routes.ControllerRoute)]
     public class NotificationsController : ApiController
     {
-        private readonly IRepository<Notification> _notificationRepository;
         private readonly INotificationsService _notificationsService;
-        private readonly IEmailSender _emailSender;
-        private readonly ISmsSender _smsSender;
-        private readonly IMessageSender _messageSender;
         private readonly IExportNotificationsFactory _exportNotificationsFactory;
 
-        public NotificationsController(IRepository<Notification> notificationRepository, IEmailSender emailSender, 
-        INotificationsService notificationsService, ISmsSender smsSender, IExportNotificationsFactory exportNotificationsFactory, IMessageSender messageSender)
+        private readonly ISender _sender;
+
+        public NotificationsController(
+            INotificationsService notificationsService,
+            IExportNotificationsFactory exportNotificationsFactory,
+            ISender sender)
         {
-            _notificationRepository = notificationRepository;
-            _emailSender = emailSender;
             _notificationsService = notificationsService;
-            _smsSender = smsSender;
             _exportNotificationsFactory = exportNotificationsFactory;
-            _messageSender = messageSender;
+            _sender = sender;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] string notificationId, string toDestination, string templateName, string platformName, string providerName, string subject, bool? success, bool? hasAttachments, bool? hasParentNotification, int? page, int? pageSize, string sort)
+        public async Task<IActionResult> GetAll([FromQuery] GetAllNotificationsQuery query)
         {
-            var filter = PredicateBuilder.New<Notification>(true);
-
-            if (notificationId is not null)
-                filter = filter.And(x => x.NotificationId == notificationId);
-            
-            if (toDestination is not null)
-                filter = filter.And(x => x.ToDestination == toDestination);
-            
-            if (templateName is not null)
-                filter = filter.And(x => x.TemplateName == templateName);
-            
-            if (platformName is not null)
-                filter = filter.And(x => x.PlatformName == platformName);
-            
-            if (providerName is not null)
-                filter = filter.And(x => x.ProviderName == providerName);
-            
-            if (success.HasValue)
-                filter = filter.And(x => x.Success == success);
-            
-            if (hasAttachments.HasValue)
-                filter = filter.And(x => x.HasAttachments == hasAttachments);
-            
-            if (hasParentNotification == true)
-                filter = filter.And(x => x.ParentNotificationId != null);
-            
-            if (hasParentNotification == false)
-                filter = filter.And(x => x.ParentNotificationId == null);
-            
-            if (subject is not null)
-                filter = filter.And(x => x.Subject.ToLower().Contains(subject.ToLower()));
-            
-            var response = await _notificationsService.GetNotifications(filter, owner: CurrentPlatform.Name, page, pageSize, sort);
+            query.SetOwner(CurrentPlatform.Name);
+            var response = await _sender.Send(query);
             return Ok(response);
         }
 
         [HttpGet("{notificationId}")]
-        public async Task<IActionResult> Get([FromRoute] string notificationId)
+        public async Task<IActionResult> GetById([FromRoute] string notificationId)
         {
             var response = await _notificationsService.GetNotificationById(notificationId, owner: CurrentPlatform.Name);
-            if (response?.Data == null) return NotFound();
-            return Ok(response);
+            return GetActionResult(response);
         }
 
         [HttpPost("{notificationId}/resend")]
         public async Task<IActionResult> Resend(string notificationId)
         {
-            var notification = await _notificationRepository.FindOneAsync(x => x.NotificationId == notificationId);
-            
-            Guard.NotificationIsNotNull(notification);
-            Guard.NotificationWasCreatedByRequester(notification.CreatedBy, CurrentPlatform.Name);
-            Guard.NotificationRequestExists(notification?.Request);
-            
-            BaseResponse<NotificationSentResponseDto> response = null;
-            if (notification.Type == NotificationType.Email)
-            {
-                var request = notification.Request as SendEmailRequestDto;
-                request.ParentNotificationId = notificationId;
-                response = await _emailSender.SendEmailAsync(request, CurrentPlatform.Name);
-            }
-            
-            if (notification.Type == NotificationType.SMS)
-            {
-                var request = notification.Request as SendSmsRequestDto;
-                request.ParentNotificationId = notificationId;
-                response = await _smsSender.SendSmsAsync(request, CurrentPlatform.Name);
-            }
-            
-            if (notification.Type != NotificationType.Email && 
-                notification.Type != NotificationType.SMS)
-            {
-                var request = notification.Request as SendMessageRequestDto;
-                request.ParentNotificationId = notificationId;
-                response = await _messageSender.SendMessageAsync(request, CurrentPlatform.Name);
+            var command = new ResendNotificationCommand(notificationId, CurrentPlatform.Name);
+            var response = await _sender.Send(command);
 
-            }
-            
             return Ok(response);
         }
 
