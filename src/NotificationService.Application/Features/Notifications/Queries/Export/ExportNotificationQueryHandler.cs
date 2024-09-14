@@ -13,8 +13,8 @@ public class ExportNotificationQueryHandler(IExportNotificationsFactory exportNo
 
     public async Task<ExportNotificationResponseDto> Handle(ExportNotificationQuery request, CancellationToken cancellationToken)
     {
-        var exportService = _exportNotificationsFactory.Create(request.ExportFormat) 
-            ?? throw new RuleValidationException($"The specified format '{request.ExportFormat}' doesn't exist");
+        var exportService = _exportNotificationsFactory.Create(request.Format) 
+            ?? throw new RuleValidationException($"The specified format '{request.Format}' doesn't exist");
         
         var response = await exportService.Export(request.NotificationId!, request.Owner!) 
             ?? throw new RuleValidationException("The specified notificationId doesn't exist");
