@@ -26,8 +26,8 @@ namespace NotificationService.Application.Contracts.RequestDtos
         public string Content { get; set; }
 
         [Required]
-        public ICollection<MetadataRequired> Metadata { get; set; }
-        public ICollection<TemplateLabelDto> Labels { get; set; }
+        public ICollection<MetadataRequired> Metadata { get; set; } = Array.Empty<MetadataRequired>();
+        public ICollection<TemplateLabelDto> Labels { get; set; } = Array.Empty<TemplateLabelDto>();
     }
 
     public class MetadataRequired
