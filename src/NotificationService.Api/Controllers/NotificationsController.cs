@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
 using NotificationService.Domain.Enums;
-using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.Interfaces.Factories;
-using NotificationService.Application.Features.Notifications.Commands.Resend;
 using MediatR;
+using NotificationService.Application.Features.Notifications.Commands.Resend;
 using NotificationService.Application.Features.Notifications.Queries.GetAll;
+using NotificationService.Application.Features.Notifications.Queries.GetById;
+using NotificationService.Application.Features.Notifications.Queries.GetAttachment;
+using NotificationService.Application.Features.Notifications.Queries.Export;
 
 namespace NotificationService.Api.Controllers
 {   
@@ -17,17 +19,14 @@ namespace NotificationService.Api.Controllers
     [Route(Routes.ControllerRoute)]
     public class NotificationsController : ApiController
     {
-        private readonly INotificationsService _notificationsService;
         private readonly IExportNotificationsFactory _exportNotificationsFactory;
 
         private readonly ISender _sender;
 
         public NotificationsController(
-            INotificationsService notificationsService,
             IExportNotificationsFactory exportNotificationsFactory,
             ISender sender)
         {
-            _notificationsService = notificationsService;
             _exportNotificationsFactory = exportNotificationsFactory;
             _sender = sender;
         }
@@ -37,13 +36,16 @@ namespace NotificationService.Api.Controllers
         {
             query.SetOwner(CurrentPlatform.Name);
             var response = await _sender.Send(query);
+            
             return Ok(response);
         }
 
         [HttpGet("{notificationId}")]
         public async Task<IActionResult> GetById([FromRoute] string notificationId)
         {
-            var response = await _notificationsService.GetNotificationById(notificationId, owner: CurrentPlatform.Name);
+            var query = new GetNotificationByIdQuery(notificationId, CurrentPlatform.Name);
+            var response = await _sender.Send(query);
+            
             return GetActionResult(response);
         }
 
@@ -59,41 +61,33 @@ namespace NotificationService.Api.Controllers
         [HttpGet("{notificationId}/content")]
         public async Task<IActionResult> GetNotificationContent(string notificationId)
         {
-            var notificationContent = await _notificationsService.GetNotificationById(notificationId, owner: CurrentPlatform.Name);
+            var query = new GetNotificationByIdQuery(notificationId, CurrentPlatform.Name);
+            var response = await _sender.Send(query);
 
-            var contentResult = new ContentResult { ContentType = "text/html", StatusCode = StatusCodes.Status200OK };
-
-            if (notificationContent == null)
+            var contentResult = new ContentResult
             {
-                contentResult.StatusCode = StatusCodes.Status404NotFound;
-                contentResult.Content = "Not found";
-                return contentResult;
-            }
+                ContentType = "text/html",
+                StatusCode = response is null ? StatusCodes.Status404NotFound : StatusCodes.Status200OK,
+                Content = response is null ? "Not found" : response?.Data?.Content
+            };
 
-            contentResult.Content = notificationContent.Data.Content;
             return contentResult;
         }
 
         [HttpGet("{notificationId}/attachments/{fileName}")]
         public async Task<IActionResult> GetFile(string notificationId, string fileName)
         {
-            var (file, contentType) = await _notificationsService.GetNotificationAttachment(notificationId, fileName, owner: CurrentPlatform.Name);
+            var query = new GetNotificationAttachmentQuery(notificationId, fileName, CurrentPlatform.Name);
+            var (file, contentType) = await _sender.Send(query);
+            
             return File(file, contentType);
         }
 
          [HttpGet("{notificationId}/exports/{format}")]
         public async Task<IActionResult> ExportNotification(string notificationId, [FromRoute] ExportFormat format)
         {
-
-            var exportService = _exportNotificationsFactory.Create(format);
-            
-            if (exportService == null)
-                return NotFound($"The specified format '{format}' doesn't exists");
-
-            var response = await exportService.Export(notificationId, CurrentPlatform.Name);
-
-            if (response == null)
-                return NotFound("The specified notificationId doesn't exists");
+            var query = new ExportNotificationQuery(notificationId, format, CurrentPlatform.Name);
+            var response = await _sender.Send(query);
 
             var contentResult = new ContentResult
             {
@@ -101,6 +95,7 @@ namespace NotificationService.Api.Controllers
                 StatusCode = StatusCodes.Status200OK,
                 Content = response.Content
             };
+            
             return contentResult;
         }
     }
