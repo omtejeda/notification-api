@@ -49,7 +49,7 @@ namespace NotificationService.Api.Controllers
         }
 
         [HttpGet("{notificationId}/content")]
-        public async Task<IActionResult> GetNotificationContent(string notificationId)
+        public async Task<IActionResult> GetContent(string notificationId)
         {
             var query = new GetNotificationByIdQuery(notificationId, CurrentPlatform.Name);
             var response = await _sender.Send(query);
@@ -65,7 +65,7 @@ namespace NotificationService.Api.Controllers
         }
 
         [HttpGet("{notificationId}/attachments/{fileName}")]
-        public async Task<IActionResult> GetFile(string notificationId, string fileName)
+        public async Task<IActionResult> GetAttachment(string notificationId, string fileName)
         {
             var query = new GetNotificationAttachmentQuery(notificationId, fileName, CurrentPlatform.Name);
             var (file, contentType) = await _sender.Send(query);
@@ -74,7 +74,7 @@ namespace NotificationService.Api.Controllers
         }
 
          [HttpGet("{notificationId}/exports/{format}")]
-        public async Task<IActionResult> ExportNotification(string notificationId, [FromRoute] ExportFormat format)
+        public async Task<IActionResult> Export(string notificationId, [FromRoute] ExportFormat format)
         {
             var query = new ExportNotificationQuery(notificationId, format, CurrentPlatform.Name);
             var response = await _sender.Send(query);
