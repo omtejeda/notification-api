@@ -16,14 +16,9 @@ namespace NotificationService.Api.Controllers
     [ApiController]
     [ApiVersion(ApiVersions.v1)]
     [Route(Routes.ControllerRoute)]
-    public class TemplatesController : ApiController
+    public class TemplatesController(ISender sender) : ApiController
     {
-        private readonly ISender _sender;
-
-        public TemplatesController(ISender sender)
-        {
-            _sender = sender;
-        }
+        private readonly ISender _sender = sender;
 
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] string name, string subject, string platformName, int? page, int? pageSize)
