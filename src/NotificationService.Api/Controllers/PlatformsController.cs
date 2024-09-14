@@ -16,14 +16,9 @@ namespace NotificationService.Api.Controllers
     [ApiController]
     [ApiVersion(ApiVersions.v1)]
     [Route(Routes.ControllerRoute)]
-    public class PlatformsController : ApiController
+    public class PlatformsController(ISender sender) : ApiController
     {
-        private readonly ISender _sender;
-
-        public PlatformsController(ISender sender)
-        {
-            _sender = sender;
-        }
+        private readonly ISender _sender = sender;
 
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] string name, bool? isActive, int? page, int? pageSize)
