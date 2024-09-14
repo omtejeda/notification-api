@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using MimeKit;
 using MailKit.Net.Smtp;
 using NotificationService.Domain.Enums;
-using NotificationService.Application.Common.Utils;
+using NotificationService.Application.Utils;
 using NotificationService.Application.Common;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Providers.Interfaces;

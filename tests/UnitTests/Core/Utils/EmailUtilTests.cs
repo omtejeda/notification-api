@@ -1,4 +1,4 @@
-using NotificationService.Application.Common.Utils;
+using NotificationService.Application.Utils;
 using NotificationService.Common.Dtos;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;

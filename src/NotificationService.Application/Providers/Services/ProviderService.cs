@@ -1,7 +1,4 @@
-using System;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using AutoMapper;
 using NotificationService.Common.Exceptions;
 using LinqKit;
@@ -54,7 +51,7 @@ namespace NotificationService.Application.Providers.Services
 
             if (providerType == ProviderType.HttpClient)
             {
-                Common.Utils.HttpUtil.CheckHTTPClientSettings(request.Settings?.HttpClient);
+                Utils.HttpUtil.CheckHTTPClientSettings(request.Settings?.HttpClient);
             }
 
             var provider = _mapper.Map<Provider>(request);

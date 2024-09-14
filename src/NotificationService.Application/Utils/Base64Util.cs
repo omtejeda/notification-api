@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace NotificationService.Application.Common.Utils;
+namespace NotificationService.Application.Utils;
 
 internal static class Base64Util
 {

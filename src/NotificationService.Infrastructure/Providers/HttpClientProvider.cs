@@ -7,7 +7,7 @@ using NotificationService.Common.Exceptions;
 using NotificationService.Domain.Enums;
 using System.Net.Http;
 using Microsoft.Extensions.Logging;
-using NotificationService.Application.Common.Utils;
+using NotificationService.Application.Utils;
 using NotificationService.Application.Providers.Interfaces;
 using System.Text;
 using AutoMapper;

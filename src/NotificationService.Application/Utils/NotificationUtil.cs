@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Domain.Models;
 
-namespace NotificationService.Application.Common.Utils
+namespace NotificationService.Application.Utils
 {
     internal static class NotificationUtil
     {

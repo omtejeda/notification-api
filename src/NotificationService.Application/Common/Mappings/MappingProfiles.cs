@@ -3,7 +3,7 @@ using NotificationService.Domain.Entities;
 using NotificationService.Common.Dtos;
 using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Application.Contracts.ResponseDtos;
-using NotificationService.Application.Common.Utils;
+using NotificationService.Application.Utils;
 using NotificationService.Domain.Models;
 using NotificationService.Domain.Dtos;
 namespace NotificationService.Application.Common.Mappings

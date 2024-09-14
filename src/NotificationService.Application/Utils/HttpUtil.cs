@@ -1,14 +1,10 @@
-using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
 using NotificationService.Common.Exceptions;
 using NotificationService.Common.Dtos;
 using NotificationService.Domain.Entities;
 using NotificationService.Common.Resources;
 using NotificationService.Common.Utils;
 
-namespace NotificationService.Application.Common.Utils
+namespace NotificationService.Application.Utils
 {
     public static class HttpUtil
     {

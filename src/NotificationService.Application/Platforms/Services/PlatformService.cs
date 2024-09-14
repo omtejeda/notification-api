@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using NotificationService.Domain.Enums;
 using NotificationService.Common.Exceptions;
-using NotificationService.Application.Common.Utils;
+using NotificationService.Application.Utils;
 using LinqKit;
 using NotificationService.Domain.Entities;
 using NotificationService.Common.Dtos;

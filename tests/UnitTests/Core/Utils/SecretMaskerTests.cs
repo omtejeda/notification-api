@@ -1,4 +1,4 @@
-using NotificationService.Application.Common.Utils;
+using NotificationService.Application.Utils;
 
 namespace NotificationService.Application.Tests.Utils;
 

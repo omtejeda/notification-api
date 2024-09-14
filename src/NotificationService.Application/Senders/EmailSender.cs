@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using NotificationService.Domain.Enums;
 using NotificationService.Domain.Entities;
-using NotificationService.Application.Common.Utils;
+using NotificationService.Application.Utils;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Providers.Factories.Interfaces;
 using NotificationService.Application.Common;

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using MimeKit;
 using NotificationService.Domain.Entities;
 using SendGrid.Helpers.Mail;
@@ -9,7 +5,7 @@ using NotificationService.Domain.Dtos;
 using NotificationService.Application.Templates.Models;
 using NotificationService.Common.Utils;
 
-namespace NotificationService.Application.Common.Utils
+namespace NotificationService.Application.Utils
 {
     public static class EmailUtil
     {
