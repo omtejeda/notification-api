@@ -24,7 +24,7 @@ namespace NotificationService.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] string name, string subject, string platformName, int? page, int? pageSize)
+        public async Task<IActionResult> GetAll([FromQuery] string name, string subject, string platformName, int? page, int? pageSize)
         {
             var response = await _templateService.GetTemplates(x => (x.Name == name || name == null) && (x.Subject == subject || subject == null) && (x.PlatformName == platformName  || platformName == null), owner: CurrentPlatform.Name, page, pageSize);
             return Ok(response);
@@ -39,7 +39,7 @@ namespace NotificationService.Api.Controllers
         }
 
         [HttpGet("{templateId}/preview")]
-        public async Task<ContentResult> GetHtml(string templateId)
+        public async Task<ContentResult> GetContent(string templateId)
         {
             var template = await _repository.FindOneAsync(x => x.TemplateId == templateId && x.CreatedBy == CurrentPlatform.Name);
             
@@ -57,7 +57,7 @@ namespace NotificationService.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateTemplateRequestDto request)
+        public async Task<IActionResult> Create([FromBody] CreateTemplateRequestDto request)
         {
             var templateCreated = await _templateService.CreateTemplate(request, owner: CurrentPlatform.Name);
             return StatusCode(StatusCodes.Status201Created, templateCreated);
@@ -71,7 +71,7 @@ namespace NotificationService.Api.Controllers
         }
 
         [HttpPatch("{templateId}/content")]
-        public async Task<IActionResult> PatchContent([FromRoute] string templateId, [FromBody] UpdateTemplateContentRequestDto request)
+        public async Task<IActionResult> UpdateContent([FromRoute] string templateId, [FromBody] UpdateTemplateContentRequestDto request)
         {
             await _templateService.UpdateTemplateContent(templateId, request, owner: CurrentPlatform.Name);
             return StatusCode(StatusCodes.Status204NoContent);
