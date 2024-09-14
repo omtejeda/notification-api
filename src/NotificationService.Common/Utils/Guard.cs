@@ -14,8 +14,7 @@ namespace NotificationService.Common.Utils
             if (provider is null)
             {
                 throw new ProviderException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.ProviderSpecifiedNotExists,
                         providerName));
             }
@@ -26,8 +25,7 @@ namespace NotificationService.Common.Utils
             if (providerTypeSource != providerTypeTarget)
             {
                 throw new ProviderException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.ProviderSpecifiedNotSuitable,
                         providerTypeSource));
             }
@@ -38,8 +36,7 @@ namespace NotificationService.Common.Utils
             if (createdBy != requester)
             {
                 throw new ProviderException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.ProviderWasNotCreatedByYou,
                         requester));
             }
@@ -50,8 +47,7 @@ namespace NotificationService.Common.Utils
             if (createdBy != requester)
             {
                 throw new CatalogException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.CatalogWasNotCreatedByYou,
                         requester));
             }
@@ -62,8 +58,7 @@ namespace NotificationService.Common.Utils
             if (catalog is null)
             {
                 throw new CatalogException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.CatalogWithGivenIdNotExists,
                         catalogId));
             }
@@ -74,8 +69,7 @@ namespace NotificationService.Common.Utils
             if (catalog is not null)
             {
                 throw new CatalogException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.CatalogAlreadyExists,
                         catalog.Name,
                         catalog.CreatedBy));
@@ -87,7 +81,8 @@ namespace NotificationService.Common.Utils
             if (!(provider.IsPublic ?? false) && provider.CreatedBy != requester)
             {
                 throw new ProviderException(
-                    Messages.ProviderIsNotPublicNeitherWasCreatedByYou);
+                    Format(
+                        Messages.ProviderIsNotPublicNeitherWasCreatedByYou));
             }
         }
 
@@ -96,8 +91,7 @@ namespace NotificationService.Common.Utils
             if (providerType == ProviderType.None)
             {
                 throw new ProviderException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.ProviderTypeNotValid,
                         providerType.ToString()));
             }
@@ -108,8 +102,7 @@ namespace NotificationService.Common.Utils
             if (provider is not null)
             {
                 throw new ProviderException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.ProviderAlreadyExists,
                         provider.Name,
                         provider.CreatedBy));
@@ -121,8 +114,7 @@ namespace NotificationService.Common.Utils
             if (provider is null)
             {
                 throw new ProviderException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.ProviderWithGivenIdNotExists,
                         providerId));
             }
@@ -147,8 +139,7 @@ namespace NotificationService.Common.Utils
             if (!isDestinationAllowed)
             {
                 throw new RuleValidationException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.NotAllowedToSendInNonProd,
                         toDestination));
             }
@@ -160,8 +151,7 @@ namespace NotificationService.Common.Utils
                 notificationTypeSource == NotificationType.SMS)
             {
                 throw new NotificationException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.NotificationTypeSpecifiedNotAllowed,
                         notificationTypeSource));
             }
@@ -196,7 +186,7 @@ namespace NotificationService.Common.Utils
             if (!attachments.Any())
             {
                 throw new RuleValidationException(
-                    Messages.AttachmentIsRequired);
+                    Format(Messages.AttachmentIsRequired));
             }
         }
 
@@ -205,7 +195,7 @@ namespace NotificationService.Common.Utils
             if (notification is null)
             {
                 throw new NotificationException(
-                    Messages.NotificationNotExists);
+                    Format(Messages.NotificationNotExists));
             }
         }
 
@@ -214,8 +204,7 @@ namespace NotificationService.Common.Utils
             if (createdBy != requester)
             {
                 throw new NotificationException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.NotificationWasNotCreatedByYou,
                         requester));
             }
@@ -226,7 +215,7 @@ namespace NotificationService.Common.Utils
             if (notificationRequest is null)
             {
                 throw new NotificationException(
-                    Messages.NotificationRequestNotFound);
+                    Format(Messages.NotificationRequestNotFound));
             }
         }
 
@@ -235,8 +224,7 @@ namespace NotificationService.Common.Utils
             if (notificationType == NotificationType.None)
             {
                 throw new NotificationException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.NotificationTypeNotValid,
                         notificationType));
             }
@@ -247,13 +235,8 @@ namespace NotificationService.Common.Utils
             if (string.IsNullOrWhiteSpace(content))
             {
                 throw new TemplateException(
-                    Messages.TemplateContentNotValid);
+                    Format(Messages.TemplateContentNotValid));
             }
-        }
-
-        public static void TemplateIsNotNull()
-        {
-            
         }
 
         public static void TemplateNotExists(Template template)
@@ -261,7 +244,7 @@ namespace NotificationService.Common.Utils
             if (template is not null)
             {
                 throw new TemplateException(
-                    Messages.TemplateAlreadyExists);
+                    Format(Messages.TemplateAlreadyExists));
             }
         }
 
@@ -270,7 +253,7 @@ namespace NotificationService.Common.Utils
             if (template is null)
             {
                 throw new TemplateException(
-                    Messages.TemplateTryingToDeleteNotExists);
+                    Format(Messages.TemplateTryingToDeleteNotExists));
             }
         }
 
@@ -279,7 +262,7 @@ namespace NotificationService.Common.Utils
             if (template is null)
             {
                 throw new TemplateException(
-                    Messages.TemplateNotExists);
+                    Format(Messages.TemplateNotExists));
             }
         }
 
@@ -288,8 +271,7 @@ namespace NotificationService.Common.Utils
             if (createdBy != requester)
             {
                 throw new TemplateException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.TemplateWasNotCreatedByYou,
                         requester));
             }
@@ -300,8 +282,7 @@ namespace NotificationService.Common.Utils
             if (notificationTypeSource != notificationTypeTarget)
             {
                 throw new TemplateException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.TemplateSpecifiedNotCorrespondToGivenNotificationType,
                         notificationTypeSource,
                         notificationTypeTarget));
@@ -314,7 +295,7 @@ namespace NotificationService.Common.Utils
             if (string.IsNullOrWhiteSpace(content))
             {
                 throw new TemplateException(
-                    Messages.TemplateWithNoContent);
+                    Format(Messages.TemplateWithNoContent));
             }
         }
 
@@ -323,8 +304,7 @@ namespace NotificationService.Common.Utils
             if (catalog is null)
             {
                 throw new CatalogException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.CatalogSpecifiedNotExists,
                         catalogName));
             }
@@ -337,8 +317,7 @@ namespace NotificationService.Common.Utils
             if (!catalog.Elements.Any(x => x.Key == key))
             {
                 throw new CatalogException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.CatalogSpecifiedNotHaveGivenKey,
                         catalog.Name,
                         key));
@@ -350,8 +329,7 @@ namespace NotificationService.Common.Utils
             if (platform is not null)
             {
                 throw new PlatformException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.PlatformAlreadyExists,
                         platformName,
                         createdBy));
@@ -363,8 +341,7 @@ namespace NotificationService.Common.Utils
             if (platform is null)
             {
                 throw new PlatformException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.PlatformWithGivenIdNotExists,
                         platformId));
             }
@@ -375,8 +352,7 @@ namespace NotificationService.Common.Utils
             if (createdBy != requester)
             {
                 throw new PlatformException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.PlatformWasNotCreatedByYou,
                         requester));
             }
@@ -387,8 +363,7 @@ namespace NotificationService.Common.Utils
             if (attachment is null)
             {
                 throw new RuleValidationException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.AttachmentNotFound,
                         fileName));
             }
@@ -399,8 +374,7 @@ namespace NotificationService.Common.Utils
             if (string.IsNullOrWhiteSpace(value))
             {
                 throw new RuleValidationException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.RequiredValue,
                         parameterName));
             }
@@ -411,8 +385,7 @@ namespace NotificationService.Common.Utils
             if (!value.HasValue)
             {
                 throw new RuleValidationException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.RequiredValue,
                         parameterName));
             }
@@ -428,7 +401,7 @@ namespace NotificationService.Common.Utils
             if (recipientExists)
             {
                 throw new ProviderException(
-                    Messages.RecipientAlreadyExists);
+                    Format(Messages.RecipientAlreadyExists));
             }
         }
 
@@ -437,11 +410,13 @@ namespace NotificationService.Common.Utils
             if (string.IsNullOrWhiteSpace(recipient))
             {
                 throw new ProviderException(
-                    string.Format(
-                        CultureInfo.CurrentCulture,
+                    Format(
                         Messages.RecipientNotExists,
                         recipient));
             }
         }
+
+        private static string Format(string format, params object?[] args)
+            => string.Format(CultureInfo.CurrentCulture, format, args);
     }
 }
