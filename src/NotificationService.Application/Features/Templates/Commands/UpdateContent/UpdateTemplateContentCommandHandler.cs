@@ -1,4 +1,4 @@
-using NotificationService.Application.Common.Interfaces;
+using NotificationService.Common.Interfaces;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.RequestDtos;
 

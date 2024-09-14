@@ -1,4 +1,4 @@
-using NotificationService.Application.Common.Interfaces;
+using NotificationService.Common.Interfaces;
 
 namespace NotificationService.Application.Features.Templates.Commands.Delete;
 

@@ -1,4 +1,10 @@
-namespace NotificationService.Application.Common;
+using MediatR;
+
+namespace NotificationService.Common.Interfaces;
+
+public interface IQuery<TResponse> : IRequest<TResponse>
+{
+}
 
 public abstract record OwnedQuery
 {

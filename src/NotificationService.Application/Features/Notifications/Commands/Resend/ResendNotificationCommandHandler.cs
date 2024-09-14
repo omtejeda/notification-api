@@ -1,6 +1,4 @@
-using System.Data.Sql;
-using MediatR.Pipeline;
-using NotificationService.Application.Common.Interfaces;
+using NotificationService.Common.Interfaces;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Dtos;

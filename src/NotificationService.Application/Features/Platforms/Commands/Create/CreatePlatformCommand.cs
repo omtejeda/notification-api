@@ -1,5 +1,5 @@
 using NotificationService.Common.Dtos;
-using NotificationService.Application.Common.Interfaces;
+using NotificationService.Common.Interfaces;
 
 namespace NotificationService.Application.Features.Platforms.Commands.Create;
 

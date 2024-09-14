@@ -1,4 +1,4 @@
-using NotificationService.Application.Common.Interfaces;
+using NotificationService.Common.Interfaces;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Domain.Enums;
 

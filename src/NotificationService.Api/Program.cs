@@ -5,7 +5,7 @@ using NotificationService.Api.Middlewares;
 using NotificationService.Api.IoC;
 using NotificationService.Application.IoC;
 using NotificationService.Infrastructure.IoC;
-using NotificationService.Application.Common.Interfaces;
+using NotificationService.Common.Interfaces;
 using NotificationService.Application.Common.Services;
 using NotificationService.Api.Extensions;
 

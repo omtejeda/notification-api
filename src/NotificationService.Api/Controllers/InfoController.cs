@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
 using NotificationService.Api.Attributes;
 using NotificationService.Common.Dtos;
-using NotificationService.Application.Common.Interfaces;
+using NotificationService.Common.Interfaces;
 
 namespace NotificationService.Api.Controllers
 {

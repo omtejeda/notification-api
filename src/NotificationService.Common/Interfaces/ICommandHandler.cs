@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace NotificationService.Application.Common.Interfaces;
+namespace NotificationService.Common.Interfaces;
 
 public interface ICommandHandler<TCommand, TResponse> : IRequestHandler<TCommand, TResponse>
     where TCommand : ICommand<TResponse>

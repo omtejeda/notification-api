@@ -1,6 +1,5 @@
-using NotificationService.Application.Common.Interfaces;
+using NotificationService.Common.Interfaces;
 using NotificationService.Common.Dtos;
-using NotificationService.Domain.Entities;
 
 namespace NotificationService.Application.Features.Templates.Queries.GetContent;
 

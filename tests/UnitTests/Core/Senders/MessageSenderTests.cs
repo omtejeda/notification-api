@@ -1,6 +1,6 @@
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Providers.Factories.Interfaces;
-using NotificationService.Application.Common.Interfaces;
+using NotificationService.Common.Interfaces;
 using NotificationService.Application.Senders;
 using NotificationService.Domain.Enums;
 using NotificationService.Common.Dtos;
