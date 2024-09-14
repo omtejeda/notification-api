@@ -11,7 +11,7 @@ using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Common.Dtos;
-using NotificationService.Common.Utils;
+using NotificationService.Application.Utils;
 
 namespace NotificationService.Application.Catalogs.Services
 {

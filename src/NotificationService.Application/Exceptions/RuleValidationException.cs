@@ -1,5 +1,5 @@
 using NotificationService.Domain.Enums;
-namespace NotificationService.Common.Exceptions
+namespace NotificationService.Application.Exceptions
 {
     public class RuleValidationException : Exception
     {

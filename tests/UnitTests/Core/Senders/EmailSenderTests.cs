@@ -8,7 +8,7 @@ using NotificationService.Common.Dtos;
 using NotificationService.Domain.Models;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Dtos;
-using NotificationService.Common.Exceptions;
+using NotificationService.Application.Exceptions;
 using NotificationService.Application.Providers.Interfaces;
 using NotificationService.Application.Common;
 using NotificationService.Application.Interfaces;

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using NotificationService.Domain.Entities;
-using NotificationService.Common.Exceptions;
+using NotificationService.Application.Exceptions;
 using NotificationService.Domain.Enums;
 using System.Net.Http;
 using Microsoft.Extensions.Logging;

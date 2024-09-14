@@ -6,7 +6,7 @@ using NotificationService.Domain.Entities;
 using NotificationService.Application.Providers.Factories.Interfaces;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Providers.Interfaces;
-using NotificationService.Common.Utils;
+using NotificationService.Application.Utils;
 
 namespace NotificationService.Application.Providers.Factories
 {

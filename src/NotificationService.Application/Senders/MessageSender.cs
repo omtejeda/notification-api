@@ -10,8 +10,8 @@ using NotificationService.Application.Interfaces;
 using NotificationService.Application.Providers.Interfaces;
 using NotificationService.Common.Dtos;
 using NotificationService.Application.Dtos;
-using NotificationService.Common.Utils;
 using NotificationService.Application.Common.Interfaces;
+using NotificationService.Application.Utils;
 
 namespace NotificationService.Application.Senders
 {

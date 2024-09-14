@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using AutoMapper;
 using NotificationService.Domain.Enums;
-using NotificationService.Common.Exceptions;
+using NotificationService.Application.Exceptions;
 using NotificationService.Application.Utils;
 using LinqKit;
 using NotificationService.Domain.Entities;

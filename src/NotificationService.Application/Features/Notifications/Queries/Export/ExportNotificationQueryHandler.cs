@@ -1,7 +1,7 @@
 using NotificationService.Application.Common.Interfaces;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Contracts.Interfaces.Factories;
-using NotificationService.Common.Exceptions;
+using NotificationService.Application.Exceptions;
 
 namespace NotificationService.Application.Features.Notifications.Queries.Export;
 

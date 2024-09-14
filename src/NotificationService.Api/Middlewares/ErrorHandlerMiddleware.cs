@@ -3,7 +3,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Domain.Enums;
-using NotificationService.Common.Exceptions;
+using NotificationService.Application.Exceptions;
 using NotificationService.Common.Dtos;
 
 namespace NotificationService.Api.Middlewares

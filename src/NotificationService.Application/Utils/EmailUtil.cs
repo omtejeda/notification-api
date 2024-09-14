@@ -3,7 +3,6 @@ using NotificationService.Domain.Entities;
 using SendGrid.Helpers.Mail;
 using NotificationService.Domain.Dtos;
 using NotificationService.Application.Templates.Models;
-using NotificationService.Common.Utils;
 
 namespace NotificationService.Application.Utils
 {

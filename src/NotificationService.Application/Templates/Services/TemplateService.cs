@@ -14,7 +14,6 @@ using NotificationService.Domain.Models;
 using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
-using NotificationService.Common.Utils;
 
 namespace NotificationService.Application.Templates.Services
 {

@@ -1,4 +1,4 @@
-namespace NotificationService.Common.Exceptions;
+namespace NotificationService.Application.Exceptions;
 
 public class CatalogException : RuleValidationException
 {

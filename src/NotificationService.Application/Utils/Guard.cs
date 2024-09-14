@@ -2,10 +2,11 @@ using System.Globalization;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
-using NotificationService.Common.Exceptions;
+using NotificationService.Application.Exceptions;
 using NotificationService.Common.Resources;
+using NotificationService.Common.Utils;
 
-namespace NotificationService.Common.Utils
+namespace NotificationService.Application.Utils
 {
     public static class Guard
     {

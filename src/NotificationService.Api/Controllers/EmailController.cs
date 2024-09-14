@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
 using NotificationService.Application.Interfaces;
 using NotificationService.Application.Dtos;
-using NotificationService.Common.Utils;
+using NotificationService.Application.Utils;
 
 namespace NotificationService.Api.Controllers
 {   

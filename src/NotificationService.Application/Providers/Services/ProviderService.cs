@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 using AutoMapper;
-using NotificationService.Common.Exceptions;
+using NotificationService.Application.Exceptions;
 using LinqKit;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
@@ -9,7 +9,7 @@ using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Common.Resources;
-using NotificationService.Common.Utils;
+using NotificationService.Application.Utils;
 namespace NotificationService.Application.Providers.Services
 {
     public class ProviderService : IProviderService
