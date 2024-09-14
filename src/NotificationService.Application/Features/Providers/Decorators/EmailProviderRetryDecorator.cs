@@ -10,7 +10,7 @@ using NotificationService.Domain.Enums;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Common;
 
-namespace NotificationService.Application.Providers.Decorators
+namespace NotificationService.Application.Features.Providers.Decorators
 {
     public partial class EmailProviderRetryDecorator : IEmailProvider
     {
