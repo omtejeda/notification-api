@@ -17,19 +17,9 @@ namespace NotificationService.Api.Controllers
     [ApiController]
     [ApiVersion(ApiVersions.v1)]
     [Route(Routes.ControllerRoute)]
-    public class NotificationsController : ApiController
+    public class NotificationsController(ISender sender) : ApiController
     {
-        private readonly IExportNotificationsFactory _exportNotificationsFactory;
-
-        private readonly ISender _sender;
-
-        public NotificationsController(
-            IExportNotificationsFactory exportNotificationsFactory,
-            ISender sender)
-        {
-            _exportNotificationsFactory = exportNotificationsFactory;
-            _sender = sender;
-        }
+        private readonly ISender _sender = sender;
 
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] GetAllNotificationsQuery query)
