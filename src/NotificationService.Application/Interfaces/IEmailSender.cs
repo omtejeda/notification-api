@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using NotificationService.Application.Senders.Dtos;
+using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Common.Dtos;
 

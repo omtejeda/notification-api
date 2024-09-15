@@ -3,7 +3,7 @@ using SendGrid;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Utils;
 using NotificationService.Domain.Entities;
-using NotificationService.Application.Senders.Models;
+using NotificationService.Application.Features.Senders.Models;
 using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;

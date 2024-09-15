@@ -1,7 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
+using NotificationService.Application.Features.Senders;
 using NotificationService.Application.Interfaces;
 
-namespace NotificationService.Application.Senders.IoC
+namespace NotificationService.Application.Features.Senders
 {
     public static class DependencyInjection
     {

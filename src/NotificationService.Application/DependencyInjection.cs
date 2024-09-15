@@ -3,7 +3,7 @@ using NotificationService.Application.Features.Catalogs;
 using NotificationService.Application.Features.Notifications;
 using NotificationService.Application.Features.Providers;
 using NotificationService.Application.Platforms;
-using NotificationService.Application.Senders.IoC;
+using NotificationService.Application.Features.Senders;
 using NotificationService.Application.Templates;
 using NotificationService.Application.Features.Webhooks;
 using System.Reflection;

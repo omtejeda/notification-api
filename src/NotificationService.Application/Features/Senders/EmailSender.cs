@@ -3,16 +3,16 @@ using NotificationService.Domain.Enums;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Utils;
 using NotificationService.Application.Contracts.Interfaces.Services;
-using NotificationService.Application.Senders.Models;
+using NotificationService.Application.Features.Senders.Models;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Interfaces;
 using NotificationService.Common.Dtos;
-using NotificationService.Application.Senders.Dtos;
+using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;
 
-namespace NotificationService.Application.Senders
+namespace NotificationService.Application.Features.Senders
 {
     public class EmailSender : IEmailSender
     {

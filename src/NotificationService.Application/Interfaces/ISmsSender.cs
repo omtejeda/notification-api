@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using NotificationService.Application.Senders.Dtos;
+using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Common.Dtos;
 

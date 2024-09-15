@@ -1,4 +1,4 @@
-namespace NotificationService.Application.Senders.Dtos;
+namespace NotificationService.Application.Features.Senders.Dtos;
 
 public interface ISendRequest
 {

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
-using NotificationService.Application.Senders.Dtos;
+using NotificationService.Application.Features.Senders.Dtos;
 
 namespace NotificationService.Application.Features.Templates.Attributes
 {

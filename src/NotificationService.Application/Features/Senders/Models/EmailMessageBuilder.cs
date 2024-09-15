@@ -1,7 +1,7 @@
 ﻿using NotificationService.Domain.Dtos;
 using NotificationService.Domain.Models;
 
-namespace NotificationService.Application.Senders.Models
+namespace NotificationService.Application.Features.Senders.Models
 {
     public partial class EmailMessage
     {

@@ -4,7 +4,7 @@ using NotificationService.Domain.Enums;
 using NotificationService.Domain.Dtos;
 using NotificationService.Application.Features.Templates.Attributes;
 
-namespace NotificationService.Application.Senders.Dtos
+namespace NotificationService.Application.Features.Senders.Dtos
 {
     public class SendEmailRequestDto : ISendRequest
     {

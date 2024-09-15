@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Features.Templates.Attributes;
 
-namespace NotificationService.Application.Senders.Dtos
+namespace NotificationService.Application.Features.Senders.Dtos
 {
     public class SendMessageRequestDto : ISendRequest
     {

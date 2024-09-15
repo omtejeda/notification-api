@@ -1,4 +1,4 @@
-﻿using NotificationService.Application.Senders.Models;
+﻿using NotificationService.Application.Features.Senders.Models;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
 using NotificationService.Domain.Models;

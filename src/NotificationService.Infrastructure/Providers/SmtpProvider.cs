@@ -6,7 +6,7 @@ using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;
-using NotificationService.Application.Senders.Models;
+using NotificationService.Application.Features.Senders.Models;
 
 namespace NotificationService.Infrastructure.Providers
 {
