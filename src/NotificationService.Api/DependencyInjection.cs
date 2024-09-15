@@ -1,10 +1,8 @@
-using System;
-using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using NotificationService.Api.Extensions;
 using NotificationService.Api.Utils;
 
-namespace NotificationService.Api.IoC
+namespace NotificationService.Api
 {
     public static class DependencyInjection
     {

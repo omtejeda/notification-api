@@ -7,7 +7,7 @@ using NotificationService.Infrastructure.Providers;
 using NotificationService.Infrastructure.Repositories;
 using NotificationService.Infrastructure.Repositories.Helpers;
 
-namespace NotificationService.Infrastructure.IoC
+namespace NotificationService.Infrastructure
 {
     public static class DependencyInjection
     {

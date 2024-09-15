@@ -2,12 +2,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using NotificationService.Api.Middlewares;
-using NotificationService.Api.IoC;
 using NotificationService.Application;
-using NotificationService.Infrastructure.IoC;
+using NotificationService.Infrastructure;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Common.Services;
 using NotificationService.Api.Extensions;
+using NotificationService.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
