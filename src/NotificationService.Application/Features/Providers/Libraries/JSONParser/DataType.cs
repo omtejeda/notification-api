@@ -1,4 +1,4 @@
-namespace NotificationService.Application.Providers.Libraries.JSONParser;
+namespace NotificationService.Application.Features.Providers.Libraries.JSONParser;
 
 public enum DataType
 {

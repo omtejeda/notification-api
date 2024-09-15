@@ -1,16 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using MimeKit;
+﻿using MimeKit;
 using MailKit.Net.Smtp;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Utils;
 using NotificationService.Application.Common;
 using NotificationService.Domain.Entities;
-using NotificationService.Application.Providers.Interfaces;
-using System.Threading;
 using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
+using NotificationService.Application.Features.Providers.Interfaces;
 
 namespace NotificationService.Infrastructure.Providers
 {

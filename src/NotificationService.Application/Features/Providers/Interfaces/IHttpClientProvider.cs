@@ -1,11 +1,7 @@
-using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using NotificationService.Domain.Entities;
-using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Domain.Dtos;
 
-namespace NotificationService.Application.Providers.Interfaces
+namespace NotificationService.Application.Features.Providers.Interfaces
 {
     public interface IHttpClientProvider
     {

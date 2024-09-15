@@ -2,9 +2,8 @@
 /// Represents a JSON key or property with properties for the property name, 
 /// data type, whether it is required, child keys, its value, and index if needed when array.
 /// </summary>
-using System.Collections.Generic;
 using Newtonsoft.Json;
-namespace NotificationService.Application.Providers.Libraries.JSONParser;
+namespace NotificationService.Application.Features.Providers.Libraries.JSONParser;
 public class JsonKey
 {
     public string PropertyName { get; set; } = string.Empty;

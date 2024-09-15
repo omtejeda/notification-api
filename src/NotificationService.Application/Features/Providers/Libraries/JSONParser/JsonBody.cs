@@ -1,13 +1,10 @@
 /// <summary>
 /// Represents a JSON body or object with a root property name and a list of JsonKey objects that define its structure.
 /// </summary>
-using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
-using NotificationService.Application.Providers.Libraries.JSONParser.Exceptions;
-namespace NotificationService.Application.Providers.Libraries.JSONParser;
+using NotificationService.Application.Features.Providers.Libraries.JSONParser.Exceptions;
+namespace NotificationService.Application.Features.Providers.Libraries.JSONParser;
+
 public class JsonBody
 {
     private DataType _rootIs;

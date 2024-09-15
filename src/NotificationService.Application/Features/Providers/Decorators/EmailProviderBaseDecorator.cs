@@ -1,6 +1,6 @@
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
-using NotificationService.Application.Providers.Interfaces;
+using NotificationService.Application.Features.Providers.Interfaces;
 
 namespace NotificationService.Application.Features.Providers.Decorators
 {

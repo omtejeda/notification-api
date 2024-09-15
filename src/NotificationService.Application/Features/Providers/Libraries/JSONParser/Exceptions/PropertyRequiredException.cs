@@ -1,5 +1,5 @@
 using System;
-namespace NotificationService.Application.Providers.Libraries.JSONParser.Exceptions;
+namespace NotificationService.Application.Features.Providers.Libraries.JSONParser.Exceptions;
 public class PropertyRequiredException : Exception
 {
     public PropertyRequiredException() { }

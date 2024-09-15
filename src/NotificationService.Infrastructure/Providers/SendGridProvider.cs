@@ -1,16 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using SendGrid.Helpers.Mail;
+﻿using SendGrid.Helpers.Mail;
 using SendGrid;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Utils;
 using NotificationService.Domain.Entities;
-using NotificationService.Application.Providers.Interfaces;
-using System.Collections.Generic;
 using NotificationService.Application.Common;
 using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
+using NotificationService.Application.Features.Providers.Interfaces;
 
 namespace NotificationService.Infrastructure.Providers
 {

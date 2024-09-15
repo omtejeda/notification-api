@@ -1,17 +1,14 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using NotificationService.Domain.Enums;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Interfaces;
-using NotificationService.Application.Providers.Interfaces;
 using NotificationService.Common.Dtos;
 using NotificationService.Application.Dtos;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Utils;
+using NotificationService.Application.Features.Providers.Interfaces;
 
 namespace NotificationService.Application.Senders
 {

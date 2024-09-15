@@ -4,7 +4,7 @@ using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
 using NotificationService.Domain.Models;
 
-namespace NotificationService.Application.Providers.Interfaces
+namespace NotificationService.Application.Features.Providers.Interfaces
 {
     public interface IEmailProvider
     {

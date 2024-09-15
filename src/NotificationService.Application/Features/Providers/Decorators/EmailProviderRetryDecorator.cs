@@ -1,14 +1,11 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Polly;
 using Polly.Retry;
 using Polly.Timeout;
 using Polly.Wrap;
-using NotificationService.Application.Providers.Interfaces;
 using NotificationService.Domain.Enums;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Common;
+using NotificationService.Application.Features.Providers.Interfaces;
 
 namespace NotificationService.Application.Features.Providers.Decorators
 {

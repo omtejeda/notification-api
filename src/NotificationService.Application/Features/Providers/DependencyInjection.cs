@@ -1,12 +1,11 @@
 using Microsoft.Extensions.DependencyInjection;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Features.Providers.Decorators;
-using NotificationService.Application.Providers.Factories;
-using NotificationService.Application.Providers.Factories.Interfaces;
-using NotificationService.Application.Providers.Interfaces;
-using NotificationService.Application.Providers.Services;
+using NotificationService.Application.Features.Providers.Factories;
+using NotificationService.Application.Features.Providers.Interfaces;
+using NotificationService.Application.Features.Providers.Services;
 
-namespace NotificationService.Application.Providers.IoC
+namespace NotificationService.Application.Features.Providers
 {
     public static class DependencyInjection
     {

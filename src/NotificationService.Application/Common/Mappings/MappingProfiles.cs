@@ -41,9 +41,9 @@ namespace NotificationService.Application.Common.Mappings
             CreateMap<JsonBodyDto, JsonBody>().ReverseMap();
             CreateMap<JsonKeyDto, JsonKey>().ReverseMap();
 
-            CreateMap<JsonBody, Providers.Libraries.JSONParser.JsonBody>();
-            CreateMap<JsonKey, Providers.Libraries.JSONParser.JsonKey>();
-            CreateMap<MetadataDto, Providers.Libraries.JSONParser.Metadata>();
+            CreateMap<JsonBody, Features.Providers.Libraries.JSONParser.JsonBody>();
+            CreateMap<JsonKey, Features.Providers.Libraries.JSONParser.JsonKey>();
+            CreateMap<MetadataDto, Features.Providers.Libraries.JSONParser.Metadata>();
         }
     }
 }

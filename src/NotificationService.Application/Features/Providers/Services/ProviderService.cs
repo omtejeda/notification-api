@@ -10,7 +10,8 @@ using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Common.Resources;
 using NotificationService.Application.Utils;
-namespace NotificationService.Application.Providers.Services
+
+namespace NotificationService.Application.Features.Providers.Services
 {
     public class ProviderService : IProviderService
     {

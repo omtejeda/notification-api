@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using NotificationService.Domain.Entities;
-using NotificationService.Application.Providers.Factories.Interfaces;
+﻿using NotificationService.Domain.Entities;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
-using NotificationService.Application.Providers.Interfaces;
 using NotificationService.Application.Utils;
+using NotificationService.Application.Features.Providers.Interfaces;
 
-namespace NotificationService.Application.Providers.Factories
+namespace NotificationService.Application.Features.Providers.Factories
 {
     public class EmailProviderFactory : IEmailProviderFactory
     {

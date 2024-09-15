@@ -1,20 +1,16 @@
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
 using NotificationService.Domain.Enums;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Utils;
 using NotificationService.Application.Contracts.Interfaces.Services;
-using NotificationService.Application.Providers.Factories.Interfaces;
 using NotificationService.Application.Common;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Interfaces;
-using NotificationService.Application.Providers.Interfaces;
 using NotificationService.Common.Dtos;
 using NotificationService.Application.Dtos;
 using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
+using NotificationService.Application.Features.Providers.Interfaces;
 
 namespace NotificationService.Application.Senders
 {
