@@ -4,106 +4,105 @@ using SendGrid.Helpers.Mail;
 using NotificationService.Domain.Dtos;
 using NotificationService.Application.Features.Templates.Models;
 
-namespace NotificationService.Application.Utils
+namespace NotificationService.Application.Utils;
+
+public static class EmailUtil
 {
-    public static class EmailUtil
+    public static string ReplaceParameters(string text, IEnumerable<MetadataDto> metadata)
     {
-        public static string ReplaceParameters(string text, IEnumerable<MetadataDto> metadata)
-        {
-            var finalText = text;
+        var finalText = text;
 
-            foreach (var meta in metadata)
-            {
-                finalText = finalText.Replace($"$[{meta.Key}]", meta.Value);
-            }
-            return finalText;
+        foreach (var meta in metadata)
+        {
+            finalText = finalText.Replace($"$[{meta.Key}]", meta.Value);
         }
+        return finalText;
+    }
 
-        public static string ReadFile(string path)
+    public static string ReadFile(string path)
+    {
+        StreamReader str = new StreamReader(path);
+        var text = str.ReadToEnd();
+        str.Close();
+
+        return text;
+    }
+
+    public static BodyBuilder AddAttachments(this BodyBuilder builder, List<Microsoft.AspNetCore.Http.IFormFile> attachments)
+    {
+        if (attachments is not null)
         {
-            StreamReader str = new StreamReader(path);
-            var text = str.ReadToEnd();
-            str.Close();
-
-            return text;
-        }
-
-        public static BodyBuilder AddAttachments(this BodyBuilder builder, List<Microsoft.AspNetCore.Http.IFormFile> attachments)
-        {
-            if (attachments is not null)
+            byte[] fileBytes;
+            foreach (var file in attachments)
             {
-                byte[] fileBytes;
-                foreach (var file in attachments)
+                if (file.Length > 0)
                 {
-                    if (file.Length > 0)
+                    using (var ms = new MemoryStream())
                     {
-                        using (var ms = new MemoryStream())
-                        {
-                            file.CopyTo(ms);
-                            fileBytes = ms.ToArray();
-                        }
-                        builder.Attachments.Add(file.FileName, fileBytes, ContentType.Parse(file.ContentType));
+                        file.CopyTo(ms);
+                        fileBytes = ms.ToArray();
                     }
+                    builder.Attachments.Add(file.FileName, fileBytes, ContentType.Parse(file.ContentType));
                 }
             }
-            return builder;
         }
+        return builder;
+    }
 
-        public static SendGridMessage AddAttachments(this SendGridMessage message, List<Microsoft.AspNetCore.Http.IFormFile> attachments)
+    public static SendGridMessage AddAttachments(this SendGridMessage message, List<Microsoft.AspNetCore.Http.IFormFile> attachments)
+    {
+        if (attachments is not null)
         {
-            if (attachments is not null)
+            string fileBase64;
+            foreach (var file in attachments)
             {
-                string fileBase64;
-                foreach (var file in attachments)
+                if (file.Length > 0)
                 {
-                    if (file.Length > 0)
+                    using (var ms = new MemoryStream())
                     {
-                        using (var ms = new MemoryStream())
-                        {
-                            file.CopyTo(ms);
-                            fileBase64 = Convert.ToBase64String(ms.ToArray());
-                        }
-                        message.AddAttachment(file.FileName, fileBase64);
+                        file.CopyTo(ms);
+                        fileBase64 = Convert.ToBase64String(ms.ToArray());
                     }
+                    message.AddAttachment(file.FileName, fileBase64);
                 }
             }
-            return message;
-        }        
+        }
+        return message;
+    }        
 
-        public static SendGridTemplate GetSendgridTemplateFromMetadata(List<MetadataDto> providedMetadata)
+    public static SendGridTemplate GetSendgridTemplateFromMetadata(List<MetadataDto> providedMetadata)
+    {
+        var result = new SendGridTemplate();
+        if (providedMetadata != null)
         {
-            var result = new SendGridTemplate();
-            if (providedMetadata != null)
-            {
-                result.TemplateId = providedMetadata.FirstOrDefault(x => x.Key.ToLowerInvariant() == Parameters.SendgridTemplateId)?.Value;
-                result.Category = providedMetadata.FirstOrDefault(x => x.Key.ToLowerInvariant() == Parameters.SendgridCategory)?.Value;
-                result.HasTemplate = result.TemplateId != null;
-                if (result.HasTemplate)
-                    result.DynamicTemplateData = providedMetadata.Where(x => !Parameters.ParameterList.Contains(x.Key)).ToDictionary(k => k.Key, v => v.Value);
-            }
-
-            return result;
+            result.TemplateId = providedMetadata.FirstOrDefault(x => x.Key.ToLowerInvariant() == Parameters.SendgridTemplateId)?.Value;
+            result.Category = providedMetadata.FirstOrDefault(x => x.Key.ToLowerInvariant() == Parameters.SendgridCategory)?.Value;
+            result.HasTemplate = result.TemplateId != null;
+            if (result.HasTemplate)
+                result.DynamicTemplateData = providedMetadata.Where(x => !Parameters.ParameterList.Contains(x.Key)).ToDictionary(k => k.Key, v => v.Value);
         }
 
-        public static void ThrowIfEmailNotAllowed(string? environment, Provider provider, string to = null, ICollection<string> cc = null, ICollection<string> bcc = null)
-        {
-            Guard.CanSendToDestination(provider, to, environment);
+        return result;
+    }
 
-            foreach (var ccEmail in cc ?? Enumerable.Empty<string>())
-                Guard.CanSendToDestination(provider, ccEmail, environment);
+    public static void ThrowIfEmailNotAllowed(string? environment, Provider provider, string to = null, ICollection<string> cc = null, ICollection<string> bcc = null)
+    {
+        Guard.CanSendToDestination(provider, to, environment);
 
-            foreach (var bccEmail in bcc ?? Enumerable.Empty<string>())
-                Guard.CanSendToDestination(provider, bccEmail, environment);
-        }
+        foreach (var ccEmail in cc ?? Enumerable.Empty<string>())
+            Guard.CanSendToDestination(provider, ccEmail, environment);
 
-        internal static class Parameters
-        {
-            public static readonly string SendgridTemplateId = "x-template-id";
-            public static readonly string SendgridCategory = "x-category";
-            public static readonly string NotificationIdHeader = "x-notification-id";
+        foreach (var bccEmail in bcc ?? Enumerable.Empty<string>())
+            Guard.CanSendToDestination(provider, bccEmail, environment);
+    }
 
-            public static readonly List<string> ParameterList = new List<string> { SendgridTemplateId, SendgridCategory, NotificationIdHeader };
+    internal static class Parameters
+    {
+        public static readonly string SendgridTemplateId = "x-template-id";
+        public static readonly string SendgridCategory = "x-category";
+        public static readonly string NotificationIdHeader = "x-notification-id";
 
-        }
+        public static readonly List<string> ParameterList = new List<string> { SendgridTemplateId, SendgridCategory, NotificationIdHeader };
+
     }
 }

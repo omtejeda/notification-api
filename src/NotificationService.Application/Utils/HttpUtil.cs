@@ -3,49 +3,48 @@ using NotificationService.Common.Dtos;
 using NotificationService.Domain.Entities;
 using NotificationService.Common.Resources;
 
-namespace NotificationService.Application.Utils
+namespace NotificationService.Application.Utils;
+
+public static class HttpUtil
 {
-    public static class HttpUtil
+    private static List<string> GetVerbsAllowed() => new List<string>{"GET", "POST", "PUT", "PATCH"};
+
+    public static string GetFullPath(string host, string uri, IDictionary<string, string> queryString = null)
     {
-        private static List<string> GetVerbsAllowed() => new List<string>{"GET", "POST", "PUT", "PATCH"};
+        var pathSeparator = Path.AltDirectorySeparatorChar;
+        var fullPath = string.Empty;
 
-        public static string GetFullPath(string host, string uri, IDictionary<string, string> queryString = null)
+        if (!host.EndsWith(pathSeparator) && !uri.StartsWith(pathSeparator))
+            fullPath = host + pathSeparator + uri;
+
+        else if (host.EndsWith(pathSeparator) && uri.StartsWith(pathSeparator))
+            fullPath = host + uri.TrimStart(pathSeparator);
+
+        else
+            fullPath = host + uri;
+        
+        if (queryString is not null)
+            fullPath = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(fullPath, queryString);
+
+        return fullPath;
+    }
+    public static void CheckHTTPClientSettings(string host, string uri, string verb)
+        => CheckHTTPClientSettings(new HttpClientSettingDto { Host = host, Uri = uri, Verb = verb });
+
+    public static void CheckHTTPClientSettings(HttpClientSettingDto settings)
+    {
+        Guard.RequiredValueIsPresent(settings.Host, nameof(settings.Host));
+        Guard.RequiredValueIsPresent(settings.Uri, nameof(settings.Uri));
+        Guard.RequiredValueIsPresent(settings.Verb, nameof(settings.Verb));
+        if (!GetVerbsAllowed().Any(x => x == settings.Verb)) throw new RuleValidationException(string.Format(Messages.HttpVerbNotAllowed, settings.Verb));
+
+        foreach (var param in settings?.Params!)
         {
-            var pathSeparator = Path.AltDirectorySeparatorChar;
-            var fullPath = string.Empty;
+            try { Enum.Parse<HttpClientParamType>(param.Type, true); }
+            catch (Exception) { throw new RuleValidationException(string.Format(Messages.ValueNotValid, param.Type)); }
 
-            if (!host.EndsWith(pathSeparator) && !uri.StartsWith(pathSeparator))
-                fullPath = host + pathSeparator + uri;
-
-            else if (host.EndsWith(pathSeparator) && uri.StartsWith(pathSeparator))
-                fullPath = host + uri.TrimStart(pathSeparator);
-
-            else
-                fullPath = host + uri;
-            
-            if (queryString is not null)
-                fullPath = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(fullPath, queryString);
-
-            return fullPath;
-        }
-        public static void CheckHTTPClientSettings(string host, string uri, string verb)
-            => CheckHTTPClientSettings(new HttpClientSettingDto { Host = host, Uri = uri, Verb = verb });
-
-        public static void CheckHTTPClientSettings(HttpClientSettingDto settings)
-        {
-            Guard.RequiredValueIsPresent(settings.Host, nameof(settings.Host));
-            Guard.RequiredValueIsPresent(settings.Uri, nameof(settings.Uri));
-            Guard.RequiredValueIsPresent(settings.Verb, nameof(settings.Verb));
-            if (!GetVerbsAllowed().Any(x => x == settings.Verb)) throw new RuleValidationException(string.Format(Messages.HttpVerbNotAllowed, settings.Verb));
-
-            foreach (var param in settings?.Params!)
-            {
-                try { Enum.Parse<HttpClientParamType>(param.Type, true); }
-                catch (Exception) { throw new RuleValidationException(string.Format(Messages.ValueNotValid, param.Type)); }
-
-                try { Enum.Parse<HttpClientParamValueReader>(param.ReadValueFrom, true); }
-                catch (Exception) { throw new RuleValidationException(string.Format(Messages.ValueNotValid, param.ReadValueFrom)); }
-            }
+            try { Enum.Parse<HttpClientParamValueReader>(param.ReadValueFrom, true); }
+            catch (Exception) { throw new RuleValidationException(string.Format(Messages.ValueNotValid, param.ReadValueFrom)); }
         }
     }
 }

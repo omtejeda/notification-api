@@ -6,23 +6,22 @@ using NotificationService.Infrastructure.Providers;
 using NotificationService.Infrastructure.Repositories;
 using NotificationService.Infrastructure.Repositories.Helpers;
 
-namespace NotificationService.Infrastructure
-{
-    public static class DependencyInjection
-    {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
-        {
-            services.AddSingleton<IMongoDatabase>(s =>
-                new MongoClient(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"))
-                    .GetDatabase(Environment.GetEnvironmentVariable("DB_NAME"))
-                    .InitializeMappings()
-            );
-            services.AddScoped(typeof(IRepository<>), typeof(MongoRepository<>));
+namespace NotificationService.Infrastructure;
 
-            services.AddTransient<IEmailProvider, SendGridProvider>();
-            services.AddTransient<IEmailProvider, SmtpProvider>();
-            services.AddTransient<IHttpClientProvider, HttpClientProvider>();
-            return services;
-        }
+public static class DependencyInjection
+{
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    {
+        services.AddSingleton<IMongoDatabase>(s =>
+            new MongoClient(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"))
+                .GetDatabase(Environment.GetEnvironmentVariable("DB_NAME"))
+                .InitializeMappings()
+        );
+        services.AddScoped(typeof(IRepository<>), typeof(MongoRepository<>));
+
+        services.AddTransient<IEmailProvider, SendGridProvider>();
+        services.AddTransient<IEmailProvider, SmtpProvider>();
+        services.AddTransient<IHttpClientProvider, HttpClientProvider>();
+        return services;
     }
 }

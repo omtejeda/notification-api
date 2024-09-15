@@ -2,43 +2,42 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Routing;
 
-namespace NotificationService.Api.Extensions
-{
-    public static class MvcOptionsExtensions
-    {
-        public static void UseGeneralRoutePrefix(this MvcOptions opts, IRouteTemplateProvider routeAttribute)
-        {
-            opts.Conventions.Add(new RoutePrefixConvention(routeAttribute));
-        }
+namespace NotificationService.Api.Extensions;
 
-        public static void UseGeneralRoutePrefix(this MvcOptions opts, string
-        prefix)
-        {
-            opts.UseGeneralRoutePrefix(new RouteAttribute(prefix));
-        }
+public static class MvcOptionsExtensions
+{
+    public static void UseGeneralRoutePrefix(this MvcOptions opts, IRouteTemplateProvider routeAttribute)
+    {
+        opts.Conventions.Add(new RoutePrefixConvention(routeAttribute));
     }
 
-    public class RoutePrefixConvention : IApplicationModelConvention
+    public static void UseGeneralRoutePrefix(this MvcOptions opts, string
+    prefix)
     {
-        private readonly AttributeRouteModel _routePrefix;
+        opts.UseGeneralRoutePrefix(new RouteAttribute(prefix));
+    }
+}
 
-        public RoutePrefixConvention(IRouteTemplateProvider route)
-        {
-            _routePrefix = new AttributeRouteModel(route);
-        }
+public class RoutePrefixConvention : IApplicationModelConvention
+{
+    private readonly AttributeRouteModel _routePrefix;
 
-        public void Apply(ApplicationModel application)
+    public RoutePrefixConvention(IRouteTemplateProvider route)
+    {
+        _routePrefix = new AttributeRouteModel(route);
+    }
+
+    public void Apply(ApplicationModel application)
+    {
+        foreach (var selector in application.Controllers.SelectMany(c => c.Selectors))
         {
-            foreach (var selector in application.Controllers.SelectMany(c => c.Selectors))
+            if (selector.AttributeRouteModel != null)
             {
-                if (selector.AttributeRouteModel != null)
-                {
-                    selector.AttributeRouteModel = AttributeRouteModel.CombineAttributeRouteModel(_routePrefix, selector.AttributeRouteModel);
-                }
-                else
-                {
-                    selector.AttributeRouteModel = _routePrefix;
-                }
+                selector.AttributeRouteModel = AttributeRouteModel.CombineAttributeRouteModel(_routePrefix, selector.AttributeRouteModel);
+            }
+            else
+            {
+                selector.AttributeRouteModel = _routePrefix;
             }
         }
     }

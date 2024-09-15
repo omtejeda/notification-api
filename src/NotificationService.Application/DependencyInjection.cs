@@ -8,23 +8,22 @@ using NotificationService.Application.Templates;
 using NotificationService.Application.Features.Webhooks;
 using System.Reflection;
 
-namespace NotificationService.Application
+namespace NotificationService.Application;
+
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services)
-        {
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-            
-            services.AddCatalogs();
-            services.AddNotififications();
-            services.AddPlatforms();
-            services.AddProviders();
-            services.AddSenders();
-            services.AddTemplates();
-            services.AddWebhooks();
-            return services;
-        }
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        
+        services.AddCatalogs();
+        services.AddNotififications();
+        services.AddPlatforms();
+        services.AddProviders();
+        services.AddSenders();
+        services.AddTemplates();
+        services.AddWebhooks();
+        return services;
     }
 }
