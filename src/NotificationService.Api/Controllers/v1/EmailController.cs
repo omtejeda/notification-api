@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +7,7 @@ using NotificationService.Application.Interfaces;
 using NotificationService.Application.Senders.Dtos;
 using NotificationService.Application.Utils;
 
-namespace NotificationService.Api.Controllers
+namespace NotificationService.Api.Controllers.v1
 {   
     [ApiController]
     [ApiVersion(ApiVersions.v1)]

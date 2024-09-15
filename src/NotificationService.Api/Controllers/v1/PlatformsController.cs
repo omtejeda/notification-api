@@ -11,7 +11,7 @@ using NotificationService.Application.Features.Platforms.Commands.Delete;
 using NotificationService.Application.Features.Platforms.Queries.GetById;
 using NotificationService.Application.Features.Platforms.Queries.GetAll;
 
-namespace NotificationService.Api.Controllers
+namespace NotificationService.Api.Controllers.v1
 {   
     [ApiController]
     [ApiVersion(ApiVersions.v1)]

@@ -11,7 +11,7 @@ using NotificationService.Application.Features.Templates.Queries.GetById;
 using NotificationService.Application.Features.Templates.Queries.GetAll;
 using NotificationService.Application.Features.Templates.Queries.GetContent;
 
-namespace NotificationService.Api.Controllers
+namespace NotificationService.Api.Controllers.v1
 {   
     [ApiController]
     [ApiVersion(ApiVersions.v1)]

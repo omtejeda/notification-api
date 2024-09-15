@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
-using NotificationService.Domain.Enums;
 using NotificationService.Common.Dtos;
-namespace NotificationService.Api.Controllers
+
+namespace NotificationService.Api.Controllers.v1
 {   
     [ApiController]
     [ApiVersion(ApiVersions.v1)]

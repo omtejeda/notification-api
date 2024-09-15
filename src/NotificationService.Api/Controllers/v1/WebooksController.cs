@@ -4,7 +4,7 @@ using NotificationService.Api.Utils;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Webhooks.Dtos;
 
-namespace NotificationService.Api.Controllers
+namespace NotificationService.Api.Controllers.v1
 {
     [ApiController]
     [ApiVersion(ApiVersions.v1)]

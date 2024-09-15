@@ -11,7 +11,7 @@ using NotificationService.Application.Features.Catalogs.Commands.Create;
 using NotificationService.Application.Features.Catalogs.Queries.GetById;
 using NotificationService.Application.Features.Catalogs.Queries.GetAll;
 
-namespace NotificationService.Api.Controllers
+namespace NotificationService.Api.Controllers.v1
 {   
     [ApiController]
     [ApiVersion(ApiVersions.v1)]

@@ -1,10 +1,8 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
 using NotificationService.Domain.Enums;
-using NotificationService.Application.Contracts.Interfaces.Factories;
 using MediatR;
 using NotificationService.Application.Features.Notifications.Commands.Resend;
 using NotificationService.Application.Features.Notifications.Queries.GetAll;
@@ -12,7 +10,7 @@ using NotificationService.Application.Features.Notifications.Queries.GetById;
 using NotificationService.Application.Features.Notifications.Queries.GetAttachment;
 using NotificationService.Application.Features.Notifications.Queries.Export;
 
-namespace NotificationService.Api.Controllers
+namespace NotificationService.Api.Controllers.v1
 {   
     [ApiController]
     [ApiVersion(ApiVersions.v1)]

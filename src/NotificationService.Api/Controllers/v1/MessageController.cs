@@ -4,7 +4,7 @@ using NotificationService.Api.Utils;
 using NotificationService.Application.Senders.Dtos;
 using NotificationService.Application.Interfaces;
 
-namespace NotificationService.Api.Controllers
+namespace NotificationService.Api.Controllers.v1
 {   
     [ApiController]
     [ApiVersion(ApiVersions.v1)]

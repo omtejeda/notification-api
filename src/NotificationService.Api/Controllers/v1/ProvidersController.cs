@@ -13,7 +13,7 @@ using NotificationService.Application.Features.Providers.Queries.GetById;
 using NotificationService.Application.Features.Providers.Queries.GetAll;
 using MediatR;
 
-namespace NotificationService.Api.Controllers
+namespace NotificationService.Api.Controllers.v1
 {   
     [ApiController]
     [ApiVersion(ApiVersions.v1)]
