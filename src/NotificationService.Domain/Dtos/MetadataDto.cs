@@ -1,8 +1,7 @@
-namespace NotificationService.Domain.Dtos
+namespace NotificationService.Domain.Dtos;
+
+public class MetadataDto
 {
-    public class MetadataDto
-    {
-        public string Key { get; set; }
-        public string Value { get; set; }
-    }
+    public string Key { get; set; }
+    public string Value { get; set; }
 }

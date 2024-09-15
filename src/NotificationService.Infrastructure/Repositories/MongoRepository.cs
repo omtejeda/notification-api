@@ -9,197 +9,196 @@ using LinqKit;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Common.Interfaces;
 
-namespace NotificationService.Infrastructure.Repositories
+namespace NotificationService.Infrastructure.Repositories;
+
+public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {
-    public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
+    private readonly IMongoCollection<TEntity> _collection;
+    private readonly IGridFSBucket _bucket;
+    private readonly Expression<Func<TEntity, bool>> _nonDeletedRecords;
+
+    private readonly IDateTimeService _dateTimeService;
+    private readonly IEnvironmentService _environmentService;
+
+    public MongoRepository(IMongoDatabase database, IDateTimeService dateTimeService, IEnvironmentService environmentService)
     {
-        private readonly IMongoCollection<TEntity> _collection;
-        private readonly IGridFSBucket _bucket;
-        private readonly Expression<Func<TEntity, bool>> _nonDeletedRecords;
+        var collectionName = string.Concat(typeof(TEntity).Name, 's');
 
-        private readonly IDateTimeService _dateTimeService;
-        private readonly IEnvironmentService _environmentService;
+        _collection = database.GetCollection<TEntity>(collectionName);
+        _bucket = new GridFSBucket(database, new GridFSBucketOptions { BucketName = collectionName });
 
-        public MongoRepository(IMongoDatabase database, IDateTimeService dateTimeService, IEnvironmentService environmentService)
+        _nonDeletedRecords = PredicateBuilder.New<TEntity>().And(x => x.Deleted != true).Expand();
+
+        _dateTimeService = dateTimeService;
+        _environmentService = environmentService;
+    }
+
+    public async Task<(IEnumerable<TEntity>, Pagination)> FindAsync(Expression<Func<TEntity, bool>> filter, int? page = null, int? pageSize = null, IReadOnlyList<string> sortsBy = null) 
+    {
+        filter = filter.And(_nonDeletedRecords);
+        var query = _collection.Find(filter);
+
+        if (sortsBy?.Any() == true)
+            query = query.Sort(GetSortDefinition(sortsBy));
+        
+        var totalCount = await query.CountDocumentsAsync();
+
+        var documents = await query.Paginate(
+            page,
+            GetPageSizeBasedOnLimit(pageSize))
+            .ToListAsync();
+
+        var pagination = new Pagination(
+            page,
+            GetPageSizeBasedOnLimit(pageSize),
+            documents.Count,
+            (int)totalCount);
+
+        return (documents, pagination);
+    }
+
+    public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filter)
+    {
+        filter = filter.And(_nonDeletedRecords);
+        return _collection.Find(filter).ToEnumerable();
+    }
+
+    public IEnumerable<TProjected> FindProjection<TProjected>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TProjected>> projection)
+    {
+        filter = filter.And(_nonDeletedRecords);
+        return _collection.Find(filter).Project(projection).ToEnumerable();
+    }
+
+    public async Task<IEnumerable<TProjected>> FindProjectionAsync<TProjected>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TProjected>> projection)
+    {
+        filter = filter.And(_nonDeletedRecords);
+        return await _collection.Find(filter).Project(projection).ToListAsync();
+    }
+
+    public async Task<TEntity> FindOneAsync(Expression<Func<TEntity, bool>> filter)
+    {
+        filter = filter.And(_nonDeletedRecords);
+        var result = await _collection.Find(filter).FirstOrDefaultAsync();
+        return result;
+    }
+
+    public async Task<TEntity> InsertOneAsync(TEntity entity)
+    {
+        AddTimestamp(entity);
+        await _collection.InsertOneAsync(entity);
+        return entity;
+    }
+
+    public async Task InsertManyAsync(ICollection<TEntity> entities)
+    {
+        AddTimestamp(entities);
+        await _collection.InsertManyAsync(entities);
+    }
+
+    public async Task DeleteOneAsync(Expression<Func<TEntity, bool>> filter, bool hardDelete = false)
+    {
+        var now = _dateTimeService.UtcToLocalTime;
+        if (hardDelete)
         {
-            var collectionName = string.Concat(typeof(TEntity).Name, 's');
-
-            _collection = database.GetCollection<TEntity>(collectionName);
-            _bucket = new GridFSBucket(database, new GridFSBucketOptions { BucketName = collectionName });
-
-            _nonDeletedRecords = PredicateBuilder.New<TEntity>().And(x => x.Deleted != true).Expand();
-
-            _dateTimeService = dateTimeService;
-            _environmentService = environmentService;
+            await _collection.FindOneAndDeleteAsync(filter);
         }
-
-        public async Task<(IEnumerable<TEntity>, Pagination)> FindAsync(Expression<Func<TEntity, bool>> filter, int? page = null, int? pageSize = null, IReadOnlyList<string> sortsBy = null) 
+        else
         {
-            filter = filter.And(_nonDeletedRecords);
-            var query = _collection.Find(filter);
+            var update = Builders<TEntity>.Update
+                        .Set(x => x.Deleted, true)
+                        .Set(x => x.ModifiedOn, now);
 
-            if (sortsBy?.Any() == true)
-                query = query.Sort(GetSortDefinition(sortsBy));
+            await _collection.UpdateOneAsync(filter, update);
+        }
+    }
+
+    public async Task DeleteManyAsync(Expression<Func<TEntity, bool>> filter, bool hardDelete = false)
+    {
+        var now = _dateTimeService.UtcToLocalTime;
+        if (hardDelete)
+        {
+            await _collection.DeleteManyAsync(filter);
+        }
+        else
+        {
+            var update = Builders<TEntity>.Update
+                        .Set(x => x.Deleted, true)
+                        .Set(x => x.ModifiedOn, now);
+
+            await _collection.UpdateManyAsync(filter, update);
+        }
+    }
+
+    private void AddTimestamp(TEntity entity, bool isUpdate = false)
+    {
+        var now = _dateTimeService.UtcToLocalTime;
+
+        if (isUpdate) entity.ModifiedOn = now;
+        else entity.CreatedOn ??= now;
+    }
+
+    private void AddTimestamp(ICollection<TEntity> entities, bool isUpdate = false)
+    {
+        foreach (var entity in entities)
+            AddTimestamp(entity, isUpdate);
+    }
+
+    public async Task UploadFileAsync(System.IO.Stream file, string fileName)
+    {
+        using var stream = await _bucket.OpenUploadStreamAsync(fileName);
+
+        file.CopyTo(stream);
+        await stream.CloseAsync();
+    }
+
+    public async Task<byte[]> GetFileByNameAsync(string fileName)
+    {
+        return await _bucket.DownloadAsBytesByNameAsync(fileName);
+    }
+
+    public async Task<byte[]> GetFileByIdAsync(string id)
+    {
+        var objectId = new ObjectId(id);
+        return await _bucket.DownloadAsBytesAsync(objectId);
+    }
+
+    public async Task<bool> UpdateOneByIdAsync(string id, TEntity entity)
+    {
+        if (id is null || entity is null || entity.Id != id || entity.CreatedOn is null)
+            return false;
+
+        entity.ModifiedOn = _dateTimeService.UtcToLocalTime;
+
+        var result = await _collection.ReplaceOneAsync(x => x.Id == id, entity);
+        return result.IsAcknowledged && result.ModifiedCount == 1;
+    }
+
+    private static SortDefinition<TEntity> GetSortDefinition(IReadOnlyList<string> sorts)
+    {
+        const char descendingPrefix = '-';
+
+        var sortDefinitions = sorts.Select(sort =>
+        {
+            var isDescending = sort.StartsWith(descendingPrefix);
             
-            var totalCount = await query.CountDocumentsAsync();
+            var fieldName = isDescending ? sort[1..] : sort;
 
-            var documents = await query.Paginate(
-                page,
-                GetPageSizeBasedOnLimit(pageSize))
-                .ToListAsync();
+            return isDescending
+                ? Builders<TEntity>.Sort.Descending(fieldName)
+                : Builders<TEntity>.Sort.Ascending(fieldName);
+        });
 
-            var pagination = new Pagination(
-                page,
-                GetPageSizeBasedOnLimit(pageSize),
-                documents.Count,
-                (int)totalCount);
+        return Builders<TEntity>.Sort.Combine(sortDefinitions);
+    }
 
-            return (documents, pagination);
-        }
-
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filter)
-        {
-            filter = filter.And(_nonDeletedRecords);
-            return _collection.Find(filter).ToEnumerable();
-        }
-
-        public IEnumerable<TProjected> FindProjection<TProjected>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TProjected>> projection)
-        {
-            filter = filter.And(_nonDeletedRecords);
-            return _collection.Find(filter).Project(projection).ToEnumerable();
-        }
-
-        public async Task<IEnumerable<TProjected>> FindProjectionAsync<TProjected>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TProjected>> projection)
-        {
-            filter = filter.And(_nonDeletedRecords);
-            return await _collection.Find(filter).Project(projection).ToListAsync();
-        }
-
-        public async Task<TEntity> FindOneAsync(Expression<Func<TEntity, bool>> filter)
-        {
-            filter = filter.And(_nonDeletedRecords);
-            var result = await _collection.Find(filter).FirstOrDefaultAsync();
-            return result;
-        }
-
-        public async Task<TEntity> InsertOneAsync(TEntity entity)
-        {
-            AddTimestamp(entity);
-            await _collection.InsertOneAsync(entity);
-            return entity;
-        }
-
-        public async Task InsertManyAsync(ICollection<TEntity> entities)
-        {
-            AddTimestamp(entities);
-            await _collection.InsertManyAsync(entities);
-        }
-
-        public async Task DeleteOneAsync(Expression<Func<TEntity, bool>> filter, bool hardDelete = false)
-        {
-            var now = _dateTimeService.UtcToLocalTime;
-            if (hardDelete)
-            {
-                await _collection.FindOneAndDeleteAsync(filter);
-            }
-            else
-            {
-                var update = Builders<TEntity>.Update
-                            .Set(x => x.Deleted, true)
-                            .Set(x => x.ModifiedOn, now);
-
-                await _collection.UpdateOneAsync(filter, update);
-            }
-        }
-
-        public async Task DeleteManyAsync(Expression<Func<TEntity, bool>> filter, bool hardDelete = false)
-        {
-            var now = _dateTimeService.UtcToLocalTime;
-            if (hardDelete)
-            {
-                await _collection.DeleteManyAsync(filter);
-            }
-            else
-            {
-                var update = Builders<TEntity>.Update
-                            .Set(x => x.Deleted, true)
-                            .Set(x => x.ModifiedOn, now);
-
-                await _collection.UpdateManyAsync(filter, update);
-            }
-        }
-
-        private void AddTimestamp(TEntity entity, bool isUpdate = false)
-        {
-            var now = _dateTimeService.UtcToLocalTime;
-
-            if (isUpdate) entity.ModifiedOn = now;
-            else entity.CreatedOn ??= now;
-        }
-
-        private void AddTimestamp(ICollection<TEntity> entities, bool isUpdate = false)
-        {
-            foreach (var entity in entities)
-                AddTimestamp(entity, isUpdate);
-        }
-
-        public async Task UploadFileAsync(System.IO.Stream file, string fileName)
-        {
-            using var stream = await _bucket.OpenUploadStreamAsync(fileName);
-
-            file.CopyTo(stream);
-            await stream.CloseAsync();
-        }
-
-        public async Task<byte[]> GetFileByNameAsync(string fileName)
-        {
-            return await _bucket.DownloadAsBytesByNameAsync(fileName);
-        }
-
-        public async Task<byte[]> GetFileByIdAsync(string id)
-        {
-            var objectId = new ObjectId(id);
-            return await _bucket.DownloadAsBytesAsync(objectId);
-        }
-
-        public async Task<bool> UpdateOneByIdAsync(string id, TEntity entity)
-        {
-            if (id is null || entity is null || entity.Id != id || entity.CreatedOn is null)
-                return false;
-
-            entity.ModifiedOn = _dateTimeService.UtcToLocalTime;
-
-            var result = await _collection.ReplaceOneAsync(x => x.Id == id, entity);
-            return result.IsAcknowledged && result.ModifiedCount == 1;
-        }
-
-        private static SortDefinition<TEntity> GetSortDefinition(IReadOnlyList<string> sorts)
-        {
-            const char descendingPrefix = '-';
-
-            var sortDefinitions = sorts.Select(sort =>
-            {
-                var isDescending = sort.StartsWith(descendingPrefix);
-                
-                var fieldName = isDescending ? sort[1..] : sort;
-
-                return isDescending
-                    ? Builders<TEntity>.Sort.Descending(fieldName)
-                    : Builders<TEntity>.Sort.Ascending(fieldName);
-            });
-
-            return Builders<TEntity>.Sort.Combine(sortDefinitions);
-        }
-
-        private int? GetPageSizeBasedOnLimit(int? pageSize)
-        {
-            int? limitPageSize = _environmentService.LimitPageSize;
-            pageSize ??= limitPageSize;
-            
-            if (limitPageSize == default(int?)) return pageSize;
-            if (pageSize > limitPageSize) return limitPageSize;
-            
-            return pageSize;
-        }
+    private int? GetPageSizeBasedOnLimit(int? pageSize)
+    {
+        int? limitPageSize = _environmentService.LimitPageSize;
+        pageSize ??= limitPageSize;
+        
+        if (limitPageSize == default(int?)) return pageSize;
+        if (pageSize > limitPageSize) return limitPageSize;
+        
+        return pageSize;
     }
 }

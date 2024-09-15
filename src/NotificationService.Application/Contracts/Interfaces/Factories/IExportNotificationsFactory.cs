@@ -1,10 +1,9 @@
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Domain.Enums;
 
-namespace NotificationService.Application.Contracts.Interfaces.Factories
+namespace NotificationService.Application.Contracts.Interfaces.Factories;
+
+public interface IExportNotificationsFactory
 {
-    public interface IExportNotificationsFactory
-    {
-        IExportNotificationsService Create(ExportFormat exportFormat);
-    }
+    IExportNotificationsService Create(ExportFormat exportFormat);
 }

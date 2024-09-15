@@ -3,39 +3,38 @@ using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Utils;
 using NotificationService.Application.Features.Providers.Interfaces;
 
-namespace NotificationService.Application.Features.Providers.Factories
+namespace NotificationService.Application.Features.Providers.Factories;
+
+public class EmailProviderFactory : IEmailProviderFactory
 {
-    public class EmailProviderFactory : IEmailProviderFactory
+    private readonly IRepository<Provider> _providerRepository;
+    private readonly IEnumerable<IEmailProvider> _emailProviders;
+
+    public EmailProviderFactory(IRepository<Provider> providerRepository, IEnumerable<IEmailProvider> emailProviders)
     {
-        private readonly IRepository<Provider> _providerRepository;
-        private readonly IEnumerable<IEmailProvider> _emailProviders;
+        _providerRepository = providerRepository;
+        _emailProviders = emailProviders;
+    }
 
-        public EmailProviderFactory(IRepository<Provider> providerRepository, IEnumerable<IEmailProvider> emailProviders)
-        {
-            _providerRepository = providerRepository;
-            _emailProviders = emailProviders;
-        }
+    public async Task<IEmailProvider> CreateProviderAsync(string providerName, string createdBy)
+    {
+        Guard.ProviderNameAndCreatedByHasValue(providerName, createdBy);
+        var provider = await FindProviderAsync(providerName, createdBy);
+        var emailProvider = _emailProviders.FirstOrDefault(x => x.ProviderType == provider.Type);
 
-        public async Task<IEmailProvider> CreateProviderAsync(string providerName, string createdBy)
-        {
-            Guard.ProviderNameAndCreatedByHasValue(providerName, createdBy);
-            var provider = await FindProviderAsync(providerName, createdBy);
-            var emailProvider = _emailProviders.FirstOrDefault(x => x.ProviderType == provider.Type);
+        Guard.EmailProviderIsNotNull(emailProvider);
+        emailProvider!.SetProvider(provider);
+        
+        return emailProvider;
+    }
 
-            Guard.EmailProviderIsNotNull(emailProvider);
-            emailProvider!.SetProvider(provider);
-            
-            return emailProvider;
-        }
+    private async Task<Provider> FindProviderAsync(string providerName, string createdBy)
+    {
+        var provider = await _providerRepository.FindOneAsync(x => x.Name.Equals(providerName));
 
-        private async Task<Provider> FindProviderAsync(string providerName, string createdBy)
-        {
-            var provider = await _providerRepository.FindOneAsync(x => x.Name.Equals(providerName));
+        Guard.ProviderIsNotNull(provider, providerName);
+        Guard.ProviderIsCreatedByRequesterOrPublic(provider, createdBy);
 
-            Guard.ProviderIsNotNull(provider, providerName);
-            Guard.ProviderIsCreatedByRequesterOrPublic(provider, createdBy);
-
-            return provider;
-        }
+        return provider;
     }
 }

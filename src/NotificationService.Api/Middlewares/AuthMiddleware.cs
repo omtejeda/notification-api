@@ -7,84 +7,83 @@ using NotificationService.Common.Dtos;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Common.Resources;
 
-namespace NotificationService.Api.Middlewares
+namespace NotificationService.Api.Middlewares;
+
+public class AuthMiddleware
 {
-    public class AuthMiddleware
+    private readonly RequestDelegate _next;
+    private IRepository<Platform> _platformRepository;
+
+    public AuthMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
-        private IRepository<Platform> _platformRepository;
-
-        public AuthMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        private bool SkipAuthorization(HttpContext context)
-        {
-            return context
-                ?.GetEndpoint()
-                ?.Metadata
-                ?.GetMetadata<AllowAnonymousAttribute>() is not null;
-        }
-
-        public async Task InvokeAsync(HttpContext context)
-        {
-            if (SkipAuthorization(context))
-            {
-                await _next(context);
-                return;
-            }
-
-            if (!context.Request.Headers.TryGetValue("apiKey", out var headerApiKey))
-            {
-                await UnauthorizedResponse(context, Messages.ApiKeyNotProvided);
-                return;
-            }
-            
-            _platformRepository = context.RequestServices.GetRequiredService<IRepository<Platform>>();
-            var platform = await _platformRepository.FindOneAsync(x => x.ApiKey == headerApiKey);
-
-            if (platform is null)
-            {
-                await UnauthorizedResponse(context, Messages.ApiKeyNotValid);
-                return;
-            }
-            
-            if (!(platform.IsActive ?? false))
-            {
-                await UnauthorizedResponse(context, Messages.ApiKeyNotActive);
-                return;
-            }
-
-            var platformDto = new PlatformDto
-            {
-                PlatformId = platform.PlatformId,
-                Name = platform.Name,
-                Description = platform.Description,
-                IsActive = platform.IsActive,
-                IsAdmin = platform.IsAdmin,
-                ApiKey = platform.ApiKey
-            };
-            context.Items[nameof(PlatformDto)] = platformDto;
-
-            await _next(context);
-        }
-
-        private async Task UnauthorizedResponse(HttpContext context, string message)
-        {
-            context.Response.StatusCode = 401;
-            context.Response.ContentType = "application/json";
-
-            var finalResponse = new BaseResponse<INoDataResponse>((int) ResultCode.AccessDenied, message);
-
-            var result = JsonSerializer.Serialize(finalResponse, 
-                new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
-                });
-            await context.Response.WriteAsync(result);
-        }
-
+        _next = next;
     }
+
+    private bool SkipAuthorization(HttpContext context)
+    {
+        return context
+            ?.GetEndpoint()
+            ?.Metadata
+            ?.GetMetadata<AllowAnonymousAttribute>() is not null;
+    }
+
+    public async Task InvokeAsync(HttpContext context)
+    {
+        if (SkipAuthorization(context))
+        {
+            await _next(context);
+            return;
+        }
+
+        if (!context.Request.Headers.TryGetValue("apiKey", out var headerApiKey))
+        {
+            await UnauthorizedResponse(context, Messages.ApiKeyNotProvided);
+            return;
+        }
+        
+        _platformRepository = context.RequestServices.GetRequiredService<IRepository<Platform>>();
+        var platform = await _platformRepository.FindOneAsync(x => x.ApiKey == headerApiKey);
+
+        if (platform is null)
+        {
+            await UnauthorizedResponse(context, Messages.ApiKeyNotValid);
+            return;
+        }
+        
+        if (!(platform.IsActive ?? false))
+        {
+            await UnauthorizedResponse(context, Messages.ApiKeyNotActive);
+            return;
+        }
+
+        var platformDto = new PlatformDto
+        {
+            PlatformId = platform.PlatformId,
+            Name = platform.Name,
+            Description = platform.Description,
+            IsActive = platform.IsActive,
+            IsAdmin = platform.IsAdmin,
+            ApiKey = platform.ApiKey
+        };
+        context.Items[nameof(PlatformDto)] = platformDto;
+
+        await _next(context);
+    }
+
+    private async Task UnauthorizedResponse(HttpContext context, string message)
+    {
+        context.Response.StatusCode = 401;
+        context.Response.ContentType = "application/json";
+
+        var finalResponse = new BaseResponse<INoDataResponse>((int) ResultCode.AccessDenied, message);
+
+        var result = JsonSerializer.Serialize(finalResponse, 
+            new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+            });
+        await context.Response.WriteAsync(result);
+    }
+
 }

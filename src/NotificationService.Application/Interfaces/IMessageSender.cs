@@ -1,12 +1,10 @@
-using System.Threading.Tasks;
 using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Common.Dtos;
 
-namespace NotificationService.Application.Interfaces
+namespace NotificationService.Application.Interfaces;
+
+public interface IMessageSender
 {
-    public interface IMessageSender
-    {
-        Task<BaseResponse<NotificationSentResponseDto>> SendMessageAsync(SendMessageRequestDto request, string owner);
-    }
+    Task<BaseResponse<NotificationSentResponseDto>> SendMessageAsync(SendMessageRequestDto request, string owner);
 }

@@ -1,8 +1,7 @@
-namespace NotificationService.Common.Dtos
+namespace NotificationService.Common.Dtos;
+
+public class CurrentPlatformDto
 {
-    public class CurrentPlatformDto
-    {
-        public string Name { get; set; }
-        public bool? IsAdmin { get; set; }
-    }
+    public string Name { get; set; }
+    public bool? IsAdmin { get; set; }
 }

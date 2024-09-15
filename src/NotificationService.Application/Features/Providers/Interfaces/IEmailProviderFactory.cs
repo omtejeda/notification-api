@@ -1,7 +1,6 @@
-namespace NotificationService.Application.Features.Providers.Interfaces
+namespace NotificationService.Application.Features.Providers.Interfaces;
+
+public interface IEmailProviderFactory
 {
-    public interface IEmailProviderFactory
-    {
-        Task<IEmailProvider> CreateProviderAsync(string providerName, string createdBy);
-    }
+    Task<IEmailProvider> CreateProviderAsync(string providerName, string createdBy);
 }

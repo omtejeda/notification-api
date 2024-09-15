@@ -1,11 +1,10 @@
-namespace NotificationService.Application.Common.Helpers
+namespace NotificationService.Application.Common.Helpers;
+
+public class DictionaryHelper
 {
-    public class DictionaryHelper
+    public static IEnumerable<string> GetKeys(Dictionary<string, string> dict)
     {
-        public static IEnumerable<string> GetKeys(Dictionary<string, string> dict)
-        {
-            foreach (var k in dict.Keys)
-                yield return k;
-        }
+        foreach (var k in dict.Keys)
+            yield return k;
     }
 }

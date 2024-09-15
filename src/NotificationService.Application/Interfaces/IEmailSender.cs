@@ -1,13 +1,11 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Common.Dtos;
 
-namespace NotificationService.Application.Interfaces
+namespace NotificationService.Application.Interfaces;
+
+public interface IEmailSender
 {
-    public interface IEmailSender
-    {
-        Task<BaseResponse<NotificationSentResponseDto>> SendEmailAsync(SendEmailRequestDto request, string owner, List<IFormFile> attachments = null);
-    }
+    Task<BaseResponse<NotificationSentResponseDto>> SendEmailAsync(SendEmailRequestDto request, string owner, List<IFormFile> attachments = null);
 }

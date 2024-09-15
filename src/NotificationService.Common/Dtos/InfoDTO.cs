@@ -1,11 +1,10 @@
-namespace NotificationService.Common.Dtos
+namespace NotificationService.Common.Dtos;
+
+public class InfoDto
 {
-    public class InfoDto
-    {
-        public bool IsProduction { get; set; }
-        public string? Environment { get; set; }
-        public DateTime SystemDate { get; set; }
-        public int? Gmt { get; set; }
-        public int? LimitPageSize { get; set; }
-    }
+    public bool IsProduction { get; set; }
+    public string? Environment { get; set; }
+    public DateTime SystemDate { get; set; }
+    public int? Gmt { get; set; }
+    public int? LimitPageSize { get; set; }
 }

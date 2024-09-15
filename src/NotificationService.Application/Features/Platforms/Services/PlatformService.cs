@@ -8,76 +8,75 @@ using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Common.Interfaces;
 
-namespace NotificationService.Application.Features.Platforms.Services
+namespace NotificationService.Application.Features.Platforms.Services;
+
+public class PlatformService : IPlatformService
 {
-    public class PlatformService : IPlatformService
+    private readonly IMapper _mapper;
+    private readonly IRepository<Platform> _repository;
+    private readonly IEnvironmentService _environmentService;
+
+    public PlatformService(
+        IRepository<Platform> repository,
+        IMapper mapper,
+        IEnvironmentService environmentService)
     {
-        private readonly IMapper _mapper;
-        private readonly IRepository<Platform> _repository;
-        private readonly IEnvironmentService _environmentService;
+        _repository = repository;
+        _mapper = mapper;
+        _environmentService = environmentService;
+    }
 
-        public PlatformService(
-            IRepository<Platform> repository,
-            IMapper mapper,
-            IEnvironmentService environmentService)
+    public async Task<BaseResponse<PlatformDto>> CreatePlatform(string name, string description, string owner)
+    {
+        var existingPlatform = await _repository.FindOneAsync(x => x.Name.ToLower() == name.ToLower());
+
+        Guard.PlatformNotExists(existingPlatform, name, existingPlatform?.CreatedBy);
+        var platform = new Platform
         {
-            _repository = repository;
-            _mapper = mapper;
-            _environmentService = environmentService;
-        }
+            PlatformId = Guid.NewGuid().ToString(),
+            Name = name,
+            Description = description,
+            IsActive = _environmentService.IsProduction == false,
+            ApiKey = Guid.NewGuid().ToString(),
+            CreatedBy = owner ?? name
+        };
 
-        public async Task<BaseResponse<PlatformDto>> CreatePlatform(string name, string description, string owner)
-        {
-            var existingPlatform = await _repository.FindOneAsync(x => x.Name.ToLower() == name.ToLower());
+        var entity = await _repository.InsertOneAsync(platform);
+        var platformDto = _mapper.Map<PlatformDto>(entity);
 
-            Guard.PlatformNotExists(existingPlatform, name, existingPlatform?.CreatedBy);
-            var platform = new Platform
-            {
-                PlatformId = Guid.NewGuid().ToString(),
-                Name = name,
-                Description = description,
-                IsActive = _environmentService.IsProduction == false,
-                ApiKey = Guid.NewGuid().ToString(),
-                CreatedBy = owner ?? name
-            };
+        return BaseResponse<PlatformDto>.Success(platformDto);
+    }
 
-            var entity = await _repository.InsertOneAsync(platform);
-            var platformDto = _mapper.Map<PlatformDto>(entity);
+    public async Task DeletePlatform(string platformId, string owner)
+    {
+        var existingPlatform = await _repository.FindOneAsync(x => x.PlatformId == platformId);
+        
+        Guard.PlatformWithIdExists(existingPlatform, platformId);
+        Guard.PlatformIsCreatedByRequester(existingPlatform.CreatedBy, owner);
 
-            return BaseResponse<PlatformDto>.Success(platformDto);
-        }
+        await _repository.DeleteOneAsync(x => x.PlatformId == platformId);
+    }
 
-        public async Task DeletePlatform(string platformId, string owner)
-        {
-            var existingPlatform = await _repository.FindOneAsync(x => x.PlatformId == platformId);
-            
-            Guard.PlatformWithIdExists(existingPlatform, platformId);
-            Guard.PlatformIsCreatedByRequester(existingPlatform.CreatedBy, owner);
+    public async Task<BaseResponse<IEnumerable<PlatformDto>>> GetPlatforms(Expression<Func<Platform, bool>> filter, string owner, int? page, int? pageSize)
+    {
+        var filterByOwner = PredicateBuilder.New<Platform>().And(x => x.CreatedBy == owner).Expand();
+        filter = filter.And(filterByOwner);
 
-            await _repository.DeleteOneAsync(x => x.PlatformId == platformId);
-        }
+        var (platforms, pagination) = await _repository.FindAsync(filter, page, pageSize);
+        var platformsDto = _mapper.Map<IEnumerable<PlatformDto>>(platforms);
+        var paginationDto = _mapper.Map<PaginationDto>(pagination);
 
-        public async Task<BaseResponse<IEnumerable<PlatformDto>>> GetPlatforms(Expression<Func<Platform, bool>> filter, string owner, int? page, int? pageSize)
-        {
-            var filterByOwner = PredicateBuilder.New<Platform>().And(x => x.CreatedBy == owner).Expand();
-            filter = filter.And(filterByOwner);
+        return BaseResponse<IEnumerable<PlatformDto>>.Success(platformsDto, paginationDto);
+    }
 
-            var (platforms, pagination) = await _repository.FindAsync(filter, page, pageSize);
-            var platformsDto = _mapper.Map<IEnumerable<PlatformDto>>(platforms);
-            var paginationDto = _mapper.Map<PaginationDto>(pagination);
+    public async Task<BaseResponse<PlatformDto>> GetPlatformById(string platformId, string owner)
+    {
+        var platform = await _repository.FindOneAsync(x => x.PlatformId == platformId);
+        if (platform is null) return default!;
 
-            return BaseResponse<IEnumerable<PlatformDto>>.Success(platformsDto, paginationDto);
-        }
+        Guard.PlatformIsCreatedByRequester(platform.CreatedBy, owner);
+        var platformDto = _mapper.Map<PlatformDto>(platform);
 
-        public async Task<BaseResponse<PlatformDto>> GetPlatformById(string platformId, string owner)
-        {
-            var platform = await _repository.FindOneAsync(x => x.PlatformId == platformId);
-            if (platform is null) return default!;
-
-            Guard.PlatformIsCreatedByRequester(platform.CreatedBy, owner);
-            var platformDto = _mapper.Map<PlatformDto>(platform);
-
-            return BaseResponse<PlatformDto>.Success(platformDto);
-        }
+        return BaseResponse<PlatformDto>.Success(platformDto);
     }
 }

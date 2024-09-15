@@ -1,8 +1,7 @@
-namespace NotificationService.Application.Contracts.ResponseDtos
+namespace NotificationService.Application.Contracts.ResponseDtos;
+
+public class ExportNotificationResponseDto
 {
-    public class ExportNotificationResponseDto
-    {
-        public string? ContentType { get; set; }
-        public string? Content { get; set; }
-    }
+    public string? ContentType { get; set; }
+    public string? Content { get; set; }
 }

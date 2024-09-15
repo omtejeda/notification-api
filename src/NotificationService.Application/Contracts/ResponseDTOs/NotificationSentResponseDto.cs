@@ -1,7 +1,6 @@
-namespace NotificationService.Application.Contracts.ResponseDtos
+namespace NotificationService.Application.Contracts.ResponseDtos;
+
+public class NotificationSentResponseDto
 {
-    public class NotificationSentResponseDto
-    {
-        public string NotificationId { get; set; }
-    }
+    public string NotificationId { get; set; }
 }
