@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using NotificationService.Application.Contracts.Interfaces.Services;
-using NotificationService.Application.Catalogs.Services;
+using NotificationService.Application.Features.Catalogs.Services;
 
-namespace NotificationService.Application.Catalogs.IoC
+namespace NotificationService.Application.Features.Catalogs
 {
     public static class DependencyInjection
     {

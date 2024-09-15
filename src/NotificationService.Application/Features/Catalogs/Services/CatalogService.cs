@@ -13,7 +13,7 @@ using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Common.Dtos;
 using NotificationService.Application.Utils;
 
-namespace NotificationService.Application.Catalogs.Services
+namespace NotificationService.Application.Features.Catalogs.Services
 {
     public class CatalogService : ICatalogService
     {

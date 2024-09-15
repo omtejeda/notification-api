@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using NotificationService.Application.Catalogs.IoC;
+using NotificationService.Application.Features.Catalogs;
 using NotificationService.Application.Features.Notifications;
 using NotificationService.Application.Features.Providers;
 using NotificationService.Application.Platforms.IoC;

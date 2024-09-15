@@ -25,7 +25,7 @@ namespace NotificationService.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CatalogDto>>> Get([FromQuery] string name, bool? isActive, 
+        public async Task<ActionResult<IEnumerable<CatalogDto>>> GetAll([FromQuery] string name, bool? isActive, 
             string elementHasKey, string elementHasKeyValue, string elementHasLabelKey, string elementHasLabelKeyValue,
             int? page, int? pageSize)
         {
@@ -88,7 +88,7 @@ namespace NotificationService.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] CreateCatalogRequestDto request)
+        public async Task<IActionResult> Create([FromBody] CreateCatalogRequestDto request)
         {
             var platformCreated = await _catalogService.CreateCatalog(request.Name, request.Description, request.IsActive, request.Elements, owner: CurrentPlatform.Name);
             return StatusCode(StatusCodes.Status201Created, platformCreated);
