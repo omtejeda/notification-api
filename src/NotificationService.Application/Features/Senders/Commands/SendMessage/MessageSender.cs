@@ -10,9 +10,9 @@ using NotificationService.Common.Interfaces;
 using NotificationService.Application.Utils;
 using NotificationService.Application.Features.Providers.Interfaces;
 
-namespace NotificationService.Application.Features.Senders;
+namespace NotificationService.Application.Features.Senders.Commands.SendMessage;
 
-public class SmsSender : ISmsSender
+public class MessageSender : IMessageSender
 {
     private readonly INotificationsService _notificationsService;
     private readonly IRepository<Provider> _providerRepository;
@@ -21,7 +21,7 @@ public class SmsSender : ISmsSender
     private readonly IDateTimeService _dateTimeService;
     private readonly IEnvironmentService _environmentService;
 
-    public SmsSender(
+    public MessageSender(
         INotificationsService notificationsService,
         IRepository<Provider> providerRepository,
         IHttpClientProvider httpClientProvider,
@@ -37,33 +37,35 @@ public class SmsSender : ISmsSender
         _environmentService = environmentService;
     }
 
-    public async Task<BaseResponse<NotificationSentResponseDto>> SendSmsAsync(SendSmsRequestDto request, string owner)
+    public async Task<BaseResponse<NotificationSentResponseDto>> SendMessageAsync(SendMessageRequestDto request, string owner)
     {
+        Guard.NotificationTypeIsValidForBasicMessage(request.NotificationType);
+
         var runtimeTemplate = await _templateService.GetRuntimeTemplate(
             name: request.Template.Name,
             platformName: request.Template.PlatformName,
             language: request.Template.Language,
-            providedMetadata: request.Template?.Metadata?.ToList(),
+            providedMetadata: request.Template?.Metadata?.ToList()!,
             owner: owner,
-            notificationType: NotificationType.SMS);
+            notificationType: request.NotificationType);
 
         var provider = await _providerRepository.FindOneAsync(x => x.Name == request.ProviderName);
         
         Guard.ProviderIsNotNull(provider, request.ProviderName);
         Guard.ProviderIsSuitable(provider.Type, ProviderType.HttpClient);
-        Guard.CanSendToDestination(provider, request.ToPhoneNumber, _environmentService.CurrentEnvironment);
+        Guard.CanSendToDestination(provider, request.ToDestination, _environmentService.CurrentEnvironment);
 
         var (success, code, message) = await _httpClientProvider
             .SendHttpClient(httpClientSetting: provider?.Settings?.HttpClient,
                 templateContent: runtimeTemplate.Content, 
                 requestMetadata: request.Template.Metadata,
-                requestToDestination: request.ToPhoneNumber);
+                requestToDestination: request.ToDestination);
         
         var notification = Notification.Builder
                 .NewNotification()
-                .OfType(NotificationType.SMS)
+                .OfType(request.NotificationType)
                 .From(provider?.Settings?.HttpClient.Host)
-                .To(request.ToPhoneNumber)
+                .To(request.ToDestination)
                 .WithProviderName(request.ProviderName)
                 .HasParentNotificationId(request.ParentNotificationId)
                 .WithRuntimeTemplate(runtimeTemplate)

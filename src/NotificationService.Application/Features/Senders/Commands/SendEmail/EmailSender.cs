@@ -12,7 +12,7 @@ using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;
 
-namespace NotificationService.Application.Features.Senders;
+namespace NotificationService.Application.Features.Senders.Commands.SendEmail;
 
 public class EmailSender : IEmailSender
 {
