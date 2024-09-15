@@ -1,31 +1,23 @@
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
-using NotificationService.Application.Contracts.Interfaces.Services;
-using NotificationService.Application.Webhooks.Dtos;
+using NotificationService.Application.Features.Webhooks.Commands.SaveEmailContent;
 
 namespace NotificationService.Api.Controllers.v1
 {
     [ApiController]
     [ApiVersion(ApiVersions.v1)]
     [Route(Routes.ControllerRoute)]
-    public class WebhooksController : ApiController
+    public class WebhooksController(ISender sender) : ApiController
     {
-        private readonly IWebhooksService _webhookService;
-
-        public WebhooksController(IWebhooksService webhookService)
-        {
-            _webhookService = webhookService;
-        }
+        private readonly ISender _sender = sender;
 
         [HttpPost("emails/content")]
-        public async Task<IActionResult> SaveEmailContent(SaveEmailContentRequestDto requestDto)
+        public async Task<IActionResult> SaveEmailContent([FromBody] SaveEmailContentCommand command)
         {
-            bool notificationFound = await _webhookService.SaveEmailContent(requestDto.Html,requestDto.Subject, requestDto.Headers);
-            
-            if(!notificationFound)
-                return NoContent();
-            return Accepted();
+            bool notificationFound = await _sender.Send(command);
+            return notificationFound ? Accepted() : NoContent();
         }
     }
 }

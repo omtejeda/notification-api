@@ -3,16 +3,11 @@ using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Domain.Entities;
 using static NotificationService.Application.Utils.EmailUtil;
 
-namespace NotificationService.Application.Webhooks.Services;
+namespace NotificationService.Application.Features.Webhooks.Services;
 
-public class WebhooksService : IWebhooksService
+public class WebhooksService(IRepository<Notification> notificationRepository) : IWebhooksService
 {
-    private readonly IRepository<Notification> _notificationRepository;
-
-    public WebhooksService(IRepository<Notification> notificationRepository)
-    {
-        _notificationRepository = notificationRepository;
-    }
+    private readonly IRepository<Notification> _notificationRepository = notificationRepository;
 
     /// <summary>
     /// Look up successful notifications related to the email that was previously sent (by correlation or email attributes)

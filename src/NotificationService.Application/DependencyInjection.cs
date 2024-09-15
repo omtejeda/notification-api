@@ -5,7 +5,7 @@ using NotificationService.Application.Features.Providers;
 using NotificationService.Application.Platforms.IoC;
 using NotificationService.Application.Senders.IoC;
 using NotificationService.Application.Templates.IoC;
-using NotificationService.Application.Webhooks.IoC;
+using NotificationService.Application.Features.Webhooks;
 using System.Reflection;
 
 namespace NotificationService.Application

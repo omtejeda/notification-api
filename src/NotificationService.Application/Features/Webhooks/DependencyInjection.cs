@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using NotificationService.Application.Contracts.Interfaces.Services;
-using NotificationService.Application.Webhooks.Services;
+using NotificationService.Application.Features.Webhooks.Services;
 
-namespace NotificationService.Application.Webhooks.IoC
+namespace NotificationService.Application.Features.Webhooks
 {
     public static class DependencyInjection
     {
