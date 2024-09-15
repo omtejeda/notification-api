@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Features.Templates.Services;
 
-namespace NotificationService.Application.Templates.IoC
+namespace NotificationService.Application.Templates
 {
     public static class DependencyInjection
     {
