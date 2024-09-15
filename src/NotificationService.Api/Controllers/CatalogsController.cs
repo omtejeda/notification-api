@@ -1,103 +1,90 @@
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
 using System.Collections.Generic;
-using NotificationService.Application.Contracts.Interfaces.Services;
-using LinqKit;
-using NotificationService.Domain.Entities;
 using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Application.Contracts.ResponseDtos;
+using NotificationService.Application.Features.Catalogs.Commands.Delete;
+using MediatR;
+using NotificationService.Application.Features.Catalogs.Commands.Create;
+using NotificationService.Application.Features.Catalogs.Queries.GetById;
+using NotificationService.Application.Features.Catalogs.Queries.GetAll;
 
 namespace NotificationService.Api.Controllers
 {   
     [ApiController]
     [ApiVersion(ApiVersions.v1)]
     [Route(Routes.ControllerRoute)]
-    public class CatalogsController : ApiController
+    public class CatalogsController(ISender sender) : ApiController
     {
-        private readonly ICatalogService _catalogService;
-
-        public CatalogsController(ICatalogService catalogService)
-        {
-            _catalogService = catalogService;
-        }
+        private readonly ISender _sender = sender;
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CatalogDto>>> GetAll([FromQuery] string name, bool? isActive, 
             string elementHasKey, string elementHasKeyValue, string elementHasLabelKey, string elementHasLabelKeyValue,
             int? page, int? pageSize)
         {
-            var predicate = PredicateBuilder.New<Catalog>(true);
-            var delimiter = ":";
-
-            if (elementHasKeyValue?.Contains(delimiter) ?? false)
+            var query = new GetAllCatalogsQuery
             {
-                var keyValue = elementHasKeyValue.Split(delimiter);
-                var key = keyValue.FirstOrDefault();
-                var value = keyValue.LastOrDefault();
+                Name = name,
+                IsActive = isActive,
+                ElementHasKey = elementHasKey,
+                ElementHasKeyValue = elementHasKeyValue,
+                ElementHasLabelKey = elementHasLabelKey,
+                ElementHasLabelKeyValue = elementHasLabelKeyValue,
+                Page = page,
+                PageSize = pageSize,
+                Owner = CurrentPlatform.Name
+            };
 
-                predicate.And(x => x.Elements.Any(y => y.Key == key && y.Value == value));
-            }
-
-            if (elementHasLabelKeyValue?.Contains(delimiter) ?? false)
-            {
-                var keyValue = elementHasLabelKeyValue.Split(delimiter);
-                var key = keyValue.FirstOrDefault();
-                var value = keyValue.LastOrDefault();
-
-                predicate.And(x => x.Elements.Any(y => y.Labels.Any(z => z.Key == key && z.Value == value)));
-            }
-
-            if (!string.IsNullOrWhiteSpace(name))
-                predicate = predicate.And(x => x.Name == name);
-
-            if (isActive.HasValue)
-                predicate = predicate.And(x => x.IsActive == isActive);
-            
-            if (!string.IsNullOrWhiteSpace(elementHasKey))
-                predicate = predicate.And(x => x.Elements.Any(y => y.Key == elementHasKey));
-            
-            if (!string.IsNullOrWhiteSpace(elementHasLabelKey))
-                predicate = predicate.And(x => x.Elements.Any(y => y.Labels.Any(z => z.Key == elementHasLabelKey)));
-
-            var response = await _catalogService.GetCatalogs(predicate, owner: CurrentPlatform.Name, page, pageSize);
+            var response = await _sender.Send(query);
             return Ok(response);
         }
 
         [HttpGet("{catalogId}")]
-        public async Task<ActionResult<CatalogDto>> GetById([FromRoute] string catalogId, [FromQuery] string elementKey, string elementValue, string labelKey, string labelValue)
+        public async Task<IActionResult> GetById([FromRoute] string catalogId, [FromQuery] string elementKey, string elementValue, string labelKey, string labelValue)
         {
-            var response = await _catalogService.GetCatalogById(catalogId, owner: CurrentPlatform.Name);
-            if (response?.Data == null) return NotFound();
-            
-            if (!string.IsNullOrWhiteSpace(elementKey))
-                response.Data.Elements = response.Data.Elements.Where(x => x.Key == elementKey).ToList();
-            
-            if (!string.IsNullOrWhiteSpace(elementKey) && !string.IsNullOrWhiteSpace(elementValue))
-                response.Data.Elements = response.Data.Elements.Where(x => x.Key == elementKey && x.Value == elementValue).ToList();
+            var query = new GetCatalogByIdQuery
+            {
+                CatalogId = catalogId,
+                ElementKey = elementKey,
+                ElementValue = elementValue,
+                LabelKey = labelKey,
+                LabelValue = labelValue,
+                Owner = CurrentPlatform.Name
+            };
 
-            if (!string.IsNullOrWhiteSpace(labelKey))
-                response.Data.Elements = response.Data.Elements.Where(x => x.Labels.Any(z => z.Key == labelKey)).ToList();
-            
-            if (!string.IsNullOrWhiteSpace(labelKey) && !string.IsNullOrWhiteSpace(labelValue))
-                response.Data.Elements = response.Data.Elements.Where(x => x.Labels.Any(z => z.Key == labelKey && z.Value == labelValue)).ToList();
-
-            return Ok(response);
+            var response = await _sender.Send(query);
+            return GetActionResult(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCatalogRequestDto request)
         {
-            var platformCreated = await _catalogService.CreateCatalog(request.Name, request.Description, request.IsActive, request.Elements, owner: CurrentPlatform.Name);
-            return StatusCode(StatusCodes.Status201Created, platformCreated);
+            var command = new CreateCatalogCommand
+            {
+                Name = request.Name,
+                Description = request.Description,
+                IsActive = request.IsActive,
+                Elements = request.Elements,
+                Owner = CurrentPlatform.Name
+            };
+
+            var response = await _sender.Send(command);
+            return StatusCode(StatusCodes.Status201Created, response);
         }
 
         [HttpDelete("{catalogId}")]
         public async Task<IActionResult> Delete([FromRoute] string catalogId)
         {
-            await _catalogService.DeleteCatalog(catalogId, owner: CurrentPlatform.Name);
+            var command = new DeleteCatalogCommand
+            { 
+                CatalogId = catalogId, 
+                Owner = CurrentPlatform.Name
+            };
+
+            await _sender.Send(command);
             return Ok();
         }
     }
