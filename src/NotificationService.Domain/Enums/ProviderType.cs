@@ -1,10 +1,9 @@
-namespace NotificationService.Domain.Enums
+namespace NotificationService.Domain.Enums;
+
+public enum ProviderType
 {
-    public enum ProviderType
-    {
-        None,
-        SMTP,
-        SendGrid,
-        HttpClient
-    }
+    None,
+    SMTP,
+    SendGrid,
+    HttpClient
 }

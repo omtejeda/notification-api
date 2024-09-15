@@ -1,9 +1,8 @@
-namespace NotificationService.Domain.Enums
+namespace NotificationService.Domain.Enums;
+
+public enum Language
 {
-    public enum Language
-    {
-        Es,
-        En,
-        Default = Es
-    }
+    Es,
+    En,
+    Default = Es
 }

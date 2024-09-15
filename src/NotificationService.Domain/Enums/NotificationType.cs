@@ -1,11 +1,10 @@
-namespace NotificationService.Domain.Enums
+namespace NotificationService.Domain.Enums;
+
+public enum NotificationType
 {
-    public enum NotificationType
-    {
-        None,
-        Email,
-        SMS,
-        WhatsApp,
-        Push
-    }
+    None,
+    Email,
+    SMS,
+    WhatsApp,
+    Push
 }
