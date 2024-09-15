@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using NotificationService.Api.Middlewares;
 using NotificationService.Api.IoC;
-using NotificationService.Application.IoC;
+using NotificationService.Application;
 using NotificationService.Infrastructure.IoC;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Common.Services;

@@ -8,7 +8,7 @@ using NotificationService.Application.Templates.IoC;
 using NotificationService.Application.Webhooks.IoC;
 using System.Reflection;
 
-namespace NotificationService.Application.IoC
+namespace NotificationService.Application
 {
     public static class DependencyInjection
     {
