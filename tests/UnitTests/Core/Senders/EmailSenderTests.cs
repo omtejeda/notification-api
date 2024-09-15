@@ -7,7 +7,7 @@ using NotificationService.Domain.Enums;
 using NotificationService.Common.Dtos;
 using NotificationService.Domain.Models;
 using NotificationService.Domain.Entities;
-using NotificationService.Application.Dtos;
+using NotificationService.Application.Senders.Dtos;
 using NotificationService.Application.Exceptions;
 using NotificationService.Application.Providers.Interfaces;
 using NotificationService.Application.Common;
@@ -190,7 +190,7 @@ public class EmailSenderTests
         return new()
         {
             ToEmail = "johndoe@custom-domain.com",
-            Template = new NotificationService.Application.Dtos.TemplateDto
+            Template = new NotificationService.Application.Senders.Dtos.TemplateDto
             {
                 Name = "MyCustomTemplate",
                 PlatformName = "MyCustomPlatform",

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
-using NotificationService.Application.Dtos;
+using NotificationService.Application.Senders.Dtos;
 using NotificationService.Application.Interfaces;
 
 namespace NotificationService.Api.Controllers

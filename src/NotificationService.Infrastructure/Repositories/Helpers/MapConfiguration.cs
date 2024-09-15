@@ -7,7 +7,7 @@ using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Bson.Serialization.Conventions;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
-using NotificationService.Application.Dtos;
+using NotificationService.Application.Senders.Dtos;
 
 namespace NotificationService.Infrastructure.Repositories.Helpers
 {

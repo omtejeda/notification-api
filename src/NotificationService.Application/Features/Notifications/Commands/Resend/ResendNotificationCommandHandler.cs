@@ -1,7 +1,7 @@
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Contracts.ResponseDtos;
-using NotificationService.Application.Dtos;
+using NotificationService.Application.Senders.Dtos;
 using NotificationService.Application.Interfaces;
 using NotificationService.Application.Utils;
 using NotificationService.Common.Dtos;

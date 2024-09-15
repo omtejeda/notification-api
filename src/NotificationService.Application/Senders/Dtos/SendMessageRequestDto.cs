@@ -1,13 +1,18 @@
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
+using NotificationService.Domain.Enums;
 using NotificationService.Application.Features.Templates.Attributes;
 
-namespace NotificationService.Application.Dtos
+namespace NotificationService.Application.Senders.Dtos
 {
-    public class SendSmsRequestDto : ISendRequest
+    public class SendMessageRequestDto : ISendRequest
     {
         [Required]
-        public string ToPhoneNumber { get; set; }
+        public string ToDestination { get; set; }
+
+        [Required]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public NotificationType NotificationType { get; set; }
 
         [Required]
         public string ProviderName { get; set; }
