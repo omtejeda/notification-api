@@ -1,22 +1,14 @@
-using System;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using AutoMapper;
-using NotificationService.Domain.Enums;
-using NotificationService.Application.Exceptions;
 using NotificationService.Application.Utils;
 using LinqKit;
 using NotificationService.Domain.Entities;
 using NotificationService.Common.Dtos;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
-using NotificationService.Application.Contracts.ResponseDtos;
-using NotificationService.Common.Utils;
-using NotificationService.Common.Resources;
 using NotificationService.Common.Interfaces;
 
-namespace NotificationService.Application.Platforms.Services
+namespace NotificationService.Application.Features.Platforms.Services
 {
     public class PlatformService : IPlatformService
     {
