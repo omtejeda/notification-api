@@ -1,10 +1,8 @@
-using System.Linq;
-using System.Collections.Generic;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.Interfaces.Factories;
 
-namespace NotificationService.Application.Notifications.Factories
+namespace NotificationService.Application.Features.Notifications.Factories
 {
     public class ExportNotificationsFactory : IExportNotificationsFactory
     {

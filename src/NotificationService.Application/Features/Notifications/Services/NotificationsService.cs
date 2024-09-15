@@ -2,20 +2,14 @@ using AutoMapper;
 using LinqKit;
 using NotificationService.Common.Dtos;
 using NotificationService.Domain.Entities;
-using NotificationService.Domain.Enums;
-using NotificationService.Application.Exceptions;
 using NotificationService.Application.Contracts.Interfaces.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Utils;
 
-namespace NotificationService.Application.Notifications.Services
+namespace NotificationService.Application.Features.Notifications.Services
 {
     public class NotificationsService : INotificationsService
     {

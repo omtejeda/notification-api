@@ -5,7 +5,7 @@ using NotificationService.Api.Attributes;
 using System.Collections.Generic;
 using System.Linq;
 
-using NotificationService.Application.Providers.Libraries.JSONParser;
+using NotificationService.Application.Features.Providers.Libraries.JSONParser;
 
 namespace NotificationService.Api.Controllers
 {

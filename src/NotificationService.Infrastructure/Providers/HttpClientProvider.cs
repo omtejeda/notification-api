@@ -140,8 +140,8 @@ namespace NotificationService.Infrastructure.Providers
             if (jsonBody is null)
                 return string.Empty;
             
-            var body = _mapper.Map<Application.Providers.Libraries.JSONParser.JsonBody>(jsonBody);
-            var metadata = _mapper.Map<List<Application.Providers.Libraries.JSONParser.Metadata>>(requestMetadata);
+            var body = _mapper.Map<Application.Features.Providers.Libraries.JSONParser.JsonBody>(jsonBody);
+            var metadata = _mapper.Map<List<Application.Features.Providers.Libraries.JSONParser.Metadata>>(requestMetadata);
             body.Metadata = metadata;
 
             var json = body

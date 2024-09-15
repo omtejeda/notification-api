@@ -1,10 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using NotificationService.Application.Contracts.Interfaces.Services;
-using NotificationService.Application.Notifications.Services;
-using NotificationService.Application.Notifications.Factories;
 using NotificationService.Application.Contracts.Interfaces.Factories;
+using NotificationService.Application.Features.Notifications.Services;
+using NotificationService.Application.Features.Notifications.Factories;
 
-namespace NotificationService.Application.Notifications.IoC
+namespace NotificationService.Application.Features.Notifications
 {
     public static class DependencyInjection
     {

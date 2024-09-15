@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Domain.Enums;
 
-namespace NotificationService.Application.Notifications.Services
+namespace NotificationService.Application.Features.Notifications.Services
 {
     public class EmlExportNotificationService : IExportNotificationsService
     {
