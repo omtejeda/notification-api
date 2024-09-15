@@ -1,21 +1,16 @@
-using System;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using AutoMapper;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
 using LinqKit;
 using NotificationService.Application.Utils;
-using NotificationService.Domain.Dtos;
 using NotificationService.Common.Dtos;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 
-namespace NotificationService.Application.Templates.Services
+namespace NotificationService.Application.Features.Templates.Services
 {
     public class TemplateService : ITemplateService
     {

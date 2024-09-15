@@ -1,8 +1,8 @@
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
-using NotificationService.Application.Templates.Attributes;
 using NotificationService.Domain.Enums;
 using NotificationService.Domain.Dtos;
+using NotificationService.Application.Features.Templates.Attributes;
 
 namespace NotificationService.Application.Dtos
 {

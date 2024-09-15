@@ -1,10 +1,9 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Dtos;
-namespace NotificationService.Application.Templates.Attributes
+
+namespace NotificationService.Application.Features.Templates.Attributes
 {
     public class ValidateTemplate : ValidationAttribute
     {

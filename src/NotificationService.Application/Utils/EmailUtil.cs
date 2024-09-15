@@ -2,7 +2,7 @@ using MimeKit;
 using NotificationService.Domain.Entities;
 using SendGrid.Helpers.Mail;
 using NotificationService.Domain.Dtos;
-using NotificationService.Application.Templates.Models;
+using NotificationService.Application.Features.Templates.Models;
 
 namespace NotificationService.Application.Utils
 {
@@ -70,9 +70,9 @@ namespace NotificationService.Application.Utils
             return message;
         }        
 
-        public static SendgridTemplate GetSendgridTemplateFromMetadata(List<MetadataDto> providedMetadata)
+        public static SendGridTemplate GetSendgridTemplateFromMetadata(List<MetadataDto> providedMetadata)
         {
-            var result = new SendgridTemplate();
+            var result = new SendGridTemplate();
             if (providedMetadata != null)
             {
                 result.TemplateId = providedMetadata.FirstOrDefault(x => x.Key.ToLowerInvariant() == Parameters.SendgridTemplateId)?.Value;
