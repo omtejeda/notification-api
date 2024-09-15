@@ -1,4 +1,3 @@
-using System;
 namespace NotificationService.Application.Features.Providers.Libraries.JSONParser.Exceptions;
 public class DataTypeUnsupportedValue : Exception
 {

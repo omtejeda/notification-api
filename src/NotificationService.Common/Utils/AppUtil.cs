@@ -1,4 +1,3 @@
-using System;
 namespace NotificationService.Common.Utils
 {
     public static class AppUtil

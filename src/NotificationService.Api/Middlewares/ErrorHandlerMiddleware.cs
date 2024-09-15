@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Text.Json;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Exceptions;
 using NotificationService.Common.Dtos;

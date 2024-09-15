@@ -1,7 +1,4 @@
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
 using NotificationService.Application.Interfaces;
 using NotificationService.Application.Features.Senders.Dtos;

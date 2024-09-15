@@ -1,5 +1,3 @@
-using System;
-
 namespace NotificationService.Domain.Models
 {
     public class Metadata

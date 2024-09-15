@@ -1,10 +1,7 @@
-using System;
-using System.Threading.Tasks;
 using System.Linq.Expressions;
-using System.Collections.Generic;
 using NotificationService.Domain.Entities;
 using NotificationService.Common.Dtos;
-using NotificationService.Application.Contracts.ResponseDtos;
+
 namespace NotificationService.Application.Contracts.Interfaces.Services
 {
     public interface IPlatformService

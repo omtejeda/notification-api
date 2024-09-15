@@ -1,4 +1,3 @@
-using System;
 using NotificationService.Domain.Enums;
 using NotificationService.Common.Utils;
 namespace NotificationService.Common.Dtos

@@ -1,4 +1,3 @@
-using System;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;

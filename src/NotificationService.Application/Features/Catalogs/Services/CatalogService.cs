@@ -1,12 +1,7 @@
-using System;
-using System.Linq;
 using LinqKit;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using AutoMapper;
 using NotificationService.Domain.Entities;
-using NotificationService.Domain.Enums;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.ResponseDtos;

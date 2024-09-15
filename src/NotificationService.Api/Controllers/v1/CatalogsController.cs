@@ -1,8 +1,5 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
-using System.Collections.Generic;
 using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Features.Catalogs.Commands.Delete;

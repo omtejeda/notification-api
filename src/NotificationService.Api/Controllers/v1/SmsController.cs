@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Application.Interfaces;
 using NotificationService.Api.Utils;

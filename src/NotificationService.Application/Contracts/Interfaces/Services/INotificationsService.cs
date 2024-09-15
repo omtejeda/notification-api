@@ -1,7 +1,4 @@
-using System;
-using System.Threading.Tasks;
 using System.Linq.Expressions;
-using System.Collections.Generic;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Contracts.ResponseDtos;

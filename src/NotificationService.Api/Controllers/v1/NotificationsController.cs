@@ -1,6 +1,4 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using NotificationService.Api.Utils;
 using NotificationService.Domain.Enums;
 using MediatR;

@@ -1,8 +1,4 @@
-using System;
 using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
 using NotificationService.Domain.Entities;
 using NotificationService.Common.Interfaces;
 using NotificationService.Domain.Enums;

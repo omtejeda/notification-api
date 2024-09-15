@@ -1,10 +1,6 @@
-using System;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using NotificationService.Domain.Enums;
 using NotificationService.Common.Dtos;
-using NotificationService.Domain.Dtos;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Contracts.RequestDtos;

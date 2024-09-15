@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using NotificationService.Domain.Enums;
 
 namespace NotificationService.Application.Common.Helpers

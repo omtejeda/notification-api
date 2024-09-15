@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 namespace NotificationService.Application.Contracts.ResponseDtos
 {
     public class CatalogDto

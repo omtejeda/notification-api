@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 using NotificationService.Application.Contracts.ResponseDtos;
 
 namespace NotificationService.Application.Contracts.RequestDtos

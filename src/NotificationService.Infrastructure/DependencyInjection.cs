@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using NotificationService.Application.Contracts.Interfaces.Repositories;

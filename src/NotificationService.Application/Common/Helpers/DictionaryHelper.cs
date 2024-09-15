@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace NotificationService.Application.Common.Helpers
 {
     public class DictionaryHelper

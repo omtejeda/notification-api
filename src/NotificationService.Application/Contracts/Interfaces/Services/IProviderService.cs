@@ -1,11 +1,7 @@
-using System;
 using System.Linq.Expressions;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using NotificationService.Domain.Entities;
 using NotificationService.Common.Dtos;
 using NotificationService.Application.Contracts.RequestDtos;
-using NotificationService.Application.Contracts.ResponseDtos;
 
 namespace NotificationService.Application.Contracts.Interfaces.Services
 {

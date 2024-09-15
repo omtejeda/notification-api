@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 namespace NotificationService.Application.Contracts.ResponseDtos
 {
     public class NotificationDto
