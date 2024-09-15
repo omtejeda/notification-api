@@ -2,11 +2,11 @@
 using MailKit.Net.Smtp;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Utils;
-using NotificationService.Application.Common;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;
+using NotificationService.Application.Senders.Models;
 
 namespace NotificationService.Infrastructure.Providers
 {

@@ -4,8 +4,8 @@ using Polly.Timeout;
 using Polly.Wrap;
 using NotificationService.Domain.Enums;
 using NotificationService.Domain.Models;
-using NotificationService.Application.Common;
 using NotificationService.Application.Features.Providers.Interfaces;
+using NotificationService.Application.Senders.Models;
 
 namespace NotificationService.Application.Features.Providers.Decorators
 {

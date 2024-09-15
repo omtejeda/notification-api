@@ -1,13 +1,13 @@
 ﻿using NotificationService.Domain.Dtos;
 using NotificationService.Domain.Models;
 
-namespace NotificationService.Application.Common
+namespace NotificationService.Application.Senders.Models
 {
     public partial class EmailMessage
     {
         public class Builder
         {
-            private EmailMessage _emailContent = new EmailMessage();
+            private EmailMessage _emailContent = new();
 
             public static Builder NewMessage()
                 => new Builder();

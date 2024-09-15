@@ -10,7 +10,7 @@ using NotificationService.Domain.Entities;
 using NotificationService.Application.Senders.Dtos;
 using NotificationService.Application.Exceptions;
 using NotificationService.Application.Providers.Interfaces;
-using NotificationService.Application.Common;
+using NotificationService.Application.Senders.Models;
 using NotificationService.Application.Interfaces;
 using Moq;
 using Microsoft.AspNetCore.Http;
