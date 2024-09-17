@@ -55,8 +55,11 @@ public class MessageSender : IMessageSender
         Guard.ProviderIsSuitable(provider.Type, ProviderType.HttpClient);
         Guard.CanSendToDestination(provider, request.ToDestination, _environmentService.CurrentEnvironment);
 
+        ArgumentNullException.ThrowIfNull(provider?.Settings?.HttpClient, nameof(provider.Settings.HttpClient));
+        ArgumentNullException.ThrowIfNull(request?.Template?.Metadata, nameof(request.Template.Metadata));
+
         var (success, code, message) = await _httpClientProvider
-            .SendHttpClient(httpClientSetting: provider?.Settings?.HttpClient,
+            .SendHttpClient(httpClientSetting: provider?.Settings?.HttpClient!,
                 templateContent: runtimeTemplate.Content, 
                 requestMetadata: request.Template.Metadata,
                 requestToDestination: request.ToDestination);

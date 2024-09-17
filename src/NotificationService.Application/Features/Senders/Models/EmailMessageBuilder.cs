@@ -10,7 +10,7 @@ namespace NotificationService.Application.Features.Senders.Models
             private EmailMessage _emailContent = new();
 
             public static Builder NewMessage()
-                => new Builder();
+                => new();
 
             public Builder To(string to)
             {

@@ -15,6 +15,7 @@ public class ExportNotificationsFactory : IExportNotificationsFactory
 
     public IExportNotificationsService Create(ExportFormat exportFormat)
     {
-        return _exportNotificationsServices.FirstOrDefault(x => x.ExportFormat == exportFormat);
+        return _exportNotificationsServices.FirstOrDefault(x => x.ExportFormat == exportFormat)
+            ?? throw new ArgumentException("Could not get a valid exporter");
     }
 }

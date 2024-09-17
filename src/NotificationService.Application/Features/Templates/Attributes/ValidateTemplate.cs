@@ -7,9 +7,15 @@ namespace NotificationService.Application.Features.Templates.Attributes;
 
 public class ValidateTemplate : ValidationAttribute
 {
-    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+    protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
     {
-        var templateRepository = (IRepository<Template>) validationContext.GetService(typeof(IRepository<Template>));
+        var templateRepository = (IRepository<Template>?) validationContext.GetService(typeof(IRepository<Template>));
+        
+        if (templateRepository is null)
+        {
+            return new ValidationResult("Could not be able to retrieve template");
+        }
+        
         var template = value as TemplateDto;
 
         if (template is not null)
@@ -36,6 +42,6 @@ public class ValidateTemplate : ValidationAttribute
             }
 
         }
-        return ValidationResult.Success;
+        return ValidationResult.Success!;
     }
 }

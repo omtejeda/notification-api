@@ -10,17 +10,12 @@ using NotificationService.Application.Features.Providers.Interfaces;
 
 namespace NotificationService.Infrastructure.Providers;
 
-public class SendGridProvider : IEmailProvider
+public class SendGridProvider(IEnvironmentService environmentService) : IEmailProvider
 {
     public ProviderType ProviderType => ProviderType.SendGrid;
     private Provider _provider;
 
-    private readonly IEnvironmentService _environmentService;
-
-    public SendGridProvider(IEnvironmentService environmentService)
-    {
-        _environmentService = environmentService;
-    }
+    private readonly IEnvironmentService _environmentService = environmentService;
 
     public void SetProvider(Provider provider)
     {
@@ -65,6 +60,7 @@ public class SendGridProvider : IEmailProvider
         emailMessage.Bcc?.ForEach(bccEmail => { msg.AddBcc(new EmailAddress(bccEmail)); });
 
         var attachments = emailMessage?.Attachments?.Select(x => x.FormFile).ToList();
+
         msg.AddAttachments(attachments);
 
         var response = await client.SendEmailAsync(msg);
@@ -85,10 +81,10 @@ public class SendGridProvider : IEmailProvider
 
     private void ThrowIfSettingsNotValid()
     {
-        if (string.IsNullOrWhiteSpace(_provider.Settings.SendGrid.FromEmail))
+        if (string.IsNullOrWhiteSpace(_provider?.Settings?.SendGrid?.FromEmail))
             throw new ArgumentNullException(nameof(_provider.Settings.SendGrid.FromEmail));
         
-        if (string.IsNullOrWhiteSpace(_provider.Settings.SendGrid.ApiKey))
+        if (string.IsNullOrWhiteSpace(_provider?.Settings?.SendGrid?.ApiKey))
             throw new ArgumentNullException(nameof(_provider.Settings.SendGrid.ApiKey));
     }
 }

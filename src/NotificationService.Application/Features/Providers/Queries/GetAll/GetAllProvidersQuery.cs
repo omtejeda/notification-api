@@ -9,5 +9,5 @@ public record GetAllProvidersQuery : IQuery<BaseResponse<IEnumerable<ProviderDto
     public string? Type { get; set; }
     public int? Page { get; set; }
     public int? PageSize { get; set; }
-    public string? Owner { get; set; }
+    public string Owner { get; set; } = string.Empty;
 }

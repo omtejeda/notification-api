@@ -19,8 +19,8 @@ public class JsonBody
             _rootIs = value;
         }
     }
-    public List<JsonKey> Definition { get; set; } = new();
-    public List<Metadata> Metadata { get; set; } = new();
+    public List<JsonKey> Definition { get; set; } = [];
+    public List<Metadata> Metadata { get; set; } = [];
 
     public JsonBody Prepare()
     {
@@ -46,10 +46,10 @@ public class JsonBody
     /// <param name="dataType"></param>
     /// <param name="value"></param>
     /// <returns></returns>
-    private object CreateSimpleValue(DataType dataType, object value = null)
+    private object? CreateSimpleValue(DataType dataType, object? value = null)
     {
         if (dataType == DataType.Number)
-            return Metadata.Any() ? (value is not null ? Convert.ToInt32(value) : value)  : default(int);
+            return Metadata.Any() ? (value is not null ? Convert.ToInt32(value!) : value!)  : default(int);
 
         if (dataType == DataType.Date)
             return Metadata.Any() ? value ??= null : default(DateTime);
@@ -104,7 +104,7 @@ public class JsonBody
 
     private static object GetObjectFromJson(string json)
     {
-        return JsonConvert.DeserializeObject<object>(json);
+        return JsonConvert.DeserializeObject<object>(json) ?? new();
     }
     
     /// <summary>
@@ -215,7 +215,7 @@ public class JsonBody
     /// <param name="parentIsArray"></param>
     /// <param name="parentDataType"></param>
     /// <exception cref="PropertyRequiredException"></exception>
-    private void Alter(List<JsonKey> keys = null, string parentName = null, bool parentIsArray = false, DataType parentDataType = DataType.Undefined)
+    private void Alter(List<JsonKey>? keys = null, string? parentName = null, bool parentIsArray = false, DataType parentDataType = DataType.Undefined)
     {
         var definition = keys ?? Definition;
 

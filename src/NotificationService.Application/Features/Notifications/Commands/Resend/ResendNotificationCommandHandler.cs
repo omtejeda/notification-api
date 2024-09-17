@@ -7,6 +7,7 @@ using NotificationService.Application.Utils;
 using NotificationService.Common.Dtos;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
+using System.Reflection.Metadata.Ecma335;
 
 namespace NotificationService.Application.Features.Notifications.Commands.Resend;
 
@@ -43,18 +44,19 @@ public class ResendNotificationCommandHandler
         BaseResponse<NotificationSentResponseDto> response = notification.Type switch
         {
             NotificationType.Email =>
-                await _emailSender.SendEmailAsync(notification.Request as SendEmailRequestDto, request.Owner),
+                await _emailSender.SendEmailAsync((SendEmailRequestDto) notification.Request, request.Owner),
             
             NotificationType.SMS =>
-                await _smsSender.SendSmsAsync(notification.Request as SendSmsRequestDto, request.Owner),
+                await _smsSender.SendSmsAsync((SendSmsRequestDto) notification.Request, request.Owner),
 
             _ =>
-                await _messageSender.SendMessageAsync(notification.Request as SendMessageRequestDto, request.Owner)
+                await _messageSender.SendMessageAsync((SendMessageRequestDto) notification.Request, request.Owner)
         };
+        
         return response;
     }
 
-    private void SetParentNotificationId(object request, string notificationId)
+    private static void SetParentNotificationId(object request, string notificationId)
     {
         if (request is ISendRequest notificationRequest)
         {

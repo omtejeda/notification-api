@@ -10,7 +10,7 @@ public class JsonKey
     public DataType DataType { get; set; }
     public bool IsRequired { get; set; }
     public List<JsonKey> Childs { get; set; } = new();
-    public object Value { get; set; }
+    public object? Value { get; set; }
     public int Index { get; set; }
 
     public JsonKey Clone()

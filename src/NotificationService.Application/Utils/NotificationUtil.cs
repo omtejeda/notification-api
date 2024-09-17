@@ -5,7 +5,7 @@ namespace NotificationService.Application.Utils;
 
 internal static class NotificationUtil
 {
-    public static IEnumerable<Attachment> GetCollection(this List<IFormFile> attachments)
+    public static IEnumerable<Attachment> GetCollection(this List<IFormFile>? attachments)
     {
         if (attachments is null) yield break;
 

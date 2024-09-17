@@ -33,7 +33,7 @@ public class EmailSender : IEmailSender
         _dateTimeService = dateTimeService;
     }
 
-    public async Task<BaseResponse<NotificationSentResponseDto>> SendEmailAsync(SendEmailRequestDto request, string owner, List<IFormFile> attachments = null)
+    public async Task<BaseResponse<NotificationSentResponseDto>> SendEmailAsync(SendEmailRequestDto request, string owner, List<IFormFile>? attachments = null)
     {
         var runtimeTemplate = await _templateService.GetRuntimeTemplate(
             name: request.Template.Name,

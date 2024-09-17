@@ -23,7 +23,7 @@ public class HttpClientProvider : IHttpClientProvider
         _mapper = mapper;
     }
 
-    public async Task<Tuple<bool, int, string>> SendHttpClient(HttpClientSetting httpClientSetting, string templateContent, ICollection<MetadataDto> requestMetadata, string requestToDestination = null)
+    public async Task<Tuple<bool, int, string>> SendHttpClient(HttpClientSetting httpClientSetting, string templateContent, ICollection<MetadataDto> requestMetadata, string requestToDestination)
     {
         HttpUtil.CheckHTTPClientSettings(httpClientSetting.Host, httpClientSetting.Uri, httpClientSetting.Verb);
         
@@ -135,7 +135,7 @@ public class HttpClientProvider : IHttpClientProvider
     private static void SetMetadataToJsonBodyDefinition(ICollection<MetadataDto> metadata, string name, string value)
         => metadata.Add(new MetadataDto { Key = name, Value = value });
 
-    private string GetJson(JsonBody jsonBody, ICollection<MetadataDto> requestMetadata)
+    private string GetJson(JsonBody? jsonBody, ICollection<MetadataDto> requestMetadata)
     {
         if (jsonBody is null)
             return string.Empty;

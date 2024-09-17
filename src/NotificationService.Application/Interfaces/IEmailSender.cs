@@ -7,5 +7,5 @@ namespace NotificationService.Application.Interfaces;
 
 public interface IEmailSender
 {
-    Task<BaseResponse<NotificationSentResponseDto>> SendEmailAsync(SendEmailRequestDto request, string owner, List<IFormFile> attachments = null);
+    Task<BaseResponse<NotificationSentResponseDto>> SendEmailAsync(SendEmailRequestDto request, string owner, List<IFormFile>? attachments = null);
 }

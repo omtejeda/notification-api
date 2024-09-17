@@ -6,10 +6,10 @@ public static class EnumHelper
 {
     public static IEnumerable<object> GetCodesAndItsDescription(int? code = null)
     {
-        var filterByCode = code.HasValue ? true : false;
+        var filterByCode = code.HasValue;
 
         var codes = ( (ResultCode[]) Enum.GetValues(typeof(ResultCode)))
-                .Where(x => filterByCode ? (int) x == (int) code : true )
+                .Where(x => !filterByCode || (int)x == (int) Convert.ToInt32(code))
                 .Select(c => new  { Code = (int) c, Description = c.ToString() }).ToList();
         
         return codes;

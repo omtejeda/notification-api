@@ -28,7 +28,7 @@ public static class EmailUtil
         return text;
     }
 
-    public static BodyBuilder AddAttachments(this BodyBuilder builder, List<Microsoft.AspNetCore.Http.IFormFile> attachments)
+    public static BodyBuilder AddAttachments(this BodyBuilder builder, List<Microsoft.AspNetCore.Http.IFormFile>? attachments)
     {
         if (attachments is not null)
         {
@@ -49,7 +49,7 @@ public static class EmailUtil
         return builder;
     }
 
-    public static SendGridMessage AddAttachments(this SendGridMessage message, List<Microsoft.AspNetCore.Http.IFormFile> attachments)
+    public static SendGridMessage AddAttachments(this SendGridMessage message, List<Microsoft.AspNetCore.Http.IFormFile>? attachments)
     {
         if (attachments is not null)
         {
@@ -85,14 +85,14 @@ public static class EmailUtil
         return result;
     }
 
-    public static void ThrowIfEmailNotAllowed(string? environment, Provider provider, string to = null, ICollection<string> cc = null, ICollection<string> bcc = null)
-    {
+    public static void ThrowIfEmailNotAllowed(string? environment, Provider provider, string? to, IEnumerable<string?> cc, IEnumerable<string?> bcc)
+    {   
         Guard.CanSendToDestination(provider, to, environment);
 
-        foreach (var ccEmail in cc ?? Enumerable.Empty<string>())
+        foreach (var ccEmail in cc)
             Guard.CanSendToDestination(provider, ccEmail, environment);
 
-        foreach (var bccEmail in bcc ?? Enumerable.Empty<string>())
+        foreach (var bccEmail in bcc)
             Guard.CanSendToDestination(provider, bccEmail, environment);
     }
 

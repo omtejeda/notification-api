@@ -7,21 +7,17 @@ using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.Application.Features.Senders.Models;
+using System.Diagnostics.CodeAnalysis;
 
 namespace NotificationService.Infrastructure.Providers;
 
-public class SmtpProvider : IEmailProvider
+public class SmtpProvider(IEnvironmentService environmentService) : IEmailProvider
 {
     public ProviderType ProviderType => ProviderType.SMTP;
     private Provider _provider;
     private readonly TimeSpan _timeout = TimeSpan.FromSeconds(10);
 
-    private readonly IEnvironmentService _environmentService;
-
-    public SmtpProvider(IEnvironmentService environmentService)
-    {
-        _environmentService = environmentService;
-    }
+    private readonly IEnvironmentService _environmentService = environmentService;
 
     public void SetProvider(Provider provider)
     {
@@ -30,6 +26,7 @@ public class SmtpProvider : IEmailProvider
     
     public async Task<NotificationResult> SendAsync(EmailMessage emailMessage)
     {
+        
         EmailUtil.ThrowIfEmailNotAllowed(
             environment: _environmentService.CurrentEnvironment,
             provider: _provider,
@@ -37,7 +34,7 @@ public class SmtpProvider : IEmailProvider
             cc: emailMessage.Cc,
             bcc: emailMessage.Bcc);
         
-        ThrowIfSettingsNotValid();
+        ThrowIfSettingsNotValid(_provider.Settings.Smtp);
         
         try
         {
@@ -46,13 +43,12 @@ public class SmtpProvider : IEmailProvider
 
             var email = new MimeMessage
             {
-                Sender = MailboxAddress.Parse(_provider.Settings.Smtp.FromEmail),
-                Subject = emailMessage.Subject,
+                Sender = MailboxAddress.Parse(_provider?.Settings?.Smtp?.FromEmail),
+                Subject = emailMessage?.Subject,
                 Body = builder.ToMessageBody()
             };
-
-            email.To.Add(MailboxAddress.Parse(emailMessage.To));
-
+            
+            email.To.Add(MailboxAddress.Parse(emailMessage!.To));
             emailMessage.Cc?.ToList().ForEach(ccEmail => { email.Cc.Add(MailboxAddress.Parse(ccEmail)); });
             emailMessage.Bcc?.ToList().ForEach(bccEmail => { email.Bcc.Add(MailboxAddress.Parse(bccEmail)); });
 
@@ -97,18 +93,11 @@ public class SmtpProvider : IEmailProvider
         }
     }
 
-    private void ThrowIfSettingsNotValid()
+    private void ThrowIfSettingsNotValid([NotNull] SMTPSetting? setting)
     {
-        if (string.IsNullOrWhiteSpace(_provider.Settings.Smtp.FromEmail))
-            throw new ArgumentNullException(nameof(_provider.Settings.Smtp.FromEmail));
-
-        if (string.IsNullOrWhiteSpace(_provider.Settings.Smtp.Host))
-            throw new ArgumentNullException(nameof(_provider.Settings.Smtp.Host));
-
-        if (!_provider.Settings.Smtp.Port.HasValue)
-            throw new ArgumentNullException(nameof(_provider.Settings.Smtp.Port));
-
-        if (string.IsNullOrWhiteSpace(_provider.Settings.Smtp.Password))
-            throw new ArgumentNullException(nameof(_provider.Settings.Smtp.Password));
+        ArgumentNullException.ThrowIfNull(setting);
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(_provider?.Settings?.Smtp?.FromEmail);
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(_provider?.Settings?.Smtp?.Host);
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(_provider?.Settings?.Smtp?.Password);
     }
 }

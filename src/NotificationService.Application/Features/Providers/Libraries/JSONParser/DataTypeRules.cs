@@ -4,7 +4,7 @@ namespace NotificationService.Application.Features.Providers.Libraries.JSONParse
 
 public class DataTypeRules
 {
-    public string GetValueOrThrow(DataType dataType, string value)
+    public string? GetValueOrThrow(DataType dataType, string value)
     {
         var (isValid, finalValue) = IsValidValue(dataType, value);
         if (!isValid)
@@ -13,7 +13,7 @@ public class DataTypeRules
         return finalValue as string;
     }
 
-    private (bool, object) IsValidValue(DataType dataType, string value)
+    private (bool, object?) IsValidValue(DataType dataType, string value)
     {
         if (dataType == DataType.Date)
             return CheckIfValid(() => Convert.ToDateTime(value));

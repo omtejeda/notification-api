@@ -9,6 +9,7 @@ using NotificationService.Domain.Models;
 using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
+using System.Diagnostics.CodeAnalysis;
 
 namespace NotificationService.Application.Features.Templates.Services;
 
@@ -29,11 +30,11 @@ public class TemplateService : ITemplateService
         Enum.TryParse(request.NotificationType, out NotificationType notificationType);
         Guard.NotificationTypeIsValid(notificationType);
 
-        var existingTemplate = await FindByCompositeKeyAsync(request.Name, platformName: owner, request.Language, owner);
+        var existingTemplate = await FindByCompositeKeyAsync(request.Name!, platformName: owner, request.Language, owner);
         
         Guard.TemplateNotExists(existingTemplate);
 
-        var metadata = request.Metadata.Select(x => new Domain.Models.Metadata { Key = x.Key, Description = x.Description, IsRequired = x.IsRequired }).ToList();
+        var metadata = request.Metadata.Select(x => new Metadata { Key = x.Key, Description = x.Description, IsRequired = x.IsRequired }).ToList();
         var labels = _mapper.Map<ICollection<TemplateLabel>>(request.Labels) ?? Array.Empty<TemplateLabel>();
 
 
@@ -74,7 +75,7 @@ public class TemplateService : ITemplateService
         await _repository.DeleteOneAsync(x => x.Id == existingTemplate.Id);
     }
 
-    private async Task<Template> FindByCompositeKeyAsync(string name, string platformName, Language language, string owner)
+    private async Task<Template?> FindByCompositeKeyAsync(string name, string platformName, Language language, string owner)
     {
         var (templates, _) = await _repository.FindAsync(x => x.Name == name && x.PlatformName == platformName && x.CreatedBy == owner);
         var template = templates.FirstOrDefault(x => x.Language == language);
@@ -105,7 +106,7 @@ public class TemplateService : ITemplateService
         return BaseResponse<TemplateDto>.Success(templateDto);
     }
 
-    public async Task<RuntimeTemplate> GetRuntimeTemplate(string name, string platformName, Language language, List<Domain.Dtos.MetadataDto> providedMetadata, string owner, NotificationType notificationType)
+    public async Task<RuntimeTemplate> GetRuntimeTemplate(string name, string platformName, Language language, List<Domain.Dtos.MetadataDto>? providedMetadata, string owner, NotificationType notificationType)
     {
         var (templates, _) = await _repository
             .FindAsync(t => t.Name == name && t.PlatformName == platformName);
@@ -115,15 +116,15 @@ public class TemplateService : ITemplateService
         
         ThrowIfTemplateNotValid(template, owner, notificationType);
 
-        var providedTemplateMetadata = providedMetadata
-            .Where(x => template.Metadata.Any(y => y.Key == x.Key));
+        var providedTemplateMetadata = providedMetadata?
+            .Where(x => template.Metadata.Any(y => y.Key == x.Key)) ?? [];
         
         var runtimeTemplate = new RuntimeTemplate
         {
             Name = template.Name,
             PlatformName = template.PlatformName,
             Language = template.Language,
-            ProvidedMetadata = providedMetadata,
+            ProvidedMetadata = providedMetadata ?? [],
             Subject = EmailUtil.ReplaceParameters(template.Subject, providedTemplateMetadata),
             Content = EmailUtil.ReplaceParameters(template.Content, providedTemplateMetadata)
         };
@@ -131,12 +132,14 @@ public class TemplateService : ITemplateService
         return runtimeTemplate;
     }
 
-    private void ThrowIfTemplateNotValid(Template template, string owner, NotificationType notificationType)
+    private static void ThrowIfTemplateNotValid([NotNull] Template? template, string owner, NotificationType notificationType)
     {
         Guard.TemplateExists(template);
-        Guard.TemplateBelongsToRequester(template.CreatedBy, owner);
-        Guard.TemplateNotificationTypeIsSameAsTarget(notificationType, template.NotificationType);
+        Guard.TemplateBelongsToRequester(template?.CreatedBy, owner);
+        Guard.TemplateNotificationTypeIsSameAsTarget(notificationType, template?.NotificationType);
         Guard.TemplateContentIsValid(template?.Content);
+
+        _ = template ?? throw new ArgumentNullException(nameof(template));
     }
 
     public async Task UpdateTemplateContent(string templateId, UpdateTemplateContentRequestDto request, string owner)

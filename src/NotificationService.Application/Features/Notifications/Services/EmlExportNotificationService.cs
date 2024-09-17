@@ -27,13 +27,13 @@ public class EmlExportNotificationService : IExportNotificationsService
     {
         var notificationDetail = await _notificationsService.GetNotificationById(notificationId, owner);
         if (notificationDetail is null || notificationDetail.Data is null)
-            return default;
+            return default!;
             
-        var notification = notificationDetail.Data;
+        var notification = notificationDetail.Data ?? throw new ArgumentNullException(nameof(notificationDetail.Data));
         var emlContent = @$"From: {notification.From}
         To: {notification.ToDestination}
         Subject: {notification.Subject}
-        Date: {notification.Date.Value}
+        Date: {notification.Date}
         Content-Type: {MIME_CONTENT_TYPE}; boundary=""{MIME_BOUNDARY}""
         
         --{MIME_BOUNDARY}
@@ -52,7 +52,7 @@ public class EmlExportNotificationService : IExportNotificationsService
 
         if (notification.HasAttachments)
         {
-            await ExportAttachmentsAsync(result, notification.Attachments);
+            await ExportAttachmentsAsync(result, notification.Attachments!);
         }
         result.Content += FINAL_BOUNDARY;
 

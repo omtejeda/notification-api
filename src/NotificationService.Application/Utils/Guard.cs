@@ -5,6 +5,7 @@ using NotificationService.Domain.Enums;
 using NotificationService.Application.Exceptions;
 using NotificationService.Common.Resources;
 using NotificationService.Common.Utils;
+using System.Diagnostics.CodeAnalysis;
 
 namespace NotificationService.Application.Utils;
 
@@ -121,7 +122,7 @@ public static class Guard
         }
     }
 
-    public static void CanSendToDestination(Provider provider, string toDestination, string? environment)
+    public static void CanSendToDestination(Provider provider, string? toDestination, string? environment)
     {
         if (string.Equals(
             environment,
@@ -130,6 +131,8 @@ public static class Guard
         {
             return;
         }
+
+        toDestination ??= string.Empty;
 
         var isDestinationAllowed = provider?
             .DevSettings?
@@ -240,7 +243,7 @@ public static class Guard
         }
     }
 
-    public static void TemplateNotExists(Template template)
+    public static void TemplateNotExists(Template? template)
     {
         if (template is not null)
         {
@@ -258,7 +261,7 @@ public static class Guard
         }
     }
 
-    public static void TemplateExists(Template template)
+    public static void TemplateExists(Template? template)
     {
         if (template is null)
         {
@@ -267,7 +270,7 @@ public static class Guard
         }
     }
 
-    public static void TemplateBelongsToRequester(string createdBy, string requester)
+    public static void TemplateBelongsToRequester(string? createdBy, string requester)
     {
         if (createdBy != requester)
         {
@@ -278,7 +281,7 @@ public static class Guard
         }
     }
 
-    public static void TemplateNotificationTypeIsSameAsTarget(NotificationType notificationTypeSource, NotificationType notificationTypeTarget)
+    public static void TemplateNotificationTypeIsSameAsTarget(NotificationType notificationTypeSource, NotificationType? notificationTypeTarget)
     {
         if (notificationTypeSource != notificationTypeTarget)
         {
@@ -325,7 +328,7 @@ public static class Guard
         }
     }
 
-    public static void PlatformNotExists(Platform platform, string platformName, string createdBy)
+    public static void PlatformNotExists(Platform platform, string platformName, string? createdBy)
     {
         if (platform is not null)
         {

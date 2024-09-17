@@ -7,9 +7,9 @@ namespace NotificationService.Application.Utils;
 
 public static class HttpUtil
 {
-    private static List<string> GetVerbsAllowed() => new List<string>{"GET", "POST", "PUT", "PATCH"};
+    private static List<string> GetVerbsAllowed() => ["GET", "POST", "PUT", "PATCH"];
 
-    public static string GetFullPath(string host, string uri, IDictionary<string, string> queryString = null)
+    public static string GetFullPath(string host, string uri, IDictionary<string, string>? queryString = null)
     {
         var pathSeparator = Path.AltDirectorySeparatorChar;
         var fullPath = string.Empty;
@@ -31,12 +31,12 @@ public static class HttpUtil
     public static void CheckHTTPClientSettings(string host, string uri, string verb)
         => CheckHTTPClientSettings(new HttpClientSettingDto { Host = host, Uri = uri, Verb = verb });
 
-    public static void CheckHTTPClientSettings(HttpClientSettingDto settings)
+    public static void CheckHTTPClientSettings(HttpClientSettingDto? settings)
     {
-        Guard.RequiredValueIsPresent(settings.Host, nameof(settings.Host));
-        Guard.RequiredValueIsPresent(settings.Uri, nameof(settings.Uri));
-        Guard.RequiredValueIsPresent(settings.Verb, nameof(settings.Verb));
-        if (!GetVerbsAllowed().Any(x => x == settings.Verb)) throw new RuleValidationException(string.Format(Messages.HttpVerbNotAllowed, settings.Verb));
+        Guard.RequiredValueIsPresent(settings?.Host, nameof(settings.Host));
+        Guard.RequiredValueIsPresent(settings?.Uri, nameof(settings.Uri));
+        Guard.RequiredValueIsPresent(settings?.Verb, nameof(settings.Verb));
+        if (!GetVerbsAllowed().Any(x => x == settings?.Verb)) throw new RuleValidationException(string.Format(Messages.HttpVerbNotAllowed, settings?.Verb));
 
         foreach (var param in settings?.Params!)
         {

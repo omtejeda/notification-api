@@ -6,13 +6,13 @@ namespace NotificationService.Application.Contracts.RequestDtos;
 public class CreateProviderRequestDto
 {
     [Required]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     [Required]
-    public string Type { get; set; }
+    public string Type { get; set; } = string.Empty;
 
     [Required]
-    public ProviderSettingsDto Settings { get; set; }
+    public ProviderSettingsDto? Settings { get; set; } = new();
 
     [Required]
     public bool? IsActive { get; set; } = true;
@@ -20,6 +20,6 @@ public class CreateProviderRequestDto
     [Required]
     public bool? IsPublic { get; set; }
 
-    public ProviderDevSettingsDto DevSettings { get; set; }
+    public ProviderDevSettingsDto? DevSettings { get; set; } = new();
     public bool? SavesAttachments { get; set; } = false;
 }

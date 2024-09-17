@@ -69,9 +69,9 @@ public class Notification : BaseEntity
             return this;
         }
 
-        public Builder From(string from)
+        public Builder From(string? from)
         {
-            _notification.From = from;
+            _notification.From = from ?? string.Empty;
             return this;
         }
 
@@ -117,9 +117,11 @@ public class Notification : BaseEntity
             return this;
         }
 
-        public Builder HasParentNotificationId(string parentNotificationId)
+        public Builder HasParentNotificationId(string? parentNotificationId)
         {
-            _notification.ParentNotificationId = parentNotificationId;
+            if (!string.IsNullOrWhiteSpace(parentNotificationId))
+                _notification.ParentNotificationId = parentNotificationId;
+            
             return this;
         }
 

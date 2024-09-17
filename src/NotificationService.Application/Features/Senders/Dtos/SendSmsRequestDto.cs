@@ -7,14 +7,14 @@ namespace NotificationService.Application.Features.Senders.Dtos;
 public class SendSmsRequestDto : ISendRequest
 {
     [Required]
-    public string ToPhoneNumber { get; set; }
+    public string ToPhoneNumber { get; set; } = string.Empty;
 
     [Required]
-    public string ProviderName { get; set; }
+    public string ProviderName { get; set; } = string.Empty;
 
     [Required]
     [ValidateTemplate]
-    public TemplateDto Template { get; set; }
+    public TemplateDto Template { get; set; } = new();
 
     [JsonIgnore]
     public string? ParentNotificationId { get; set; }
