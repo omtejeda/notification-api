@@ -19,6 +19,7 @@ public class CreatePlatformCommandHandler(IPlatformService platformService, IMed
         
         return result;
     }
+    
     private async Task PublishEvent(PlatformDto? data)
     {
         var eventToPublish = new PlatformCreatedEvent(data);
