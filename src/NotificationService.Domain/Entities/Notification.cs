@@ -5,22 +5,22 @@ namespace NotificationService.Domain.Entities;
 
 public class Notification : BaseEntity
 {
-    public string NotificationId { get; private set; }
+    public string NotificationId { get; private set; } = string.Empty;
     public NotificationType Type { get; private set; }
-    public string ToDestination { get; private set; }
-    public string TemplateName { get; private set; }
-    public string PlatformName { get; private set; }
-    public string ProviderName { get; private set; }
+    public string ToDestination { get; private set; } = string.Empty;
+    public string TemplateName { get; private set; } = string.Empty;
+    public string PlatformName { get; private set; } = string.Empty;
+    public string ProviderName { get; private set; } = string.Empty;
     public DateTime? Date { get; private set; }
     public bool? Success { get; private set; }
-    public string Message { get; private set; }
+    public string Message { get; private set; } = string.Empty;
     public bool HasAttachments { get; private set; } 
-    public ICollection<Attachment> Attachments { get; private set; }
-    public object Request { get; private set; }
-    public string ParentNotificationId { get; private set; }
-    public string Content { get; private set; }
-    public string Subject { get; private set; }
-    public string From { get; private set; }
+    public ICollection<Attachment> Attachments { get; private set; } = [];
+    public object? Request { get; private set; }
+    public string? ParentNotificationId { get; private set; }
+    public string Content { get; private set; } = string.Empty;
+    public string Subject { get; private set; } = string.Empty;
+    public string From { get; private set; } = string.Empty;
     public int? TriesCount { get; private set; } = 0;
     private bool _savesAttachments;
 

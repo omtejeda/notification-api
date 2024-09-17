@@ -50,7 +50,7 @@ public class AuthMiddleware
             return;
         }
         
-        if (!(platform.IsActive ?? false))
+        if (!platform.IsActive)
         {
             await UnauthorizedResponse(context, Messages.ApiKeyNotActive);
             return;

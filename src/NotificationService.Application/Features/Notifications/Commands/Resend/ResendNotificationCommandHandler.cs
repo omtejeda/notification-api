@@ -37,7 +37,7 @@ public class ResendNotificationCommandHandler
             
         Guard.NotificationIsNotNull(notification);
         Guard.NotificationWasCreatedByRequester(notification.CreatedBy, request.Owner!);
-        Guard.NotificationRequestExists(notification.Request);
+        Guard.NotificationRequestExists(notification?.Request);
 
         SetParentNotificationId(notification.Request, notification.Id);
         

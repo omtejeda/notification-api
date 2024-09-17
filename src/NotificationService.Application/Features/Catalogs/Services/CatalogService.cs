@@ -49,7 +49,7 @@ public class CatalogService : ICatalogService
         var existingCatalog = await _catalogRepository.FindOneAsync(x => x.CatalogId == catalogId);
 
         Guard.CatalogWithIdExists(existingCatalog, catalogId);
-        Guard.CatalogIsCreatedByRequester(existingCatalog.CreatedBy, owner);
+        Guard.CatalogIsCreatedByRequester(existingCatalog?.CreatedBy, owner);
 
         await _catalogRepository.DeleteOneAsync(x => x.CatalogId == catalogId);
     }

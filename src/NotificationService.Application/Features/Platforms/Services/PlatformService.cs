@@ -52,7 +52,7 @@ public class PlatformService : IPlatformService
         var existingPlatform = await _repository.FindOneAsync(x => x.PlatformId == platformId);
         
         Guard.PlatformWithIdExists(existingPlatform, platformId);
-        Guard.PlatformIsCreatedByRequester(existingPlatform.CreatedBy, owner);
+        Guard.PlatformIsCreatedByRequester(existingPlatform?.CreatedBy, owner);
 
         await _repository.DeleteOneAsync(x => x.PlatformId == platformId);
     }

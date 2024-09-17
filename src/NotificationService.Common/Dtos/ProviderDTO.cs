@@ -2,13 +2,13 @@ namespace NotificationService.Common.Dtos;
 
 public class ProviderDto
 {
-    public string ProviderId { get; set; }
-    public string Name { get; set; }
-    public string Type { get; set; }
-    public ProviderSettingsDto Settings { get; set; }
+    public string ProviderId { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Type { get; set; } = string.Empty;
+    public ProviderSettingsDto Settings { get; set; } = new();
     public bool? IsActive { get; set; }
     public bool? IsPublic { get; set; }
-    public ProviderDevSettingsDto DevSettings { get; set; }
+    public ProviderDevSettingsDto DevSettings { get; set; } = new();
     public bool SavesAttachments { get; set; } = false;
 }
 
@@ -19,44 +19,44 @@ public class ProviderDevSettingsDto
 
 public class ProviderSettingsDto
 {
-    public SendGridSettingDto SendGrid { get; set; }
-    public SMTPSettingDto Smtp { get; set; }
-    public HttpClientSettingDto HttpClient { get; set; }
+    public SendGridSettingDto? SendGrid { get; set; }
+    public SMTPSettingDto? Smtp { get; set; }
+    public HttpClientSettingDto? HttpClient { get; set; }
 }
 
 public class HttpClientSettingDto
 {
-    public string Host { get; set; }
-    public string Uri { get; set; }
-    public string Verb { get; set; }
-    public ICollection<HttpClientParamDto> Params { get; set; } = new List<HttpClientParamDto>();
-    public JsonBodyDto JsonBody { get; set; }
+    public string Host { get; set; } = string.Empty;
+    public string Uri { get; set; } = string.Empty;
+    public string Verb { get; set; } = string.Empty;
+    public ICollection<HttpClientParamDto> Params { get; set; } = [];
+    public JsonBodyDto? JsonBody { get; set; }
 }
 
 public class HttpClientParamDto
 {
-    public string Type { get; set; }
-    public string Name { get; set; }
+    public string Type { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
     public bool? IsRequired { get; set; }
     public bool? HasStaticValue { get; set; }
-    public string StaticValue { get; set; }
-    public string ReadValueFrom { get; set; }
+    public string StaticValue { get; set; } = string.Empty;
+    public string ReadValueFrom { get; set; } = string.Empty;
 }
 
 public class SendGridSettingDto
 {
-    public string FromEmail { get; set; }
-    public string FromDisplayName { get; set; }
-    public string ApiKey { get; set; }
+    public string FromEmail { get; set; } = string.Empty;
+    public string FromDisplayName { get; set; } = string.Empty;
+    public string ApiKey { get; set; } = string.Empty;
 }
 
 public class SMTPSettingDto
 {
-    public string FromEmail { get; set; }
-    public string FromDisplayName { get; set; }
-    public string Host { get; set; }
+    public string FromEmail { get; set; } = string.Empty;
+    public string FromDisplayName { get; set; } = string.Empty;
+    public string Host { get; set; } = string.Empty;
     public int? Port { get; set; }
-    public string Password { get; set; }
+    public string Password { get; set; } = string.Empty;
     public bool? Authenticate { get; set; }
 }
 

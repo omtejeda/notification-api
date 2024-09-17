@@ -35,9 +35,9 @@ public class ProviderService : IProviderService
         
         if (providerType == ProviderType.SMTP)
         {
-            Guard.RequiredValueIsPresent(request.Settings?.Smtp.Host, nameof(request.Settings.Smtp.Host));
-            Guard.RequiredValueIsPresent(request.Settings?.Smtp.Port, nameof(request.Settings.Smtp.Port));
-            Guard.RequiredValueIsPresent(request.Settings?.Smtp.Password, nameof(request.Settings.Smtp.Password));
+            Guard.RequiredValueIsPresent(request.Settings?.Smtp?.Host, nameof(request.Settings.Smtp.Host));
+            Guard.RequiredValueIsPresent(request.Settings?.Smtp?.Port, nameof(request.Settings.Smtp.Port));
+            Guard.RequiredValueIsPresent(request.Settings?.Smtp?.Password, nameof(request.Settings.Smtp.Password));
         }
 
         if ( (request.Settings?.Smtp is not null && providerType != ProviderType.SMTP) 
@@ -47,7 +47,7 @@ public class ProviderService : IProviderService
 
         if (providerType == ProviderType.SendGrid)
         {
-            Guard.RequiredValueIsPresent(request.Settings?.SendGrid.ApiKey, nameof(request.Settings.SendGrid.ApiKey));
+            Guard.RequiredValueIsPresent(request.Settings?.SendGrid?.ApiKey, nameof(request.Settings.SendGrid.ApiKey));
         }
 
         if (providerType == ProviderType.HttpClient)
@@ -95,7 +95,7 @@ public class ProviderService : IProviderService
         var existingProvider = await _providerRepository.FindOneAsync(x => x.ProviderId == providerId);
 
         Guard.ProviderWithIdExists(existingProvider, providerId);
-        Guard.ProviderIsCreatedByRequester(existingProvider.CreatedBy, owner);
+        Guard.ProviderIsCreatedByRequester(existingProvider?.CreatedBy, owner);
 
         await _providerRepository.DeleteOneAsync(x => x.ProviderId == providerId);
     }

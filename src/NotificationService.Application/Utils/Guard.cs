@@ -33,7 +33,7 @@ public static class Guard
         }
     }
 
-    public static void ProviderIsCreatedByRequester(string createdBy, string requester)
+    public static void ProviderIsCreatedByRequester(string? createdBy, string requester)
     {
         if (createdBy != requester)
         {
@@ -44,7 +44,7 @@ public static class Guard
         }
     }
 
-    public static void CatalogIsCreatedByRequester(string createdBy, string requester)
+    public static void CatalogIsCreatedByRequester(string? createdBy, string requester)
     {
         if (createdBy != requester)
         {
@@ -203,7 +203,7 @@ public static class Guard
         }
     }
 
-    public static void NotificationWasCreatedByRequester(string createdBy, string requester)
+    public static void NotificationWasCreatedByRequester(string? createdBy, string requester)
     {
         if (createdBy != requester)
         {
@@ -214,7 +214,7 @@ public static class Guard
         }
     }
 
-    public static void NotificationRequestExists(object notificationRequest)
+    public static void NotificationRequestExists([NotNull] object? notificationRequest)
     {
         if (notificationRequest is null)
         {
@@ -351,7 +351,7 @@ public static class Guard
         }
     }
 
-    public static void PlatformIsCreatedByRequester(string createdBy, string requester)
+    public static void PlatformIsCreatedByRequester(string? createdBy, string requester)
     {
         if (createdBy != requester)
         {

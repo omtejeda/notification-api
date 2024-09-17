@@ -3,7 +3,7 @@
     public class NotificationResult
     {
         public int Code { get; private set; }
-        public string From { get; private set; }
+        public string From { get; private set; } = string.Empty;
         public bool SavesAttachments { get; private set; }
         public bool IsSuccess { get; private set; }
         public string Message { get; private set; } = string.Empty;

@@ -6,7 +6,7 @@ public class Provider : BaseEntity
     public string ProviderId { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public ProviderType Type { get; set; }
-    public ProviderSettings Settings { get; set; }
+    public ProviderSettings Settings { get; set; } = new();
     public bool? IsActive { get; set; }
     public bool? IsPublic { get; set; }
     public ProviderDevSettings DevSettings { get; set; } = new();

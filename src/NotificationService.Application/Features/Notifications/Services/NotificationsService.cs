@@ -60,7 +60,7 @@ public class NotificationsService : INotificationsService
         var notification = await _notificationRepository.FindOneAsync(x => x.NotificationId == notificationId);
         if (notification is null) return default!;
 
-        Guard.NotificationWasCreatedByRequester(notification.CreatedBy, owner);
+        Guard.NotificationWasCreatedByRequester(notification?.CreatedBy, owner);
         var notificationDto = _mapper.Map<NotificationDetailDto>(notification);
 
         return BaseResponse<NotificationDetailDto>.Success(notificationDto);
@@ -97,6 +97,7 @@ public class NotificationsService : INotificationsService
 
         attachments.ForEach(x =>
         {
+            ArgumentNullException.ThrowIfNull(x.FormFile, nameof(x.FormFile));
             tasks.Add(_notificationRepository.UploadFileAsync(x.FormFile.OpenReadStream(), x.FileName));
         });
 
