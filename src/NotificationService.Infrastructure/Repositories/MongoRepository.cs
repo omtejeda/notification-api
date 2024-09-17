@@ -33,7 +33,7 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : Bas
         _environmentService = environmentService;
     }
 
-    public async Task<(IEnumerable<TEntity>, Pagination)> FindAsync(Expression<Func<TEntity, bool>> filter, int? page = null, int? pageSize = null, IReadOnlyList<string> sortsBy = null) 
+    public async Task<(IEnumerable<TEntity>, Pagination)> FindAsync(Expression<Func<TEntity, bool>> filter, int? page = null, int? pageSize = null, IReadOnlyList<string>? sortsBy = null) 
     {
         filter = filter.And(_nonDeletedRecords);
         var query = _collection.Find(filter);
