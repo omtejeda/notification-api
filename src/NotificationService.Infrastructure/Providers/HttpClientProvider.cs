@@ -135,7 +135,7 @@ public class HttpClientProvider : IHttpClientProvider
     private static void SetMetadataToJsonBodyDefinition(ICollection<MetadataDto> metadata, string name, string value)
         => metadata.Add(new MetadataDto { Key = name, Value = value });
 
-    private string GetJson(JsonBody? jsonBody, ICollection<MetadataDto> requestMetadata)
+    private string GetJson(JsonBody jsonBody, ICollection<MetadataDto> requestMetadata)
     {
         if (jsonBody is null)
             return string.Empty;
