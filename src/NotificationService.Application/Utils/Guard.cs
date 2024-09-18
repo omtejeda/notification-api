@@ -11,7 +11,7 @@ namespace NotificationService.Application.Utils;
 
 public static class Guard
 {
-    public static void ProviderIsNotNull(Provider provider, string providerName)
+    public static void ProviderIsNotNull([NotNull] Provider provider, string providerName)
     {
         if (provider is null)
         {
@@ -55,7 +55,7 @@ public static class Guard
         }
     }
 
-    public static void CatalogWithIdExists(Catalog catalog, string catalogId)
+    public static void CatalogWithIdExists([NotNull] Catalog catalog, string catalogId)
     {
         if (catalog is null)
         {
@@ -111,7 +111,7 @@ public static class Guard
         }
     }
 
-    public static void ProviderWithIdExists(Provider provider, string providerId)
+    public static void ProviderWithIdExists([NotNull] Provider provider, string providerId)
     {
         if (provider is null)
         {
@@ -161,7 +161,7 @@ public static class Guard
         }
     }
 
-    public static void EmailProviderIsNotNull(object? emailProvider)
+    public static void EmailProviderIsNotNull([NotNull] object? emailProvider)
     {
         if (emailProvider is null)
         {
@@ -187,14 +187,14 @@ public static class Guard
 
     public static void HasAttachments(List<IFormFile> attachments)
     {
-        if (!attachments.Any())
+        if (attachments.Count == 0)
         {
             throw new RuleValidationException(
                 Format(Messages.AttachmentIsRequired));
         }
     }
 
-    public static void NotificationIsNotNull(object notification)
+    public static void NotificationIsNotNull([NotNull] object notification)
     {
         if (notification is null)
         {
@@ -252,7 +252,7 @@ public static class Guard
         }
     }
 
-    public static void TemplateToDeleteExists(Template template)
+    public static void TemplateToDeleteExists([NotNull] Template template)
     {
         if (template is null)
         {
@@ -261,7 +261,7 @@ public static class Guard
         }
     }
 
-    public static void TemplateExists(Template? template)
+    public static void TemplateExists([NotNull] Template? template)
     {
         if (template is null)
         {
@@ -303,7 +303,7 @@ public static class Guard
         }
     }
 
-    public static void CatalogExists(Catalog catalog, string catalogName)
+    public static void CatalogExists([NotNull] Catalog catalog, string catalogName)
     {
         if (catalog is null)
         {
@@ -340,7 +340,7 @@ public static class Guard
         }
     }
 
-    public static void PlatformWithIdExists(Platform platform, string platformId)
+    public static void PlatformWithIdExists([NotNull] Platform platform, string platformId)
     {
         if (platform is null)
         {
@@ -362,7 +362,7 @@ public static class Guard
         }
     }
 
-    public static void AttachmentExists(object? attachment, string fileName)
+    public static void AttachmentExists([NotNull] object? attachment, string fileName)
     {
         if (attachment is null)
         {
