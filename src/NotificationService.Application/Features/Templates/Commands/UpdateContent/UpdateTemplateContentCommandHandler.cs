@@ -11,7 +11,7 @@ public class UpdateTemplateContentCommandHandler(ITemplateService templateServic
 
     public async Task Handle(UpdateTemplateContentCommand request, CancellationToken cancellationToken)
     {
-        var requestDto = new UpdateTemplateContentRequestDto(request.Base64Content!);
-        await _templateService.UpdateTemplateContent(request.TemplateId!, requestDto, request?.Owner!);
+        var requestDto = new UpdateTemplateContentRequestDto(request.Base64Content);
+        await _templateService.UpdateTemplateContent(request.TemplateId, requestDto, request.Owner);
     }
 }

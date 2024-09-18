@@ -9,6 +9,6 @@ public class DeleteTemplateCommandHandler(ITemplateService templateService) : IC
 
     public async Task Handle(DeleteTemplateCommand request, CancellationToken cancellationToken)
     {
-        await _templateService.DeleteTemplate(request.TemplateId!, request.Owner!);
+        await _templateService.DeleteTemplate(request.TemplateId, request.Owner);
     }
 }

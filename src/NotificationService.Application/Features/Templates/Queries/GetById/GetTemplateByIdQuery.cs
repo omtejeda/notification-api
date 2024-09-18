@@ -5,12 +5,12 @@ namespace NotificationService.Application.Features.Templates.Queries.GetById;
 
 public record GetTemplateByIdQuery : IQuery<BaseResponse<TemplateDto>>
 {
-    public GetTemplateByIdQuery(string? templateId, string? owner)
+    public GetTemplateByIdQuery(string templateId, string owner)
     {
         TemplateId = templateId;
         Owner = owner;
     }
     
-    public string? TemplateId { get; set; }
-    public string? Owner { get; set; }
+    public string TemplateId { get; set; }
+    public string Owner { get; set; }
 }

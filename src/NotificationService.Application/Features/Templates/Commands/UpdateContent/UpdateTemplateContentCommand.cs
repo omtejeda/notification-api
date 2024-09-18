@@ -2,9 +2,9 @@ using NotificationService.Common.Interfaces;
 
 namespace NotificationService.Application.Features.Templates.Commands.UpdateContent;
 
-public class UpdateTemplateContentCommand : ICommand
+public class UpdateTemplateContentCommand(string templateId, string base64Content, string owner) : ICommand
 {
-    public string? TemplateId { get; set; }
-    public string? Base64Content { get; set; }
-    public string? Owner { get; set; }
+    public string TemplateId { get; set; } = templateId;
+    public string Base64Content { get; set; } = base64Content;
+    public string Owner { get; set; } = owner;
 }

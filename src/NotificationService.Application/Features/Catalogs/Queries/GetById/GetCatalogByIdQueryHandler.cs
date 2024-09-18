@@ -12,7 +12,7 @@ public class GetCatalogByIdQueryHandler(ICatalogService catalogService)
 
     public async Task<BaseResponse<CatalogDto>> Handle(GetCatalogByIdQuery request, CancellationToken cancellationToken)
     {
-        var result = await _catalogService.GetCatalogById(request.CatalogId!, request.Owner!);
+        var result = await _catalogService.GetCatalogById(request.CatalogId, request.Owner);
         if (result?.Data is null) return default!;
 
         FilterElements(request, result);

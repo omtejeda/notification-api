@@ -16,7 +16,7 @@ public class ExportNotificationQueryHandler(IExportNotificationsFactory exportNo
         var exportService = _exportNotificationsFactory.Create(request.Format) 
             ?? throw new RuleValidationException($"The specified format '{request.Format}' doesn't exist");
         
-        var response = await exportService.Export(request.NotificationId!, request.Owner!) 
+        var response = await exportService.Export(request.NotificationId!, request.Owner) 
             ?? throw new RuleValidationException("The specified notificationId doesn't exist");
 
         return response;

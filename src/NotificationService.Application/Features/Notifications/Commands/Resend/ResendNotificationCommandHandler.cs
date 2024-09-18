@@ -36,7 +36,7 @@ public class ResendNotificationCommandHandler
         var notification = await _notificationRepository.FindOneAsync(x => x.NotificationId == request.NotificationId);
             
         Guard.NotificationIsNotNull(notification);
-        Guard.NotificationWasCreatedByRequester(notification.CreatedBy, request.Owner!);
+        Guard.NotificationWasCreatedByRequester(notification.CreatedBy, request.Owner);
         Guard.NotificationRequestExists(notification?.Request);
 
         SetParentNotificationId(notification.Request, notification.Id);

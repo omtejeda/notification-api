@@ -6,6 +6,12 @@ namespace NotificationService.Application.Features.Templates.Commands.Create;
 
 public class CreateTemplateCommand : ICommand<BaseResponse<TemplateDto>>
 {
-    public CreateTemplateRequestDto? RequestDto { get; set; }
-    public string? Owner { get; set; }
+    public CreateTemplateCommand(CreateTemplateRequestDto requestDto, string owner)
+    {
+        RequestDto = requestDto;
+        Owner = owner;
+    }
+    
+    public CreateTemplateRequestDto RequestDto { get; set; }
+    public string Owner { get; set; }
 }

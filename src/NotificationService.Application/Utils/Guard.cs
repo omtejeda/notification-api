@@ -409,7 +409,7 @@ public static class Guard
         }
     }
 
-    public static void RecipientExists(string? recipient)
+    public static void RecipientExists([NotNull] string? recipient)
     {
         if (string.IsNullOrWhiteSpace(recipient))
         {

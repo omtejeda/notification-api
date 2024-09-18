@@ -12,6 +12,6 @@ public class GetNotificationByIdQueryHandler(INotificationsService notifications
 
     public async Task<BaseResponse<NotificationDetailDto>> Handle(GetNotificationByIdQuery request, CancellationToken cancellationToken)
     {
-        return await _notificationsService.GetNotificationById(request.NotificationId!, request.Owner!);
+        return await _notificationsService.GetNotificationById(request.NotificationId, request.Owner);
     }
 }

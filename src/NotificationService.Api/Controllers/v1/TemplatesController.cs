@@ -67,13 +67,9 @@ public class TemplatesController(ISender sender) : ApiController
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateTemplateRequestDto request)
     {
-        var command = new CreateTemplateCommand
-        {
-            RequestDto = request,
-            Owner = CurrentPlatform.Name
-        };
-
+        var command = new CreateTemplateCommand(request, CurrentPlatform.Name);
         var response = await _sender.Send(command);
+        
         return StatusCode(StatusCodes.Status201Created, response);
     }
 
@@ -81,11 +77,7 @@ public class TemplatesController(ISender sender) : ApiController
     [HttpDelete("{templateId}")]
     public async Task<IActionResult> Delete([FromRoute] string templateId)
     {
-        var command = new DeleteTemplateCommand
-        { 
-            TemplateId = templateId, 
-            Owner = CurrentPlatform.Name 
-        };
+        var command = new DeleteTemplateCommand(templateId, CurrentPlatform.Name);
         
         await _sender.Send(command);
         return Ok();
@@ -95,14 +87,9 @@ public class TemplatesController(ISender sender) : ApiController
     [HttpPatch("{templateId}/content")]
     public async Task<IActionResult> UpdateContent([FromRoute] string templateId, [FromBody] UpdateTemplateContentRequestDto request)
     {
-        var command = new UpdateTemplateContentCommand
-        {
-            TemplateId = templateId,
-            Base64Content = request.Base64Content,
-            Owner = CurrentPlatform.Name
-        };
-
+        var command = new UpdateTemplateContentCommand(templateId, request.Base64Content, CurrentPlatform.Name );
         await _sender.Send(command);
+
         return StatusCode(StatusCodes.Status204NoContent);
     }
 }

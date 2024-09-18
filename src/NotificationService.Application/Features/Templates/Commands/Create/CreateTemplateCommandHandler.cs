@@ -11,7 +11,7 @@ public class CreateTemplateCommandHandler(ITemplateService templateService)
 
     public async Task<BaseResponse<TemplateDto>> Handle(CreateTemplateCommand request, CancellationToken cancellationToken)
     {
-        var result = await _templateService.CreateTemplate(request.RequestDto!, request?.Owner!);
+        var result = await _templateService.CreateTemplate(request.RequestDto, request.Owner);
         return result;
     }
 }

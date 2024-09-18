@@ -126,7 +126,7 @@ public class ProviderService : IProviderService
         var existingRecipient = provider?.DevSettings?.AllowedRecipients.FirstOrDefault(x => x.ToLower() == recipient.ToLower());
 
         Guard.RecipientExists(existingRecipient);
-        provider!.DevSettings.AllowedRecipients.Remove(existingRecipient!);
+        provider!.DevSettings.AllowedRecipients.Remove(existingRecipient);
         
         await _providerRepository.UpdateOneByIdAsync(provider.Id, provider);
     }

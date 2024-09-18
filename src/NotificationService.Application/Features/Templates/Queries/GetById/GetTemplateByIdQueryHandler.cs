@@ -11,6 +11,6 @@ public class GetTemplateByIdQueryHandler(ITemplateService templateService)
 
     public async Task<BaseResponse<TemplateDto>> Handle(GetTemplateByIdQuery request, CancellationToken cancellationToken)
     {
-        return await _templateService.GetTemplateById(request.TemplateId!, request.Owner!);
+        return await _templateService.GetTemplateById(request.TemplateId, request.Owner);
     }
 }

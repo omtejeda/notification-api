@@ -30,7 +30,7 @@ public class NotificationsService : INotificationsService
         return notification.NotificationId;
     }
 
-    private static IReadOnlyList<string> GetSortItems(string sort)
+    private static IReadOnlyList<string> GetSortItems(string? sort)
     {
         if (string.IsNullOrWhiteSpace(sort))
             return Array.Empty<string>();
@@ -41,7 +41,7 @@ public class NotificationsService : INotificationsService
             sort.Split(delimiter).ToList() : new List<string> { sort };
     }
 
-    public async Task<BaseResponse<IEnumerable<NotificationDto>>> GetNotifications(Expression<Func<Notification, bool>> filter, string owner, int? page, int? pageSize, string sort)
+    public async Task<BaseResponse<IEnumerable<NotificationDto>>> GetNotifications(Expression<Func<Notification, bool>> filter, string owner, int? page, int? pageSize, string? sort)
     {
         var filterByOwner = PredicateBuilder.New<Notification>().And(x => x.CreatedBy == owner).Expand();
         filter = filter.And(filterByOwner);

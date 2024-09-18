@@ -17,7 +17,7 @@ public class CreateCatalogCommandHandler(ICatalogService catalogService)
                 request.Description!,
                 request.IsActive, 
                 request.Elements, 
-                owner: request.Owner!);
+                owner: request.Owner);
         return result;
     }
 }

@@ -14,7 +14,7 @@ public class CreatePlatformCommandHandler(IPlatformService platformService, IMed
 
     public async Task<BaseResponse<PlatformDto>> Handle(CreatePlatformCommand request, CancellationToken cancellationToken)
     {
-        var result = await _platformService.CreatePlatform(request.Name, request.Description, request.Owner!);
+        var result = await _platformService.CreatePlatform(request.Name, request.Description, request.Owner);
         await PublishEvent(result.Data);
         
         return result;

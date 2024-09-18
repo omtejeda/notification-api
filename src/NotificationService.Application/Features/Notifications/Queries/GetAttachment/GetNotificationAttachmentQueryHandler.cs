@@ -10,6 +10,6 @@ public class GetNotificationAttachmentQueryHandler(INotificationsService notific
 
     public async Task<(byte[], string)> Handle(GetNotificationAttachmentQuery request, CancellationToken cancellationToken)
     {
-        return await _notificationsService.GetNotificationAttachment(request.NotificationId!, request.FileName!, request.Owner!);
+        return await _notificationsService.GetNotificationAttachment(request.NotificationId, request.FileName, request.Owner);
     }
 }

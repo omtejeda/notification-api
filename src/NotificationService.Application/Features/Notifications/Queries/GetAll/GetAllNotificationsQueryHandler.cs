@@ -16,7 +16,7 @@ public class GetAllNotificationsQueryHandler(INotificationsService notifications
     public async Task<BaseResponse<IEnumerable<NotificationDto>>> Handle(GetAllNotificationsQuery request, CancellationToken cancellationToken)
     {
         var predicate = GetPredicateExpression(request);
-        return await _notificationsService.GetNotifications(predicate, request.GetOwner()!, request.Page, request.PageSize, request.Sort!);
+        return await _notificationsService.GetNotifications(predicate, request.GetOwner()!, request.Page, request.PageSize, request.Sort);
     }
 
     private static Expression<Func<Notification, bool>> GetPredicateExpression(GetAllNotificationsQuery query)

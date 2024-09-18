@@ -9,6 +9,6 @@ public class DeleteCatalogCommandHandler(ICatalogService catalogService) : IComm
 
     public async Task Handle(DeleteCatalogCommand request, CancellationToken cancellationToken)
     {
-        await _catalogService.DeleteCatalog(request.CatalogId!, request.Owner!);
+        await _catalogService.DeleteCatalog(request.CatalogId, request.Owner);
     }
 }
