@@ -42,7 +42,7 @@ public class AuthMiddleware
         }
         
         _platformRepository = context.RequestServices.GetRequiredService<IRepository<Platform>>();
-        var platform = await _platformRepository.FindOneAsync(x => x.ApiKey == headerApiKey);
+        var platform = await _platformRepository.FindOneAsync(x => x.ApiKey == headerApiKey.ToString());
 
         if (platform is null)
         {
