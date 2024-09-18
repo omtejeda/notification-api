@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
 using NotificationService.Application.Features.Webhooks.Commands.SaveEmailContent;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace NotificationService.Api.Controllers.v1
 {
@@ -12,6 +13,7 @@ namespace NotificationService.Api.Controllers.v1
     {
         private readonly ISender _sender = sender;
 
+        [SwaggerOperation("Receives email content from third-party services (e.g., SendGrid) for storing or processing, used for tracking and auditing notifications")]
         [HttpPost("emails/content")]
         public async Task<IActionResult> SaveEmailContent([FromBody] SaveEmailContentCommand command)
         {

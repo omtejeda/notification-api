@@ -3,6 +3,7 @@ using NotificationService.Api.Utils;
 using NotificationService.Api.Attributes;
 using NotificationService.Common.Dtos;
 using NotificationService.Common.Interfaces;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace NotificationService.Api.Controllers.v1
 {
@@ -22,6 +23,7 @@ namespace NotificationService.Api.Controllers.v1
             _dateTimeService = dateTimeService;
         }
 
+        [SwaggerOperation("Retrieves general information about Notification API")]
         [HttpGet]
         public IActionResult GetInfo()
         {
@@ -38,6 +40,7 @@ namespace NotificationService.Api.Controllers.v1
             return Ok(response);
         }
 
+        [SwaggerOperation("Fetches a list of status or error codes used by Notification API")]
         [HttpGet("codes")]
         public IActionResult Get([FromQuery] int? code)
         {

@@ -8,6 +8,7 @@ using NotificationService.Application.Features.Platforms.Commands.Create;
 using NotificationService.Application.Features.Platforms.Commands.Delete;
 using NotificationService.Application.Features.Platforms.Queries.GetById;
 using NotificationService.Application.Features.Platforms.Queries.GetAll;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace NotificationService.Api.Controllers.v1
 {   
@@ -18,6 +19,7 @@ namespace NotificationService.Api.Controllers.v1
     {
         private readonly ISender _sender = sender;
 
+        [SwaggerOperation("Retrieves a list of all platforms registered")]
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] string name, bool? isActive, int? page, int? pageSize)
         {
@@ -34,6 +36,7 @@ namespace NotificationService.Api.Controllers.v1
             return Ok(response);
         }
 
+        [SwaggerOperation("Fetches details of a specific platform by its ID")]
         [HttpGet("{platformId}")]
         public async Task<IActionResult> GetById([FromRoute] string platformId)
         {
@@ -43,6 +46,7 @@ namespace NotificationService.Api.Controllers.v1
             return GetActionResult(response);
         }
 
+        [SwaggerOperation("Retrieves the platform information associated with the current apikey")]
         [HttpGet("me")]
         public IActionResult GetCurrent()
         {
@@ -52,6 +56,7 @@ namespace NotificationService.Api.Controllers.v1
             return Ok(response);
         }
 
+        [SwaggerOperation("Register a new platform for sending notifications")]
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreatePlatformRequestDto request)
@@ -67,6 +72,7 @@ namespace NotificationService.Api.Controllers.v1
             return StatusCode(StatusCodes.Status201Created, response);
         }
 
+        [SwaggerOperation("Deletes a platform identified by its ID")]
         [HttpDelete("{platformId}")]
         public async Task<IActionResult> Delete([FromRoute] string platformId)
         {

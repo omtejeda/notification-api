@@ -7,6 +7,7 @@ using MediatR;
 using NotificationService.Application.Features.Catalogs.Commands.Create;
 using NotificationService.Application.Features.Catalogs.Queries.GetById;
 using NotificationService.Application.Features.Catalogs.Queries.GetAll;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace NotificationService.Api.Controllers.v1
 {   
@@ -17,6 +18,7 @@ namespace NotificationService.Api.Controllers.v1
     {
         private readonly ISender _sender = sender;
 
+        [SwaggerOperation("Retrieves a list of all available catalogs")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CatalogDto>>> GetAll([FromQuery] string name, bool? isActive, 
             string elementHasKey, string elementHasKeyValue, string elementHasLabelKey, string elementHasLabelKeyValue,
@@ -39,6 +41,7 @@ namespace NotificationService.Api.Controllers.v1
             return Ok(response);
         }
 
+        [SwaggerOperation("Fetches details of a specific catalog by its ID")]
         [HttpGet("{catalogId}")]
         public async Task<IActionResult> GetById([FromRoute] string catalogId, [FromQuery] string elementKey, string elementValue, string labelKey, string labelValue)
         {
@@ -56,6 +59,7 @@ namespace NotificationService.Api.Controllers.v1
             return GetActionResult(response);
         }
 
+        [SwaggerOperation("Creates a new catalog with the provided information")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCatalogRequestDto request)
         {
@@ -72,6 +76,7 @@ namespace NotificationService.Api.Controllers.v1
             return StatusCode(StatusCodes.Status201Created, response);
         }
 
+        [SwaggerOperation("Deletes a catalog identified by its ID")]
         [HttpDelete("{catalogId}")]
         public async Task<IActionResult> Delete([FromRoute] string catalogId)
         {

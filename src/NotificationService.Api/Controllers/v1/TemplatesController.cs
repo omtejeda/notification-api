@@ -8,6 +8,7 @@ using NotificationService.Application.Features.Templates.Commands.UpdateContent;
 using NotificationService.Application.Features.Templates.Queries.GetById;
 using NotificationService.Application.Features.Templates.Queries.GetAll;
 using NotificationService.Application.Features.Templates.Queries.GetContent;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace NotificationService.Api.Controllers.v1
 {   
@@ -18,6 +19,7 @@ namespace NotificationService.Api.Controllers.v1
     {
         private readonly ISender _sender = sender;
 
+        [SwaggerOperation("Retrieves a list of all notification templates")]
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] string name, string subject, string platformName, int? page, int? pageSize)
         {
@@ -35,6 +37,7 @@ namespace NotificationService.Api.Controllers.v1
             return Ok(response);
         }
 
+        [SwaggerOperation("Fetches the details of a specific notification template by its ID")]
         [HttpGet("{templateId}")]
         public async Task<IActionResult> GetById([FromRoute] string templateId)
         {
@@ -43,7 +46,7 @@ namespace NotificationService.Api.Controllers.v1
             return GetActionResult(response);
         }
 
-
+        [SwaggerOperation("Previews the content of a specific notification template")]
         [HttpGet("{templateId}/preview")]
         public async Task<ContentResult> GetContent(string templateId)
         {
@@ -60,6 +63,7 @@ namespace NotificationService.Api.Controllers.v1
             };
         }
 
+        [SwaggerOperation("Creates a new notification template with the provided content and metadata")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateTemplateRequestDto request)
         {
@@ -73,6 +77,7 @@ namespace NotificationService.Api.Controllers.v1
             return StatusCode(StatusCodes.Status201Created, response);
         }
 
+        [SwaggerOperation("Deletes a specific notification template by its ID")]
         [HttpDelete("{templateId}")]
         public async Task<IActionResult> Delete([FromRoute] string templateId)
         {
@@ -86,6 +91,7 @@ namespace NotificationService.Api.Controllers.v1
             return Ok();
         }
 
+        [SwaggerOperation("Updates the content of a specific notification template")]
         [HttpPatch("{templateId}/content")]
         public async Task<IActionResult> UpdateContent([FromRoute] string templateId, [FromBody] UpdateTemplateContentRequestDto request)
         {
