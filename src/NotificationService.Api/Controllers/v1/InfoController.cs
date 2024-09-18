@@ -10,6 +10,7 @@ namespace NotificationService.Api.Controllers.v1
     [ApiVersion(ApiVersions.v1)]
     [Route(Routes.ControllerRoute)]
     [AllowAnonymous]
+
     public class InfoController : ApiController
     {
         private readonly IEnvironmentService _environmentService;
@@ -34,6 +35,15 @@ namespace NotificationService.Api.Controllers.v1
             };
 
             var response = BaseResponse<InfoDto>.Success(infoDto);
+            return Ok(response);
+        }
+
+        [HttpGet("codes")]
+        public IActionResult Get([FromQuery] int? code)
+        {
+            var codes = Application.Common.Helpers.EnumHelper.GetCodesAndItsDescription(code);
+
+            var response = BaseResponse<object>.Success(codes);
             return Ok(response);
         }
     }
