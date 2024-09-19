@@ -30,23 +30,12 @@ public class NotificationsService : INotificationsService
         return notification.NotificationId;
     }
 
-    private static IReadOnlyList<string> GetSortItems(string? sort)
-    {
-        if (string.IsNullOrWhiteSpace(sort))
-            return Array.Empty<string>();
-
-        const char delimiter = ',';
-
-        return sort.Contains(delimiter) ?
-            sort.Split(delimiter).ToList() : new List<string> { sort };
-    }
-
     public async Task<BaseResponse<IEnumerable<NotificationDto>>> GetNotifications(Expression<Func<Notification, bool>> filter, string owner, int? page, int? pageSize, string? sort)
     {
         var filterByOwner = PredicateBuilder.New<Notification>().And(x => x.CreatedBy == owner).Expand();
         filter = filter.And(filterByOwner);
 
-        var sortBy = GetSortItems(sort);
+        var sortBy = SortHelper.GetSortFields(sort);
 
         var (notifications, pagination) = await _notificationRepository.FindAsync(filter, page, pageSize, sortBy);
         var notificationsDTO = _mapper.Map<IEnumerable<NotificationDto>>(notifications);
