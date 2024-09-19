@@ -1,6 +1,6 @@
 # Notification API
 ___
-Notification API is an REST API designed to manage the delivery of notifications across any platform or application within your ecosystem.
+The Notification API is a REST API designed for sending notifications, managing notification templates, and easily setting up delivery providers. It also offers centralized tracking and auditing, enabling you to monitor notification delivery, volume, success rates, and more from a single interface. Regardless of whether notifications are sent from different applications using various providers (such as SendGrid, SMTP, or REST API calls), you can track and manage them all from this unified platform.
 
 ## Table of Contents
 ___
