@@ -5,17 +5,16 @@ namespace NotificationService.Domain.ValueObjects;
 
 public class Email : ValueObject
 {
-    public string Value { get; }
-    public string LocalPart => Value[..Value.IndexOf(At)];
-    public string Domain => Value[(Value.IndexOf(At) + 1)..];
-
     private const char At = '@';
     private const char Dot = '.';
     private const char Space = ' ';
     private const int MaxEmailLength = 254;
 
-    public static Email From(string value) => new(value);
+    public string Value { get; }
+    public string LocalPart => Value[..Value.IndexOf(At)];
+    public string Domain => Value[(Value.IndexOf(At) + 1)..];
 
+    public static Email From(string value) => new(value);
     public static implicit operator string(Email email) => email.Value;
     public static implicit operator Email(string value) => From(value);
 
