@@ -6,6 +6,8 @@ namespace NotificationService.Domain.ValueObjects;
 public class Email : ValueObject
 {
     public string Value { get; }
+    public string LocalPart => Value[..Value.IndexOf(At)];
+    public string Domain => Value[(Value.IndexOf(At) + 1)..];
 
     private const char At = '@';
     private const char Dot = '.';
