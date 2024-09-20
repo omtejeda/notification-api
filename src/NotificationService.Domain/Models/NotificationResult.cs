@@ -11,18 +11,18 @@
         public int TriesCount { get; set; } = 0;
 
         public static NotificationResult Ok(int code)
-            => new NotificationResult { Code = code, IsSuccess = true };
+            => new() { Code = code, IsSuccess = true };
 
         public static NotificationResult Ok(int code, string message)
-            => new NotificationResult { Code = code, IsSuccess = true, Message = message };
+            => new() { Code = code, IsSuccess = true, Message = message };
 
         public static NotificationResult Ok(int code, string message, string from, bool savesAttachments)
-            => new NotificationResult { Code = code, IsSuccess = true, Message = message, From = from, SavesAttachments = savesAttachments };
+            => new() { Code = code, IsSuccess = true, Message = message, From = from, SavesAttachments = savesAttachments };
 
         public static NotificationResult Fail(int code)
-            => new NotificationResult { Code = code, IsSuccess = false };
+            => new() { Code = code, IsSuccess = false };
 
         public static NotificationResult Fail(int code, string message)
-            => new NotificationResult { Code = code, IsSuccess = false, Message = message };
+            => new() { Code = code, IsSuccess = false, Message = message };
     }
 }
