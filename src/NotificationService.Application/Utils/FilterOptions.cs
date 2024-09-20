@@ -10,10 +10,10 @@ public record FilterOptions
     public string Sort { get; init; }
     public IReadOnlyList<string> SortFields => SortHelper.GetSortFields(Sort);
     
-    public FilterOptions(int page, int pageSize, string? sort )
+    public FilterOptions(int? page, int? pageSize, string? sort )
     {
-        Page = Math.Max(page, MinPage);
-        PageSize = Math.Min(pageSize, LimitPageSize);
+        Page = Math.Max(page ?? MinPage, MinPage);
+        PageSize = Math.Min(pageSize ?? LimitPageSize, LimitPageSize);
         Sort = string.IsNullOrWhiteSpace(sort) ? string.Empty : sort;
     }
 }
