@@ -125,8 +125,8 @@ public class TemplateService : ITemplateService
             PlatformName = template.PlatformName,
             Language = template.Language,
             ProvidedMetadata = providedMetadata ?? [],
-            Subject = EmailUtil.ReplaceParameters(template.Subject, providedTemplateMetadata),
-            Content = EmailUtil.ReplaceParameters(template.Content, providedTemplateMetadata)
+            Subject = TemplateUtil.ReplaceParameters(template.Subject, providedTemplateMetadata),
+            Content = TemplateUtil.ReplaceParameters(template.Content, providedTemplateMetadata)
         };
 
         return runtimeTemplate;
