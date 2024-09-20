@@ -174,21 +174,20 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : Bas
         return result.IsAcknowledged && result.ModifiedCount == 1;
     }
 
-    private static SortDefinition<TEntity> GetSortDefinition(IReadOnlyList<string> sorts)
+    private static SortDefinition<TEntity> GetSortDefinition(IReadOnlyList<string> sortFields)
     {
         const char descendingPrefix = '-';
 
-        var sortDefinitions = sorts.Select(sort =>
+        var sortDefinitionBuilder = sortFields.Select(sort =>
         {
             var isDescending = sort.StartsWith(descendingPrefix);
-            
             var fieldName = isDescending ? sort[1..] : sort;
 
             return isDescending
                 ? Builders<TEntity>.Sort.Descending(fieldName)
                 : Builders<TEntity>.Sort.Ascending(fieldName);
         });
-
-        return Builders<TEntity>.Sort.Combine(sortDefinitions);
+        
+        return Builders<TEntity>.Sort.Combine(sortDefinitionBuilder);
     }
 }
