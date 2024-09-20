@@ -8,26 +8,6 @@ namespace NotificationService.Application.Utils;
 
 public static class EmailUtil
 {
-    public static string ReplaceParameters(string text, IEnumerable<MetadataDto> metadata)
-    {
-        var finalText = text;
-
-        foreach (var meta in metadata)
-        {
-            finalText = finalText.Replace($"$[{meta.Key}]", meta.Value);
-        }
-        return finalText;
-    }
-
-    public static string ReadFile(string path)
-    {
-        StreamReader str = new StreamReader(path);
-        var text = str.ReadToEnd();
-        str.Close();
-
-        return text;
-    }
-
     public static BodyBuilder AddAttachments(this BodyBuilder builder, List<Microsoft.AspNetCore.Http.IFormFile>? attachments)
     {
         if (attachments is not null)
