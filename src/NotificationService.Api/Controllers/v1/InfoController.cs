@@ -32,8 +32,7 @@ public class InfoController : ApiController
             IsProduction = _environmentService.IsProduction,
             Environment = _environmentService.CurrentEnvironment,
             SystemDate = _dateTimeService.UtcToLocalTime,
-            Gmt = _environmentService.GmtOffset,
-            LimitPageSize = _environmentService.LimitPageSize
+            Gmt = _environmentService.GmtOffset
         };
 
         var response = BaseResponse<InfoDto>.Success(infoDto);
