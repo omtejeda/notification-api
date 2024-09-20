@@ -6,6 +6,7 @@ using LinqKit;
 using System.Linq.Expressions;
 using NotificationService.Application.Contracts.ResponseDtos;
 using System.Diagnostics.CodeAnalysis;
+using NotificationService.Application.Utils;
 namespace NotificationService.Application.Features.Notifications.Queries.GetAll;
 
 public class GetAllNotificationsQueryHandler(INotificationsService notificationsService)
@@ -16,7 +17,7 @@ public class GetAllNotificationsQueryHandler(INotificationsService notifications
     public async Task<BaseResponse<IEnumerable<NotificationDto>>> Handle(GetAllNotificationsQuery request, CancellationToken cancellationToken)
     {
         var predicate = GetPredicateExpression(request);
-        return await _notificationsService.GetNotifications(predicate, request.GetOwner()!, request.Page, request.PageSize, request.Sort);
+        return await _notificationsService.GetNotifications(predicate, request.GetOwner()!, new FilterOptions(request.Page, request.PageSize, request.Sort));
     }
 
     private static Expression<Func<Notification, bool>> GetPredicateExpression(GetAllNotificationsQuery query)

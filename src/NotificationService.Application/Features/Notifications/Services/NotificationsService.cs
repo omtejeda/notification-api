@@ -30,14 +30,12 @@ public class NotificationsService : INotificationsService
         return notification.NotificationId;
     }
 
-    public async Task<BaseResponse<IEnumerable<NotificationDto>>> GetNotifications(Expression<Func<Notification, bool>> filter, string owner, int? page, int? pageSize, string? sort)
+    public async Task<BaseResponse<IEnumerable<NotificationDto>>> GetNotifications(Expression<Func<Notification, bool>> filter, string owner, FilterOptions filterOptions)
     {
         var filterByOwner = PredicateBuilder.New<Notification>().And(x => x.CreatedBy == owner).Expand();
         filter = filter.And(filterByOwner);
 
-        var sortBy = SortHelper.GetSortFields(sort);
-
-        var (notifications, pagination) = await _notificationRepository.FindAsync(filter, page, pageSize, sortBy);
+        var (notifications, pagination) = await _notificationRepository.FindAsync(filter, filterOptions.Page, filterOptions.PageSize, filterOptions.SortFields);
         var notificationsDTO = _mapper.Map<IEnumerable<NotificationDto>>(notifications);
         var paginationDto = _mapper.Map<PaginationDto>(pagination);
 
