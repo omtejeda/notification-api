@@ -7,7 +7,6 @@ public class EnvironmentService : IEnvironmentService
 {
     private const string EnvironmentKey = "ASPNETCORE_ENVIRONMENT";
     private const string GmtTimezoneKey = "GMT_TIMEZONE";
-    private const string LimitPageSizeKey = "LIMIT_PAGE_SIZE";
 
     public string? CurrentEnvironment
         => Environment.GetEnvironmentVariable(EnvironmentKey)?.ToString();
@@ -20,9 +19,6 @@ public class EnvironmentService : IEnvironmentService
     
     public int? GmtOffset
         => GetIntEnvironmentVariable(GmtTimezoneKey);
-    
-    public int? LimitPageSize
-        => GetIntEnvironmentVariable(LimitPageSizeKey);
     
     private static int? GetIntEnvironmentVariable(string name)
     {
