@@ -11,7 +11,7 @@ public record FilterOptions
     public IReadOnlyList<string> SortFields => SortHelper.GetSortFields(Sort);
     
     private FilterOptions() {}
-    public FilterOptions(int? page, int? pageSize, string? sort )
+    public FilterOptions(int? page, int? pageSize, string? sort = null)
     {
         Page = Math.Max(page ?? MinPage, MinPage);
         PageSize = Math.Min(pageSize ?? LimitPageSize, LimitPageSize);
