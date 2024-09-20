@@ -2,7 +2,7 @@ using Microsoft.Extensions.Logging;
 using NotificationService.Common.Dtos;
 using NotificationService.Common.Interfaces;
 
-namespace NotificationService.Application.Features.Platforms.Events;
+namespace NotificationService.Application.Features.Platforms.Events.Created;
 
 /// <summary>
 /// Handles the PlatformCreatedEvent and logs the details of the created platform.

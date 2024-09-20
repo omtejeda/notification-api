@@ -1,7 +1,7 @@
 using NotificationService.Common.Dtos;
 using NotificationService.Common.Interfaces;
 
-namespace NotificationService.Application.Features.Platforms.Events;
+namespace NotificationService.Application.Features.Platforms.Events.Created;
 
 internal sealed class PlatformCreatedEvent : IEvent
 {
