@@ -3,7 +3,6 @@ using SendGrid;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Utils;
 using NotificationService.Domain.Entities;
-using NotificationService.Application.Features.Senders.Models;
 using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;
@@ -45,7 +44,7 @@ public class SendGridProvider(IEnvironmentService environmentService) : IEmailPr
         if (sendGridTemplate.HasTemplate)
         {
             msg.TemplateId = sendGridTemplate.TemplateId;
-            msg.Categories = new List<string> { sendGridTemplate.Category };
+            msg.Categories = [sendGridTemplate.Category];
             msg.SetTemplateData(sendGridTemplate.DynamicTemplateData);
         }
         else

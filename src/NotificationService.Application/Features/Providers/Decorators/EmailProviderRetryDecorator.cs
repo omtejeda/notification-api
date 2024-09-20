@@ -5,7 +5,6 @@ using Polly.Wrap;
 using NotificationService.Domain.Enums;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Features.Providers.Interfaces;
-using NotificationService.Application.Features.Senders.Models;
 
 namespace NotificationService.Application.Features.Providers.Decorators
 {
