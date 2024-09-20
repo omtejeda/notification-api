@@ -1,5 +1,6 @@
 ﻿using NotificationService.Domain.Dtos;
 using NotificationService.Domain.Models;
+using NotificationService.Domain.ValueObjects;
 
 namespace NotificationService.Application.Features.Senders.Models
 {
@@ -7,9 +8,9 @@ namespace NotificationService.Application.Features.Senders.Models
     {
         private EmailMessage() {}
 
-        public string To { get; private set; } = string.Empty;
-        public List<string> Cc { get; private set; } = [];
-        public List<string> Bcc { get; private set; } = [];
+        public Email To { get; private set; } = Email.From(string.Empty);
+        public List<Email> Cc { get; private set; } = [];
+        public List<Email> Bcc { get; private set; } = [];
         public string Subject { get; private set; } = string.Empty;
         public string Content { get; private set; } = string.Empty;
         public List<Attachment> Attachments { get; private set; } = [];

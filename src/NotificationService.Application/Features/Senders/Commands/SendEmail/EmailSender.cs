@@ -11,6 +11,7 @@ using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;
+using NotificationService.Domain.ValueObjects;
 
 namespace NotificationService.Application.Features.Senders.Commands.SendEmail;
 
@@ -63,8 +64,8 @@ public class EmailSender : IEmailSender
         var emailMessage = EmailMessage.Builder
             .NewMessage()
             .To(request.ToEmail)
-            .WithCc(request.CcEmails)
-            .WithBcc(request.BccEmails)
+            .WithCc(request.CcEmails.Select(Email.From))
+            .WithBcc(request.BccEmails.Select(Email.From))
             .WithSubject(runtimeTemplate.Subject)
             .WithContent(runtimeTemplate.Content)
             .AddHeader(EmailUtil.Parameters.NotificationIdHeader,notification.NotificationId)

@@ -3,6 +3,7 @@ using NotificationService.Domain.Entities;
 using SendGrid.Helpers.Mail;
 using NotificationService.Domain.Dtos;
 using NotificationService.Application.Features.Templates.Models;
+using NotificationService.Domain.ValueObjects;
 
 namespace NotificationService.Application.Utils;
 
@@ -65,15 +66,15 @@ public static class EmailUtil
         return result;
     }
 
-    public static void ThrowIfEmailNotAllowed(string? environment, Provider provider, string? to, IEnumerable<string?> cc, IEnumerable<string?> bcc)
+    public static void ThrowIfEmailNotAllowed(string? environment, Provider provider, Email? to, IEnumerable<Email?> cc, IEnumerable<Email?> bcc)
     {   
-        Guard.CanSendToDestination(provider, to, environment);
+        Guard.CanSendToDestination(provider, to!, environment);
 
         foreach (var ccEmail in cc)
-            Guard.CanSendToDestination(provider, ccEmail, environment);
+            Guard.CanSendToDestination(provider, ccEmail!, environment);
 
         foreach (var bccEmail in bcc)
-            Guard.CanSendToDestination(provider, bccEmail, environment);
+            Guard.CanSendToDestination(provider, bccEmail!, environment);
     }
 
     internal static class Parameters

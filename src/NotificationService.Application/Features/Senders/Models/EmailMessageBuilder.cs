@@ -1,5 +1,6 @@
 ﻿using NotificationService.Domain.Dtos;
 using NotificationService.Domain.Models;
+using NotificationService.Domain.ValueObjects;
 
 namespace NotificationService.Application.Features.Senders.Models
 {
@@ -12,19 +13,19 @@ namespace NotificationService.Application.Features.Senders.Models
             public static Builder NewMessage()
                 => new();
 
-            public Builder To(string to)
+            public Builder To(Email to)
             {
                 _emailContent.To = to;
                 return this;
             }
 
-            public Builder WithCc(IEnumerable<string> cc)
+            public Builder WithCc(IEnumerable<Email> cc)
             {
                 _emailContent.Cc.AddRange(cc);
                 return this;
             }
 
-            public Builder WithBcc(IEnumerable<string> bcc)
+            public Builder WithBcc(IEnumerable<Email> bcc)
             {
                 _emailContent.Bcc.AddRange(bcc);
                 return this;
@@ -62,7 +63,6 @@ namespace NotificationService.Application.Features.Senders.Models
 
                 return this;
             }
-
             
             public Builder UsingMetadata(IEnumerable<MetadataDto> providedMetadata)
             {
