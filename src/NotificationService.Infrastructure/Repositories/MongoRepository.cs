@@ -16,10 +16,8 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : Bas
 {
     private readonly IMongoCollection<TEntity> _collection;
     private readonly IGridFSBucket _bucket;
-    private readonly Expression<Func<TEntity, bool>> _nonDeletedRecords;
 
     private readonly IDateTimeService _dateTimeService;
-    private readonly IEnvironmentService _environmentService;
 
     public MongoRepository(
         IMongoDatabase database,
@@ -32,15 +30,11 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : Bas
         _bucket = new GridFSBucket(database, new GridFSBucketOptions { BucketName = collectionName });
 
         _dateTimeService = dateTimeService;
-        _environmentService = environmentService;
-
-        _nonDeletedRecords = PredicateBuilder.New<TEntity>().And(x => x.Deleted != true).Expand();
     }
 
     public async Task<(IEnumerable<TEntity>, Pagination)> FindAsync(Expression<Func<TEntity, bool>> filter, FilterOptions filterOptions) 
     {
-        filter = filter.And(_nonDeletedRecords);
-        var query = _collection.Find(filter);
+        var query = GetFilteredCollection(filter);
 
         if (filterOptions.SortFields.Any())
             query = query.Sort(GetSortDefinition(filterOptions.SortFields));
@@ -63,14 +57,12 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : Bas
 
     public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filter)
     {
-        filter = filter.And(_nonDeletedRecords);
-        return _collection.Find(filter).ToEnumerable();
+        return GetFilteredCollection(filter).ToEnumerable();
     }
 
     public async Task<TEntity> FindOneAsync(Expression<Func<TEntity, bool>> filter)
     {
-        filter = filter.And(_nonDeletedRecords);
-        var result = await _collection.Find(filter).FirstOrDefaultAsync();
+        var result = await GetFilteredCollection(filter).FirstOrDefaultAsync();
         return result;
     }
 
@@ -182,5 +174,17 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : Bas
         });
         
         return Builders<TEntity>.Sort.Combine(sortDefinitionBuilder);
+    }
+
+    private IFindFluent<TEntity, TEntity> GetFilteredCollection(Expression<Func<TEntity, bool>> filter)
+    {
+        var nonDeletedRecords = PredicateBuilder.New<TEntity>()
+            .And(x => x.Deleted != true);
+
+        var combinedFilter = filter != null
+        ? nonDeletedRecords.And(filter).Expand()
+        : nonDeletedRecords;
+
+        return _collection.Find(combinedFilter);
     }
 }
