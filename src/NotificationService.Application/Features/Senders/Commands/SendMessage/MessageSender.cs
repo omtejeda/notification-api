@@ -9,6 +9,7 @@ using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Utils;
 using NotificationService.Application.Features.Providers.Interfaces;
+using NotificationService.Domain.Models;
 
 namespace NotificationService.Application.Features.Senders.Commands.SendMessage;
 
@@ -58,7 +59,7 @@ public class MessageSender : IMessageSender
         ArgumentNullException.ThrowIfNull(provider?.Settings?.HttpClient, nameof(provider.Settings.HttpClient));
         ArgumentNullException.ThrowIfNull(request?.Template?.Metadata, nameof(request.Template.Metadata));
 
-        var (success, code, message) = await _httpClientProvider
+        NotificationResult notificationResult = await _httpClientProvider
             .SendHttpClient(httpClientSetting: provider?.Settings?.HttpClient!,
                 templateContent: runtimeTemplate.Content, 
                 requestMetadata: request.Template.Metadata,
@@ -67,20 +68,24 @@ public class MessageSender : IMessageSender
         var notification = Notification.Builder
                 .NewNotification()
                 .OfType(request.NotificationType)
-                .From(provider?.Settings?.HttpClient.Host)
                 .To(request.ToDestination)
                 .WithProviderName(request.ProviderName)
                 .HasParentNotificationId(request.ParentNotificationId)
                 .WithRuntimeTemplate(runtimeTemplate)
                 .WithUserRequest(request)
-                .WasSuccess(success)
-                .WithResultMessage(message)
                 .CreatedBy(owner)
                 .WithDate(_dateTimeService.UtcToLocalTime)
                 .Build();
-
+        
+        notification.AddNotificationResult(notificationResult);
         await _notificationsService.RegisterNotification(notification);
         
-        return new BaseResponse<NotificationSentResponseDto>(code, message, new NotificationSentResponseDto { NotificationId = notification.NotificationId });
+        return new BaseResponse<NotificationSentResponseDto>(
+            notificationResult.Code,
+            notificationResult.Message,
+            new NotificationSentResponseDto
+            {
+                NotificationId = notification.NotificationId
+            });
     }
 }

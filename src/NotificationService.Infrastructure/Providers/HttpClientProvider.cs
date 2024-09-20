@@ -8,6 +8,7 @@ using AutoMapper;
 using NotificationService.Domain.Dtos;
 using NotificationService.Common.Resources;
 using NotificationService.Application.Features.Providers.Interfaces;
+using NotificationService.Domain.Models;
 
 namespace NotificationService.Infrastructure.Providers;
 
@@ -23,7 +24,7 @@ public class HttpClientProvider : IHttpClientProvider
         _mapper = mapper;
     }
 
-    public async Task<Tuple<bool, int, string>> SendHttpClient(HttpClientSetting httpClientSetting, string templateContent, ICollection<MetadataDto> requestMetadata, string requestToDestination)
+    public async Task<NotificationResult> SendHttpClient(HttpClientSetting httpClientSetting, string templateContent, ICollection<MetadataDto> requestMetadata, string requestToDestination)
     {
         HttpUtil.CheckHTTPClientSettings(httpClientSetting.Host, httpClientSetting.Uri, httpClientSetting.Verb);
         
@@ -69,22 +70,28 @@ public class HttpClientProvider : IHttpClientProvider
             var message = $"Sent succesfully using HTTPClient. Status code: {response.StatusCode} with message: {responseJson}";
             var success = response.IsSuccessStatusCode;
 
-            if (success)
-                _logger.LogInformation("HTTP request sent succesfully {statusCode} {message}", response.StatusCode, responseJson);
-            else
+            if (!success)
             {
                 code = (int) ResultCode.HttpRequestNotSent;
                 message = $"HTTP Request failed. Status code: {response.StatusCode} with message: {responseJson}";
                 _logger.LogWarning("HTTP request sent but failed. {statusCode} {message}", response.StatusCode, responseJson);
+                
+                return NotificationResult.Fail(code, message);
             }
-            
-            return (success, code, message).ToTuple();
+
+            _logger.LogInformation("HTTP request sent succesfully {statusCode} {message}", response.StatusCode, responseJson);
+            return NotificationResult.Ok(
+                code,
+                message,
+                from: fullPath,
+                savesAttachments: false);
         }
         catch (Exception e)
         {
             var errorMsg = $"An error ocurred trying to send HTTP request {e.Message}"; 
             _logger.LogError("An error ocurred trying to send HTTP request {message}", e.Message);
-            return (success: false, code: (int) ResultCode.HttpRequestNotSent, message: errorMsg).ToTuple();
+            
+            return NotificationResult.Fail((int)ResultCode.HttpRequestNotSent, errorMsg);
         }
     }
 

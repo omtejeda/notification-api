@@ -9,6 +9,7 @@ using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Utils;
 using NotificationService.Application.Features.Providers.Interfaces;
+using NotificationService.Domain.Models;
 
 namespace NotificationService.Application.Features.Senders.Commands.SendSms;
 
@@ -52,10 +53,11 @@ public class SmsSender : ISmsSender
         Guard.ProviderIsNotNull(provider, request.ProviderName);
         Guard.ProviderIsSuitable(provider.Type, ProviderType.HttpClient);
         Guard.CanSendToDestination(provider, request.ToPhoneNumber, _environmentService.CurrentEnvironment);
+        
         ArgumentNullException.ThrowIfNull(provider?.Settings?.HttpClient, nameof(provider.Settings.HttpClient));
         ArgumentNullException.ThrowIfNull(request?.Template?.Metadata, nameof(request.Template.Metadata));
 
-        var (success, code, message) = await _httpClientProvider
+        NotificationResult notificationResult = await _httpClientProvider
             .SendHttpClient(httpClientSetting: provider.Settings.HttpClient,
                 templateContent: runtimeTemplate.Content, 
                 requestMetadata: request.Template.Metadata,
@@ -64,20 +66,24 @@ public class SmsSender : ISmsSender
         var notification = Notification.Builder
                 .NewNotification()
                 .OfType(NotificationType.SMS)
-                .From(provider?.Settings?.HttpClient.Host)
                 .To(request.ToPhoneNumber)
                 .WithProviderName(request.ProviderName)
                 .HasParentNotificationId(request.ParentNotificationId)
                 .WithRuntimeTemplate(runtimeTemplate)
                 .WithUserRequest(request)
-                .WasSuccess(success)
-                .WithResultMessage(message)
                 .CreatedBy(owner)
                 .WithDate(_dateTimeService.UtcToLocalTime)
                 .Build();
-
+        
+        notification.AddNotificationResult(notificationResult);
         await _notificationsService.RegisterNotification(notification);
         
-        return new BaseResponse<NotificationSentResponseDto>(code, message, new NotificationSentResponseDto { NotificationId = notification.NotificationId });
+        return new BaseResponse<NotificationSentResponseDto>(
+            notificationResult.Code,
+            notificationResult.Message,
+            new NotificationSentResponseDto
+            {
+                NotificationId = notification.NotificationId
+            });
     }
 }
