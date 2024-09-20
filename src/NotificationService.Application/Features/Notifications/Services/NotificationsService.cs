@@ -34,8 +34,8 @@ public class NotificationsService : INotificationsService
     {
         var filterByOwner = PredicateBuilder.New<Notification>().And(x => x.CreatedBy == owner).Expand();
         filter = filter.And(filterByOwner);
-
-        var (notifications, pagination) = await _notificationRepository.FindAsync(filter, filterOptions.Page, filterOptions.PageSize, filterOptions.SortFields);
+        
+        var (notifications, pagination) = await _notificationRepository.FindAsync(filter, filterOptions);
         var notificationsDTO = _mapper.Map<IEnumerable<NotificationDto>>(notifications);
         var paginationDto = _mapper.Map<PaginationDto>(pagination);
 

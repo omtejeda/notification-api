@@ -6,6 +6,7 @@ using NotificationService.Domain.Enums;
 using LinqKit;
 using System.Linq;
 using System.Linq.Expressions;
+using NotificationService.Application.Utils;
 namespace NotificationService.Application.Features.Providers.Queries.GetAll;
 
 public class GetAllProvidersQueryHandler(IProviderService providerService)
@@ -16,7 +17,7 @@ public class GetAllProvidersQueryHandler(IProviderService providerService)
     public async Task<BaseResponse<IEnumerable<ProviderDto>>> Handle(GetAllProvidersQuery request, CancellationToken cancellationToken)
     {
         var predicate = GetPredicateExpression(request);
-        return await _providerService.GetProviders(predicate, request.Owner, request.Page, request.PageSize);
+        return await _providerService.GetProviders(predicate, request.Owner, new FilterOptions(request.Page, request.PageSize, null));
     }
 
     private Expression<Func<Provider, bool>> GetPredicateExpression(GetAllProvidersQuery query)

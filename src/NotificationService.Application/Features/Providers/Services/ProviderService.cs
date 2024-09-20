@@ -66,12 +66,12 @@ public class ProviderService : IProviderService
         return BaseResponse<ProviderDto>.Success(providerDto);
     }
 
-    public async Task<BaseResponse<IEnumerable<ProviderDto>>> GetProviders(Expression<Func<Provider, bool>> filter, string owner, int? page, int? pageSize)
+    public async Task<BaseResponse<IEnumerable<ProviderDto>>> GetProviders(Expression<Func<Provider, bool>> filter, string owner, FilterOptions filterOptions)
     {
         var filterByOwner = PredicateBuilder.New<Provider>().And(x => (x.CreatedBy == owner || x.IsPublic == true)).Expand();
         filter = filter.And(filterByOwner);
 
-        var (providers, pagination) = await _providerRepository.FindAsync(filter, page, pageSize);
+        var (providers, pagination) = await _providerRepository.FindAsync(filter, filterOptions);
         var providersDto = _mapper.Map<IEnumerable<ProviderDto>>(providers);
         var paginationDto = _mapper.Map<PaginationDto>(pagination);
 

@@ -59,7 +59,7 @@ public class CatalogService : ICatalogService
         var filterByOwner = PredicateBuilder.New<Catalog>().And(x => x.CreatedBy == owner).Expand();
         filter = filter.And(filterByOwner);
 
-        var (catalogs, pagination) = await _catalogRepository.FindAsync(filter, page, pageSize);
+        var (catalogs, pagination) = await _catalogRepository.FindAsync(filter, new FilterOptions(page, pageSize, null));
         var catalogsDto = _mapper.Map<IEnumerable<CatalogDto>>(catalogs);
         var paginationDto = _mapper.Map<PaginationDto>(pagination);
 

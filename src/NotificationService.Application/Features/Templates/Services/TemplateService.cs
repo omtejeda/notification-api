@@ -77,18 +77,18 @@ public class TemplateService : ITemplateService
 
     private async Task<Template?> FindByCompositeKeyAsync(string name, string platformName, Language language, string owner)
     {
-        var (templates, _) = await _repository.FindAsync(x => x.Name == name && x.PlatformName == platformName && x.CreatedBy == owner);
+        var (templates, _) = await _repository.FindAsync(x => x.Name == name && x.PlatformName == platformName && x.CreatedBy == owner, FilterOptions.Default());
         var template = templates.FirstOrDefault(x => x.Language == language);
 
         return template;
     }
 
-    public async Task<BaseResponse<IEnumerable<TemplateDto>>> GetTemplates(Expression<Func<Template, bool>> filter, string owner, int? page, int? pageSize)
+    public async Task<BaseResponse<IEnumerable<TemplateDto>>> GetTemplates(Expression<Func<Template, bool>> filter, string owner, FilterOptions filterOptions)
     {
         var filterByOwner = PredicateBuilder.New<Template>().And(x => x.CreatedBy == owner).Expand();
         filter = filter.And(filterByOwner);
         
-        var (templates, pagination) = await _repository.FindAsync(filter, page, pageSize);
+        var (templates, pagination) = await _repository.FindAsync(filter, filterOptions);
         var templatesDto = _mapper.Map<IEnumerable<TemplateDto>>(templates);
         var paginationDto = _mapper.Map<PaginationDto>(pagination);
 
@@ -109,7 +109,7 @@ public class TemplateService : ITemplateService
     public async Task<RuntimeTemplate> GetRuntimeTemplate(string name, string platformName, Language language, List<Domain.Dtos.MetadataDto>? providedMetadata, string owner, NotificationType notificationType)
     {
         var (templates, _) = await _repository
-            .FindAsync(t => t.Name == name && t.PlatformName == platformName);
+            .FindAsync(t => t.Name == name && t.PlatformName == platformName, FilterOptions.Default());
         
         var template = templates
             .FirstOrDefault(x => x.Language == language);

@@ -5,6 +5,7 @@ using NotificationService.Domain.Entities;
 using LinqKit;
 using System.Linq;
 using System.Linq.Expressions;
+using NotificationService.Application.Utils;
 namespace NotificationService.Application.Features.Platforms.Queries.GetAll;
 
 public class GetAllPlatformsQueryHandler(IPlatformService platformService)
@@ -15,7 +16,7 @@ public class GetAllPlatformsQueryHandler(IPlatformService platformService)
     public async Task<BaseResponse<IEnumerable<PlatformDto>>> Handle(GetAllPlatformsQuery request, CancellationToken cancellationToken)
     {
         var predicate = GetPredicateExpression(request);
-        return await _platformService.GetPlatforms(predicate, request.Owner, request.Page, request.PageSize);
+        return await _platformService.GetPlatforms(predicate, request.Owner, new FilterOptions(request.Page, request.PageSize, null));
     }
 
     private Expression<Func<Platform, bool>> GetPredicateExpression(GetAllPlatformsQuery query)

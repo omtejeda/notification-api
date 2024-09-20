@@ -5,6 +5,7 @@ using NotificationService.Domain.Entities;
 using LinqKit;
 using System.Linq;
 using System.Linq.Expressions;
+using NotificationService.Application.Utils;
 namespace NotificationService.Application.Features.Templates.Queries.GetAll;
 
 public class GetAllTemplatesQueryHandler(ITemplateService templateService)
@@ -15,7 +16,7 @@ public class GetAllTemplatesQueryHandler(ITemplateService templateService)
     public async Task<BaseResponse<IEnumerable<TemplateDto>>> Handle(GetAllTemplatesQuery request, CancellationToken cancellationToken)
     {
         var predicate = GetPredicateExpression(request);
-        return await _templateService.GetTemplates(predicate, request.Owner!, request.Page, request.PageSize);
+        return await _templateService.GetTemplates(predicate, request.Owner!, new FilterOptions(request.Page, request.PageSize, null));
     }
 
     private Expression<Func<Template, bool>> GetPredicateExpression(GetAllTemplatesQuery query)

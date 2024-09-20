@@ -1,4 +1,6 @@
+using System.Data.Entity.Infrastructure;
 using System.Linq.Expressions;
+using NotificationService.Application.Utils;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 
@@ -6,7 +8,7 @@ namespace NotificationService.Application.Contracts.Interfaces.Repositories;
 
 public interface IRepository<TEntity> where TEntity : BaseEntity
 {
-    Task<(IEnumerable<TEntity>, Pagination)> FindAsync(Expression<Func<TEntity, bool>> filter, int? page = null, int? pageSize = null, IReadOnlyList<string>? sortsBy = null);
+    Task<(IEnumerable<TEntity>, Pagination)> FindAsync(Expression<Func<TEntity, bool>> filter, FilterOptions filterOptions);
     IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filter);
     IEnumerable<TProjected> FindProjection<TProjected>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TProjected>> projection);
     Task<IEnumerable<TProjected>> FindProjectionAsync<TProjected>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TProjected>> projection);

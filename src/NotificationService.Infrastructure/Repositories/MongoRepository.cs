@@ -8,6 +8,7 @@ using NotificationService.Infrastructure.Repositories.Helpers;
 using LinqKit;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Common.Interfaces;
+using NotificationService.Application.Utils;
 
 namespace NotificationService.Infrastructure.Repositories;
 
@@ -33,24 +34,24 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : Bas
         _environmentService = environmentService;
     }
 
-    public async Task<(IEnumerable<TEntity>, Pagination)> FindAsync(Expression<Func<TEntity, bool>> filter, int? page = null, int? pageSize = null, IReadOnlyList<string> sortsBy = null) 
+    public async Task<(IEnumerable<TEntity>, Pagination)> FindAsync(Expression<Func<TEntity, bool>> filter, FilterOptions filterOptions) 
     {
         filter = filter.And(_nonDeletedRecords);
         var query = _collection.Find(filter);
 
-        if (sortsBy?.Any() == true)
-            query = query.Sort(GetSortDefinition(sortsBy));
+        if (filterOptions.SortFields.Any())
+            query = query.Sort(GetSortDefinition(filterOptions.SortFields));
         
         var totalCount = await query.CountDocumentsAsync();
 
         var documents = await query.Paginate(
-            page,
-            GetPageSizeBasedOnLimit(pageSize))
+            filterOptions.Page,
+            filterOptions.PageSize)
             .ToListAsync();
 
         var pagination = new Pagination(
-            page,
-            GetPageSizeBasedOnLimit(pageSize),
+            filterOptions.Page,
+            filterOptions.PageSize,
             documents.Count,
             (int)totalCount);
 
@@ -189,16 +190,5 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : Bas
         });
 
         return Builders<TEntity>.Sort.Combine(sortDefinitions);
-    }
-
-    private int? GetPageSizeBasedOnLimit(int? pageSize)
-    {
-        int? limitPageSize = _environmentService.LimitPageSize;
-        pageSize ??= limitPageSize;
-        
-        if (limitPageSize == default(int?)) return pageSize;
-        if (pageSize > limitPageSize) return limitPageSize;
-        
-        return pageSize;
     }
 }

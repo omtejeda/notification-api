@@ -57,12 +57,12 @@ public class PlatformService : IPlatformService
         await _repository.DeleteOneAsync(x => x.PlatformId == platformId);
     }
 
-    public async Task<BaseResponse<IEnumerable<PlatformDto>>> GetPlatforms(Expression<Func<Platform, bool>> filter, string owner, int? page, int? pageSize)
+    public async Task<BaseResponse<IEnumerable<PlatformDto>>> GetPlatforms(Expression<Func<Platform, bool>> filter, string owner, FilterOptions filterOptions)
     {
         var filterByOwner = PredicateBuilder.New<Platform>().And(x => x.CreatedBy == owner).Expand();
         filter = filter.And(filterByOwner);
 
-        var (platforms, pagination) = await _repository.FindAsync(filter, page, pageSize);
+        var (platforms, pagination) = await _repository.FindAsync(filter, filterOptions);
         var platformsDto = _mapper.Map<IEnumerable<PlatformDto>>(platforms);
         var paginationDto = _mapper.Map<PaginationDto>(pagination);
 
