@@ -11,8 +11,8 @@ public class SendEmailRequestDto : ISendRequest
     [Required]
     public string ToEmail { get; set; } = string.Empty;
 
-    public ICollection<string> CcEmails { get; set; } = new List<string>();
-    public ICollection<string> BccEmails { get; set; } = new List<string>();
+    public ICollection<string> CcEmails { get; set; } = [];
+    public ICollection<string> BccEmails { get; set; } = [];
 
     [Required]
     public string ProviderName { get; set; } = string.Empty;
