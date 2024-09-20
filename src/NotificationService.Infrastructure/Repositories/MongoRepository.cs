@@ -21,17 +21,20 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : Bas
     private readonly IDateTimeService _dateTimeService;
     private readonly IEnvironmentService _environmentService;
 
-    public MongoRepository(IMongoDatabase database, IDateTimeService dateTimeService, IEnvironmentService environmentService)
+    public MongoRepository(
+        IMongoDatabase database,
+        IDateTimeService dateTimeService,
+        IEnvironmentService environmentService)
     {
         var collectionName = string.Concat(typeof(TEntity).Name, 's');
 
         _collection = database.GetCollection<TEntity>(collectionName);
         _bucket = new GridFSBucket(database, new GridFSBucketOptions { BucketName = collectionName });
 
-        _nonDeletedRecords = PredicateBuilder.New<TEntity>().And(x => x.Deleted != true).Expand();
-
         _dateTimeService = dateTimeService;
         _environmentService = environmentService;
+
+        _nonDeletedRecords = PredicateBuilder.New<TEntity>().And(x => x.Deleted != true).Expand();
     }
 
     public async Task<(IEnumerable<TEntity>, Pagination)> FindAsync(Expression<Func<TEntity, bool>> filter, FilterOptions filterOptions) 
@@ -134,8 +137,10 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : Bas
     {
         var now = _dateTimeService.UtcToLocalTime;
 
-        if (isUpdate) entity.ModifiedOn = now;
-        else entity.CreatedOn ??= now;
+        if (isUpdate)
+            entity.ModifiedOn = now;
+        else
+            entity.CreatedOn ??= now;
     }
 
     private void AddTimestamp(ICollection<TEntity> entities, bool isUpdate = false)
