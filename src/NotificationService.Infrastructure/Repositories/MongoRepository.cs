@@ -67,18 +67,6 @@ public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : Bas
         return _collection.Find(filter).ToEnumerable();
     }
 
-    public IEnumerable<TProjected> FindProjection<TProjected>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TProjected>> projection)
-    {
-        filter = filter.And(_nonDeletedRecords);
-        return _collection.Find(filter).Project(projection).ToEnumerable();
-    }
-
-    public async Task<IEnumerable<TProjected>> FindProjectionAsync<TProjected>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TProjected>> projection)
-    {
-        filter = filter.And(_nonDeletedRecords);
-        return await _collection.Find(filter).Project(projection).ToListAsync();
-    }
-
     public async Task<TEntity> FindOneAsync(Expression<Func<TEntity, bool>> filter)
     {
         filter = filter.And(_nonDeletedRecords);

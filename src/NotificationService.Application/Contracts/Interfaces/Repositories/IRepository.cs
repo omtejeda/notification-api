@@ -10,8 +10,6 @@ public interface IRepository<TEntity> where TEntity : BaseEntity
 {
     Task<(IEnumerable<TEntity>, Pagination)> FindAsync(Expression<Func<TEntity, bool>> filter, FilterOptions filterOptions);
     IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filter);
-    IEnumerable<TProjected> FindProjection<TProjected>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TProjected>> projection);
-    Task<IEnumerable<TProjected>> FindProjectionAsync<TProjected>(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, TProjected>> projection);
     Task<TEntity> FindOneAsync(Expression<Func<TEntity, bool>> filter);
     Task<TEntity> InsertOneAsync(TEntity entity);
     Task InsertManyAsync(ICollection<TEntity> entities);
