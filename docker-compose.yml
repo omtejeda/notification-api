@@ -23,6 +23,5 @@ services:
       DB_CONNECTION_STRING: mongodb://admin:admin@db
       DB_NAME: Notification
       GMT_TIMEZONE: -4
-      LIMIT_PAGE_SIZE: 50
     depends_on:
       - db
