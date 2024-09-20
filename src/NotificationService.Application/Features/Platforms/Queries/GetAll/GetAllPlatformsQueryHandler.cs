@@ -16,7 +16,7 @@ public class GetAllPlatformsQueryHandler(IPlatformService platformService)
     public async Task<BaseResponse<IEnumerable<PlatformDto>>> Handle(GetAllPlatformsQuery request, CancellationToken cancellationToken)
     {
         var predicate = GetPredicateExpression(request);
-        return await _platformService.GetPlatforms(predicate, request.Owner, new FilterOptions(request.Page, request.PageSize, null));
+        return await _platformService.GetPlatforms(predicate, request.Owner, new FilterOptions(request.Page, request.PageSize));
     }
 
     private Expression<Func<Platform, bool>> GetPredicateExpression(GetAllPlatformsQuery query)

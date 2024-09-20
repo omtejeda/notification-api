@@ -16,7 +16,7 @@ public class GetAllTemplatesQueryHandler(ITemplateService templateService)
     public async Task<BaseResponse<IEnumerable<TemplateDto>>> Handle(GetAllTemplatesQuery request, CancellationToken cancellationToken)
     {
         var predicate = GetPredicateExpression(request);
-        return await _templateService.GetTemplates(predicate, request.Owner!, new FilterOptions(request.Page, request.PageSize, null));
+        return await _templateService.GetTemplates(predicate, request.Owner!, new FilterOptions(request.Page, request.PageSize));
     }
 
     private Expression<Func<Template, bool>> GetPredicateExpression(GetAllTemplatesQuery query)

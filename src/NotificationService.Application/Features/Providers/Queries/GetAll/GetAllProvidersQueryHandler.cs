@@ -17,7 +17,7 @@ public class GetAllProvidersQueryHandler(IProviderService providerService)
     public async Task<BaseResponse<IEnumerable<ProviderDto>>> Handle(GetAllProvidersQuery request, CancellationToken cancellationToken)
     {
         var predicate = GetPredicateExpression(request);
-        return await _providerService.GetProviders(predicate, request.Owner, new FilterOptions(request.Page, request.PageSize, null));
+        return await _providerService.GetProviders(predicate, request.Owner, new FilterOptions(request.Page, request.PageSize));
     }
 
     private Expression<Func<Provider, bool>> GetPredicateExpression(GetAllProvidersQuery query)
