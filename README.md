@@ -138,11 +138,13 @@ __Example: Registering a User Registration Template__
     "subject": "User registration confirmation",
     "language": "en",
     "content": "Hi $[Username], thanks for your registration in our app!",
-	"metadata": [{
-        "key": "Username",
-        "description": "User's name",
-        "isRequired": true
-    }]
+	"metadata": [
+        {
+            "key": "Username",
+            "description": "User's name",
+            "isRequired": true
+        }
+    ]
 }
 ```
 
