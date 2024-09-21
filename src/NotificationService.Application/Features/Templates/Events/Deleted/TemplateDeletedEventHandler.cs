@@ -4,7 +4,7 @@ using NotificationService.Common.Interfaces;
 namespace NotificationService.Application.Features.Templates.Events.Deleted;
 
 /// <summary>
-/// Handles the PlatformDeletedEvent and logs the details of the created platform.
+/// Handles the TemplateDeletedEvent and logs the details of the created platform.
 /// This handler is designed to log information about the event while managing any potential issues 
 /// internally, ensuring that any errors during logging or data handling do not affect the overall process.
 /// </summary>
