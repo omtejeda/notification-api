@@ -6,6 +6,7 @@ using NotificationService.Application.Utils;
 using NotificationService.Domain.Models;
 using NotificationService.Domain.Dtos;
 using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Common.Mappings;
 

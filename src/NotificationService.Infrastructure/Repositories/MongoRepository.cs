@@ -2,13 +2,13 @@ using System.Linq.Expressions;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
-using NotificationService.Domain.Models;
 using NotificationService.Infrastructure.Repositories.Helpers;
 using LinqKit;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Utils;
 using NotificationService.SharedKernel.Domain;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Infrastructure.Repositories;
 

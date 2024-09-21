@@ -1,4 +1,4 @@
-namespace NotificationService.Domain.Models;
+namespace NotificationService.Application.Common.Models;
 
 public class Pagination
 {
