@@ -16,13 +16,7 @@ public class CreateTemplateCommandHandler(ITemplateService templateService, IMed
     {
         var result = await _templateService.CreateTemplate(request.RequestDto, request.Owner);
 
-        await PublishEvent(result.Data);
+        await _mediator.Publish(new TemplateCreatedEvent(result.Data));
         return result;
-    }
-
-    private async Task PublishEvent(TemplateDto? data)
-    {
-        var eventToPublish = new TemplateCreatedEvent(data);
-        await _mediator.Publish(eventToPublish);
     }
 }
