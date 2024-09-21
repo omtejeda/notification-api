@@ -6,6 +6,7 @@ using NotificationService.Api.Attributes;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.SharedKernel.Resources;
 using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Api.Middlewares;
 

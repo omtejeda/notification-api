@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Exceptions;
-using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Api.Middlewares;
 

@@ -9,7 +9,7 @@ using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Utils;
 using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.Domain.Models;
-using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Features.Senders.Commands.SendSms;
 

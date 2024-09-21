@@ -8,6 +8,7 @@ using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Utils;
 using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Features.Notifications.Services;
 

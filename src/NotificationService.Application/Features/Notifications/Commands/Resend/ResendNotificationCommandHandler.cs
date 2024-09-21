@@ -6,7 +6,7 @@ using NotificationService.Application.Interfaces;
 using NotificationService.Application.Utils;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
-using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Features.Notifications.Commands.Resend;
 

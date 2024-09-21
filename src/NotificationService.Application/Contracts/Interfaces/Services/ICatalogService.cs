@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Contracts.ResponseDtos;
-using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Contracts.Interfaces.Services;
 

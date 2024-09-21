@@ -1,10 +1,10 @@
 using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Contracts.ResponseDtos;
-using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Features.Catalogs.Queries.GetById;
 
-public record GetCatalogByIdQuery :IQuery<BaseResponse<CatalogDto>>
+public record GetCatalogByIdQuery : IQuery<BaseResponse<CatalogDto>>
 {    
     public string CatalogId { get; init; } = string.Empty;
     public string? ElementKey { get; init; }

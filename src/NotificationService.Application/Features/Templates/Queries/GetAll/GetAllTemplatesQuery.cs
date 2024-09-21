@@ -1,4 +1,5 @@
 using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 using NotificationService.SharedKernel.Interfaces;
 
 namespace NotificationService.Application.Features.Templates.Queries.GetAll;

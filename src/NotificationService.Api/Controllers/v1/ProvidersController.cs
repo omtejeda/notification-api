@@ -9,7 +9,7 @@ using NotificationService.Application.Features.Providers.Queries.GetById;
 using NotificationService.Application.Features.Providers.Queries.GetAll;
 using MediatR;
 using Swashbuckle.AspNetCore.Annotations;
-using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Api.Controllers.v1;
 

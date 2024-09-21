@@ -10,6 +10,7 @@ using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.SharedKernel.Resources;
 using NotificationService.Application.Utils;
 using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Features.Providers.Services;
 

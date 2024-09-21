@@ -5,6 +5,7 @@ using LinqKit;
 using System.Linq.Expressions;
 using NotificationService.Application.Utils;
 using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Features.Platforms.Queries.GetAll;
 

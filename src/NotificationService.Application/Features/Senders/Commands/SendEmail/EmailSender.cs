@@ -10,7 +10,7 @@ using NotificationService.Domain.Models;
 using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.Domain.ValueObjects;
-using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Features.Senders.Commands.SendEmail;
 

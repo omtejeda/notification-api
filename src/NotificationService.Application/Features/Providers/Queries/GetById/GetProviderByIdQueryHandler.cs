@@ -1,6 +1,7 @@
 using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Features.Providers.Queries.GetById;
 

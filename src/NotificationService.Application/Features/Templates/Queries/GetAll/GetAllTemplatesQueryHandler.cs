@@ -2,10 +2,10 @@ using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Domain.Entities;
 using LinqKit;
-using System.Linq;
 using System.Linq.Expressions;
 using NotificationService.Application.Utils;
 using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 namespace NotificationService.Application.Features.Templates.Queries.GetAll;
 
 public class GetAllTemplatesQueryHandler(ITemplateService templateService)

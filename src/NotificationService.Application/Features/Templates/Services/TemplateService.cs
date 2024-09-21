@@ -10,6 +10,7 @@ using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using System.Diagnostics.CodeAnalysis;
 using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Features.Templates.Services;
 

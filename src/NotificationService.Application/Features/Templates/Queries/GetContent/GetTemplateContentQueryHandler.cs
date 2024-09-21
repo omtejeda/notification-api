@@ -2,6 +2,7 @@ using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Features.Templates.Queries.GetContent;
 
