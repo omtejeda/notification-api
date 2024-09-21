@@ -7,28 +7,24 @@ using NotificationService.Application.Utils;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Common.Models;
+using MediatR;
+using NotificationService.Application.Features.Notifications.Events.Resent;
 
 namespace NotificationService.Application.Features.Notifications.Commands.Resend;
 
-public class ResendNotificationCommandHandler
-    : ICommandHandler<ResendNotificationCommand, BaseResponse<NotificationSentResponseDto>>
+public class ResendNotificationCommandHandler(
+    IRepository<Notification> notificationRepository,
+    ISmsSender smsSender,
+    IEmailSender emailSender,
+    IMessageSender messageSender,
+    IMediator mediator)
+        : ICommandHandler<ResendNotificationCommand, BaseResponse<NotificationSentResponseDto>>
 {
-    private readonly IRepository<Notification> _notificationRepository;
-    private readonly IEmailSender _emailSender;
-    private readonly ISmsSender _smsSender;
-    private readonly IMessageSender _messageSender;
-
-    public ResendNotificationCommandHandler(
-        IRepository<Notification> notificationRepository,
-        ISmsSender smsSender,
-        IEmailSender emailSender,
-        IMessageSender messageSender)
-    {
-        _notificationRepository = notificationRepository;
-        _emailSender = emailSender;
-        _smsSender = smsSender;
-        _messageSender = messageSender;
-    }
+    private readonly IRepository<Notification> _notificationRepository = notificationRepository;
+    private readonly IEmailSender _emailSender = emailSender;
+    private readonly ISmsSender _smsSender = smsSender;
+    private readonly IMessageSender _messageSender = messageSender;
+    private readonly IMediator _mediator = mediator;
 
     public async Task<BaseResponse<NotificationSentResponseDto>> Handle(ResendNotificationCommand request, CancellationToken cancellationToken)
     {
@@ -52,6 +48,7 @@ public class ResendNotificationCommandHandler
                 await _messageSender.SendMessageAsync((SendMessageRequestDto) notification.Request, request.Owner)
         };
         
+        await _mediator.Publish(new NotificationResentEvent(request.NotificationId, response.Response.Success));
         return response;
     }
 
