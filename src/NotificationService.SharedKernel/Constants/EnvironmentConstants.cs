@@ -1,4 +1,4 @@
-namespace NotificationService.SharedKernel.Utils;
+namespace NotificationService.SharedKernel.Constants;
 
 public static class EnvironmentConstants
 {

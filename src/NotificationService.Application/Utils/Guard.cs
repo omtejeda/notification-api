@@ -4,7 +4,7 @@ using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Exceptions;
 using NotificationService.SharedKernel.Resources;
-using NotificationService.SharedKernel.Utils;
+using NotificationService.SharedKernel.Constants;
 using System.Diagnostics.CodeAnalysis;
 
 namespace NotificationService.Application.Utils;
