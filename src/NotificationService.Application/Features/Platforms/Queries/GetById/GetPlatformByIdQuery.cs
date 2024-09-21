@@ -1,4 +1,4 @@
-using NotificationService.Common.Interfaces;
+using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Application.Features.Platforms.Queries.GetById;

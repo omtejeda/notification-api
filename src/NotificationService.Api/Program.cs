@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.Extensions.DependencyInjection;
 using NotificationService.Api.Middlewares;
 using NotificationService.Application;
 using NotificationService.Infrastructure;
-using NotificationService.Common.Interfaces;
+using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Common.Services;
 using NotificationService.Api.Extensions;
 using NotificationService.Api;

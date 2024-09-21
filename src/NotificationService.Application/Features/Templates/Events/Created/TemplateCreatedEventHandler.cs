@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Logging;
 using NotificationService.Application.Common.Dtos;
-using NotificationService.Common.Interfaces;
+using NotificationService.SharedKernel.Interfaces;
 
 namespace NotificationService.Application.Features.Templates.Events.Created;
 

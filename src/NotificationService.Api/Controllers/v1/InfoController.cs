@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
 using NotificationService.Api.Attributes;
-using NotificationService.Common.Interfaces;
+using NotificationService.SharedKernel.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using NotificationService.Application.Common.Dtos;
 

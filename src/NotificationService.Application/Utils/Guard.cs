@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Http;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Exceptions;
-using NotificationService.Common.Resources;
-using NotificationService.Common.Utils;
+using NotificationService.SharedKernel.Resources;
+using NotificationService.SharedKernel.Utils;
 using System.Diagnostics.CodeAnalysis;
 
 namespace NotificationService.Application.Utils;

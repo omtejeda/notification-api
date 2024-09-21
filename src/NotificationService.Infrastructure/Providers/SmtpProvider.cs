@@ -4,7 +4,7 @@ using NotificationService.Domain.Enums;
 using NotificationService.Application.Utils;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
-using NotificationService.Common.Interfaces;
+using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 

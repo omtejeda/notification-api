@@ -14,7 +14,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NotificationService.Application\NotificationService.Application.csproj"/>
-    <ProjectReference Include="..\NotificationService.Common\NotificationService.Common.csproj"/>
+    <ProjectReference Include="..\NotificationService.SharedKernel\NotificationService.SharedKernel.csproj"/>
     <ProjectReference Include="..\NotificationService.Infrastructure\NotificationService.Infrastructure.csproj"/>
     <ProjectReference Include="..\NotificationService.Domain\NotificationService.Domain.csproj"/>
   </ItemGroup>

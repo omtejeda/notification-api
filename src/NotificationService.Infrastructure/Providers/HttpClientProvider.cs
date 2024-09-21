@@ -6,7 +6,7 @@ using NotificationService.Application.Utils;
 using System.Text;
 using AutoMapper;
 using NotificationService.Domain.Dtos;
-using NotificationService.Common.Resources;
+using NotificationService.SharedKernel.Resources;
 using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.Domain.Models;
 

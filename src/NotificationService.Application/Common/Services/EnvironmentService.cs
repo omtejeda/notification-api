@@ -1,5 +1,5 @@
-using NotificationService.Common.Interfaces;
-using NotificationService.Common.Utils;
+using NotificationService.SharedKernel.Interfaces;
+using NotificationService.SharedKernel.Utils;
 
 namespace NotificationService.Application.Common.Services;
 

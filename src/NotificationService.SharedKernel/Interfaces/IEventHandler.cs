@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace NotificationService.Common.Interfaces;
+namespace NotificationService.SharedKernel.Interfaces;
 
 public interface IEventHandler<TEvent> : INotificationHandler<TEvent> where TEvent : IEvent
 {

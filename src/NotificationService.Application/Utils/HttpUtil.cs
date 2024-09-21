@@ -1,6 +1,6 @@
 using NotificationService.Application.Exceptions;
 using NotificationService.Domain.Entities;
-using NotificationService.Common.Resources;
+using NotificationService.SharedKernel.Resources;
 using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Application.Utils;

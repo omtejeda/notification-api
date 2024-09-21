@@ -1,4 +1,4 @@
-namespace NotificationService.Common.Interfaces
+namespace NotificationService.SharedKernel.Interfaces
 {
     // Marker interface
     public interface INoDataResponse

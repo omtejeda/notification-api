@@ -1,4 +1,4 @@
-using NotificationService.Common.Interfaces;
+using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using MediatR;
 using NotificationService.Application.Features.Platforms.Events.Deleted;

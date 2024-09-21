@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Logging;
-using NotificationService.Common.Interfaces;
+using NotificationService.SharedKernel.Interfaces;
 
 namespace NotificationService.Application.Features.Platforms.Events.Deleted;
 

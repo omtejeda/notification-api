@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Applica
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Infrastructure", "NotificationService.Infrastructure\NotificationService.Infrastructure.csproj", "{50E56C42-1F51-4A4C-852D-FEE6263837A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Common", "NotificationService.Common\NotificationService.Common.csproj", "{3432DE31-5012-450B-9B08-1EB7593A73EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.SharedKernel", "NotificationService.SharedKernel\NotificationService.SharedKernel.csproj", "{3432DE31-5012-450B-9B08-1EB7593A73EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationService.Domain", "NotificationService.Domain\NotificationService.Domain.csproj", "{D12974F6-9157-4432-9291-6453D282E4AF}"
 EndProject

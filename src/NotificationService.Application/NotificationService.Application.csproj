@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\NotificationService.Common\NotificationService.Common.csproj"/>
+    <ProjectReference Include="..\NotificationService.SharedKernel\NotificationService.SharedKernel.csproj"/>
     <ProjectReference Include="..\NotificationService.Domain\NotificationService.Domain.csproj"/>
   </ItemGroup>
   <ItemGroup>

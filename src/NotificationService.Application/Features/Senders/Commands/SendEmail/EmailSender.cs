@@ -7,7 +7,7 @@ using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Interfaces;
 using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Domain.Models;
-using NotificationService.Common.Interfaces;
+using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.Domain.ValueObjects;
 using NotificationService.Application.Common.Dtos;

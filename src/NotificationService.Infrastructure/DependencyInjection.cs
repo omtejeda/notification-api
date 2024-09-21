@@ -17,6 +17,7 @@ public static class DependencyInjection
                 .GetDatabase(Environment.GetEnvironmentVariable("DB_NAME"))
                 .InitializeMappings()
         );
+                
         services.AddScoped(typeof(IRepository<>), typeof(MongoRepository<>));
 
         services.AddTransient<IEmailProvider, SendGridProvider>();

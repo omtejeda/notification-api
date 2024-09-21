@@ -1,4 +1,4 @@
-using NotificationService.Common.Interfaces;
+using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Features.Senders.Dtos;
