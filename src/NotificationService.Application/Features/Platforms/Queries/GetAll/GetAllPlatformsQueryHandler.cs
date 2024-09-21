@@ -1,11 +1,11 @@
 using NotificationService.Common.Interfaces;
-using NotificationService.Common.Dtos;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Domain.Entities;
 using LinqKit;
-using System.Linq;
 using System.Linq.Expressions;
 using NotificationService.Application.Utils;
+using NotificationService.Application.Common.Dtos;
+
 namespace NotificationService.Application.Features.Platforms.Queries.GetAll;
 
 public class GetAllPlatformsQueryHandler(IPlatformService platformService)

@@ -1,6 +1,6 @@
-using NotificationService.Common.Dtos;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Contracts.RequestDtos;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Application.Features.Providers.Commands.Create;
 

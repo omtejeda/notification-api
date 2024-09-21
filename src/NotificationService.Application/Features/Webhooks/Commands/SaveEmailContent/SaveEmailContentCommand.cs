@@ -1,6 +1,4 @@
-using NotificationService.Common.Dtos;
 using NotificationService.Common.Interfaces;
-using NotificationService.Application.Contracts.ResponseDtos;
 
 namespace NotificationService.Application.Features.Webhooks.Commands.SaveEmailContent;
 

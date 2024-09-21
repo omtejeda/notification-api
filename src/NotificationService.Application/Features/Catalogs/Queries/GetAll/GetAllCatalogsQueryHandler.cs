@@ -1,10 +1,10 @@
 using NotificationService.Common.Interfaces;
-using NotificationService.Common.Dtos;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Domain.Entities;
 using LinqKit;
 using System.Linq.Expressions;
 using NotificationService.Application.Contracts.ResponseDtos;
+using NotificationService.Application.Common.Dtos;
 namespace NotificationService.Application.Features.Catalogs.Queries.GetAll;
 
 public class GetAllCatalogsQueryHandler(ICatalogService catalogService)

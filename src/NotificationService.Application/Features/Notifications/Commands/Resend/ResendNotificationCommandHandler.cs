@@ -4,10 +4,9 @@ using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Application.Interfaces;
 using NotificationService.Application.Utils;
-using NotificationService.Common.Dtos;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
-using System.Reflection.Metadata.Ecma335;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Application.Features.Notifications.Commands.Resend;
 

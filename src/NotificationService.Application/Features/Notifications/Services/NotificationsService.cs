@@ -1,6 +1,5 @@
 using AutoMapper;
 using LinqKit;
-using NotificationService.Common.Dtos;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using System.Linq.Expressions;
@@ -8,6 +7,7 @@ using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Utils;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Application.Features.Notifications.Services;
 

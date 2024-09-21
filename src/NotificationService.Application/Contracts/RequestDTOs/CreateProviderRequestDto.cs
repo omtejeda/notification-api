@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using NotificationService.Common.Dtos;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Application.Contracts.RequestDtos;
 

@@ -1,11 +1,11 @@
 using AutoMapper;
 using NotificationService.Domain.Entities;
-using NotificationService.Common.Dtos;
 using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Utils;
 using NotificationService.Domain.Models;
 using NotificationService.Domain.Dtos;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Application.Common.Mappings;
 

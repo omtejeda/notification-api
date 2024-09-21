@@ -1,4 +1,4 @@
-using NotificationService.Common.Dtos;
+using NotificationService.Application.Common.Dtos;
 using NotificationService.Common.Interfaces;
 
 namespace NotificationService.Application.Features.Templates.Events.Created;

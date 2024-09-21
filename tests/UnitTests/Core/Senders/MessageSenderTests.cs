@@ -3,7 +3,7 @@ using NotificationService.Application.Providers.Factories.Interfaces;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Senders;
 using NotificationService.Domain.Enums;
-using NotificationService.Common.Dtos;
+using NotificationService.Application.Common.Dtos;
 using NotificationService.Domain.Models;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Senders.Dtos;

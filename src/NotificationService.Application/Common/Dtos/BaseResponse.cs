@@ -1,6 +1,6 @@
 using NotificationService.Domain.Enums;
 
-namespace NotificationService.Common.Dtos;
+namespace NotificationService.Application.Common.Dtos;
 
 public class BaseResponse<T> where T : class
 {

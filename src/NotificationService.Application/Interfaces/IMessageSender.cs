@@ -1,6 +1,6 @@
 using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Application.Contracts.ResponseDtos;
-using NotificationService.Common.Dtos;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Application.Interfaces;
 

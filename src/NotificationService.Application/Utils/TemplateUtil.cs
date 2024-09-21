@@ -16,6 +16,16 @@ public static class TemplateUtil
         return content.ToString();
     }
 
+    public static bool ContainsAllPlaceholders(string text, IEnumerable<MetadataDto> metadata)
+    {
+        foreach(var placeholder in metadata)
+        {
+            if (!text.Contains(FormatPlaceholder(placeholder.Key)))
+                return false;
+        }
+        return true;
+    }
+
     private static string FormatPlaceholder(string key)
         => $"$[{key}]";
 }

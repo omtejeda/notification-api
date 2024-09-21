@@ -5,8 +5,8 @@ using NotificationService.Domain.Entities;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.ResponseDtos;
-using NotificationService.Common.Dtos;
 using NotificationService.Application.Utils;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Application.Features.Catalogs.Services;
 

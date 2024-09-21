@@ -4,12 +4,12 @@ using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Interfaces;
-using NotificationService.Common.Dtos;
 using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Utils;
 using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.Domain.Models;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Application.Features.Senders.Commands.SendMessage;
 

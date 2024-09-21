@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
 using NotificationService.Application.Contracts.RequestDtos;
-using NotificationService.Common.Dtos;
 using NotificationService.Application.Features.Providers.Commands.Create;
 using NotificationService.Application.Features.Providers.Commands.Delete;
 using NotificationService.Application.Features.Providers.Commands.AddToWhiteList;
@@ -10,6 +9,7 @@ using NotificationService.Application.Features.Providers.Queries.GetById;
 using NotificationService.Application.Features.Providers.Queries.GetAll;
 using MediatR;
 using Swashbuckle.AspNetCore.Annotations;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Api.Controllers.v1;
 

@@ -1,8 +1,8 @@
 using NotificationService.Common.Interfaces;
-using NotificationService.Common.Dtos;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using MediatR;
 using NotificationService.Application.Features.Platforms.Events.Created;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Application.Features.Platforms.Commands.Create;
 

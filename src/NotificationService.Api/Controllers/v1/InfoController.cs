@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
 using NotificationService.Api.Attributes;
-using NotificationService.Common.Dtos;
 using NotificationService.Common.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Api.Controllers.v1;
 

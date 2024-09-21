@@ -4,12 +4,12 @@ using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
 using LinqKit;
 using NotificationService.Application.Utils;
-using NotificationService.Common.Dtos;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using System.Diagnostics.CodeAnalysis;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Application.Features.Templates.Services;
 

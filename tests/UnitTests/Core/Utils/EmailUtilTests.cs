@@ -1,5 +1,5 @@
 using NotificationService.Application.Utils;
-using NotificationService.Common.Dtos;
+using NotificationService.Application.Common.Dtos;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Exceptions;

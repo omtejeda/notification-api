@@ -3,9 +3,9 @@ using NotificationService.Domain.Entities;
 using NotificationService.Common.Interfaces;
 using NotificationService.Domain.Enums;
 using NotificationService.Api.Attributes;
-using NotificationService.Common.Dtos;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Common.Resources;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Api.Middlewares;
 
@@ -19,7 +19,7 @@ public class AuthMiddleware
         _next = next;
     }
 
-    private bool SkipAuthorization(HttpContext context)
+    private static bool SkipAuthorization(HttpContext context)
     {
         return context
             ?.GetEndpoint()
@@ -27,9 +27,15 @@ public class AuthMiddleware
             ?.GetMetadata<AllowAnonymousAttribute>() is not null;
     }
 
+    private bool IsHealthCheckEndpoint(HttpContext context)
+    {
+        var path = "/api/health";
+        return context.Request.Path.StartsWithSegments(path); 
+    }
+
     public async Task InvokeAsync(HttpContext context)
     {
-        if (SkipAuthorization(context))
+        if (SkipAuthorization(context) || IsHealthCheckEndpoint(context))
         {
             await _next(context);
             return;

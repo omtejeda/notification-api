@@ -1,5 +1,4 @@
 using NotificationService.Common.Interfaces;
-using NotificationService.Common.Dtos;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Domain.Entities;
 using LinqKit;
@@ -7,6 +6,7 @@ using System.Linq.Expressions;
 using NotificationService.Application.Contracts.ResponseDtos;
 using System.Diagnostics.CodeAnalysis;
 using NotificationService.Application.Utils;
+using NotificationService.Application.Common.Dtos;
 namespace NotificationService.Application.Features.Notifications.Queries.GetAll;
 
 public class GetAllNotificationsQueryHandler(INotificationsService notificationsService)

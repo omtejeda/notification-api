@@ -5,12 +5,12 @@ using NotificationService.Application.Utils;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Interfaces;
-using NotificationService.Common.Dtos;
 using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Domain.Models;
 using NotificationService.Common.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.Domain.ValueObjects;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Application.Features.Senders.Commands.SendEmail;
 

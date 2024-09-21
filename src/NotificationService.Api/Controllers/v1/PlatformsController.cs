@@ -2,13 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
 using NotificationService.Api.Attributes;
 using NotificationService.Application.Contracts.RequestDtos;
-using NotificationService.Common.Dtos;
 using MediatR;
 using NotificationService.Application.Features.Platforms.Commands.Create;
 using NotificationService.Application.Features.Platforms.Commands.Delete;
 using NotificationService.Application.Features.Platforms.Queries.GetById;
 using NotificationService.Application.Features.Platforms.Queries.GetAll;
 using Swashbuckle.AspNetCore.Annotations;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Api.Controllers.v1;
 

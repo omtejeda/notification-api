@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using NotificationService.Domain.Enums;
-using NotificationService.Common.Dtos;
+using NotificationService.Application.Common.Dtos;
 using NotificationService.Application.Exceptions;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;

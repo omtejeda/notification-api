@@ -1,6 +1,6 @@
 using NotificationService.Common.Interfaces;
-using NotificationService.Common.Dtos;
 using NotificationService.Application.Contracts.ResponseDtos;
+using NotificationService.Application.Common.Dtos;
 
 namespace NotificationService.Application.Features.Catalogs.Queries.GetById;
 

@@ -1,4 +1,4 @@
-namespace NotificationService.Common.Dtos;
+namespace NotificationService.Application.Common.Dtos;
 
 public class InfoDto
 {

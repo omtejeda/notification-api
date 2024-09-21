@@ -1,7 +1,7 @@
 using NotificationService.Domain.Enums;
 using NotificationService.Common.Utils;
 
-namespace NotificationService.Common.Dtos;
+namespace NotificationService.Application.Common.Dtos;
 
 public class ResponseDto
 {
