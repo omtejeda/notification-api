@@ -3,7 +3,6 @@ using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Domain.Entities;
 using LinqKit;
 using System.Linq.Expressions;
-using NotificationService.Application.Utils;
 using NotificationService.Application.Common.Dtos;
 using NotificationService.Application.Common.Models;
 

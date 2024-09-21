@@ -3,7 +3,6 @@ using NotificationService.Domain.Enums;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Contracts.RequestDtos;
-using NotificationService.Application.Utils;
 using NotificationService.Application.Common.Dtos;
 using NotificationService.Application.Common.Models;
 

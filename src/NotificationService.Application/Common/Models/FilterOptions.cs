@@ -1,4 +1,6 @@
-namespace NotificationService.Application.Utils;
+using NotificationService.Application.Utils;
+
+namespace NotificationService.Application.Common.Models;
 
 public record FilterOptions
 {
