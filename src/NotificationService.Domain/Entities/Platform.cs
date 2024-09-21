@@ -1,4 +1,4 @@
-using NotificationService.SharedKernel;
+using NotificationService.SharedKernel.Domain;
 
 namespace NotificationService.Domain.Entities;
 

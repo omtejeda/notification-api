@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using NotificationService.Application.Utils;
 using NotificationService.Domain.Models;
-using NotificationService.SharedKernel;
+using NotificationService.SharedKernel.Domain;
 
 namespace NotificationService.Application.Contracts.Interfaces.Repositories;
 

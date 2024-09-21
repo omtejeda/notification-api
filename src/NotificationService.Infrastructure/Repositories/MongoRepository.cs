@@ -8,7 +8,7 @@ using LinqKit;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Utils;
-using NotificationService.SharedKernel;
+using NotificationService.SharedKernel.Domain;
 
 namespace NotificationService.Infrastructure.Repositories;
 

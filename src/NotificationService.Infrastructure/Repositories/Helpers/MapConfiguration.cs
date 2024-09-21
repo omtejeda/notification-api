@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Bson.Serialization.Conventions;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Features.Senders.Dtos;
-using NotificationService.SharedKernel;
+using NotificationService.SharedKernel.Domain;
 
 namespace NotificationService.Infrastructure.Repositories.Helpers;
 
