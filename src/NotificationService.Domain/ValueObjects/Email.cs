@@ -1,5 +1,5 @@
-using NotificationService.Domain.Common;
 using NotificationService.Domain.Exceptions;
+using NotificationService.SharedKernel;
 
 namespace NotificationService.Domain.ValueObjects;
 

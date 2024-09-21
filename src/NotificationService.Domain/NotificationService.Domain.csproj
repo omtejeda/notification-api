@@ -2,6 +2,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NotificationService.SharedKernel\NotificationService.SharedKernel.csproj" />
+  </ItemGroup>
   
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>

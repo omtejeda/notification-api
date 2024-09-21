@@ -1,6 +1,8 @@
+using NotificationService.SharedKernel;
+
 namespace NotificationService.Domain.Entities;
 
-public class Platform : BaseEntity
+public class Platform : EntityBase
 {
     public string PlatformId { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;

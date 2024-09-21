@@ -1,12 +1,11 @@
-using System.Data.Entity.Infrastructure;
 using System.Linq.Expressions;
 using NotificationService.Application.Utils;
-using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
+using NotificationService.SharedKernel;
 
 namespace NotificationService.Application.Contracts.Interfaces.Repositories;
 
-public interface IRepository<TEntity> where TEntity : BaseEntity
+public interface IRepository<TEntity> where TEntity : EntityBase
 {
     Task<(IEnumerable<TEntity>, Pagination)> FindAsync(Expression<Func<TEntity, bool>> filter, FilterOptions filterOptions);
     IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> filter);

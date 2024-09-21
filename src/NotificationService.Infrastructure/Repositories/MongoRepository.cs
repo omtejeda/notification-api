@@ -2,17 +2,17 @@ using System.Linq.Expressions;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
-using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 using NotificationService.Infrastructure.Repositories.Helpers;
 using LinqKit;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Utils;
+using NotificationService.SharedKernel;
 
 namespace NotificationService.Infrastructure.Repositories;
 
-public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
+public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : EntityBase
 {
     private readonly IMongoCollection<TEntity> _collection;
     private readonly IGridFSBucket _bucket;

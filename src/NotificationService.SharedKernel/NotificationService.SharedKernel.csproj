@@ -21,7 +21,4 @@
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NotificationService.Domain\NotificationService.Domain.csproj" />
-  </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-namespace NotificationService.Domain.Common;
+namespace NotificationService.SharedKernel;
 
 public abstract class ValueObject : IEquatable<ValueObject>
 {

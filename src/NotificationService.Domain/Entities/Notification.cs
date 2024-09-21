@@ -1,9 +1,10 @@
 using NotificationService.Domain.Enums;
 using NotificationService.Domain.Models;
+using NotificationService.SharedKernel;
 
 namespace NotificationService.Domain.Entities;
 
-public class Notification : BaseEntity
+public class Notification : EntityBase
 {
     public string NotificationId { get; private set; } = string.Empty;
     public NotificationType Type { get; private set; }

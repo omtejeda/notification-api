@@ -4,9 +4,9 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Bson.Serialization.Conventions;
-using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Features.Senders.Dtos;
+using NotificationService.SharedKernel;
 
 namespace NotificationService.Infrastructure.Repositories.Helpers;
 
@@ -17,7 +17,7 @@ public static class MapConfiguration
         ConventionRegistry.Register("camelCase", new ConventionPack { new CamelCaseElementNameConvention() }, t => true);
         ConventionRegistry.Register("enumString", new ConventionPack { new EnumRepresentationConvention(BsonType.String) }, t => true);
 
-        BsonClassMap.RegisterClassMap<BaseEntity>(cm =>
+        BsonClassMap.RegisterClassMap<EntityBase>(cm =>
         {
             cm.AutoMap();
             cm.SetIgnoreExtraElements(true);

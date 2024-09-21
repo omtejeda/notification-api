@@ -1,7 +1,9 @@
 using NotificationService.Domain.Enums;
+using NotificationService.SharedKernel;
+
 namespace NotificationService.Domain.Entities;
 
-public class Provider : BaseEntity
+public class Provider : EntityBase
 {
     public string ProviderId { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;

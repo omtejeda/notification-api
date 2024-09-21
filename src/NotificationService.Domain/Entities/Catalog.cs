@@ -1,6 +1,8 @@
+using NotificationService.SharedKernel;
+
 namespace NotificationService.Domain.Entities;
 
-public class Catalog : BaseEntity
+public class Catalog : EntityBase
 {
     public string CatalogId { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
