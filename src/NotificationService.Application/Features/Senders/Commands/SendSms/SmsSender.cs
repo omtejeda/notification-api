@@ -13,30 +13,20 @@ using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Features.Senders.Commands.SendSms;
 
-public class SmsSender : ISmsSender
+public class SmsSender(
+    INotificationsService notificationsService,
+    IRepository<Provider> providerRepository,
+    IHttpClientProvider httpClientProvider,
+    ITemplateService templateService,
+    IDateTimeService dateTimeService,
+    IEnvironmentService environmentService) : ISmsSender
 {
-    private readonly INotificationsService _notificationsService;
-    private readonly IRepository<Provider> _providerRepository;
-    private readonly IHttpClientProvider _httpClientProvider;
-    private readonly ITemplateService _templateService;
-    private readonly IDateTimeService _dateTimeService;
-    private readonly IEnvironmentService _environmentService;
-
-    public SmsSender(
-        INotificationsService notificationsService,
-        IRepository<Provider> providerRepository,
-        IHttpClientProvider httpClientProvider,
-        ITemplateService templateService,
-        IDateTimeService dateTimeService,
-        IEnvironmentService environmentService)
-    {
-        _notificationsService = notificationsService;
-        _providerRepository = providerRepository;
-        _httpClientProvider = httpClientProvider;
-        _templateService = templateService;
-        _dateTimeService = dateTimeService;
-        _environmentService = environmentService;
-    }
+    private readonly INotificationsService _notificationsService = notificationsService;
+    private readonly IRepository<Provider> _providerRepository = providerRepository;
+    private readonly IHttpClientProvider _httpClientProvider = httpClientProvider;
+    private readonly ITemplateService _templateService = templateService;
+    private readonly IDateTimeService _dateTimeService = dateTimeService;
+    private readonly IEnvironmentService _environmentService = environmentService;
 
     public async Task<BaseResponse<NotificationSentResponseDto>> SendSmsAsync(SendSmsRequestDto request, string owner)
     {

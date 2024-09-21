@@ -14,24 +14,16 @@ using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Features.Senders.Commands.SendEmail;
 
-public class EmailSender : IEmailSender
+public class EmailSender(
+    ITemplateService templateService,
+    INotificationsService notificationsService,
+    IEmailProviderFactory emailProviderFactory,
+    IDateTimeService dateTimeService) : IEmailSender
 {
-    private readonly ITemplateService _templateService;
-    private readonly INotificationsService _notificationsService;
-    private readonly IEmailProviderFactory _emailProviderFactory;
-    private readonly IDateTimeService _dateTimeService;
-
-    public EmailSender(
-        ITemplateService templateService, 
-        INotificationsService notificationsService,
-        IEmailProviderFactory emailProviderFactory,
-        IDateTimeService dateTimeService)
-    {
-        _templateService = templateService;
-        _notificationsService = notificationsService;
-        _emailProviderFactory = emailProviderFactory;
-        _dateTimeService = dateTimeService;
-    }
+    private readonly ITemplateService _templateService = templateService;
+    private readonly INotificationsService _notificationsService = notificationsService;
+    private readonly IEmailProviderFactory _emailProviderFactory = emailProviderFactory;
+    private readonly IDateTimeService _dateTimeService = dateTimeService;
 
     public async Task<BaseResponse<NotificationSentResponseDto>> SendEmailAsync(SendEmailRequestDto request, string owner, List<IFormFile>? attachments = null)
     {
