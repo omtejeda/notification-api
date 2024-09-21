@@ -20,7 +20,7 @@ internal class NotificationResentEventHandler(ILogger<NotificationResentEventHan
             ? "success"
             : "failed";
             
-            _logger.LogInformation("Notification with Id {platformId} has been resent with {result} result", notification.NotificationId, result);
+            _logger.LogInformation("Notification with Id {notificationId} has been resent with {result} result", notification.NotificationId, result);
         }
         catch (Exception ex)
         {
