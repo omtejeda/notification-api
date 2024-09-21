@@ -17,7 +17,6 @@ public class CreatePlatformCommandHandler(IPlatformService platformService, IMed
         var result = await _platformService.CreatePlatform(request.Name, request.Description, request.Owner);
 
         await _mediator.Publish(new PlatformCreatedEvent(result.Data));
-        
         return result;
     }
 }
