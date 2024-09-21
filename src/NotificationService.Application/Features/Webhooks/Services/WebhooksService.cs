@@ -18,30 +18,30 @@ public class WebhooksService(IRepository<Notification> notificationRepository) :
     /// <param name="subject"></param>
     /// <param name="headers"></param>
     /// <returns>A boolean task indicating whether was successful</returns>
-    public async Task<bool> SaveEmailContent(string content, string subject, string headers)
+    public async Task<(bool, string)> SaveEmailContent(string content, string subject, string headers)
     {
         if (content is null || subject is null || headers is null)
-            return false;
+            return (false, string.Empty);
 
         var headersDict = ParseHeaders(headers);
         if (headersDict is null)
-            return false;
+            return (false, string.Empty);
 
         var notificationId = headersDict[Parameters.NotificationIdHeader];
         if (notificationId is null)
-            return false;
+            return (false, string.Empty);
 
         var notification = await _notificationRepository.FindOneAsync(x => x.NotificationId == notificationId);
 
         if (notification is null)
-            return false;
+            return (false, string.Empty);
 
         var documentId = notification.Id;
 
         notification.Update(subject, content);
 
         var result = await _notificationRepository.UpdateOneByIdAsync(documentId, notification);
-        return result;
+        return (result, notificationId);
     }
 
     public static Dictionary<string, string> ParseHeaders(string headersData)
