@@ -19,8 +19,7 @@ public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : E
 
     public GenericRepository(
         IMongoDatabase database,
-        IDateTimeService dateTimeService,
-        IEnvironmentService environmentService)
+        IDateTimeService dateTimeService)
     {
         var collectionName = GetCollectionName(typeof(TEntity));
         
