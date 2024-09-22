@@ -18,7 +18,7 @@ public static class DependencyInjection
                 .InitializeMappings()
         );
                 
-        services.AddScoped(typeof(IRepository<>), typeof(MongoRepository<>));
+        services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
         services.AddTransient<IEmailProvider, SendGridProvider>();
         services.AddTransient<IEmailProvider, SmtpProvider>();

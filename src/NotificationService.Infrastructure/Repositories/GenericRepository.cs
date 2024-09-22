@@ -11,14 +11,14 @@ using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Infrastructure.Repositories;
 
-public class MongoRepository<TEntity> : IRepository<TEntity> where TEntity : EntityBase
+public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : EntityBase
 {
     private readonly IMongoCollection<TEntity> _collection;
     private readonly IGridFSBucket _bucket;
 
     private readonly IDateTimeService _dateTimeService;
 
-    public MongoRepository(
+    public GenericRepository(
         IMongoDatabase database,
         IDateTimeService dateTimeService,
         IEnvironmentService environmentService)
