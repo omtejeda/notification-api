@@ -5,7 +5,7 @@ using NotificationService.SharedKernel.Interfaces;
 namespace NotificationService.Application.Features.Templates.Events.Created;
 
 /// <summary>
-/// Handles the TemplateCreatedEvent and logs the details of the created platform.
+/// Handles the TemplateCreatedEvent and logs the details of the created template.
 /// This handler is designed to log information about the event while managing any potential issues 
 /// internally, ensuring that any errors during logging or data handling do not affect the overall process.
 /// </summary>

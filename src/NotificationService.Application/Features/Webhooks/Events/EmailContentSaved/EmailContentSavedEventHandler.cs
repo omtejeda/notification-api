@@ -4,7 +4,7 @@ using NotificationService.SharedKernel.Interfaces;
 namespace NotificationService.Application.Features.Webhooks.Events.EmailContentSaved;
 
 /// <summary>
-/// Handles the EmailContentSavedEvent and logs the details of the created platform.
+/// Handles the EmailContentSavedEvent and logs the details of the saved email content.
 /// This handler is designed to log information about the event while managing any potential issues 
 /// internally, ensuring that any errors during logging or data handling do not affect the overall process.
 /// </summary>
