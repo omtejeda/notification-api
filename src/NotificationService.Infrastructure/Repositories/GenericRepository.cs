@@ -15,7 +15,6 @@ public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : E
 {
     private readonly IMongoCollection<TEntity> _collection;
     private readonly IGridFSBucket _bucket;
-
     private readonly IDateTimeService _dateTimeService;
 
     public GenericRepository(
@@ -23,11 +22,10 @@ public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : E
         IDateTimeService dateTimeService,
         IEnvironmentService environmentService)
     {
-        var collectionName = string.Concat(typeof(TEntity).Name, 's');
-
+        var collectionName = GetCollectionName(typeof(TEntity));
+        
         _collection = database.GetCollection<TEntity>(collectionName);
         _bucket = new GridFSBucket(database, new GridFSBucketOptions { BucketName = collectionName });
-
         _dateTimeService = dateTimeService;
     }
 
@@ -185,5 +183,15 @@ public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : E
         : nonDeletedRecords;
 
         return _collection.Find(combinedFilter);
+    }
+
+    public static string GetCollectionName(Type entityType)
+    {
+        var entityName = entityType.Name;
+        var pluralSuffix = "s";
+
+        return entityName.EndsWith(pluralSuffix, StringComparison.OrdinalIgnoreCase)
+        ? entityName
+        : entityName + pluralSuffix;
     }
 }
