@@ -17,9 +17,17 @@ public record FilterOptions
     private FilterOptions() {}
     public FilterOptions(int? page, int? pageSize, string? sort = null)
     {
-        Page = Math.Max(page ?? MinPage, MinPage);
-        PageSize = Math.Min(pageSize ?? LimitPageSize, LimitPageSize);
-        Sort = string.IsNullOrWhiteSpace(sort) ? string.Empty : sort;
+        Page = page > 0
+        ? page.Value
+        : MinPage;
+
+        PageSize = pageSize.HasValue
+        ? Math.Clamp(pageSize.Value, 1, LimitPageSize)
+        : LimitPageSize;
+
+        Sort = string.IsNullOrWhiteSpace(sort) 
+        ? string.Empty 
+        : sort;
     }
 
     public static FilterOptions Default() => new();
