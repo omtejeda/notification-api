@@ -12,6 +12,7 @@ public record FilterOptions
     public int PageSize { get; init; } = LimitPageSize;
     public string Sort { get; init; } = string.Empty;
     public IReadOnlyList<string> SortFields => _sortFields ??= SortHelper.GetSortFields(Sort);
+    public bool HasSortFields => SortFields.Count > 0;
     
     private FilterOptions() {}
     public FilterOptions(int? page, int? pageSize, string? sort = null)
