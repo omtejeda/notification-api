@@ -32,7 +32,7 @@ public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : E
     {
         var query = GetFilteredCollection(filter);
 
-        if (filterOptions.SortFields.Any())
+        if (filterOptions.HasSortFields)
             query = query.Sort(GetSortDefinition(filterOptions.SortFields));
         
         var totalCount = await query.CountDocumentsAsync();
