@@ -10,16 +10,21 @@ using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Api.Middlewares;
 
-public class AuthMiddleware
+/// <summary>
+/// Middleware for handling API key authentication in the ASP.NET Core application.
+/// This middleware checks the presence and validity of an API key in the request headers.
+/// </summary>
+/// <param name="next">The next middleware delegate in the pipeline.</param>
+public class AuthMiddleware(RequestDelegate next)
 {
-    private readonly RequestDelegate _next;
+    private readonly RequestDelegate _next = next;
     private IRepository<Platform> _platformRepository;
 
-    public AuthMiddleware(RequestDelegate next)
-    {
-        _next = next;
-    }
-
+    /// <summary>
+    /// Checks if the authorization can be skipped for the current request based on the presence of the <see cref="AllowAnonymousAttribute"/>.
+    /// </summary>
+    /// <param name="context">The HTTP context for the current request.</param>
+    /// <returns><c>true</c> if authorization should be skipped; otherwise, <c>false</c>.</returns>
     private static bool SkipAuthorization(HttpContext context)
     {
         return context
@@ -28,6 +33,10 @@ public class AuthMiddleware
             ?.GetMetadata<AllowAnonymousAttribute>() is not null;
     }
 
+    /// <summary>
+    /// Invokes the middleware to process the HTTP context, validating the API key and setting the platform information in the context items.
+    /// </summary>
+    /// <param name="context">The HTTP context for the current request.</param>
     public async Task InvokeAsync(HttpContext context)
     {
         if (SkipAuthorization(context))
@@ -71,12 +80,17 @@ public class AuthMiddleware
         await _next(context);
     }
 
+    /// <summary>
+    /// Writes a JSON response to the HTTP context indicating unauthorized access.
+    /// </summary>
+    /// <param name="context">The HTTP context for the current request.</param>
+    /// <param name="message">A message describing the unauthorized access.</param>
     private async Task UnauthorizedResponse(HttpContext context, string message)
     {
         context.Response.StatusCode = 401;
         context.Response.ContentType = "application/json";
 
-        var finalResponse = new BaseResponse<INoDataResponse>((int) ResultCode.AccessDenied, message);
+        var finalResponse = new BaseResponse<INoDataResponse>((int)ResultCode.AccessDenied, message);
 
         var result = JsonSerializer.Serialize(finalResponse, 
             new JsonSerializerOptions
@@ -86,5 +100,4 @@ public class AuthMiddleware
             });
         await context.Response.WriteAsync(result);
     }
-
 }
