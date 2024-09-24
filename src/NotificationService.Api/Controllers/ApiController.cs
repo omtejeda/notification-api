@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Application.Common.Dtos;
-using NotificationService.Application.Common.Models;
+
 namespace NotificationService.Api.Controllers
 {   
     [ApiController]
