@@ -1,21 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <ItemGroup>
-    <ProjectReference Include="..\NotificationService.Contracts\NotificationService.Contracts.csproj" />
-    <ProjectReference Include="..\NotificationService.Core\NotificationService.Core.csproj" />
+    <ProjectReference Include="..\NotificationService.Application\NotificationService.Application.csproj"/>
+    <ProjectReference Include="..\NotificationService.Domain\NotificationService.Domain.csproj"/>
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="MongoDB.Driver" Version="2.18.0" />
-    <PackageReference Include="MongoDB.Driver.GridFS" Version="2.18.0" />
-    <PackageReference Include="LinqKit" Version="1.2.3" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.28.0"/>
+    <PackageReference Include="MongoDB.Driver.GridFS" Version="2.28.0"/>
+    <PackageReference Include="LinqKit" Version="1.2.3"/>
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0"/>
   </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
-
 </Project>

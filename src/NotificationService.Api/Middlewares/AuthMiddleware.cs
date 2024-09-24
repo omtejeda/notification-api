@@ -1,94 +1,103 @@
-using System;
 using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using NotificationService.Common.Entities;
-using NotificationService.Core.Common.Interfaces;
-using NotificationService.Common.Enums;
+using NotificationService.Domain.Entities;
+using NotificationService.SharedKernel.Interfaces;
+using NotificationService.Domain.Enums;
 using NotificationService.Api.Attributes;
-using NotificationService.Common.Dtos;
-using NotificationService.Contracts.Interfaces.Repositories;
-using NotificationService.Common.Resources;
+using NotificationService.Application.Contracts.Interfaces.Repositories;
+using NotificationService.SharedKernel.Resources;
+using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Common.Models;
 
-namespace NotificationService.Api.Middlewares
+namespace NotificationService.Api.Middlewares;
+
+/// <summary>
+/// Middleware for handling API key authentication in the ASP.NET Core application.
+/// This middleware checks the presence and validity of an API key in the request headers.
+/// </summary>
+/// <param name="next">The next middleware delegate in the pipeline.</param>
+public class AuthMiddleware(RequestDelegate next)
 {
-    public class AuthMiddleware
+    private readonly RequestDelegate _next = next;
+    private IRepository<Platform> _platformRepository;
+
+    /// <summary>
+    /// Checks if the authorization can be skipped for the current request based on the presence of the <see cref="AllowAnonymousAttribute"/>.
+    /// </summary>
+    /// <param name="context">The HTTP context for the current request.</param>
+    /// <returns><c>true</c> if authorization should be skipped; otherwise, <c>false</c>.</returns>
+    private static bool SkipAuthorization(HttpContext context)
     {
-        private readonly RequestDelegate _next;
-        private IRepository<Platform> _platformRepository;
+        return context
+            ?.GetEndpoint()
+            ?.Metadata
+            ?.GetMetadata<AllowAnonymousAttribute>() is not null;
+    }
 
-        public AuthMiddleware(RequestDelegate next)
+    /// <summary>
+    /// Invokes the middleware to process the HTTP context, validating the API key and setting the platform information in the context items.
+    /// </summary>
+    /// <param name="context">The HTTP context for the current request.</param>
+    public async Task InvokeAsync(HttpContext context)
+    {
+        if (SkipAuthorization(context))
         {
-            _next = next;
-        }
-
-        private bool SkipAuthorization(HttpContext context)
-        {
-            return context
-                ?.GetEndpoint()
-                ?.Metadata
-                ?.GetMetadata<AllowAnonymousAttribute>() is not null;
-        }
-
-        public async Task InvokeAsync(HttpContext context)
-        {
-            if (SkipAuthorization(context))
-            {
-                await _next(context);
-                return;
-            }
-
-            if (!context.Request.Headers.TryGetValue("apiKey", out var headerApiKey))
-            {
-                await UnauthorizedResponse(context, Messages.ApiKeyNotProvided);
-                return;
-            }
-            
-            _platformRepository = context.RequestServices.GetRequiredService<IRepository<Platform>>();
-            var platform = await _platformRepository.FindOneAsync(x => x.ApiKey == headerApiKey);
-
-            if (platform is null)
-            {
-                await UnauthorizedResponse(context, Messages.ApiKeyNotValid);
-                return;
-            }
-            
-            if (!(platform.IsActive ?? false))
-            {
-                await UnauthorizedResponse(context, Messages.ApiKeyNotActive);
-                return;
-            }
-
-            var platformDto = new PlatformDto
-            {
-                PlatformId = platform.PlatformId,
-                Name = platform.Name,
-                Description = platform.Description,
-                IsActive = platform.IsActive,
-                IsAdmin = platform.IsAdmin,
-                ApiKey = platform.ApiKey
-            };
-            context.Items[nameof(PlatformDto)] = platformDto;
-
             await _next(context);
+            return;
         }
 
-        private async Task UnauthorizedResponse(HttpContext context, string message)
+        if (!context.Request.Headers.TryGetValue("apiKey", out var headerApiKey))
         {
-            context.Response.StatusCode = 401;
-            context.Response.ContentType = "application/json";
+            await UnauthorizedResponse(context, Messages.ApiKeyNotProvided);
+            return;
+        }
+        
+        _platformRepository = context.RequestServices.GetRequiredService<IRepository<Platform>>();
+        var platform = await _platformRepository.FindOneAsync(x => x.ApiKey == headerApiKey.ToString());
 
-            var finalResponse = new BaseResponse<INoDataResponse>((int) ResultCode.AccessDenied, message);
-
-            var result = JsonSerializer.Serialize(finalResponse, 
-                new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                    DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
-                });
-            await context.Response.WriteAsync(result);
+        if (platform is null)
+        {
+            await UnauthorizedResponse(context, Messages.ApiKeyNotValid);
+            return;
+        }
+        
+        if (!platform.IsActive)
+        {
+            await UnauthorizedResponse(context, Messages.ApiKeyNotActive);
+            return;
         }
 
+        var platformDto = new PlatformDto
+        {
+            PlatformId = platform.PlatformId,
+            Name = platform.Name,
+            Description = platform.Description,
+            IsActive = platform.IsActive,
+            IsAdmin = platform.IsAdmin,
+            ApiKey = platform.ApiKey
+        };
+        context.Items[nameof(PlatformDto)] = platformDto;
+
+        await _next(context);
+    }
+
+    /// <summary>
+    /// Writes a JSON response to the HTTP context indicating unauthorized access.
+    /// </summary>
+    /// <param name="context">The HTTP context for the current request.</param>
+    /// <param name="message">A message describing the unauthorized access.</param>
+    private async Task UnauthorizedResponse(HttpContext context, string message)
+    {
+        context.Response.StatusCode = 401;
+        context.Response.ContentType = "application/json";
+
+        var finalResponse = new BaseResponse<INoDataResponse>((int)ResultCode.AccessDenied, message);
+
+        var result = JsonSerializer.Serialize(finalResponse, 
+            new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+            });
+        await context.Response.WriteAsync(result);
     }
 }

@@ -2,20 +2,19 @@ using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using NotificationService.Common.Enums;
-using NotificationService.Common.Dtos;
-using NotificationService.Common.Exceptions;
-using NotificationService.Common.Entities;
-using NotificationService.Common.Models;
-using NotificationService.Contracts.RequestDtos;
-using NotificationService.Core.Templates.Services;
-using NotificationService.Contracts.Interfaces.Repositories;
-using NotificationService.Contracts.Interfaces.Services;
-using NotificationService.Common.Models;
+using NotificationService.Domain.Enums;
+using NotificationService.Application.Common.Dtos;
+using NotificationService.Application.Exceptions;
+using NotificationService.Domain.Entities;
+using NotificationService.Domain.Models;
+using NotificationService.Application.Contracts.RequestDtos;
+using NotificationService.Application.Templates.Services;
+using NotificationService.Application.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Contracts.Interfaces.Services;
 using Moq;
 using AutoMapper;
 
-namespace NotificationService.Core.Tests.Services;
+namespace NotificationService.Application.Tests.Services;
 
 public class TemplateServiceTests
 {

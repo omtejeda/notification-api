@@ -1,6 +1,6 @@
 using System.Reflection;
 using NetArchTest.Rules;
-using NotificationService.Core.Senders;
+using NotificationService.Application.Senders;
 
 namespace NotificationService.ArchitectureTests.Core;
 

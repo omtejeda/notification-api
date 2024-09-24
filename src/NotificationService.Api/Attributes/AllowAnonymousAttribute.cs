@@ -1,4 +1,3 @@
-using System;
 namespace NotificationService.Api.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]

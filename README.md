@@ -1,6 +1,6 @@
 # Notification API
 ___
-Notification API is an API designed to handle everything related to sending notifications from any platform/application within your applications ecosystem.
+The Notification API is a REST API designed for sending notifications, managing notification templates, and easily setting up delivery providers. It also offers centralized tracking and auditing, enabling you to monitor notification delivery, volume, success rates, and more from a single interface. Regardless of whether notifications are sent from different applications using various providers (such as SendGrid, SMTP, or REST API calls), you can track and manage them all from this unified platform.
 
 ## Table of Contents
 ___
@@ -16,10 +16,10 @@ ___
 
 ## Features
 ___
-- It is generic
-- Fully configurable
-- Has its own database
-- Can be reused by any application
+- Highly flexible and configurable
+- Dedicated database for storage
+- Generic and flexible design for use in many different applications
+- Easily integrable with any application
 
 
 ## Technologies
@@ -31,31 +31,30 @@ ___
 
 ## Database
 ___
-Notification API has its own database, a NoSQL database, MongoDB.
-The following information is stored in this database:
-- Collection __Platforms__: stores the platforms/applications configured to use the API
-- Collection __Providers__: stores the email providers that have been configured for each platform
-- Collection __Templates__: stores the templates that have been configured for each platform
-- Collection __Notifications__: stores the tracking of all notifications that have been sent and/or attempted to be sent
+The Notification API utilizes its own NoSQL database, MongoDB, which includes the following collections:
+
+- __Platforms__: Stores information about the platforms or applications configured to use the API.
+- __Providers__: Contains details of the delivery providers configured for each platform.
+- __Templates__: Maintains the templates configured for each platform and notification type.
+- __Notifications__: Tracks all notifications that have been sent or attempted.
 
 ### Platforms
 ___
-In order to start making use of Notification API, an API Key is required.
+To use the Notification API, an API Key is required.
 
-Each platform/application that will use the Notification API must register using the following operation:
+Each platform or application that intends to use the Notification API must be registered via the following endpoint:
 
-__Route__: /api/v1/notification/platforms  
+__Route__: /api/v1/notification/platforms
 __HTTP Verb__: POST  
 __Content-Type__: application/json
 
-You must specify:
-- __name__: Name of the platform/application
-- __description__: Description of the platform/application
+You must provide the following details:
+- __name__: The name of the platform or application
+- __description__: A description of the platform or application
 
-As a result, an API Key is generated, which your platform/application will use to interact with the Notification API. Keep it in a safe place!
+After successful registration, an API Key will be provided for accessing the Notification API. Be sure to keep this key safe.
 
-
-__Registering a Platform__
+__Example: Registering a Platform__
 ```json
 {
     "name": "ClientExpensesApp",
@@ -67,14 +66,14 @@ __Registering a Platform__
 
 ## Providers
 ___
-In order to send notifications, the API needs to know which email provider to use.
+In order to send notifications, the API needs to know which deelivery provider to use.
 
 __But... what is a Provider?__
-> A provider is the service (either internal or third party) for sending emails/SMS that will be used for delivery. Providers are dynamically configured in the API. You can configure providers like SendGrid and SMTP.
+> A provider is a service, either internal or third-party, used for sending emails, SMS, or other notifications. The API allows for dynamic configuration of these providers. You can set up providers such as SendGrid, SMTP or REST API calls.
 
 
 
-__Registering a SendGrid Provider__
+__Example: Registering a SendGrid Provider__
 ```json
 {
     "name": "ClientExpensesSendGrid",
@@ -91,7 +90,7 @@ __Registering a SendGrid Provider__
 }
 ```
 
-__Registering a SMTP Provider__
+__Example: Registering an SMTP Provider__
 ```json
 {
     "name": "ClientExpensesOutlook",
@@ -119,19 +118,19 @@ __Route__: /api/v1/notification/templates
 __HTTP Verb__: POST
 __Content-Type__: application/json
 
-You must specify:
-* __name__: template name
-* __platformName__: name of the platform/application the template will be associated with
-* __notificationType__: type of notification for which it will be used. Possible values: Email / SMS
-* __language__: template language (es / en; Spanish and English respectively)
-* __subject__: subject of the email that will be sent with this template
-* __content__: HTML content of the template
-* __metadata []__: specify the placeholders required by the template, which must be sent in the request to be replaced in the HTML at runtime.
-		- ___key___: placeholder name
-		- ___description___: placeholder description
-		- ___isRequired___: indicates whether it is mandatory
+The request must include:
+* __name__: The name of the template
+* __platformName__: The platform or application associated with the template
+* __notificationType__: The type of notification (Email, SMS)
+* __language__: The language of the template (e.g., "es" for Spanish, "en" for English)
+* __subject__: The subject line of the email (if it's an email)
+* __content__: The content of the template (may be a simple text or HTML)
+* __metadata []__: An array specifying placeholders required by the template, which must be replaced at runtime. Each placeholder should include:
+	- ___key___: The placeholder name
+	- ___description___: A description of the placeholder
+	- ___isRequired___: Indicates whether the placeholder is mandatory
 
-Registering a User Registration Template__
+__Example: Registering a User Registration Template__
 ```json
 {
     "name": "UserRegistration",
@@ -139,20 +138,21 @@ Registering a User Registration Template__
     "subject": "User registration confirmation",
     "language": "en",
     "content": "Hi $[Username], thanks for your registration in our app!",
-	"metadata": [{
-        "key": "Username",
-        "description": "User's name",
-        "isRequired": true
-    }]
+	"metadata": [
+        {
+            "key": "Username",
+            "description": "User's name",
+            "isRequired": true
+        }
+    ]
 }
 ```
 
 ## Notifications
 ___
-The tracking of all notifications that have been sent and/or attempted to be sent, whether successful or not, is stored.
+The API tracks all notifications that have been sent or attempted, regardless of success or failure.
 
-When sending a notification, a __notificationId__ is returned.
-This __notificationId__ can be used to:
+When sending a notification, a __notificationId__ is returned, which can be used to:
 - Query the notification
 - Resend the notification
 
@@ -171,19 +171,17 @@ You can query the notifications sent or delivery attempts and view information s
 
 __Resend Notifications__
 
-You can resend notifications by providing the notificationId of the notification you want to resend.
-
-As a result, the notification is sent again with a new notificationId, and this new notification is linked to the original notification with the __parentNotificationId__ property.
+To resend a notification, provide the notificationId of the original notification. The API will resend the notification with a new __notificationId__ and link it to the original notification using the __parentNotificationId__ property.
 
 ## Frequently Asked Questions
 __What types of notifications are sent?__
-> Currently, notifications via email and SMS.
+> Currently, the API supports sending notifications via email natively, while SMS, push notifications, and other types are handled through providers configured as HTTP clients (REST API calls).
 
 __Who can use the API?__
 > Any application that needs to send notifications.
 
 __Do notifications have to be sent with templates?__
-> Yes, they must be sent with templates previously configured in the same API. See the Templates section.
+> Yes, notifications must be sent using pre-configured templates. Refer to the Templates section for more information.
 
 
 ## License

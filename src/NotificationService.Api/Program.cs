@@ -1,13 +1,11 @@
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.Extensions.DependencyInjection;
 using NotificationService.Api.Middlewares;
-using NotificationService.Api.IoC;
-using NotificationService.Core.IoC;
-using NotificationService.Infrastructure.IoC;
-using NotificationService.Common.Interfaces;
-using NotificationService.Common.Services;
+using NotificationService.Application;
+using NotificationService.Infrastructure;
+using NotificationService.SharedKernel.Interfaces;
+using NotificationService.Application.Common.Services;
 using NotificationService.Api.Extensions;
+using NotificationService.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +14,7 @@ builder.Services.AddSingleton<IDateTimeService, DateTimeService>();
 builder.Services.AddSingleton<IEnvironmentService, EnvironmentService>();
 
 builder.Services.AddInfrastructure();
-builder.Services.AddCore();
+builder.Services.AddApplication();
 builder.Services.AddApi();
 
 var app = builder.Build();

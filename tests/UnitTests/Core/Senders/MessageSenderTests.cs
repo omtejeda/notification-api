@@ -1,21 +1,21 @@
-using NotificationService.Contracts.Interfaces.Services;
-using NotificationService.Core.Providers.Factories.Interfaces;
-using NotificationService.Common.Interfaces;
-using NotificationService.Core.Senders;
-using NotificationService.Common.Enums;
-using NotificationService.Common.Dtos;
-using NotificationService.Common.Models;
-using NotificationService.Common.Entities;
-using NotificationService.Core.Dtos;
-using NotificationService.Common.Exceptions;
-using NotificationService.Core.Providers.Interfaces;
-using NotificationService.Core.Common;
-using NotificationService.Core.Interfaces;
-using NotificationService.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Contracts.Interfaces.Services;
+using NotificationService.Application.Providers.Factories.Interfaces;
+using NotificationService.SharedKernel.Interfaces;
+using NotificationService.Application.Senders;
+using NotificationService.Domain.Enums;
+using NotificationService.Application.Common.Dtos;
+using NotificationService.Domain.Models;
+using NotificationService.Domain.Entities;
+using NotificationService.Application.Senders.Dtos;
+using NotificationService.Application.Exceptions;
+using NotificationService.Application.Providers.Interfaces;
+using NotificationService.Application.Common;
+using NotificationService.Application.Interfaces;
+using NotificationService.Application.Contracts.Interfaces.Repositories;
 using Moq;
 using System.Linq.Expressions;
 
-namespace NotificationService.Core.Tests.Senders;
+namespace NotificationService.Application.Tests.Senders;
 
 public class MessageSenderTests
 {
@@ -119,7 +119,7 @@ public class MessageSenderTests
             ToDestination = "180098762222",
             NotificationType = NotificationType.WhatsApp,
             ProviderName = "MyCustomProvider",
-            Template = new Core.Dtos.TemplateDto
+            Template = new Application.Dtos.TemplateDto
             {
                 Name = "MyCustomTemplate",
                 PlatformName = "MyCustomPlatform",

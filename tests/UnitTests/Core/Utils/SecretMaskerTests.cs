@@ -1,6 +1,6 @@
-using NotificationService.Core.Common.Utils;
+using NotificationService.Application.Utils;
 
-namespace NotificationService.Core.Tests.Utils;
+namespace NotificationService.Application.Tests.Utils;
 
 public class SecretMaskerTests
 {
