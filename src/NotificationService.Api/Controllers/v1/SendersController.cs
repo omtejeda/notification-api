@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
 using NotificationService.Application.Features.Senders.Commands.SendEmail;
+using NotificationService.Application.Features.Senders.Commands.SendMessage;
 using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Application.Interfaces;
 using NotificationService.Application.Utils;
@@ -47,7 +48,9 @@ public class SendersController(
     [HttpPost("message/send")]
     public async Task<IActionResult> Send([FromBody] SendMessageRequestDto request)
     {
-        var response = await _messageSender.SendMessageAsync(request, CurrentPlatform.Name);
+        var command = new SendMessageCommand(request, CurrentPlatform.Name);
+        var response = await _sender.Send(command);
+        
         return Ok(response);
     }
 
