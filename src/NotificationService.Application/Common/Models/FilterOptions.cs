@@ -5,11 +5,11 @@ namespace NotificationService.Application.Common.Models;
 public record FilterOptions
 {
     private const int MinPage = 1;
-    private const int LimitPageSize = 50;
+    private const int MaxPageSize = 50;
     private IReadOnlyList<string>? _sortFields;
 
     public int Page { get; init; } = MinPage;
-    public int PageSize { get; init; } = LimitPageSize;
+    public int PageSize { get; init; } = MaxPageSize;
     public string Sort { get; init; } = string.Empty;
     public IReadOnlyList<string> SortFields => _sortFields ??= SortHelper.GetSortFields(Sort);
     public bool HasSortFields => SortFields.Count > 0;
@@ -22,11 +22,11 @@ public record FilterOptions
         : MinPage;
 
         PageSize = pageSize.HasValue
-        ? Math.Clamp(pageSize.Value, 1, LimitPageSize)
-        : LimitPageSize;
+        ? Math.Clamp(pageSize.Value, 1, MaxPageSize)
+        : MaxPageSize;
 
-        Sort = string.IsNullOrWhiteSpace(sort) 
-        ? string.Empty 
+        Sort = string.IsNullOrWhiteSpace(sort)
+        ? string.Empty
         : sort;
     }
 
