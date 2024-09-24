@@ -184,7 +184,7 @@ public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : E
         return _collection.Find(combinedFilter);
     }
 
-    public static string GetCollectionName(Type entityType)
+    private static string GetCollectionName(Type entityType)
     {
         var entityName = entityType.Name;
         var pluralSuffix = "s";
