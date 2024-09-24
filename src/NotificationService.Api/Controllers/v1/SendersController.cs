@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
 using NotificationService.Application.Features.Senders.Commands.SendEmail;
 using NotificationService.Application.Features.Senders.Commands.SendMessage;
+using NotificationService.Application.Features.Senders.Commands.SendSms;
 using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Application.Interfaces;
 using NotificationService.Application.Utils;
@@ -58,7 +59,9 @@ public class SendersController(
     [HttpPost("sms/send")]
     public async Task<IActionResult> Send([FromBody] SendSmsRequestDto request)
     {
-        var response = await _smsSender.SendSmsAsync(request, CurrentPlatform.Name);
+        var command = new SendSmsCommand(request, CurrentPlatform.Name);
+        var response = await _sender.Send(command);
+        
         return Ok(response);
     }
 }
