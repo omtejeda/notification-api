@@ -13,16 +13,13 @@ namespace NotificationService.Api.Controllers.v1;
 [Route(Routes.ControllerRoute)]
 [AllowAnonymous]
 
-public class InfoController : ApiController
+public class InfoController(
+    IEnvironmentService environmentService,
+    IDateTimeService dateTimeService) 
+    : ApiController
 {
-    private readonly IEnvironmentService _environmentService;
-    private readonly IDateTimeService _dateTimeService;
-
-    public InfoController(IEnvironmentService environmentService, IDateTimeService dateTimeService)
-    {
-        _environmentService = environmentService;
-        _dateTimeService = dateTimeService;
-    }
+    private readonly IEnvironmentService _environmentService = environmentService;
+    private readonly IDateTimeService _dateTimeService = dateTimeService;
 
     [SwaggerOperation("Retrieves general information about Notification API")]
     [HttpGet]
