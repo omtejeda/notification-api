@@ -24,8 +24,8 @@ public class SendersController(
     [HttpPost("email/send")]
     public async Task<IActionResult> Send([FromBody] SendEmailRequestDto request)
     {
-        var res = await _emailSender.SendEmailAsync(request, CurrentPlatform.Name);
-        return Ok(res);
+        var response = await _emailSender.SendEmailAsync(request, CurrentPlatform.Name);
+        return Ok(response);
     }
 
     [SwaggerOperation("Sends an email notification with attachments")]
@@ -33,23 +33,23 @@ public class SendersController(
     public async Task<IActionResult> SendWithAttachments([FromForm] SendEmailRequestDto request, List<IFormFile> attachments)
     {
         Guard.HasAttachments(attachments);
-        var res = await _emailSender.SendEmailAsync(request: request, owner: CurrentPlatform.Name, attachments: attachments);
-        return Ok(res);
+        var response = await _emailSender.SendEmailAsync(request: request, owner: CurrentPlatform.Name, attachments: attachments);
+        return Ok(response);
     }
 
     [SwaggerOperation("Sends a general message notification (e.g., WhatsApp, Push) using a HTTP Client Provider")]
     [HttpPost("message/send")]
     public async Task<IActionResult> Send([FromBody] SendMessageRequestDto request)
     {
-        var res = await _messageSender.SendMessageAsync(request, CurrentPlatform.Name);
-        return Ok(res);
+        var response = await _messageSender.SendMessageAsync(request, CurrentPlatform.Name);
+        return Ok(response);
     }
 
     [SwaggerOperation("Sends an SMS notification to the specified phone number")]
     [HttpPost("sms/send")]
     public async Task<IActionResult> Send([FromBody] SendSmsRequestDto request)
     {
-        var res = await _smsSender.SendSmsAsync(request, CurrentPlatform.Name);
-        return Ok(res);
+        var response = await _smsSender.SendSmsAsync(request, CurrentPlatform.Name);
+        return Ok(response);
     }
 }
