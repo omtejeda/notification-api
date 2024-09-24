@@ -1,5 +1,7 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
+using NotificationService.Application.Features.Senders.Commands.SendEmail;
 using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Application.Interfaces;
 using NotificationService.Application.Utils;
@@ -11,12 +13,12 @@ namespace NotificationService.Api.Controllers.v1;
 [ApiVersion(ApiVersions.v1)]
 [Route("")]
 public class SendersController(
-    IEmailSender emailSender,
+    ISender sender,
     IMessageSender messageSender,
     ISmsSender smsSender) 
     : ApiController
 {
-    private readonly IEmailSender _emailSender = emailSender;
+    private readonly ISender _sender = sender;
     private readonly IMessageSender _messageSender = messageSender;
     private readonly ISmsSender _smsSender = smsSender;
     
@@ -24,7 +26,9 @@ public class SendersController(
     [HttpPost("email/send")]
     public async Task<IActionResult> Send([FromBody] SendEmailRequestDto request)
     {
-        var response = await _emailSender.SendEmailAsync(request, CurrentPlatform.Name);
+        var command = new SendEmailCommand(request, CurrentPlatform.Name);
+        var response = await _sender.Send(command);
+        
         return Ok(response);
     }
 
@@ -33,7 +37,9 @@ public class SendersController(
     public async Task<IActionResult> SendWithAttachments([FromForm] SendEmailRequestDto request, List<IFormFile> attachments)
     {
         Guard.HasAttachments(attachments);
-        var response = await _emailSender.SendEmailAsync(request: request, owner: CurrentPlatform.Name, attachments: attachments);
+        var command = new SendEmailCommand(request, CurrentPlatform.Name, attachments);
+        var response = await _sender.Send(command);
+        
         return Ok(response);
     }
 
