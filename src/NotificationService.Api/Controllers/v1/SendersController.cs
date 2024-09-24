@@ -5,7 +5,6 @@ using NotificationService.Application.Features.Senders.Commands.SendEmail;
 using NotificationService.Application.Features.Senders.Commands.SendMessage;
 using NotificationService.Application.Features.Senders.Commands.SendSms;
 using NotificationService.Application.Features.Senders.Dtos;
-using NotificationService.Application.Interfaces;
 using NotificationService.Application.Utils;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -14,15 +13,9 @@ namespace NotificationService.Api.Controllers.v1;
 [ApiController]
 [ApiVersion(ApiVersions.v1)]
 [Route("")]
-public class SendersController(
-    ISender sender,
-    IMessageSender messageSender,
-    ISmsSender smsSender) 
-    : ApiController
+public class SendersController(ISender sender) : ApiController
 {
     private readonly ISender _sender = sender;
-    private readonly IMessageSender _messageSender = messageSender;
-    private readonly ISmsSender _smsSender = smsSender;
     
     [SwaggerOperation("Sends an email notification")]
     [HttpPost("email/send")]
