@@ -8,6 +8,7 @@ using NotificationService.Application.Features.Notifications.Queries.GetById;
 using NotificationService.Application.Features.Notifications.Queries.GetAttachment;
 using NotificationService.Application.Features.Notifications.Queries.Export;
 using Swashbuckle.AspNetCore.Annotations;
+using NotificationService.Api.Extensions;
 
 namespace NotificationService.Api.Controllers.v1;
 
@@ -34,7 +35,7 @@ public class NotificationsController(ISender sender) : ApiController
         var query = new GetNotificationByIdQuery(notificationId, CurrentPlatform.Name);
         var response = await _sender.Send(query);
         
-        return GetActionResult(response);
+        return response.ToActionResult();
     }
 
     [SwaggerOperation("Resends a notification based on the original notification with the specified ID")]

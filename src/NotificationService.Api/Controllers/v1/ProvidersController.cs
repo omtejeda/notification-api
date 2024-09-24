@@ -10,6 +10,7 @@ using NotificationService.Application.Features.Providers.Queries.GetAll;
 using MediatR;
 using Swashbuckle.AspNetCore.Annotations;
 using NotificationService.Application.Common.Models;
+using NotificationService.Api.Extensions;
 
 namespace NotificationService.Api.Controllers.v1;
 
@@ -44,7 +45,7 @@ public class ProvidersController(ISender sender) : ApiController
         var query = new GetProviderByIdQuery(providerId, CurrentPlatform.Name);
         var response = await _sender.Send(query);
         
-        return GetActionResult(response);
+        return response.ToActionResult();
     }
 
     [SwaggerOperation("Retrieves a list of all provider types (e.g., SMTP, SendGrid, HttpClient)")]

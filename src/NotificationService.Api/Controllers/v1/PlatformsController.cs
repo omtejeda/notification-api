@@ -10,6 +10,7 @@ using NotificationService.Application.Features.Platforms.Queries.GetAll;
 using Swashbuckle.AspNetCore.Annotations;
 using NotificationService.Application.Common.Dtos;
 using NotificationService.Application.Common.Models;
+using NotificationService.Api.Extensions;
 
 namespace NotificationService.Api.Controllers.v1;
 
@@ -44,7 +45,7 @@ public class PlatformsController(ISender sender) : ApiController
         var query = new GetPlatformByIdQuery(platformId, CurrentPlatform.Name);
         var response = await _sender.Send(query);
 
-        return GetActionResult(response);
+        return response.ToActionResult();
     }
 
     [SwaggerOperation("Retrieves the platform information associated with the current apikey")]

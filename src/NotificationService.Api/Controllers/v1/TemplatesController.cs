@@ -9,6 +9,7 @@ using NotificationService.Application.Features.Templates.Queries.GetById;
 using NotificationService.Application.Features.Templates.Queries.GetAll;
 using NotificationService.Application.Features.Templates.Queries.GetContent;
 using Swashbuckle.AspNetCore.Annotations;
+using NotificationService.Api.Extensions;
 
 namespace NotificationService.Api.Controllers.v1;
 
@@ -43,7 +44,7 @@ public class TemplatesController(ISender sender) : ApiController
     {
         var query = new GetTemplateByIdQuery(templateId, CurrentPlatform.Name);
         var response = await _sender.Send(query);
-        return GetActionResult(response);
+        return response.ToActionResult();
     }
 
     [SwaggerOperation("Previews the content of a specific notification template")]

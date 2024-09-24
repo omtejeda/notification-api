@@ -8,6 +8,7 @@ using NotificationService.Application.Features.Catalogs.Commands.Create;
 using NotificationService.Application.Features.Catalogs.Queries.GetById;
 using NotificationService.Application.Features.Catalogs.Queries.GetAll;
 using Swashbuckle.AspNetCore.Annotations;
+using NotificationService.Api.Extensions;
 
 namespace NotificationService.Api.Controllers.v1;
 
@@ -56,7 +57,7 @@ public class CatalogsController(ISender sender) : ApiController
         };
 
         var response = await _sender.Send(query);
-        return GetActionResult(response);
+        return response.ToActionResult();
     }
 
     [SwaggerOperation("Creates a new catalog with the provided information")]
