@@ -55,7 +55,7 @@ The Notification API utilizes its own NoSQL database, MongoDB, which includes th
 - __Notifications__: Tracks all notifications that have been sent or attempted.
 
 
-### Platforms
+## Platforms
 
 To use the Notification API, an API Key is required.
 
@@ -170,7 +170,7 @@ When sending a notification, a __notificationId__ is returned, which can be used
 - Query the notification
 - Resend the notification
 
-__Query Notifications__
+### __Query Notifications__
 You can query the notifications sent or delivery attempts and view information such as:
 
 - __notificationId__: Unique identifier of the notification
@@ -183,7 +183,7 @@ You can query the notifications sent or delivery attempts and view information s
 - __parentNotificationId__: If the notification was resent from another, specifies the notificationId of the parent notification
 
 
-__Resend Notifications__
+### __Resend Notifications__
 
 To resend a notification, provide the notificationId of the original notification. The API will resend the notification with a new __notificationId__ and link it to the original notification using the __parentNotificationId__ property.
 
