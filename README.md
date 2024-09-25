@@ -1,5 +1,5 @@
 # Notification API
-___
+
 The Notification API is a REST API designed for sending notifications, managing notification templates, and easily setting up delivery providers. It also offers centralized tracking and auditing, enabling you to monitor notification delivery, volume, success rates, and more from a single interface. Regardless of whether notifications are sent from different applications using various providers (such as SendGrid, SMTP, or REST API calls), you can track and manage them all from this unified platform.
 
 ## Table of Contents
@@ -24,7 +24,7 @@ The Notification API is a REST API designed for sending notifications, managing 
 
 - __Unified Template Management__: Manage all your notification templates in one place. Templates can include placeholders that are dynamically replaced when sending notifications, making it easy to personalize messages without adding complexity to your code.
 
-__Resend and Retry Made Easy__: The Notification API automatically retries failed delivery attempts, with up to 5 retries before marking the notification as failed. If all retries fail, the failure is logged for auditing. Additionally, you can easily query and manually resend notifications via the API, providing a robust and reliable solution for handling failures without manual intervention.
+- __Resend and Retry Made Easy__: The Notification API automatically retries failed delivery attempts, with up to 5 retries before marking the notification as failed. If all retries fail, the failure is logged for auditing. Additionally, you can easily query and manually resend notifications via the API, providing a robust and reliable solution for handling failures without manual intervention.
 
 - __Boost Productivity__: By offloading notification logic to the API, development teams can focus on core features. Once providers and templates are set up, sending notifications becomes a simple API call.
 
