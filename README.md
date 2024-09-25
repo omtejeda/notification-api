@@ -3,9 +3,9 @@ ___
 The Notification API is a REST API designed for sending notifications, managing notification templates, and easily setting up delivery providers. It also offers centralized tracking and auditing, enabling you to monitor notification delivery, volume, success rates, and more from a single interface. Regardless of whether notifications are sent from different applications using various providers (such as SendGrid, SMTP, or REST API calls), you can track and manage them all from this unified platform.
 
 ## Table of Contents
-___
-* [Features](#features)
+
 * [Why use the Notification API?](#why-use-the-notification-api?)
+* [Features](#features)
 * [Technologies](#technologies)
 * [Database](#database)
 * [Platforms](#platforms)
@@ -15,13 +15,6 @@ ___
 * [Frequently Asked Questions](#frequently-asked-questions)
 * [License](#license)
 
-
-## Features
-___
-- 🔧 Highly flexible and configurable
-- 🗄️ Dedicated database for storage
-- ⚙️ Generic and flexible design for use in many different applications
-- 🔌 Easily integrable with any application
 
 ## Why use the Notification API?
 
@@ -36,15 +29,24 @@ __Resend and Retry Made Easy__: The Notification API automatically retries faile
 - __Boost Productivity__: By offloading notification logic to the API, development teams can focus on core features. Once providers and templates are set up, sending notifications becomes a simple API call.
 
 
+## Features
+
+- 🔧 Highly flexible and configurable
+- 🗄️ Dedicated database for storage
+- ⚙️ Generic and flexible design for use in many different applications
+- 🔌 Easily integrable with any application
+
+
 ## Technologies
-___
+
 - .NET 8.0
 - MongoDB
 - Docker
 - Kubernetes
 
+
 ## Database
-___
+
 The Notification API utilizes its own NoSQL database, MongoDB, which includes the following collections:
 
 - __Platforms__: Stores information about the platforms or applications configured to use the API.
@@ -52,8 +54,9 @@ The Notification API utilizes its own NoSQL database, MongoDB, which includes th
 - __Templates__: Maintains the templates configured for each platform and notification type.
 - __Notifications__: Tracks all notifications that have been sent or attempted.
 
+
 ### Platforms
-___
+
 To use the Notification API, an API Key is required.
 
 Each platform or application that intends to use the Notification API must be registered via the following endpoint:
@@ -76,15 +79,12 @@ __Example: Registering a Platform__
 }
 ```
 
-
-
 ## Providers
-___
+
 In order to send notifications, the API needs to know which deelivery provider to use.
 
 __But... what is a Provider?__
 > A provider is a service, either internal or third-party, used for sending emails, SMS, or other notifications. The API allows for dynamic configuration of these providers. You can set up providers such as SendGrid, SMTP or REST API calls.
-
 
 
 __Example: Registering a SendGrid Provider__
@@ -125,7 +125,7 @@ __Example: Registering an SMTP Provider__
 
 
 ## Templates
-___
+
 The API provides an operation to register the templates that your application may send.
 
 __Route__: /api/v1/notification/templates
@@ -163,7 +163,7 @@ __Example: Registering a User Registration Template__
 ```
 
 ## Notifications
-___
+
 The API tracks all notifications that have been sent or attempted, regardless of success or failure.
 
 When sending a notification, a __notificationId__ is returned, which can be used to:
@@ -199,7 +199,7 @@ __Do notifications have to be sent with templates?__
 
 
 ## License
-___
+
 Designed and developed by:
 > Omarky Tejeda | Software Engineer
 
