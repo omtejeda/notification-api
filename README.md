@@ -197,6 +197,29 @@ __Who can use the API?__
 __Do notifications have to be sent with templates?__
 > Yes, notifications must be sent using pre-configured templates. Refer to the Templates section for more information.
 
+__What happens if a notification fails to send?__
+> The Notification API automatically retries sending failed notifications up to five times. If it still fails, it will be logged for auditing, and you can manually resend it if needed.
+
+__Can I customize my notification providers?__
+> Yes, you can configure different providers for sending notifications, including SendGrid, SMTP, or REST API calls. This flexibility allows you to choose the best service for your needs.
+
+__Do I need to set up providers to send notifications?__
+> Yes, you must set up at least one provider to send notifications using the Notification API. The API does not send notifications by itself; instead, it relies on the configured providers (like SendGrid, SMTP, or REST API calls) to deliver the notifications. This setup is essential for ensuring that notifications are sent correctly through the desired channels.
+
+__What is the purpose of creating a Platform?__
+> Creating a Platform in the Notification API identifies the specific application or system sending the notifications. This setup allows for better tracking and auditing of notifications, helping you monitor which application is responsible for each notification sent. It also ensures that each application can manage its notifications independently and securely.
+
+__How are templates scoped within the Notification API?__
+> All templates created by a platform belong exclusively to that platform. This ensures that templates are tailored to the specific needs of each application, allowing for effective management and personalization of notifications.
+
+__How are providers scoped within the Notification API?__
+> Providers can be associated with a specific platform or marked as public. Public providers can be used by any platform, while private providers are restricted to the platform that created them, providing flexibility in how notifications are delivered.
+
+__Can one platform view the templates and notifications sent by another platform?__
+> No, each platform operates independently within the Notification API. Templates and notifications created or sent by one platform are not visible to or accessible by other platforms, ensuring data privacy and separation between applications.
+
+__Is it necessary to create a platform and use the API key generated for that platform to interact with the API?__
+> Yes, you need to create a platform to use the Notification API. Each platform gets a unique API key that you must include in your requests. This key ensures that only registered applications can send notifications and manage their templates and providers. It also helps identify which application is interacting the API.
 
 ## License
 
