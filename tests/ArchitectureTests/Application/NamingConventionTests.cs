@@ -18,7 +18,7 @@ public class NamingConventionTests
             .HaveNameEndingWith("Command")
             .GetResult();
 
-            Assert.True(result.IsSuccessful);
+        Assert.True(result.IsSuccessful);
     }
 
     [Fact]
@@ -32,7 +32,7 @@ public class NamingConventionTests
             .HaveNameEndingWith("Query")
             .GetResult();
 
-            Assert.True(result.IsSuccessful);
+        Assert.True(result.IsSuccessful);
     }
 
     [Fact]
@@ -46,7 +46,7 @@ public class NamingConventionTests
             .HaveNameEndingWith("QueryHandler")
             .GetResult();
 
-            Assert.True(result.IsSuccessful);
+        Assert.True(result.IsSuccessful);
     }
 
     [Fact]
@@ -60,7 +60,7 @@ public class NamingConventionTests
             .HaveNameEndingWith("CommandHandler")
             .GetResult();
 
-            Assert.True(result.IsSuccessful);
+        Assert.True(result.IsSuccessful);
     }
 
     [Fact]
@@ -74,7 +74,7 @@ public class NamingConventionTests
             .HaveNameEndingWith("Event")
             .GetResult();
 
-            Assert.True(result.IsSuccessful);
+        Assert.True(result.IsSuccessful);
     }
 
     [Fact]
@@ -88,7 +88,7 @@ public class NamingConventionTests
             .HaveNameEndingWith("EventHandler")
             .GetResult();
 
-            Assert.True(result.IsSuccessful);
+        Assert.True(result.IsSuccessful);
     }
 
     [Fact]
