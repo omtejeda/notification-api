@@ -66,14 +66,14 @@ public static class EmailUtil
         return result;
     }
 
-    public static void ThrowIfEmailNotAllowed(string? environment, Provider provider, Email? to, IEnumerable<Email?> cc, IEnumerable<Email?> bcc)
+    public static void ThrowIfEmailNotAllowed(string? environment, Provider provider, Email? to, IEnumerable<Email>? cc = null, IEnumerable<Email>? bcc = null)
     {   
-        Guard.CanSendToDestination(provider, to!, environment);
+        Guard.CanSendToDestination(provider, to ?? string.Empty, environment);
 
-        foreach (var ccEmail in cc)
+        foreach (var ccEmail in cc ?? [])
             Guard.CanSendToDestination(provider, ccEmail!, environment);
 
-        foreach (var bccEmail in bcc)
+        foreach (var bccEmail in bcc ?? [])
             Guard.CanSendToDestination(provider, bccEmail!, environment);
     }
 
