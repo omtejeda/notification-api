@@ -20,13 +20,13 @@ namespace NotificationService.Domain.Models
 
             public Builder WithCc(IEnumerable<Email> cc)
             {
-                _emailContent.Cc.AddRange(cc);
+                _emailContent.Cc?.AddRange(cc);
                 return this;
             }
 
             public Builder WithBcc(IEnumerable<Email> bcc)
             {
-                _emailContent.Bcc.AddRange(bcc);
+                _emailContent.Bcc?.AddRange(bcc);
                 return this;
             }
 
@@ -50,7 +50,7 @@ namespace NotificationService.Domain.Models
 
             public Builder AddHeader (string key, string value)
             {
-                if(key is not null && value is not null)
+                if (key is not null && value is not null)
                     _emailContent.Headers[key] = value;
 
                 return this;

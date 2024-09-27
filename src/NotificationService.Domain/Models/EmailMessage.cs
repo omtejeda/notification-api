@@ -7,9 +7,9 @@ namespace NotificationService.Domain.Models
     {
         private EmailMessage() {}
 
-        public Email To { get; private set; } = Email.From(string.Empty);
-        public List<Email> Cc { get; private set; } = [];
-        public List<Email> Bcc { get; private set; } = [];
+        public Email? To { get; private set; }
+        public List<Email>? Cc { get; private set; } = [];
+        public List<Email>? Bcc { get; private set; } = [];
         public string Subject { get; private set; } = string.Empty;
         public string Content { get; private set; } = string.Empty;
         public List<Attachment> Attachments { get; private set; } = [];
