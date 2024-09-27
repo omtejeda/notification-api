@@ -92,7 +92,7 @@ public class NamingConventionTests
     }
 
     [Fact]
-    public void AllInterfaces_ShouldStartWith()
+    public void AllInterfaces_ShouldStartWithPreffixI()
     {
         var result = Types
             .InAssembly(ApplicationAssembly)
