@@ -8,11 +8,12 @@ using NotificationService.Application.Exceptions;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Contracts.RequestDtos;
-using NotificationService.Application.Templates.Services;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using Moq;
 using AutoMapper;
+using NotificationService.Application.Features.Templates.Services;
+using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Tests.Services;
 
@@ -53,9 +54,7 @@ public class TemplateServiceTests
         _templateRepositoryMock
             .Setup(x => x.FindAsync(
                 It.IsAny<Expression<Func<Template, bool>>>(),
-                It.IsAny<int?>(),
-                It.IsAny<int?>(),
-                It.IsAny<IReadOnlyList<string>>()
+                It.IsAny<FilterOptions>()
             ))
             .ReturnsAsync((templatesFound, default));
 

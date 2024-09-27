@@ -1,19 +1,18 @@
 using NotificationService.Application.Contracts.Interfaces.Services;
-using NotificationService.Application.Providers.Factories.Interfaces;
+using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.SharedKernel.Interfaces;
-using NotificationService.Application.Senders;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Common.Dtos;
 using NotificationService.Domain.Models;
 using NotificationService.Domain.Entities;
-using NotificationService.Application.Senders.Dtos;
 using NotificationService.Application.Exceptions;
-using NotificationService.Application.Providers.Interfaces;
 using NotificationService.Application.Common;
 using NotificationService.Application.Interfaces;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using Moq;
 using System.Linq.Expressions;
+using NotificationService.Application.Features.Senders.Dtos;
+using NotificationService.Application.Features.Senders.Commands.SendSms;
 
 namespace NotificationService.Application.Tests.Senders;
 
@@ -105,11 +104,11 @@ public class SmsSenderTests
         {
             ToPhoneNumber = "180098762222",
             ProviderName = "MyCustomProvider",
-            Template = new Application.Dtos.TemplateDto
+            Template = new Application.Features.Senders.Dtos.TemplateDto
             {
                 Name = "MyCustomTemplate",
                 PlatformName = "MyCustomPlatform",
-                Metadata = new List<MetadataDto>
+                Metadata = new List<Domain.Dtos.MetadataDto>
                 {
                     new() { Key = "ClientName", Value = "John Doe" }
                 },
@@ -125,7 +124,7 @@ public class SmsSenderTests
             Name = "MyCustomTemplate",
             PlatformName="MyCustomPlatform",
             Language = Language.En,
-            ProvidedMetadata = new List<MetadataDto>
+            ProvidedMetadata = new List<Domain.Dtos.MetadataDto>
             {
                 new () { Key = "clientName", Value = "John Doe" }
             },
@@ -138,7 +137,7 @@ public class SmsSenderTests
                 It.IsAny<string>(),
                 It.IsAny<string>(),
                 It.IsAny<Language>(),
-                It.IsAny<List<MetadataDto>>(),
+                It.IsAny<List<Domain.Dtos.MetadataDto>>(),
                 It.IsAny<string>(),
                 It.IsAny<NotificationType>()
             )
@@ -174,16 +173,15 @@ public class SmsSenderTests
 
     private void SetupHttpClientProvider(bool success)
     {
-        var expectedResult = Tuple.Create(
-            success,
-            success ? (int) ResultCode.OK : (int) ResultCode.HttpRequestNotSent,
-            success ? "Success" : "An error ocurred trying to send HTTP request");
+        var expectedResult = success 
+            ? NotificationResult.Ok((int) ResultCode.OK, "Success")
+            : NotificationResult.Fail((int) ResultCode.HttpRequestNotSent, "An error ocurred trying to send HTTP request");
         
         _httpClientProviderMock
             .Setup(m => m.SendHttpClient(
                 It.IsAny<HttpClientSetting>(),
                 It.IsAny<string>(),
-                It.IsAny<ICollection<MetadataDto>>(),
+                It.IsAny<ICollection<Domain.Dtos.MetadataDto>>(),
                 It.IsAny<string>()))
             .ReturnsAsync(expectedResult);
     }

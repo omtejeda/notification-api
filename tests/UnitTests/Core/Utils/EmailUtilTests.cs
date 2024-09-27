@@ -1,8 +1,10 @@
 using NotificationService.Application.Utils;
 using NotificationService.Application.Common.Dtos;
 using NotificationService.Domain.Entities;
+using NotificationService.Domain.Dtos;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Exceptions;
+using NotificationService.Domain.ValueObjects;
 
 namespace NotificationService.Application.Tests.Utils;
 
@@ -12,7 +14,7 @@ public class EmailUtilTests
     [MemberData(nameof(GetReplaceParametersTestData))]
     public void ReplaceParameters_ShouldReturnTextReplaced(string text, List<MetadataDto> metadata, string expected)
     {
-        var actual = EmailUtil.ReplaceParameters(text, metadata);
+        var actual = TemplateUtil.ReplaceParameters(text, metadata);
 
         Assert.Equal(expected, actual);
     }

@@ -1,19 +1,19 @@
 using NotificationService.Application.Contracts.Interfaces.Services;
-using NotificationService.Application.Providers.Factories.Interfaces;
+using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.SharedKernel.Interfaces;
-using NotificationService.Application.Senders;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Common.Dtos;
 using NotificationService.Domain.Models;
 using NotificationService.Domain.Entities;
-using NotificationService.Application.Senders.Dtos;
 using NotificationService.Application.Exceptions;
-using NotificationService.Application.Providers.Interfaces;
 using NotificationService.Application.Common;
 using NotificationService.Application.Interfaces;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using Moq;
 using System.Linq.Expressions;
+using NotificationService.Application.Features.Senders.Dtos;
+using NotificationService.Application.Features.Senders.Commands.SendMessage;
+using NotificationService.Domain.Dtos;
 
 namespace NotificationService.Application.Tests.Senders;
 
@@ -119,11 +119,11 @@ public class MessageSenderTests
             ToDestination = "180098762222",
             NotificationType = NotificationType.WhatsApp,
             ProviderName = "MyCustomProvider",
-            Template = new Application.Dtos.TemplateDto
+            Template = new Application.Features.Senders.Dtos.TemplateDto
             {
                 Name = "MyCustomTemplate",
                 PlatformName = "MyCustomPlatform",
-                Metadata = new List<MetadataDto>
+                Metadata = new List<Domain.Dtos.MetadataDto>
                 {
                     new() { Key = "ClientName", Value = "John Doe" }
                 },
@@ -188,10 +188,9 @@ public class MessageSenderTests
 
     private void SetupHttpClientProvider(bool success)
     {
-        var expectedResult = Tuple.Create(
-            success,
-            success ? (int) ResultCode.OK : (int) ResultCode.HttpRequestNotSent,
-            success ? "Success" : "An error ocurred trying to send HTTP request");
+        var expectedResult = success 
+            ? NotificationResult.Ok((int) ResultCode.OK, "Success")
+            : NotificationResult.Fail((int) ResultCode.HttpRequestNotSent, "An error ocurred trying to send HTTP request");
         
         _httpClientProviderMock
             .Setup(m => m.SendHttpClient(
