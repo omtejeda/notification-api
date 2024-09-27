@@ -21,8 +21,9 @@ public class Email : ValueObject
     private Email(string value)
     {
         var emailValue = value
-            .Trim()
-            .ToLower();
+            ?.Trim()
+            ?.ToLower() 
+            ?? string.Empty;
 
         Validate(emailValue);
         Value = emailValue;
