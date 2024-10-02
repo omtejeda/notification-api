@@ -47,7 +47,7 @@ public class ErrorHandlerMiddleware(RequestDelegate next)
     /// <param name="statusCode">The HTTP status code to set for the response.</param>
     /// <param name="code">A custom error code representing the type of error.</param>
     /// <param name="message">A message describing the error.</param>
-    private async Task Response(HttpContext context, int statusCode, int code, string message)
+    private static async Task Response(HttpContext context, int statusCode, int code, string message)
     {
         context.Response.StatusCode = statusCode;
         context.Response.ContentType = "application/json";
