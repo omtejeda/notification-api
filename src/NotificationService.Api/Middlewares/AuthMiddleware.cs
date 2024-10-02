@@ -19,11 +19,6 @@ namespace NotificationService.Api.Middlewares;
 public class AuthMiddleware(RequestDelegate next)
 {
     private readonly RequestDelegate _next = next;
-    private static readonly JsonSerializerOptions _jsonSerializerOptions = new()
-    {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
-    };
 
     /// <summary>
     /// Checks if the authorization can be skipped for the current request based on the presence of the <see cref="AllowAnonymousAttribute"/>.
