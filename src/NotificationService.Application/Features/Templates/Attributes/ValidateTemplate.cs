@@ -25,7 +25,7 @@ public class ValidateTemplate : ValidationAttribute
             if (!templatesFound.Any())
                 return new ValidationResult($"Template [{template.Name}] for platform [{template.PlatformName}] is not valid");
 
-            var originalTemplate = templatesFound.Where(x => x.Language == template.Language).FirstOrDefault();
+            var originalTemplate = templatesFound.FirstOrDefault(x => x.Language == template.Language);
 
             if (originalTemplate is null)
                 return new ValidationResult($"Do not exist template for the language [{template.Language}]");
