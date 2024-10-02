@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
-using NotificationService.Application.Features.Senders.Events.NotificationSent;
 using NotificationService.SharedKernel.Interfaces;
+
+namespace NotificationService.Application.Features.Senders.Events.NotificationSent;
 
 /// <summary>
 /// Handles the NotificationSentEvent and logs the details of the sent notification.
