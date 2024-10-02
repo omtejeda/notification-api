@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Models;
 
 namespace NotificationService.Api.Extensions;
@@ -51,5 +52,21 @@ public static class SwaggerExtensions
         });
 
         return services;
+    }
+
+    public static IApplicationBuilder UseCustomSwaggerUI(this IApplicationBuilder app)
+    {
+        var provider = app.ApplicationServices.GetRequiredService<IApiVersionDescriptionProvider>();
+
+        app.UseSwaggerUI(c =>
+        {
+            c.RoutePrefix = string.Empty;
+            foreach (var description in provider.ApiVersionDescriptions)
+            {
+                c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+            }
+        });
+
+        return app;
     }
 }
