@@ -129,7 +129,7 @@ public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : E
     {
         using var stream = await _bucket.OpenUploadStreamAsync(fileName);
 
-        file.CopyTo(stream);
+        await file.CopyToAsync(stream);
         await stream.CloseAsync();
     }
 
