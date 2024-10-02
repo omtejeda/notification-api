@@ -13,6 +13,11 @@ namespace NotificationService.Api.Middlewares;
 public class ErrorHandlerMiddleware(RequestDelegate next)
 {
     private readonly RequestDelegate _next = next;
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+    };
 
     /// <summary>
     /// Invokes the middleware, processing the HTTP context and handling any exceptions that occur.
@@ -51,14 +56,9 @@ public class ErrorHandlerMiddleware(RequestDelegate next)
         context.Response.StatusCode = statusCode;
         context.Response.ContentType = "application/json";
 
-        var finalResponse = new BaseResponse<object>(code, message);
+        var detailsResponse = new BaseResponse<object>(code, message);
 
-        var result = JsonSerializer.Serialize(finalResponse, 
-            new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
-            });
+        var result = JsonSerializer.Serialize(detailsResponse, _jsonSerializerOptions);
         await context.Response.WriteAsync(result);
     }
 }
