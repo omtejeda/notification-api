@@ -18,7 +18,6 @@ namespace NotificationService.Api.Middlewares;
 public class AuthMiddleware(RequestDelegate next)
 {
     private readonly RequestDelegate _next = next;
-    private IRepository<Platform> _platformRepository;
 
     /// <summary>
     /// Checks if the authorization can be skipped for the current request based on the presence of the <see cref="AllowAnonymousAttribute"/>.
@@ -51,8 +50,8 @@ public class AuthMiddleware(RequestDelegate next)
             return;
         }
         
-        _platformRepository = context.RequestServices.GetRequiredService<IRepository<Platform>>();
-        var platform = await _platformRepository.FindOneAsync(x => x.ApiKey == headerApiKey.ToString());
+        IRepository<Platform> platformRepository = context.RequestServices.GetRequiredService<IRepository<Platform>>();
+        var platform = await platformRepository.FindOneAsync(x => x.ApiKey == headerApiKey.ToString());
 
         if (platform is null)
         {
