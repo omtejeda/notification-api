@@ -59,7 +59,7 @@ public class NotificationsController(ISender sender) : ApiController
         {
             ContentType = "text/html",
             StatusCode = response is null ? StatusCodes.Status404NotFound : StatusCodes.Status200OK,
-            Content = response is null ? "Not found" : response?.Data?.Content
+            Content = response is null ? "Not found" : response.Data?.Content
         };
 
         return contentResult;
