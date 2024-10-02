@@ -20,11 +20,11 @@ internal class EmailContentSavedEventHandler(ILogger<EmailContentSavedEventHandl
             ? "success"
             : "failed";
             
-            _logger.LogInformation("Email content for notification with Id {notification} has been saved with {result} result", notification.NotificationId, result);
+            _logger.LogInformation("Email content for notification with Id {Notification} has been saved with {Result} result", notification.NotificationId, result);
         }
         catch (Exception ex)
         {
-            _logger.LogError("An error ocurred while handling {eventName}, {errorMessage}", nameof(EmailContentSavedEvent), ex.Message);
+            _logger.LogError(ex, "An error ocurred while handling {EventName}, {ErrorMessage}", nameof(EmailContentSavedEvent), ex.Message);
         }
 
         await Task.CompletedTask;

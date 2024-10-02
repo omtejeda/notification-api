@@ -16,11 +16,11 @@ internal class RemovedFromWhiteListEventHandler(ILogger<RemovedFromWhiteListEven
     {
         try
         {
-            _logger.LogInformation("Recipient {recipient} has been removed from whitelist for Provider with Id {providerId}", notification.Recipient, notification.ProviderId);
+            _logger.LogInformation("Recipient {Recipient} has been removed from whitelist for Provider with Id {ProviderId}", notification.Recipient, notification.ProviderId);
         }
         catch (Exception ex)
         {
-            _logger.LogError("An error ocurred while handling {eventName}, {errorMessage}", nameof(RemovedFromWhiteListEvent), ex.Message);
+            _logger.LogError(ex, "An error ocurred while handling {EventName}, {ErrorMessage}", nameof(RemovedFromWhiteListEvent), ex.Message);
         }
 
         await Task.CompletedTask;

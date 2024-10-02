@@ -16,11 +16,11 @@ internal class ProviderDeletedEventHandler(ILogger<ProviderDeletedEventHandler> 
     {
         try
         {
-            _logger.LogInformation("Provider with Id {platformId} has been deleted", notification.ProviderId);
+            _logger.LogInformation("Provider with Id {ProviderId} has been deleted", notification.ProviderId);
         }
         catch (Exception ex)
         {
-            _logger.LogError("An error ocurred while handling {eventName}, {errorMessage}", nameof(ProviderDeletedEvent), ex.Message);
+            _logger.LogError(ex, "An error ocurred while handling {EventName}, {ErrorMessage}", nameof(ProviderDeletedEvent), ex.Message);
         }
 
         await Task.CompletedTask;

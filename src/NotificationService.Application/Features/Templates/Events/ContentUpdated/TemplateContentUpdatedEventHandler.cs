@@ -16,11 +16,11 @@ internal class TemplateContentUpdatedEventHandler(ILogger<TemplateContentUpdated
     {
         try
         {
-            _logger.LogInformation("The content of the template with Id {templateId} was updated", notification.TemplateId);
+            _logger.LogInformation("The content of the template with Id {TemplateId} was updated", notification.TemplateId);
         }
         catch (Exception ex)
         {
-            _logger.LogError("An error ocurred while handling {eventName}, {errorMessage}", nameof(TemplateContentUpdatedEvent), ex.Message);
+            _logger.LogError(ex, "An error ocurred while handling {EventName}, {ErrorMessage}", nameof(TemplateContentUpdatedEvent), ex.Message);
         }
 
         await Task.CompletedTask;

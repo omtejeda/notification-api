@@ -20,11 +20,11 @@ internal class NotificationResentEventHandler(ILogger<NotificationResentEventHan
             ? "success"
             : "failed";
             
-            _logger.LogInformation("Notification with Id {notificationId} has been resent with {result} result", notification.NotificationId, result);
+            _logger.LogInformation("Notification with Id {NotificationId} has been resent with {Result} result", notification.NotificationId, result);
         }
         catch (Exception ex)
         {
-            _logger.LogError("An error ocurred while handling {eventName}, {errorMessage}", nameof(NotificationResentEvent), ex.Message);
+            _logger.LogError(ex, "An error ocurred while handling {EventName}, {ErrorMessage}", nameof(NotificationResentEvent), ex.Message);
         }
 
         await Task.CompletedTask;

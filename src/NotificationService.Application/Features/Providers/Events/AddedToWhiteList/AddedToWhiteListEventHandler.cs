@@ -16,11 +16,11 @@ internal class AddedToWhiteListEventHandler(ILogger<AddedToWhiteListEventHandler
     {
         try
         {
-            _logger.LogInformation("Recipient {recipient} has been added to whitelist for Provider with Id {providerId}", notification.Recipient, notification.ProviderId);
+            _logger.LogInformation("Recipient {Recipient} has been added to whitelist for Provider with Id {ProviderId}", notification.Recipient, notification.ProviderId);
         }
         catch (Exception ex)
         {
-            _logger.LogError("An error ocurred while handling {eventName}, {errorMessage}", nameof(AddedToWhiteListEvent), ex.Message);
+            _logger.LogError(ex, "An error ocurred while handling {EventName}, {ErrorMessage}", nameof(AddedToWhiteListEvent), ex.Message);
         }
 
         await Task.CompletedTask;

@@ -18,11 +18,11 @@ internal class TemplateCreatedEventHandler(ILogger<TemplateCreatedEventHandler> 
         try
         {
             TemplateDto? data = notification.Data;
-            _logger.LogInformation("Template created with Id {templateId} and Name {templateName}", data?.TemplateId, data?.Name);
+            _logger.LogInformation("Template created with Id {TemplateId} and Name {TemplateName}", data?.TemplateId, data?.Name);
         }
         catch (Exception ex)
         {
-            _logger.LogError("An error ocurred while handling {eventName}, {errorMessage}", nameof(TemplateCreatedEvent), ex.Message);
+            _logger.LogError(ex, "An error ocurred while handling {EventName}, {ErrorMessage}", nameof(TemplateCreatedEvent), ex.Message);
         }
 
         await Task.CompletedTask;

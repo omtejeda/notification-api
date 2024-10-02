@@ -32,7 +32,7 @@ public class HttpClientProvider : IHttpClientProvider
 
         foreach (var param in httpClientSetting.Params)
         {
-            _logger.LogInformation("Adding to {paramType}: {paramName}, reading value from: {readValueFrom}. Static value?: {isStaticValue}", param.Type.ToString(), param.Name, param.ReadValueFrom, param.HasStaticValue ?? false);
+            _logger.LogInformation("Adding to {ParamType}: {ParamName}, reading value from: {ReadValueFrom}. Static value?: {IssStaticValue}", param.Type.ToString(), param.Name, param.ReadValueFrom, param.HasStaticValue ?? false);
 
             var value = GetParamValue(httpClientParam: param,
                 requestMetadata: requestMetadata,
@@ -56,7 +56,7 @@ public class HttpClientProvider : IHttpClientProvider
         }
 
         var fullPath = HttpUtil.GetFullPath(httpClientSetting.Host, httpClientSetting.Uri, queryString);
-        _logger.LogInformation("Path to send request to: {fullPath}", fullPath);            
+        _logger.LogInformation("Path to send request to: {FullPath}", fullPath);            
 
         var jsonBody = GetJson(httpClientSetting.JsonBody, requestMetadata);
         var request = NewHttpRequest(httpClientSetting.Verb, fullPath, jsonBody);
@@ -74,12 +74,12 @@ public class HttpClientProvider : IHttpClientProvider
             {
                 code = (int) ResultCode.HttpRequestNotSent;
                 message = $"HTTP Request failed. Status code: {response.StatusCode} with message: {responseJson}";
-                _logger.LogWarning("HTTP request sent but failed. {statusCode} {message}", response.StatusCode, responseJson);
+                _logger.LogWarning("HTTP request sent but failed. {StatusCode} {Message}", response.StatusCode, responseJson);
                 
                 return NotificationResult.Fail(code, message);
             }
 
-            _logger.LogInformation("HTTP request sent succesfully {statusCode} {message}", response.StatusCode, responseJson);
+            _logger.LogInformation("HTTP request sent succesfully {StatusCode} {Message}", response.StatusCode, responseJson);
             return NotificationResult.Ok(
                 code,
                 message,
@@ -89,7 +89,7 @@ public class HttpClientProvider : IHttpClientProvider
         catch (Exception e)
         {
             var errorMsg = $"An error ocurred trying to send HTTP request {e.Message}"; 
-            _logger.LogError("An error ocurred trying to send HTTP request {message}", e.Message);
+            _logger.LogError(e, "An error ocurred trying to send HTTP request {Message}", e.Message);
             
             return NotificationResult.Fail((int)ResultCode.HttpRequestNotSent, errorMsg);
         }

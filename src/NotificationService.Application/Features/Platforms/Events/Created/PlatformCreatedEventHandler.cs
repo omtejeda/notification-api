@@ -18,11 +18,11 @@ internal class PlatformCreatedEventHandler(ILogger<PlatformCreatedEventHandler> 
         try
         {
             PlatformDto? data = notification.Data;
-            _logger.LogInformation("Platform created with Id {platformId} and Name {platformName}", data?.PlatformId, data?.Name);
+            _logger.LogInformation("Platform created with Id {PlatformId} and Name {PlatformName}", data?.PlatformId, data?.Name);
         }
         catch (Exception ex)
         {
-            _logger.LogError("An error ocurred while handling {eventName}, {errorMessage}", nameof(PlatformCreatedEvent), ex.Message);
+            _logger.LogError(ex, "An error ocurred while handling {EventName}, {ErrorMessage}", nameof(PlatformCreatedEvent), ex.Message);
         }
 
         await Task.CompletedTask;

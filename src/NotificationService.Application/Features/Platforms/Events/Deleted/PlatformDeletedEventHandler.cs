@@ -16,11 +16,11 @@ internal class PlatformDeletedEventHandler(ILogger<PlatformDeletedEventHandler> 
     {
         try
         {
-            _logger.LogInformation("Platform with Id {platformId} has been deleted", notification.PlatformId);
+            _logger.LogInformation("Platform with Id {PlatformId} has been deleted", notification.PlatformId);
         }
         catch (Exception ex)
         {
-            _logger.LogError("An error ocurred while handling {eventName}, {errorMessage}", nameof(PlatformDeletedEvent), ex.Message);
+            _logger.LogError(ex, "An error ocurred while handling {EventName}, {ErrorMessage}", nameof(PlatformDeletedEvent), ex.Message);
         }
 
         await Task.CompletedTask;

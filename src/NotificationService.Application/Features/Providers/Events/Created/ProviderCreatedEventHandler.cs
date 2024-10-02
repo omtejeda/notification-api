@@ -18,11 +18,11 @@ internal class ProviderCreatedEventHandler(ILogger<ProviderCreatedEventHandler> 
         try
         {
             ProviderDto? data = notification.Data;
-            _logger.LogInformation("Provider created with Id {providerId} and Name {platformName}", data?.ProviderId, data?.Name);
+            _logger.LogInformation("Provider created with Id {ProviderId} and Name {PlatformName}", data?.ProviderId, data?.Name);
         }
         catch (Exception ex)
         {
-            _logger.LogError("An error ocurred while handling {eventName}, {errorMessage}", nameof(ProviderCreatedEvent), ex.Message);
+            _logger.LogError(ex, "An error ocurred while handling {EventName}, {ErrorMessage}", nameof(ProviderCreatedEvent), ex.Message);
         }
 
         await Task.CompletedTask;

@@ -19,7 +19,7 @@ internal class NotificationSentEventHandler(ILogger<NotificationSentEventHandler
             ? "success"
             : "failed";
             
-            _logger.LogInformation("Notification with Id {notificationId} of type {notificationType} has been sent to {toDestination} with {result} result",
+            _logger.LogInformation("Notification with Id {NotificationId} of type {NotificationType} has been sent to {ToDestination} with {Result} result",
             notification.NotificationId,
             notification.NotificationType.ToString(),
             notification.ToDestination,
@@ -27,7 +27,7 @@ internal class NotificationSentEventHandler(ILogger<NotificationSentEventHandler
         }
         catch (Exception ex)
         {
-            _logger.LogError("An error ocurred while handling {eventName}, {errorMessage}", nameof(NotificationSentEvent), ex.Message);
+            _logger.LogError(ex, "An error ocurred while handling {EventName}, {ErrorMessage}", nameof(NotificationSentEvent), ex.Message);
         }
 
         await Task.CompletedTask;

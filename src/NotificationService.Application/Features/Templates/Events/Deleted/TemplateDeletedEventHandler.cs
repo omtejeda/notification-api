@@ -16,11 +16,11 @@ internal class TemplateDeletedEventHandler(ILogger<TemplateDeletedEventHandler> 
     {
         try
         {
-            _logger.LogInformation("Template with Id {templateId} has been deleted", notification.TemplateId);
+            _logger.LogInformation("Template with Id {TemplateId} has been deleted", notification.TemplateId);
         }
         catch (Exception ex)
         {
-            _logger.LogError("An error ocurred while handling {eventName}, {errorMessage}", nameof(TemplateDeletedEvent), ex.Message);
+            _logger.LogError(ex, "An error ocurred while handling {EventName}, {ErrorMessage}", nameof(TemplateDeletedEvent), ex.Message);
         }
 
         await Task.CompletedTask;
