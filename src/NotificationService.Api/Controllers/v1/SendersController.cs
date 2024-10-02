@@ -19,7 +19,7 @@ public class SendersController(ISender sender) : ApiController
     
     [SwaggerOperation("Sends an email notification")]
     [HttpPost("email/send")]
-    public async Task<IActionResult> Send([FromBody] SendEmailRequestDto request)
+    public async Task<IActionResult> SendEmail([FromBody] SendEmailRequestDto request)
     {
         var command = new SendEmailCommand(request, CurrentPlatform.Name);
         var response = await _sender.Send(command);
@@ -29,7 +29,7 @@ public class SendersController(ISender sender) : ApiController
 
     [SwaggerOperation("Sends an email notification with attachments")]
     [HttpPost("email/send/attachments")]
-    public async Task<IActionResult> SendWithAttachments([FromForm] SendEmailRequestDto request, List<IFormFile> attachments)
+    public async Task<IActionResult> SendEmailWithAttachments([FromForm] SendEmailRequestDto request, List<IFormFile> attachments)
     {
         Guard.HasAttachments(attachments);
         var command = new SendEmailCommand(request, CurrentPlatform.Name, attachments);
@@ -40,7 +40,7 @@ public class SendersController(ISender sender) : ApiController
 
     [SwaggerOperation("Sends a general message notification (e.g., WhatsApp, Push) using a HTTP Client Provider")]
     [HttpPost("message/send")]
-    public async Task<IActionResult> Send([FromBody] SendMessageRequestDto request)
+    public async Task<IActionResult> SendMessage([FromBody] SendMessageRequestDto request)
     {
         var command = new SendMessageCommand(request, CurrentPlatform.Name);
         var response = await _sender.Send(command);
@@ -50,7 +50,7 @@ public class SendersController(ISender sender) : ApiController
 
     [SwaggerOperation("Sends an SMS notification to the specified phone number")]
     [HttpPost("sms/send")]
-    public async Task<IActionResult> Send([FromBody] SendSmsRequestDto request)
+    public async Task<IActionResult> SendSms([FromBody] SendSmsRequestDto request)
     {
         var command = new SendSmsCommand(request, CurrentPlatform.Name);
         var response = await _sender.Send(command);
