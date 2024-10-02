@@ -59,7 +59,7 @@ public class SmtpProvider(IEnvironmentService environmentService) : IEmailProvid
                 await smtp.AuthenticateAsync(_provider.Settings.Smtp.FromEmail, _provider.Settings.Smtp.Password);
 
             await smtp.SendAsync(email);
-            smtp.Disconnect(true);
+            await smtp.DisconnectAsync(true);
 
             return NotificationResult.Ok(
                 code: (int) ResultCode.OK,
