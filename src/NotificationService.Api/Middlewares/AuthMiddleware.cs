@@ -7,6 +7,7 @@ using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.SharedKernel.Resources;
 using NotificationService.Application.Common.Dtos;
 using NotificationService.Application.Common.Models;
+using NotificationService.Api.Utils;
 
 namespace NotificationService.Api.Middlewares;
 
@@ -18,6 +19,11 @@ namespace NotificationService.Api.Middlewares;
 public class AuthMiddleware(RequestDelegate next)
 {
     private readonly RequestDelegate _next = next;
+    private static readonly JsonSerializerOptions _jsonSerializerOptions = new()
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
+    };
 
     /// <summary>
     /// Checks if the authorization can be skipped for the current request based on the presence of the <see cref="AllowAnonymousAttribute"/>.
@@ -91,12 +97,7 @@ public class AuthMiddleware(RequestDelegate next)
 
         var finalResponse = new BaseResponse<INoDataResponse>((int)ResultCode.AccessDenied, message);
 
-        var result = JsonSerializer.Serialize(finalResponse, 
-            new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
-            });
+        var result = JsonUtils.Serialize(finalResponse);
         await context.Response.WriteAsync(result);
     }
 }

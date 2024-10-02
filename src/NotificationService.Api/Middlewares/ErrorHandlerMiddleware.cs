@@ -2,6 +2,7 @@
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Exceptions;
 using NotificationService.Application.Common.Models;
+using NotificationService.Api.Utils;
 
 namespace NotificationService.Api.Middlewares;
 
@@ -13,11 +14,6 @@ namespace NotificationService.Api.Middlewares;
 public class ErrorHandlerMiddleware(RequestDelegate next)
 {
     private readonly RequestDelegate _next = next;
-    private readonly JsonSerializerOptions _jsonSerializerOptions = new()
-    {
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull
-    };
 
     /// <summary>
     /// Invokes the middleware, processing the HTTP context and handling any exceptions that occur.
@@ -58,7 +54,7 @@ public class ErrorHandlerMiddleware(RequestDelegate next)
 
         var detailsResponse = new BaseResponse<object>(code, message);
 
-        var result = JsonSerializer.Serialize(detailsResponse, _jsonSerializerOptions);
+        var result = JsonUtils.Serialize(detailsResponse);
         await context.Response.WriteAsync(result);
     }
 }
