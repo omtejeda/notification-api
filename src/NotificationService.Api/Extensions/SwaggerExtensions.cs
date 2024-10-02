@@ -45,7 +45,7 @@ public static class SwaggerExtensions
                     {
                         Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "ApiKey" }
                     },
-                    new string[] { }
+                    Array.Empty<string>()
                 }
             });
         });
