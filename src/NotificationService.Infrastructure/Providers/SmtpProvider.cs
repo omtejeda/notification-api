@@ -56,7 +56,7 @@ public class SmtpProvider(IEnvironmentService environmentService) : IEmailProvid
             await ConnectToSmtpAsync(smtp, _provider.Settings.Smtp.Host, (int) _provider.Settings.Smtp.Port, MailKit.Security.SecureSocketOptions.StartTlsWhenAvailable);
             
             if (_provider.Settings.Smtp.Authenticate ?? false)
-                smtp.Authenticate(_provider.Settings.Smtp.FromEmail, _provider.Settings.Smtp.Password);
+                await smtp.AuthenticateAsync(_provider.Settings.Smtp.FromEmail, _provider.Settings.Smtp.Password);
 
             await smtp.SendAsync(email);
             smtp.Disconnect(true);
