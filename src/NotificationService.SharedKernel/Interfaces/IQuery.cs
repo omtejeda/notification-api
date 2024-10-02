@@ -6,7 +6,7 @@ namespace NotificationService.SharedKernel.Interfaces;
 /// Represents a query that returns a response of type <typeparamref name="TResponse"/>.
 /// </summary>
 /// <typeparam name="TResponse">The type of the response that this query returns.</typeparam>
-public interface IQuery<TResponse> : IRequest<TResponse>
+public interface IQuery<out TResponse> : IRequest<TResponse>
 {
 }
 
