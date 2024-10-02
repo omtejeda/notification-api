@@ -139,8 +139,7 @@ public class TemplateService : ITemplateService
         Guard.TemplateBelongsToRequester(template?.CreatedBy, owner);
         Guard.TemplateNotificationTypeIsSameAsTarget(notificationType, template?.NotificationType);
         Guard.TemplateContentIsValid(template?.Content);
-
-        _ = template ?? throw new ArgumentNullException(nameof(template));
+        ArgumentNullException.ThrowIfNull(template);
     }
 
     public async Task UpdateTemplateContent(string templateId, UpdateTemplateContentRequestDto request, string owner)
