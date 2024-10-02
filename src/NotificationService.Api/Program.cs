@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using NotificationService.Api.Middlewares;
 using NotificationService.Application;
 using NotificationService.Infrastructure;
@@ -18,20 +17,11 @@ builder.Services.AddApplication();
 builder.Services.AddApi();
 
 var app = builder.Build();
-var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
 // Configure the HTTP request pipeline.
 
 app.UseSwagger();
-app.UseSwaggerUI(c =>
-{
-    c.RoutePrefix = string.Empty;
-
-    foreach (var description in provider.ApiVersionDescriptions)
-    {
-        c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
-    }
-});
+app.UseCustomSwaggerUI();
 
 app.UseHttpsRedirection();
 
