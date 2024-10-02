@@ -84,7 +84,7 @@ public class AuthMiddleware(RequestDelegate next)
     /// </summary>
     /// <param name="context">The HTTP context for the current request.</param>
     /// <param name="message">A message describing the unauthorized access.</param>
-    private async Task UnauthorizedResponse(HttpContext context, string message)
+    private static async Task UnauthorizedResponse(HttpContext context, string message)
     {
         context.Response.StatusCode = 401;
         context.Response.ContentType = "application/json";
