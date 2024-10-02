@@ -13,4 +13,9 @@ public static class JsonUtils
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
     }
+
+    public static string Serialize(object value)
+    {
+        return JsonSerializer.Serialize(value, GetDefaultJsonSerializerOptions());
+    }
 }
