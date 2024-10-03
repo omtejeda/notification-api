@@ -37,7 +37,7 @@ public class PlatformService : IPlatformService
             PlatformId = Guid.NewGuid().ToString(),
             Name = name,
             Description = description,
-            IsActive = _environmentService.IsProduction == false,
+            IsActive = !_environmentService.IsProduction,
             ApiKey = Guid.NewGuid().ToString(),
             CreatedBy = owner ?? name
         };
