@@ -24,7 +24,7 @@ public class CatalogService : ICatalogService
 
     public async Task<BaseResponse<CatalogDto>> CreateCatalog(string name, string description, bool isActive, ICollection<ElementDto> elements, string owner)
     {
-        var existingCatalog = await _catalogRepository.FindOneAsync(x => x.Name.ToLower() == name.ToLower() && x.CreatedBy == owner);
+        var existingCatalog = await _catalogRepository.FindOneAsync(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && x.CreatedBy == owner);
 
         Guard.CatalogNotExists(existingCatalog);
         
