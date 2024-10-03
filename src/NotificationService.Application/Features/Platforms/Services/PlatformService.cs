@@ -29,7 +29,7 @@ public class PlatformService : IPlatformService
 
     public async Task<BaseResponse<PlatformDto>> CreatePlatform(string name, string description, string owner)
     {
-        var existingPlatform = await _repository.FindOneAsync(x => x.Name.ToLower() == name.ToLower());
+        var existingPlatform = await _repository.FindOneAsync(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
 
         Guard.PlatformNotExists(existingPlatform, name, existingPlatform?.CreatedBy);
         var platform = new Platform
