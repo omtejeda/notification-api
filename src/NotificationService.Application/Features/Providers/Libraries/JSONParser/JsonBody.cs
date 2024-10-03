@@ -30,7 +30,6 @@ public class JsonBody
         return this;
     }
 
-
     /// <summary>
     /// Checks whether a given value is simple.
     /// </summary>
@@ -48,16 +47,17 @@ public class JsonBody
     /// <returns></returns>
     private object? CreateSimpleValue(DataType dataType, object? value = null)
     {
-        if (dataType == DataType.Number)
-            return Metadata.Any() ? (value is not null ? Convert.ToInt32(value!) : value!)  : default(int);
+        if (Metadata.Count > 0)
+            return SetSimpleDefaultValue(dataType);
 
-        if (dataType == DataType.Date)
-            return Metadata.Any() ? value ??= null : default(DateTime);
+        if (value is null)
+            return null;
 
-        if (dataType == DataType.Boolean)
-            return Metadata.Any() ? value ??= null : default(bool);
-
-        return Metadata.Any() ? value ??= null : dataType.ToString().ToLower();
+        return dataType switch
+        {
+            DataType.Number => Convert.ToInt32(value),
+            _ => value
+        };
     }
 
     /// <summary>
@@ -253,5 +253,16 @@ public class JsonBody
     {
         var dynamicValue = Metadata.FirstOrDefault(x => x.Key == propertyName);
         return dynamicValue is not null ? GetObjectFromJson(dynamicValue.Value) : null;
+    }
+
+    private static object? SetSimpleDefaultValue(DataType dataType)
+    {
+        return dataType switch
+        {
+            DataType.Number => default(int),
+            DataType.Date => default(DateTime),
+            DataType.Boolean => default(bool),
+            _ => dataType.ToString().ToLower()
+        };
     }
 }
