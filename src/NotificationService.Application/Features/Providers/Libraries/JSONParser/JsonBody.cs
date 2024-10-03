@@ -141,13 +141,12 @@ public class JsonBody
     /// <returns></returns>
     public string Transform()
     {        
-        var obj = new object();
-        
-        if (RootIs == DataType.Object)
-            obj = CreateObject(Definition);
-
-        if (RootIs == DataType.Array)
-            obj = CreateArray(Definition);
+        var obj = RootIs switch
+        {
+            DataType.Object => CreateObject(Definition),
+            DataType.Array => CreateArray(Definition),
+            _ => new()
+        };
 
         return JsonConvert.SerializeObject(obj);
     }
