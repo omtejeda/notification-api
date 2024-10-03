@@ -31,7 +31,7 @@ public class ProviderService : IProviderService
 
         Guard.ProviderTypeIsValid(providerType);
         
-        var existingProvider = await _providerRepository.FindOneAsync(x => x.Name.ToLower() == request.Name.ToLower());
+        var existingProvider = await _providerRepository.FindOneAsync(x => x.Name.Equals(request.Name, StringComparison.OrdinalIgnoreCase));
         Guard.ProviderNotExists(existingProvider);
         
         if (providerType == ProviderType.SMTP)
@@ -109,7 +109,7 @@ public class ProviderService : IProviderService
         Guard.ProviderIsCreatedByRequesterOrPublic(provider, owner);
         
         provider.DevSettings ??= new();
-        provider.DevSettings.AllowedRecipients ??= new List<string>();
+        provider.DevSettings.AllowedRecipients ??= [];
 
         Guard.RecipientNotExists(provider, recipient);
         provider.DevSettings.AllowedRecipients.Add(recipient.ToLower());
@@ -124,7 +124,7 @@ public class ProviderService : IProviderService
         Guard.ProviderWithIdExists(provider, providerId);
         Guard.ProviderIsCreatedByRequesterOrPublic(provider, owner);
         
-        var existingRecipient = provider?.DevSettings?.AllowedRecipients.FirstOrDefault(x => x.ToLower() == recipient.ToLower());
+        var existingRecipient = provider?.DevSettings?.AllowedRecipients.FirstOrDefault(x => x.Equals(recipient, StringComparison.OrdinalIgnoreCase));
 
         Guard.RecipientExists(existingRecipient);
         provider!.DevSettings.AllowedRecipients.Remove(existingRecipient);
