@@ -19,7 +19,7 @@ public class GetAllProvidersQueryHandler(IProviderService providerService)
         return await _providerService.GetProviders(predicate, request.Owner, new FilterOptions(request.Page, request.PageSize));
     }
 
-    private Expression<Func<Provider, bool>> GetPredicateExpression(GetAllProvidersQuery query)
+    private static Expression<Func<Provider, bool>> GetPredicateExpression(GetAllProvidersQuery query)
     {
         var predicate = PredicateBuilder.New<Provider>(true);
         Enum.TryParse(query.Type, out ProviderType providerType);

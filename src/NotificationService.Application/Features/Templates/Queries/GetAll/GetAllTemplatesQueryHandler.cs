@@ -18,7 +18,7 @@ public class GetAllTemplatesQueryHandler(ITemplateService templateService)
         return await _templateService.GetTemplates(predicate, request.Owner!, new FilterOptions(request.Page, request.PageSize));
     }
 
-    private Expression<Func<Template, bool>> GetPredicateExpression(GetAllTemplatesQuery query)
+    private static Expression<Func<Template, bool>> GetPredicateExpression(GetAllTemplatesQuery query)
     {
         var predicate = PredicateBuilder.New<Template>(true);
         

@@ -19,7 +19,7 @@ public class GetAllPlatformsQueryHandler(IPlatformService platformService)
         return await _platformService.GetPlatforms(predicate, request.Owner, new FilterOptions(request.Page, request.PageSize));
     }
 
-    private Expression<Func<Platform, bool>> GetPredicateExpression(GetAllPlatformsQuery query)
+    private static Expression<Func<Platform, bool>> GetPredicateExpression(GetAllPlatformsQuery query)
     {
         var predicate = PredicateBuilder.New<Platform>(true);
         
