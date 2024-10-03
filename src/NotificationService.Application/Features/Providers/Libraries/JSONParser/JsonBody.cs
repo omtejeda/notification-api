@@ -67,36 +67,26 @@ public class JsonBody
     /// <returns></returns>
     private object CreateObject(ICollection<JsonKey> keys)
     {
-        var customObject = new Dictionary<string, object>();
+        var customObject = new Dictionary<string, object?>();
         
         foreach (var key in keys)
         {
-            if (key.DataType == DataType.Array)
+            var propertyValue = key.DataType switch
             {
-                var array = CreateArray(key.Childs);
-                customObject[key.PropertyName] = array;
-            }
+                DataType.Array => CreateArray(key.Childs),
+                DataType.Object => CreateObject(key.Childs),
+                DataType.DynamicObject => GetDynamicValue(key.PropertyName),
+                _ when IsSimpleValue(key.DataType) => CreateSimpleValue(key.DataType, key.Value),
+                _ => null
+            };
 
-            if (key.DataType == DataType.Object)
+            bool isAssignable = propertyValue is not null ||
+                key.DataType == DataType.Array ||
+                key.DataType == DataType.Object;
+            
+            if (isAssignable)
             {
-                var @object = CreateObject(key.Childs);
-                customObject[key.PropertyName] = @object;
-            }
-
-            if (IsSimpleValue(key.DataType))
-            {
-                var simpleValue = CreateSimpleValue(key.DataType, key.Value);
-                
-                if (simpleValue is not null)
-                    customObject[key.PropertyName] = simpleValue;
-            }
-
-            if (key.DataType == DataType.DynamicObject)
-            {
-                var dynamicValue = Metadata.FirstOrDefault(x => x.Key == key.PropertyName);
-                
-                if (dynamicValue is not null)
-                    customObject[key.PropertyName] = GetObjectFromJson(dynamicValue.Value);
+                customObject[key.PropertyName] = propertyValue;
             }
         }
         return customObject;
@@ -258,5 +248,11 @@ public class JsonBody
                 def.Value = metadata.Value;
             }
         }
+    }
+
+    private object? GetDynamicValue(string propertyName)
+    {
+        var dynamicValue = Metadata.FirstOrDefault(x => x.Key == propertyName);
+        return dynamicValue is not null ? GetObjectFromJson(dynamicValue.Value) : null;
     }
 }
