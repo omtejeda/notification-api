@@ -48,14 +48,14 @@ public interface IProviderService
     /// </summary>
     /// <param name="providerId">The unique identifier of the target provider.</param>
     /// <param name="owner">The owner of the provider.</param>
-    /// <param name="destination">The recipient to be added to the whitelist.</param>
-    Task AddToWhiteList(string providerId, string owner, string destination);
+    /// <param name="recipient">The recipient to be added to the whitelist.</param>
+    Task AddToWhiteList(string providerId, string owner, string recipient);
 
     /// <summary>
     /// Deletes a recipient from the whitelist for a specific provider.
     /// </summary>
     /// <param name="providerId">The unique identifier of the provider to remove from the whitelist.</param>
     /// <param name="owner">The owner of the provider.</param>
-    /// <param name="destination">The recipient to be removed from the whitelist.</param>
-    Task DeleteFromWhiteList(string providerId, string owner, string destination);
+    /// <param name="recipient">The recipient to be removed from the whitelist.</param>
+    Task DeleteFromWhiteList(string providerId, string owner, string recipient);
 }
