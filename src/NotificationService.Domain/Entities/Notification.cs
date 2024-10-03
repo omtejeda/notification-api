@@ -135,7 +135,7 @@ public class Notification : EntityBase
         public Notification Build()
         {
             _notification.NotificationId = Guid.NewGuid().ToString();
-            _notification.HasAttachments = _notification.Attachments?.Any() ?? false;
+            _notification.HasAttachments = _notification.Attachments?.Count > 0;
 
             return _notification;
         }
