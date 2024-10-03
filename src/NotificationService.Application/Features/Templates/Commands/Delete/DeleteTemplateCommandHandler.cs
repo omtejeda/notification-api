@@ -14,6 +14,6 @@ public class DeleteTemplateCommandHandler(ITemplateService templateService, IMed
     {
         await _templateService.DeleteTemplate(request.TemplateId, request.Owner);
 
-        await _mediator.Publish(new TemplateDeletedEvent(request.TemplateId));
+        await _mediator.Publish(new TemplateDeletedEvent(request.TemplateId), CancellationToken.None);
     }
 }

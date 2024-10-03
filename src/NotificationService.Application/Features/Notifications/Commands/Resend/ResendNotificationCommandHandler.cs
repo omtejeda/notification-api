@@ -48,7 +48,7 @@ public class ResendNotificationCommandHandler(
                 await _messageSender.SendMessageAsync((SendMessageRequestDto) notification.Request, request.Owner)
         };
         
-        await _mediator.Publish(new NotificationResentEvent(request.NotificationId, response.Response.Success));
+        await _mediator.Publish(new NotificationResentEvent(request.NotificationId, response.Response.Success), CancellationToken.None);
         return response;
     }
 

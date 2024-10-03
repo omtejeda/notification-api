@@ -15,6 +15,6 @@ public class DeleteProviderCommandHandler(IProviderService providerService, IMed
     {
         await _providerService.DeleteProvider(request.ProviderId, request.Owner);
         
-        await _mediator.Publish(new ProviderDeletedEvent(request.ProviderId));
+        await _mediator.Publish(new ProviderDeletedEvent(request.ProviderId), CancellationToken.None);
     }
 }

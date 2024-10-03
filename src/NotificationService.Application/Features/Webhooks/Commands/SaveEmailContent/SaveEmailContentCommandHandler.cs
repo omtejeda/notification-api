@@ -16,7 +16,7 @@ public class SaveEmailContentCommandHandler(IWebhooksService webhookService, IMe
     {
         var (success, notificationId) = await _webhookService.SaveEmailContent(request.Html, request.Subject, request.Headers);
 
-        await _mediator.Publish(new EmailContentSavedEvent(notificationId, success));
+        await _mediator.Publish(new EmailContentSavedEvent(notificationId, success), CancellationToken.None);
         return success;
     }
 }

@@ -15,6 +15,6 @@ public class AddToWhiteListCommandHandler(IProviderService providerService, IMed
     {
         await _providerService.AddToWhiteList(request.ProviderId, request.Owner, request.Recipient);
 
-        await _mediator.Publish(new AddedToWhiteListEvent(request.ProviderId, request.Recipient));
+        await _mediator.Publish(new AddedToWhiteListEvent(request.ProviderId, request.Recipient), CancellationToken.None);
     }
 }

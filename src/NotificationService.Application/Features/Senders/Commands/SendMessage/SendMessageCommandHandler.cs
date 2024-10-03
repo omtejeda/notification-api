@@ -24,7 +24,7 @@ public class SendMessageCommandHandler(IMessageSender messageSender, IMediator m
             NotificationType = NotificationType.Email,
             ToDestination = request?.RequestDto?.ToDestination,
             Success = result.Response.Success ?? false
-        });
+        }, CancellationToken.None);
 
         return result;
     }

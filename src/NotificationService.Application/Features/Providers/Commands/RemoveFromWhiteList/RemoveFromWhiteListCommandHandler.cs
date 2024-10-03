@@ -15,6 +15,6 @@ public class RemoveFromWhiteListCommandHandler(IProviderService providerService,
     {
         await _providerService.DeleteFromWhiteList(request.ProviderId, request.Owner, request.Recipient);
 
-        await _mediator.Publish(new RemovedFromWhiteListEvent(request.ProviderId, request.Recipient));
+        await _mediator.Publish(new RemovedFromWhiteListEvent(request.ProviderId, request.Recipient), CancellationToken.None);
     }
 }

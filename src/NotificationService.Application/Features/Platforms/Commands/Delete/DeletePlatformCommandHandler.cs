@@ -14,6 +14,6 @@ public class DeletePlatformCommandHandler(IPlatformService platformService, IMed
     {
         await _platformService.DeletePlatform(request.PlatformId, request.Owner);
 
-        await _mediator.Publish(new PlatformDeletedEvent(request.PlatformId));
+        await _mediator.Publish(new PlatformDeletedEvent(request.PlatformId), CancellationToken.None);
     }
 }

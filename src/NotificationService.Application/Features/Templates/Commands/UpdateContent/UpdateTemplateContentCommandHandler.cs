@@ -17,6 +17,6 @@ public class UpdateTemplateContentCommandHandler(ITemplateService templateServic
         var requestDto = new UpdateTemplateContentRequestDto(request.Base64Content);
         await _templateService.UpdateTemplateContent(request.TemplateId, requestDto, request.Owner);
 
-        await _mediator.Publish(new TemplateContentUpdatedEvent(request.TemplateId));
+        await _mediator.Publish(new TemplateContentUpdatedEvent(request.TemplateId), CancellationToken.None);
     }
 }

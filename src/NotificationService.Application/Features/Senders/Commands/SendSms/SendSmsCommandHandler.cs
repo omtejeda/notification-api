@@ -24,7 +24,7 @@ public class SendSmsCommandHandler(ISmsSender smsSender, IMediator mediator)
             NotificationType = NotificationType.Email,
             ToDestination = request?.RequestDto?.ToPhoneNumber,
             Success = result.Response.Success ?? false
-        });
+        }, CancellationToken.None);
 
         return result;
     }

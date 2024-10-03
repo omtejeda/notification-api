@@ -17,7 +17,7 @@ public class CreateProviderCommandHandler(IProviderService providerService, IMed
     {
         var result = await _providerService.CreateProvider(request.RequestDto, request.Owner);
 
-        await _mediator.Publish(new ProviderCreatedEvent(result.Data));
+        await _mediator.Publish(new ProviderCreatedEvent(result.Data), CancellationToken.None);
         return result;
     }
 }
