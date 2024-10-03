@@ -23,7 +23,7 @@ public class ProviderDevSettings
 public class ProviderSettings
 {
     public SendGridSetting? SendGrid { get; set; }
-    public SMTPSetting? Smtp { get; set; }
+    public SmtpSetting? Smtp { get; set; }
     public HttpClientSetting? HttpClient { get; set; }
 }
 
@@ -73,7 +73,7 @@ public class SendGridSetting
     public string ApiKey { get; set; } = string.Empty;
 }
 
-public class SMTPSetting
+public class SmtpSetting
 {
     public string FromEmail { get; set; } = string.Empty;
     public string FromDisplayName { get; set; } = string.Empty;

@@ -31,8 +31,8 @@ public class MappingProfiles : Profile
         CreateMap<SendGridSetting, SendGridSettingDto>()
             .ForMember(dest => dest.ApiKey, opt => opt.MapFrom(src => SecretMasker.Mask(src.ApiKey)));
         
-        CreateMap<SMTPSettingDto, SMTPSetting>();
-        CreateMap<SMTPSetting, SMTPSettingDto>()
+        CreateMap<SmtpSettingDto, SmtpSetting>();
+        CreateMap<SmtpSetting, SmtpSettingDto>()
             .ForMember(dest => dest.Password, opt => opt.MapFrom(src => SecretMasker.Mask(src.Password)));
 
         CreateMap<HttpClientSetting, HttpClientSettingDto>().ReverseMap();

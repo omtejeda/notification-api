@@ -20,7 +20,7 @@ public class ProviderDevSettingsDto
 public class ProviderSettingsDto
 {
     public SendGridSettingDto? SendGrid { get; set; }
-    public SMTPSettingDto? Smtp { get; set; }
+    public SmtpSettingDto? Smtp { get; set; }
     public HttpClientSettingDto? HttpClient { get; set; }
 }
 
@@ -50,7 +50,7 @@ public class SendGridSettingDto
     public string ApiKey { get; set; } = string.Empty;
 }
 
-public class SMTPSettingDto
+public class SmtpSettingDto
 {
     public string FromEmail { get; set; } = string.Empty;
     public string FromDisplayName { get; set; } = string.Empty;

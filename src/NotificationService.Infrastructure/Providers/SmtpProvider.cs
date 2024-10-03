@@ -92,7 +92,7 @@ public class SmtpProvider(IEnvironmentService environmentService) : IEmailProvid
         }
     }
 
-    private void ThrowIfSettingsNotValid([NotNull] SMTPSetting setting)
+    private void ThrowIfSettingsNotValid([NotNull] SmtpSetting setting)
     {
         ArgumentNullException.ThrowIfNull(setting);
         ArgumentNullException.ThrowIfNullOrWhiteSpace(_provider?.Settings?.Smtp?.FromEmail);
