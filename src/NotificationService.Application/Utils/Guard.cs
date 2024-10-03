@@ -400,7 +400,7 @@ public static class Guard
         var recipientExists = provider
             .DevSettings
             .AllowedRecipients
-            .Any(x => x.ToLower() == recipient.ToLower());
+            .Any(x => x.Equals(recipient, StringComparison.OrdinalIgnoreCase));
         
         if (recipientExists)
         {
