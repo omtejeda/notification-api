@@ -47,7 +47,7 @@ public class JsonBody
     /// <returns></returns>
     private object? CreateSimpleValue(DataType dataType, object? value = null)
     {
-        if (Metadata.Count > 0)
+        if (Metadata.Count == 0)
             return SetSimpleDefaultValue(dataType);
 
         if (value is null)
