@@ -24,7 +24,7 @@ namespace NotificationService.Application.Features.Providers.Decorators
             return await Execute(policyWrap, emailMessage);
         }
 
-        private AsyncRetryPolicy GetRetryPolicy()
+        private static AsyncRetryPolicy GetRetryPolicy()
             => Policy
                 .Handle<NotificationFailedException>()
                 .WaitAndRetryAsync
