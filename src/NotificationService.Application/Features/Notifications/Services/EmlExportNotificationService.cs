@@ -59,7 +59,7 @@ public class EmlExportNotificationService : IExportNotificationsService
         return result;
     }
 
-    private string RemoveLeadingSpaces(string value)
+    private static string RemoveLeadingSpaces(string value)
         => string.Join("\n", value.Split('\n').Select(line => line.TrimStart()));
 
     private async Task ExportAttachmentsAsync(ExportNotificationResponseDto exportNotification, ICollection<AttachmentDto> attachments)
