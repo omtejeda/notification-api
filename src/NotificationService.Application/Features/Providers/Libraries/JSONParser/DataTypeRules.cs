@@ -4,16 +4,16 @@ namespace NotificationService.Application.Features.Providers.Libraries.JSONParse
 
 public class DataTypeRules
 {
-    public string? GetValueOrThrow(DataType dataType, string value)
+    public static string? GetValueOrThrow(DataType dataType, string value)
     {
         var (isValid, finalValue) = IsValidValue(dataType, value);
         if (!isValid)
-            throw new DataTypeUnsupportedValue($"Value {value} not supported for data type {dataType}");
+            throw new DataTypeUnsupportedValueException($"Value {value} not supported for data type {dataType}");
         
         return finalValue as string;
     }
 
-    private (bool, object?) IsValidValue(DataType dataType, string value)
+    private static (bool, object?) IsValidValue(DataType dataType, string value)
     {
         if (dataType == DataType.Date)
             return CheckIfValid(() => Convert.ToDateTime(value));
@@ -27,19 +27,16 @@ public class DataTypeRules
         return (false, null);
     }
 
-    private (bool, object) CheckIfValid(Func<object> action)
+    private static (bool, object) CheckIfValid(Func<object> action)
     {
-        bool isValid = true;
-        object value = new();
-        
         try
         {
-            value = action.Invoke();
+            var value = action.Invoke();
+            return (true, value);
         }
         catch
         {
-            isValid = false; 
+            return (false, default!);
         }
-        return (isValid, value);
     }
 }
