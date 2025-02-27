@@ -1,6 +1,6 @@
 using MediatR;
 using NotificationService.Application.Common.Models;
-using NotificationService.Application.Contracts.ResponseDtos;
+using NotificationService.Application.Contracts.DTOs.Responses;
 using NotificationService.Application.Features.Senders.Events.NotificationSent;
 using NotificationService.Application.Interfaces;
 using NotificationService.Domain.Enums;

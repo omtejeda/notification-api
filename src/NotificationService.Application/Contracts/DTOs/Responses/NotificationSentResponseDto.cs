@@ -1,4 +1,4 @@
-namespace NotificationService.Application.Contracts.ResponseDtos;
+namespace NotificationService.Application.Contracts.DTOs.Responses;
 
 public class NotificationSentResponseDto
 {

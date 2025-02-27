@@ -3,7 +3,7 @@ using NotificationService.Application.Contracts.Services;
 using NotificationService.Domain.Entities;
 using LinqKit;
 using System.Linq.Expressions;
-using NotificationService.Application.Contracts.ResponseDtos;
+using NotificationService.Application.Contracts.DTOs.Responses;
 using System.Diagnostics.CodeAnalysis;
 using NotificationService.Application.Common.Models;
 

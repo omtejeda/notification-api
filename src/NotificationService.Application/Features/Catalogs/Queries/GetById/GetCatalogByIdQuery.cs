@@ -1,5 +1,5 @@
 using NotificationService.SharedKernel.Interfaces;
-using NotificationService.Application.Contracts.ResponseDtos;
+using NotificationService.Application.Contracts.DTOs.Responses;
 using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Features.Catalogs.Queries.GetById;

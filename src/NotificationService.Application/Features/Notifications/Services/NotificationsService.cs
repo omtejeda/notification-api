@@ -4,7 +4,7 @@ using NotificationService.Domain.Entities;
 using NotificationService.Application.Contracts.Services;
 using System.Linq.Expressions;
 using NotificationService.Application.Contracts.Persistence;
-using NotificationService.Application.Contracts.ResponseDtos;
+using NotificationService.Application.Contracts.DTOs.Responses;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Common.Helpers;
 using NotificationService.Application.Common.Dtos;

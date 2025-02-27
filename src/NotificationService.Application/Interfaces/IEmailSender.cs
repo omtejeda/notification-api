@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using NotificationService.Application.Features.Senders.Dtos;
-using NotificationService.Application.Contracts.ResponseDtos;
+using NotificationService.Application.Contracts.DTOs.Responses;
 using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Interfaces;

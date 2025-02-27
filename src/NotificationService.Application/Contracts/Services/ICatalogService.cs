@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 using NotificationService.Domain.Entities;
-using NotificationService.Application.Contracts.ResponseDtos;
+using NotificationService.Application.Contracts.DTOs.Responses;
 using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Contracts.Services;

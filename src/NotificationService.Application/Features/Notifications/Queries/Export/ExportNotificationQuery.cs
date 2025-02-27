@@ -1,5 +1,5 @@
 using NotificationService.SharedKernel.Interfaces;
-using NotificationService.Application.Contracts.ResponseDtos;
+using NotificationService.Application.Contracts.DTOs.Responses;
 using NotificationService.Domain.Enums;
 
 namespace NotificationService.Application.Features.Notifications.Queries.Export;

@@ -1,4 +1,4 @@
-using NotificationService.Application.Contracts.ResponseDtos;
+using NotificationService.Application.Contracts.DTOs.Responses;
 using NotificationService.Domain.Enums;
 
 namespace NotificationService.Application.Contracts.Services;

@@ -1,5 +1,5 @@
 using NotificationService.SharedKernel.Interfaces;
-using NotificationService.Application.Contracts.ResponseDtos;
+using NotificationService.Application.Contracts.DTOs.Responses;
 using NotificationService.Application.Contracts.Factories;
 using NotificationService.Application.Exceptions;
 

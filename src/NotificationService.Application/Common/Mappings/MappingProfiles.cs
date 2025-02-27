@@ -1,7 +1,7 @@
 using AutoMapper;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Contracts.DTOs.Requests;
-using NotificationService.Application.Contracts.ResponseDtos;
+using NotificationService.Application.Contracts.DTOs.Responses;
 using NotificationService.Application.Utils;
 using NotificationService.Domain.Models;
 using NotificationService.Domain.Dtos;
