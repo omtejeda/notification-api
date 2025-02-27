@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 using AutoMapper;
-using NotificationService.Application.Utils;
+using NotificationService.Application.Common.Helpers;
 using LinqKit;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Contracts.Interfaces.Services;

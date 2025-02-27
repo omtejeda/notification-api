@@ -8,7 +8,7 @@ using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.SharedKernel.Resources;
-using NotificationService.Application.Utils;
+using NotificationService.Application.Common.Helpers;
 using NotificationService.Application.Common.Dtos;
 using NotificationService.Application.Common.Models;
 

@@ -5,7 +5,7 @@ using NotificationService.Application.Features.Senders.Commands.SendEmail;
 using NotificationService.Application.Features.Senders.Commands.SendMessage;
 using NotificationService.Application.Features.Senders.Commands.SendSms;
 using NotificationService.Application.Features.Senders.Dtos;
-using NotificationService.Application.Utils;
+using NotificationService.Application.Common.Helpers;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace NotificationService.Api.Controllers.v1;

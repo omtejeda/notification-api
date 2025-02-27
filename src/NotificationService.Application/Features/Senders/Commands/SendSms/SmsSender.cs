@@ -6,7 +6,7 @@ using NotificationService.Application.Contracts.Interfaces.Repositories;
 using NotificationService.Application.Interfaces;
 using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.SharedKernel.Interfaces;
-using NotificationService.Application.Utils;
+using NotificationService.Application.Common.Helpers;
 using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Common.Models;

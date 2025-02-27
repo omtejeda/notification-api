@@ -1,7 +1,7 @@
 ﻿using NotificationService.Domain.Entities;
 using NotificationService.Application.Contracts.Interfaces.Repositories;
-using NotificationService.Application.Utils;
 using NotificationService.Application.Features.Providers.Interfaces;
+using NotificationService.Application.Common.Helpers;
 
 namespace NotificationService.Application.Features.Providers.Factories;
 

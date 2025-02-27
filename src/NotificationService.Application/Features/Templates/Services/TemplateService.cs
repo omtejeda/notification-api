@@ -11,6 +11,7 @@ using NotificationService.Application.Contracts.Interfaces.Repositories;
 using System.Diagnostics.CodeAnalysis;
 using NotificationService.Application.Common.Dtos;
 using NotificationService.Application.Common.Models;
+using NotificationService.Application.Common.Helpers;
 
 namespace NotificationService.Application.Features.Templates.Services;
 
