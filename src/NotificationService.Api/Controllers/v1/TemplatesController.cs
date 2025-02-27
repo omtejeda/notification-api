@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
-using NotificationService.Application.Contracts.RequestDtos;
+using NotificationService.Application.Contracts.DTOs.Requests;
 using NotificationService.Application.Features.Templates.Commands.Create;
 using MediatR;
 using NotificationService.Application.Features.Templates.Commands.Delete;

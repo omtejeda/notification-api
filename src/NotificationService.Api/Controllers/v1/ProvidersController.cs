@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
-using NotificationService.Application.Contracts.RequestDtos;
+using NotificationService.Application.Contracts.DTOs.Requests;
 using NotificationService.Application.Features.Providers.Commands.Create;
 using NotificationService.Application.Features.Providers.Commands.Delete;
 using NotificationService.Application.Features.Providers.Commands.AddToWhiteList;

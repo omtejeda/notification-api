@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Api.Utils;
 using NotificationService.Api.Attributes;
-using NotificationService.Application.Contracts.RequestDtos;
+using NotificationService.Application.Contracts.DTOs.Requests;
 using MediatR;
 using NotificationService.Application.Features.Platforms.Commands.Create;
 using NotificationService.Application.Features.Platforms.Commands.Delete;

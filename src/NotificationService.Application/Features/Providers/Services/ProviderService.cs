@@ -4,7 +4,7 @@ using NotificationService.Application.Exceptions;
 using LinqKit;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
-using NotificationService.Application.Contracts.RequestDtos;
+using NotificationService.Application.Contracts.DTOs.Requests;
 using NotificationService.Application.Contracts.Services;
 using NotificationService.Application.Contracts.Persistence;
 using NotificationService.SharedKernel.Resources;

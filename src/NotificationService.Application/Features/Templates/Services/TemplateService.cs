@@ -5,7 +5,7 @@ using NotificationService.Domain.Enums;
 using LinqKit;
 using NotificationService.Application.Utils;
 using NotificationService.Domain.Models;
-using NotificationService.Application.Contracts.RequestDtos;
+using NotificationService.Application.Contracts.DTOs.Requests;
 using NotificationService.Application.Contracts.Services;
 using NotificationService.Application.Contracts.Persistence;
 using System.Diagnostics.CodeAnalysis;

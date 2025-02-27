@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using NotificationService.Application.Contracts.ResponseDtos;
 
-namespace NotificationService.Application.Contracts.RequestDtos;
+namespace NotificationService.Application.Contracts.DTOs.Requests;
+
 public class CreateCatalogRequestDto
 {
     [Required]

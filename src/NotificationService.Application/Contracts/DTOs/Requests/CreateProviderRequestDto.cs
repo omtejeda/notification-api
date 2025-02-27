@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using NotificationService.Application.Common.Dtos;
 
-namespace NotificationService.Application.Contracts.RequestDtos;
+namespace NotificationService.Application.Contracts.DTOs.Requests;
 
 public class CreateProviderRequestDto
 {

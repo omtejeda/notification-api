@@ -1,6 +1,6 @@
 using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Contracts.Services;
-using NotificationService.Application.Contracts.RequestDtos;
+using NotificationService.Application.Contracts.DTOs.Requests;
 using MediatR;
 using NotificationService.Application.Features.Templates.Events.ContentUpdated;
 

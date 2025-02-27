@@ -3,7 +3,7 @@ using NotificationService.Domain.Enums;
 using System.Text.Json.Serialization;
 using NotificationService.Application.Common.Dtos;
 
-namespace NotificationService.Application.Contracts.RequestDtos;
+namespace NotificationService.Application.Contracts.DTOs.Requests;
 
 public class CreateTemplateRequestDto
 {
