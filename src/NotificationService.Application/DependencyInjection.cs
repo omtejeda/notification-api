@@ -6,6 +6,7 @@ using NotificationService.Application.Platforms;
 using NotificationService.Application.Features.Senders;
 using NotificationService.Application.Templates;
 using NotificationService.Application.Features.Webhooks;
+using NotificationService.Application.Common;
 using System.Reflection;
 
 namespace NotificationService.Application;
@@ -17,6 +18,7 @@ public static class DependencyInjection
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         
+        services.AddCommon();
         services.AddCatalogs();
         services.AddNotififications();
         services.AddPlatforms();

@@ -9,9 +9,6 @@ using NotificationService.Api;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSingleton<IDateTimeService, DateTimeService>();
-builder.Services.AddSingleton<IEnvironmentService, EnvironmentService>();
-
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
 builder.Services.AddApi();
