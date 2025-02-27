@@ -7,7 +7,7 @@ using NotificationService.SharedKernel.Resources;
 using NotificationService.SharedKernel.Constants;
 using System.Diagnostics.CodeAnalysis;
 
-namespace NotificationService.Application.Utils;
+namespace NotificationService.Application.Common.Helpers;
 
 public static class Guard
 {
@@ -137,8 +137,7 @@ public static class Guard
         var isDestinationAllowed = provider?
             .DevSettings?
             .AllowedRecipients?
-            .Any(x => x == toDestination)
-            ?? false;
+            .Contains(toDestination) == true;
         
         if (!isDestinationAllowed)
         {
