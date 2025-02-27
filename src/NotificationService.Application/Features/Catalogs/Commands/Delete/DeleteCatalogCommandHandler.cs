@@ -1,5 +1,5 @@
 using NotificationService.SharedKernel.Interfaces;
-using NotificationService.Application.Contracts.Interfaces.Services;
+using NotificationService.Application.Contracts.Services;
 
 namespace NotificationService.Application.Features.Catalogs.Commands.Delete;
 

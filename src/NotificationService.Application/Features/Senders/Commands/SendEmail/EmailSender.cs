@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http;
 using NotificationService.Domain.Enums;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Utils;
-using NotificationService.Application.Contracts.Interfaces.Services;
+using NotificationService.Application.Contracts.Services;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Interfaces;
 using NotificationService.Application.Features.Senders.Dtos;

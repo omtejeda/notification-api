@@ -3,7 +3,7 @@ using AutoMapper;
 using NotificationService.Application.Common.Helpers;
 using LinqKit;
 using NotificationService.Domain.Entities;
-using NotificationService.Application.Contracts.Interfaces.Services;
+using NotificationService.Application.Contracts.Services;
 using NotificationService.Application.Contracts.Persistence;
 using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Common.Dtos;

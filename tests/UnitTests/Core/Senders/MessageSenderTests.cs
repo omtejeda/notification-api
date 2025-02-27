@@ -1,4 +1,4 @@
-using NotificationService.Application.Contracts.Interfaces.Services;
+using NotificationService.Application.Contracts.Services;
 using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Domain.Enums;

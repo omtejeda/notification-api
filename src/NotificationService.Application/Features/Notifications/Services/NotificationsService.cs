@@ -1,7 +1,7 @@
 using AutoMapper;
 using LinqKit;
 using NotificationService.Domain.Entities;
-using NotificationService.Application.Contracts.Interfaces.Services;
+using NotificationService.Application.Contracts.Services;
 using System.Linq.Expressions;
 using NotificationService.Application.Contracts.Persistence;
 using NotificationService.Application.Contracts.ResponseDtos;

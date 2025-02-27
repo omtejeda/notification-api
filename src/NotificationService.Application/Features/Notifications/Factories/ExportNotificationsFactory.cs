@@ -1,5 +1,5 @@
 using NotificationService.Domain.Enums;
-using NotificationService.Application.Contracts.Interfaces.Services;
+using NotificationService.Application.Contracts.Services;
 using NotificationService.Application.Contracts.Factories;
 
 namespace NotificationService.Application.Features.Notifications.Factories;

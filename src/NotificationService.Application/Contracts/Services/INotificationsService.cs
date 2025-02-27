@@ -4,7 +4,7 @@ using NotificationService.Domain.Models;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Common.Models;
 
-namespace NotificationService.Application.Contracts.Interfaces.Services;
+namespace NotificationService.Application.Contracts.Services;
 
 /// <summary>
 /// Defines the contract for managing notifications, including registering, retrieving, and handling attachments.

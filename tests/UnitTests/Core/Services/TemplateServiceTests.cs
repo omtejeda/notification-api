@@ -9,7 +9,7 @@ using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Application.Contracts.Persistence;
-using NotificationService.Application.Contracts.Interfaces.Services;
+using NotificationService.Application.Contracts.Services;
 using Moq;
 using AutoMapper;
 using NotificationService.Application.Features.Templates.Services;

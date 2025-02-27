@@ -4,7 +4,7 @@ using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Application.Common.Dtos;
 using NotificationService.Application.Common.Models;
 
-namespace NotificationService.Application.Contracts.Interfaces.Services;
+namespace NotificationService.Application.Contracts.Services;
 
 /// <summary>
 /// Defines the contract for managing providers, including creation, retrieval, and management of whitelist entries.

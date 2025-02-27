@@ -1,5 +1,5 @@
 
-using NotificationService.Application.Contracts.Interfaces.Services;
+using NotificationService.Application.Contracts.Services;
 using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.SharedKernel.Interfaces;

@@ -1,5 +1,5 @@
 using NotificationService.SharedKernel.Interfaces;
-using NotificationService.Application.Contracts.Interfaces.Services;
+using NotificationService.Application.Contracts.Services;
 using MediatR;
 using NotificationService.Application.Features.Providers.Events.RemovedFromWhiteList;
 

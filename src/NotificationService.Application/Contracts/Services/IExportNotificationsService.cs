@@ -1,7 +1,7 @@
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Domain.Enums;
 
-namespace NotificationService.Application.Contracts.Interfaces.Services;
+namespace NotificationService.Application.Contracts.Services;
 
 /// <summary>
 /// Defines the contract for exporting notifications.

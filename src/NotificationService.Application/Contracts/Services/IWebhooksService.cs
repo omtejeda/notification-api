@@ -1,4 +1,4 @@
-namespace NotificationService.Application.Contracts.Interfaces.Services;
+namespace NotificationService.Application.Contracts.Services;
 
 /// <summary>
 /// Provides methods for handling webhooks related to notifications.

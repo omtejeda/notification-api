@@ -3,7 +3,7 @@ using NotificationService.Domain.Entities;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Common.Models;
 
-namespace NotificationService.Application.Contracts.Interfaces.Services;
+namespace NotificationService.Application.Contracts.Services;
 
 /// <summary>
 /// Provides methods for managing catalogs, including creation, deletion, and retrieval of catalog data.
