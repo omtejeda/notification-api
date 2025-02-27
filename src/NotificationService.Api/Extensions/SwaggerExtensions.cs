@@ -25,11 +25,16 @@ public static class SwaggerExtensions
                 Title = "Notification API",
                 Version = "v1",
                 Contact = new OpenApiContact 
-                { 
-                    Name = "Software Engineer | Omarky Tejeda", 
-                    Email = "omarkytejeda@gmail.com" 
+                {
+                    Name = "Software Engineer | Omarky Tejeda",
+                    Url = new Uri("https://github.com/omtejeda/notification-api")
                 },
-                Description = $"Environment: {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}"
+                Description = $"Environment: {Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}",
+                License = new OpenApiLicense
+                {
+                    Name = "MIT",
+                    Url = new Uri("https://opensource.org/licenses/MIT")
+                }
             });
 
             c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme()
