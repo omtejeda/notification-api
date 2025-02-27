@@ -4,7 +4,7 @@ using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 using NotificationService.Infrastructure.Repositories.Helpers;
 using LinqKit;
-using NotificationService.Application.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Contracts.Persistence;
 using NotificationService.SharedKernel.Interfaces;
 using NotificationService.SharedKernel.Domain;
 using NotificationService.Application.Common.Models;

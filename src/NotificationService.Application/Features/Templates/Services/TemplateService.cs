@@ -7,7 +7,7 @@ using NotificationService.Application.Utils;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Contracts.RequestDtos;
 using NotificationService.Application.Contracts.Interfaces.Services;
-using NotificationService.Application.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Contracts.Persistence;
 using System.Diagnostics.CodeAnalysis;
 using NotificationService.Application.Common.Dtos;
 using NotificationService.Application.Common.Models;

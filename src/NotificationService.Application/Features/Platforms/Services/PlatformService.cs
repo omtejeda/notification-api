@@ -4,7 +4,7 @@ using NotificationService.Application.Common.Helpers;
 using LinqKit;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Contracts.Interfaces.Services;
-using NotificationService.Application.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Contracts.Persistence;
 using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Common.Dtos;
 using NotificationService.Application.Common.Models;

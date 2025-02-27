@@ -3,7 +3,7 @@ using NotificationService.Domain.Entities;
 using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Domain.Enums;
 using NotificationService.Api.Attributes;
-using NotificationService.Application.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Contracts.Persistence;
 using NotificationService.SharedKernel.Resources;
 using NotificationService.Application.Common.Dtos;
 using NotificationService.Application.Common.Models;

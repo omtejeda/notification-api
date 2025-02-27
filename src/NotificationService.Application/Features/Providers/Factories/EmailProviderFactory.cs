@@ -1,5 +1,5 @@
 ﻿using NotificationService.Domain.Entities;
-using NotificationService.Application.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Contracts.Persistence;
 using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.Application.Common.Helpers;
 

@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using NotificationService.Application.Common.Models;
 using NotificationService.SharedKernel.Domain;
 
-namespace NotificationService.Application.Contracts.Interfaces.Repositories;
+namespace NotificationService.Application.Contracts.Persistence;
 
 /// <summary>
 /// Defines a generic repository interface for performing CRUD operations on entities, 

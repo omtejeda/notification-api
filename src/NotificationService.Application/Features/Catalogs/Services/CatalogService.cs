@@ -2,7 +2,7 @@ using LinqKit;
 using System.Linq.Expressions;
 using AutoMapper;
 using NotificationService.Domain.Entities;
-using NotificationService.Application.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Contracts.Persistence;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Application.Contracts.ResponseDtos;
 using NotificationService.Application.Common.Helpers;

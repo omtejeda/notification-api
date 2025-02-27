@@ -1,4 +1,4 @@
-using NotificationService.Application.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Contracts.Persistence;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using NotificationService.Domain.Entities;
 using static NotificationService.Application.Utils.EmailUtil;

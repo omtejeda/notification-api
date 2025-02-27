@@ -8,7 +8,7 @@ using NotificationService.Application.Exceptions;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Contracts.RequestDtos;
-using NotificationService.Application.Contracts.Interfaces.Repositories;
+using NotificationService.Application.Contracts.Persistence;
 using NotificationService.Application.Contracts.Interfaces.Services;
 using Moq;
 using AutoMapper;
