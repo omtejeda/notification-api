@@ -23,7 +23,7 @@ public class InfoController(
 
     [SwaggerOperation("Retrieves general information about Notification API")]
     [HttpGet]
-    public IActionResult GetInfo()
+    public ActionResult<BaseResponse<InfoDto>> GetInfo()
     {
         var infoDto = new InfoDto()
         {
