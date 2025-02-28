@@ -1,9 +1,9 @@
 using System.Text;
 using NotificationService.Domain.Dtos;
 
-namespace NotificationService.Application.Utils;
+namespace NotificationService.Application.Features.Templates.Helpers;
 
-public static class TemplateUtil
+public static class TemplateFormatter
 {
     public static string ReplaceParameters(string text, IEnumerable<MetadataDto> metadata)
     {        
