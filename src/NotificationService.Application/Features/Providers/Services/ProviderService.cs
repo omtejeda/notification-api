@@ -53,7 +53,7 @@ public class ProviderService : IProviderService
 
         if (providerType == ProviderType.HttpClient)
         {
-            Utils.HttpUtil.CheckHTTPClientSettings(request.Settings?.HttpClient);
+            HttpRequestHelper.CheckHTTPClientSettings(request.Settings?.HttpClient);
         }
 
         var provider = _mapper.Map<Provider>(request);
