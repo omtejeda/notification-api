@@ -1,12 +1,12 @@
 ﻿using MimeKit;
 using MailKit.Net.Smtp;
 using NotificationService.Domain.Enums;
-using NotificationService.Application.Utils;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;
 using System.Diagnostics.CodeAnalysis;
+using NotificationService.Application.Common.Helpers;
 
 namespace NotificationService.Infrastructure.Providers;
 
@@ -26,7 +26,7 @@ public class SmtpProvider(IEnvironmentService environmentService) : IEmailProvid
     public async Task<NotificationResult> SendAsync(EmailMessage emailMessage)
     {
         
-        EmailUtil.ThrowIfEmailNotAllowed(
+        EmailHelper.ThrowIfEmailNotAllowed(
             environment: _environmentService.CurrentEnvironment,
             provider: _provider,
             to: emailMessage.To,
