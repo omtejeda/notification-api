@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Http;
 using NotificationService.Domain.Models;
 
-namespace NotificationService.Application.Utils;
+namespace NotificationService.Application.Common.Helpers;
 
-internal static class NotificationUtil
+internal static class AttachmentMapper
 {
     public static IEnumerable<Attachment> GetCollection(this List<IFormFile>? attachments)
     {
@@ -13,7 +13,7 @@ internal static class NotificationUtil
         {
             yield return new Attachment
             {
-                FileName = GetUniqueFileName(attachment.FileName),
+                FileName = attachment.FileName.GetUniqueFileName(),
                 OriginalFileName = attachment.FileName,
                 ContentType = attachment.ContentType,
                 Length = attachment.Length,
@@ -22,7 +22,7 @@ internal static class NotificationUtil
         }
     }
 
-    private static string GetUniqueFileName(string fileName)
+    private static string GetUniqueFileName(this string fileName)
     {
         return string.Concat(
             Path.GetFileNameWithoutExtension(fileName), 
