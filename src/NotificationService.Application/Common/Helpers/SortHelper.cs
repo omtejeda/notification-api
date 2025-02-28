@@ -1,4 +1,4 @@
-namespace NotificationService.Application.Utils;
+namespace NotificationService.Application.Common.Helpers;
 
 public static class SortHelper
 {
