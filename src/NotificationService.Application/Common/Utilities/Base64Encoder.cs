@@ -1,8 +1,8 @@
 using System.Text;
 
-namespace NotificationService.Application.Utils;
+namespace NotificationService.Application.Common.Utilities;
 
-internal static class Base64Util
+internal static class Base64Encoder
 {
     public static string EncodeBase64(this string text)
     {
