@@ -1,4 +1,4 @@
-namespace NotificationService.Application.Utils;
+namespace NotificationService.Application.Common.Utilities;
 
 public static class SecretMasker
 {
