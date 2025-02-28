@@ -4,11 +4,10 @@ using SendGrid.Helpers.Mail;
 using NotificationService.Domain.Dtos;
 using NotificationService.Application.Features.Templates.Models;
 using NotificationService.Domain.ValueObjects;
-using NotificationService.Application.Common.Helpers;
 
-namespace NotificationService.Application.Utils;
+namespace NotificationService.Application.Common.Helpers;
 
-public static class EmailUtil
+public static class EmailHelper
 {
     public static BodyBuilder AddAttachments(this BodyBuilder builder, List<Microsoft.AspNetCore.Http.IFormFile>? attachments)
     {
