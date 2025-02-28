@@ -2,11 +2,10 @@ using NotificationService.Application.Exceptions;
 using NotificationService.Domain.Entities;
 using NotificationService.SharedKernel.Resources;
 using NotificationService.Application.Common.Dtos;
-using NotificationService.Application.Common.Helpers;
 
-namespace NotificationService.Application.Utils;
+namespace NotificationService.Application.Common.Helpers;
 
-public static class HttpUtil
+public static class HttpRequestHelper
 {
     private static List<string> GetVerbsAllowed() => ["GET", "POST", "PUT", "PATCH"];
 
