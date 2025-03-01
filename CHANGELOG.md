@@ -9,6 +9,7 @@ and we adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 - Unit Tests
+- Architecture Tests
 - Support response messages in both English and Spanish based on the Accept-Language header
 - Guard clauses to improve code readability and enforce validation
 
