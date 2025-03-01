@@ -1,4 +1,4 @@
-using NotificationService.Application.Utils;
+using NotificationService.Application.Common.Helpers;
 
 namespace NotificationService.Application.Common.Models;
 
