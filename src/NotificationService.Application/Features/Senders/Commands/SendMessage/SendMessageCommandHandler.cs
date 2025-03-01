@@ -2,7 +2,7 @@ using MediatR;
 using NotificationService.Application.Common.Models;
 using NotificationService.Application.Contracts.DTOs.Responses;
 using NotificationService.Application.Features.Senders.Events.NotificationSent;
-using NotificationService.Application.Interfaces;
+using NotificationService.Application.Contracts.Senders;
 using NotificationService.Domain.Enums;
 using NotificationService.SharedKernel.Interfaces;
 
