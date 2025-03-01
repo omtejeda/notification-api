@@ -2,7 +2,7 @@ using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Application.Contracts.DTOs.Responses;
 using NotificationService.Application.Common.Models;
 
-namespace NotificationService.Application.Interfaces;
+namespace NotificationService.Application.Contracts.Senders;
 
 /// <summary>
 /// Interface for sending messages.
