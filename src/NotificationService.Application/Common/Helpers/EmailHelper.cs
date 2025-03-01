@@ -81,7 +81,7 @@ public static class EmailHelper
         public static readonly string SendgridCategory = "x-category";
         public static readonly string NotificationIdHeader = "x-notification-id";
 
-        public static readonly List<string> ParameterList = new List<string> { SendgridTemplateId, SendgridCategory, NotificationIdHeader };
+        public static readonly List<string> ParameterList = [SendgridTemplateId, SendgridCategory, NotificationIdHeader];
 
     }
 }
