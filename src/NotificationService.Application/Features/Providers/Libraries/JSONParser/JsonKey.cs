@@ -9,7 +9,7 @@ public class JsonKey
     public string PropertyName { get; set; } = string.Empty;
     public DataType DataType { get; set; }
     public bool IsRequired { get; set; }
-    public List<JsonKey> Childs { get; set; } = new();
+    public List<JsonKey> Childs { get; set; } = [];
     public object? Value { get; set; }
     public int Index { get; set; }
 
