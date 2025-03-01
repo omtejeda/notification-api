@@ -1,20 +1,19 @@
-using NotificationService.Application.Utils;
-using NotificationService.Application.Common.Dtos;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Dtos;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Exceptions;
-using NotificationService.Domain.ValueObjects;
+using NotificationService.Application.Features.Templates.Helpers;
+using NotificationService.Application.Common.Helpers;
 
 namespace NotificationService.Application.Tests.Utils;
 
-public class EmailUtilTests
+public class EmailHelperTests
 {
     [Theory]
     [MemberData(nameof(GetReplaceParametersTestData))]
     public void ReplaceParameters_ShouldReturnTextReplaced(string text, List<MetadataDto> metadata, string expected)
     {
-        var actual = TemplateUtil.ReplaceParameters(text, metadata);
+        var actual = TemplateFormatter.ReplaceParameters(text, metadata);
 
         Assert.Equal(expected, actual);
     }
@@ -25,11 +24,11 @@ public class EmailUtilTests
     {
         if (expectedException is null)
         {
-            EmailUtil.ThrowIfEmailNotAllowed(environment, provider, to);
+            EmailHelper.ThrowIfEmailNotAllowed(environment, provider, to);
         }
         else
         {
-            Assert.Throws(expectedException, () => EmailUtil.ThrowIfEmailNotAllowed(environment, provider, to));
+            Assert.Throws(expectedException, () => EmailHelper.ThrowIfEmailNotAllowed(environment, provider, to));
         }
     }
     #region TestData
