@@ -1,9 +1,9 @@
 using Newtonsoft.Json;
-using NotificationService.Application.Features.Providers.Libraries.JSONParser;
+using NotificationService.Application.Features.Providers.Libraries.JsonParser;
 
-namespace NotificationService.Application.Tests.Features.Providers.Libraries.JSONParser;
+namespace NotificationService.Application.Tests.Features.Providers.Libraries.JsonParser;
 
-public class JSONParserTests
+public class JsonParserTests
 {
     [Fact]
     public void Transform_GivenValidJsonBodyDefinition_ShouldGenerateCorrectJson()

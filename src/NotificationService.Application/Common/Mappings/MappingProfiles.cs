@@ -43,8 +43,8 @@ public class MappingProfiles : Profile
         CreateMap<JsonBodyDto, JsonBody>().ReverseMap();
         CreateMap<JsonKeyDto, JsonKey>().ReverseMap();
 
-        CreateMap<JsonBody, Features.Providers.Libraries.JSONParser.JsonBody>();
-        CreateMap<JsonKey, Features.Providers.Libraries.JSONParser.JsonKey>();
-        CreateMap<MetadataDto, Features.Providers.Libraries.JSONParser.Metadata>();
+        CreateMap<JsonBody, Features.Providers.Libraries.JsonParser.JsonBody>();
+        CreateMap<JsonKey, Features.Providers.Libraries.JsonParser.JsonKey>();
+        CreateMap<MetadataDto, Features.Providers.Libraries.JsonParser.Metadata>();
     }
 }

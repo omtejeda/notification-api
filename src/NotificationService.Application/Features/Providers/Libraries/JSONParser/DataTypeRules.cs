@@ -1,6 +1,6 @@
-using NotificationService.Application.Features.Providers.Libraries.JSONParser.Exceptions;
+using NotificationService.Application.Features.Providers.Libraries.JsonParser.Exceptions;
 
-namespace NotificationService.Application.Features.Providers.Libraries.JSONParser;
+namespace NotificationService.Application.Features.Providers.Libraries.JsonParser;
 
 public class DataTypeRules
 {

@@ -2,8 +2,8 @@
 /// Represents a JSON body or object with a root property name and a list of JsonKey objects that define its structure.
 /// </summary>
 using Newtonsoft.Json;
-using NotificationService.Application.Features.Providers.Libraries.JSONParser.Exceptions;
-namespace NotificationService.Application.Features.Providers.Libraries.JSONParser;
+using NotificationService.Application.Features.Providers.Libraries.JsonParser.Exceptions;
+namespace NotificationService.Application.Features.Providers.Libraries.JsonParser;
 
 public class JsonBody
 {

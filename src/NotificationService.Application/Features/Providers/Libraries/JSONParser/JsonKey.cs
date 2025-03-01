@@ -3,7 +3,7 @@
 /// data type, whether it is required, child keys, its value, and index if needed when array.
 /// </summary>
 using Newtonsoft.Json;
-namespace NotificationService.Application.Features.Providers.Libraries.JSONParser;
+namespace NotificationService.Application.Features.Providers.Libraries.JsonParser;
 public class JsonKey
 {
     public string PropertyName { get; set; } = string.Empty;

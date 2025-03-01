@@ -1,4 +1,4 @@
-namespace NotificationService.Application.Features.Providers.Libraries.JSONParser.Exceptions;
+namespace NotificationService.Application.Features.Providers.Libraries.JsonParser.Exceptions;
 
 public class DataTypeNotSupportedException : Exception
 {
