@@ -2,13 +2,13 @@ using NotificationService.Domain.Entities;
 using NotificationService.Application.Exceptions;
 using NotificationService.Domain.Enums;
 using Microsoft.Extensions.Logging;
-using NotificationService.Application.Utils;
 using System.Text;
 using AutoMapper;
 using NotificationService.Domain.Dtos;
 using NotificationService.SharedKernel.Resources;
 using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.Domain.Models;
+using NotificationService.Application.Common.Helpers;
 
 namespace NotificationService.Infrastructure.Providers;
 
@@ -26,7 +26,7 @@ public class HttpClientProvider : IHttpClientProvider
 
     public async Task<NotificationResult> SendHttpClient(HttpClientSetting httpClientSetting, string templateContent, ICollection<MetadataDto> requestMetadata, string requestToDestination)
     {
-        HttpUtil.CheckHTTPClientSettings(httpClientSetting.Host, httpClientSetting.Uri, httpClientSetting.Verb);
+        HttpRequestHelper.CheckHTTPClientSettings(httpClientSetting.Host, httpClientSetting.Uri, httpClientSetting.Verb);
         
         var queryString = new Dictionary<string, string>();
 
@@ -55,7 +55,7 @@ public class HttpClientProvider : IHttpClientProvider
                 SetMetadataToJsonBodyDefinition(metadata: requestMetadata, param.Name, value);
         }
 
-        var fullPath = HttpUtil.GetFullPath(httpClientSetting.Host, httpClientSetting.Uri, queryString);
+        var fullPath = HttpRequestHelper.GetFullPath(httpClientSetting.Host, httpClientSetting.Uri, queryString);
         _logger.LogInformation("Path to send request to: {FullPath}", fullPath);            
 
         var jsonBody = GetJson(httpClientSetting.JsonBody, requestMetadata);
