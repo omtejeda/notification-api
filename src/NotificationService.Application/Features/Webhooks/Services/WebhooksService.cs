@@ -1,7 +1,7 @@
 using NotificationService.Application.Contracts.Persistence;
 using NotificationService.Application.Contracts.Services;
 using NotificationService.Domain.Entities;
-using static NotificationService.Application.Utils.EmailUtil;
+using static NotificationService.Application.Common.Helpers.EmailHelper;
 
 namespace NotificationService.Application.Features.Webhooks.Services;
 
