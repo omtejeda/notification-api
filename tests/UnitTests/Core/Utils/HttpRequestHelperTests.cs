@@ -1,14 +1,14 @@
-using NotificationService.Application.Utils;
+using NotificationService.Application.Common.Helpers;
 
 namespace NotificationService.Application.Tests.Utils;
 
-public class HttpUtilTests
+public class HttpRequestHelperTests
 {
     [Theory]
     [MemberData(nameof(GetFullPathTestData))]
     public void GetFullPath_ShouldReturnCorrectPath(string host, string uri, string expected)
     {
-        string actual = HttpUtil.GetFullPath(host, uri);
+        string actual = HttpRequestHelper.GetFullPath(host, uri);
 
         Assert.Equal(expected, actual);
     }
@@ -21,7 +21,7 @@ public class HttpUtilTests
         Dictionary<string, string> queryString,
         string expected)
     {
-        string actual = HttpUtil.GetFullPath(host, uri, queryString);
+        string actual = HttpRequestHelper.GetFullPath(host, uri, queryString);
 
         Assert.Equal(expected, actual);
     }
