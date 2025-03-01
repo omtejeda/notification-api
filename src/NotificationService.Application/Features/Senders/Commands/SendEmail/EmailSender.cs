@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using NotificationService.Domain.Enums;
 using NotificationService.Domain.Entities;
-using NotificationService.Application.Utils;
 using NotificationService.Application.Contracts.Services;
 using NotificationService.Application.Contracts.DTOs.Responses;
 using NotificationService.Application.Interfaces;
@@ -11,6 +10,7 @@ using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;
 using NotificationService.Domain.ValueObjects;
 using NotificationService.Application.Common.Models;
+using NotificationService.Application.Common.Helpers;
 
 namespace NotificationService.Application.Features.Senders.Commands.SendEmail;
 
@@ -59,7 +59,7 @@ public class EmailSender(
             .WithBcc(request.BccEmails.Select(Email.From))
             .WithSubject(runtimeTemplate.Subject)
             .WithContent(runtimeTemplate.Content)
-            .AddHeader(EmailUtil.Parameters.NotificationIdHeader,notification.NotificationId)
+            .AddHeader(EmailHelper.Parameters.NotificationIdHeader,notification.NotificationId)
             .UsingMetadata(runtimeTemplate.ProvidedMetadata)
             .WithAttachments(attachmentsCollection)
             .Build();
