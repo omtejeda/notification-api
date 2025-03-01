@@ -11,20 +11,19 @@ public static class EmailHelper
 {
     public static BodyBuilder AddAttachments(this BodyBuilder builder, List<Microsoft.AspNetCore.Http.IFormFile>? attachments)
     {
-        if (attachments is not null)
+        if (attachments is null) return builder;
+
+        byte[] fileBytes;
+        foreach (var file in attachments)
         {
-            byte[] fileBytes;
-            foreach (var file in attachments)
+            if (file.Length > 0)
             {
-                if (file.Length > 0)
+                using (var ms = new MemoryStream())
                 {
-                    using (var ms = new MemoryStream())
-                    {
-                        file.CopyTo(ms);
-                        fileBytes = ms.ToArray();
-                    }
-                    builder.Attachments.Add(file.FileName, fileBytes, ContentType.Parse(file.ContentType));
+                    file.CopyTo(ms);
+                    fileBytes = ms.ToArray();
                 }
+                builder.Attachments.Add(file.FileName, fileBytes, ContentType.Parse(file.ContentType));
             }
         }
         return builder;
@@ -32,20 +31,19 @@ public static class EmailHelper
 
     public static SendGridMessage AddAttachments(this SendGridMessage message, List<Microsoft.AspNetCore.Http.IFormFile>? attachments)
     {
-        if (attachments is not null)
+        if (attachments is null) return message;
+        
+        string fileBase64;
+        foreach (var file in attachments)
         {
-            string fileBase64;
-            foreach (var file in attachments)
+            if (file.Length > 0)
             {
-                if (file.Length > 0)
+                using (var ms = new MemoryStream())
                 {
-                    using (var ms = new MemoryStream())
-                    {
-                        file.CopyTo(ms);
-                        fileBase64 = Convert.ToBase64String(ms.ToArray());
-                    }
-                    message.AddAttachment(file.FileName, fileBase64);
+                    file.CopyTo(ms);
+                    fileBase64 = Convert.ToBase64String(ms.ToArray());
                 }
+                message.AddAttachment(file.FileName, fileBase64);
             }
         }
         return message;
