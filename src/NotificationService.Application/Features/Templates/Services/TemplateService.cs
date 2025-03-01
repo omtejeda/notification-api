@@ -3,7 +3,6 @@ using AutoMapper;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Enums;
 using LinqKit;
-using NotificationService.Application.Utils;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Contracts.DTOs.Requests;
 using NotificationService.Application.Contracts.Services;
@@ -12,6 +11,8 @@ using System.Diagnostics.CodeAnalysis;
 using NotificationService.Application.Common.Dtos;
 using NotificationService.Application.Common.Models;
 using NotificationService.Application.Common.Helpers;
+using NotificationService.Application.Common.Utilities;
+using NotificationService.Application.Features.Templates.Helpers;
 
 namespace NotificationService.Application.Features.Templates.Services;
 
@@ -127,8 +128,8 @@ public class TemplateService : ITemplateService
             PlatformName = template.PlatformName,
             Language = template.Language,
             ProvidedMetadata = providedMetadata ?? [],
-            Subject = TemplateUtil.ReplaceParameters(template.Subject, providedTemplateMetadata),
-            Content = TemplateUtil.ReplaceParameters(template.Content, providedTemplateMetadata)
+            Subject = TemplateFormatter.ReplaceParameters(template.Subject, providedTemplateMetadata),
+            Content = TemplateFormatter.ReplaceParameters(template.Content, providedTemplateMetadata)
         };
 
         return runtimeTemplate;
