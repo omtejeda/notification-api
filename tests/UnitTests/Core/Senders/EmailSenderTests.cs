@@ -8,7 +8,7 @@ using NotificationService.Application.Common.Dtos;
 using NotificationService.Domain.Models;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Exceptions;
-using NotificationService.Application.Interfaces;
+using NotificationService.Application.Contracts.Senders;
 using Moq;
 using Microsoft.AspNetCore.Http;
 using NotificationService.Application.Features.Senders.Commands.SendEmail;

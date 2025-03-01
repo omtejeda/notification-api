@@ -7,7 +7,7 @@ using NotificationService.Domain.Models;
 using NotificationService.Domain.Entities;
 using NotificationService.Application.Exceptions;
 using NotificationService.Application.Common;
-using NotificationService.Application.Interfaces;
+using NotificationService.Application.Contracts.Senders;
 using NotificationService.Application.Contracts.Persistence;
 using Moq;
 using System.Linq.Expressions;
