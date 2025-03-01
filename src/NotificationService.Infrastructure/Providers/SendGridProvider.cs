@@ -1,11 +1,11 @@
 ﻿using SendGrid.Helpers.Mail;
 using SendGrid;
 using NotificationService.Domain.Enums;
-using NotificationService.Application.Utils;
 using NotificationService.Domain.Entities;
 using NotificationService.Domain.Models;
 using NotificationService.SharedKernel.Interfaces;
 using NotificationService.Application.Features.Providers.Interfaces;
+using NotificationService.Application.Common.Helpers;
 
 namespace NotificationService.Infrastructure.Providers;
 
@@ -23,7 +23,7 @@ public class SendGridProvider(IEnvironmentService environmentService) : IEmailPr
 
     public async Task<NotificationResult> SendAsync(EmailMessage emailMessage)
     {
-        EmailUtil.ThrowIfEmailNotAllowed(
+        EmailHelper.ThrowIfEmailNotAllowed(
             environment: _environmentService.CurrentEnvironment,
             provider: _provider,
             to: emailMessage.To,
@@ -32,7 +32,7 @@ public class SendGridProvider(IEnvironmentService environmentService) : IEmailPr
 
         ThrowIfSettingsNotValid();
 
-        var sendGridTemplate = EmailUtil.GetSendgridTemplateFromMetadata(emailMessage.ProvidedMetadata);
+        var sendGridTemplate = EmailHelper.GetSendgridTemplateFromMetadata(emailMessage.ProvidedMetadata);
 
         var client = new SendGridClient(_provider.Settings.SendGrid.ApiKey);
         var msg = new SendGridMessage()
