@@ -7,6 +7,8 @@ using NotificationService.Application.Features.Senders.Commands.SendSms;
 using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.Application.Common.Helpers;
 using Swashbuckle.AspNetCore.Annotations;
+using NotificationService.Application.Features.Senders.Commands.SendPush;
+using NotificationService.Api.Extensions;
 
 namespace NotificationService.Api.Controllers.v1;
 
@@ -55,6 +57,13 @@ public class SendersController(ISender sender) : ApiController
         var command = new SendSmsCommand(request, CurrentPlatform.Name);
         var response = await _sender.Send(command);
         
-        return Ok(response);
+    [SwaggerOperation("Sends a push notification")]
+    [HttpPost("push/send")]
+    public async Task<IActionResult> SendPush([FromBody] SendPushRequestDto request)
+    {
+        var command = new SendPushCommand(request, CurrentPlatform.Name);
+        var response = await _sender.Send(command);
+        
+        return response.ToActionResult();
     }
 }
