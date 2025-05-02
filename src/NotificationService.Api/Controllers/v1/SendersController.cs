@@ -26,7 +26,7 @@ public class SendersController(ISender sender) : ApiController
         var command = new SendEmailCommand(request, CurrentPlatform.Name);
         var response = await _sender.Send(command);
         
-        return Ok(response);
+        return response.ToActionResult();
     }
 
     [SwaggerOperation("Sends an email notification with attachments")]
@@ -37,7 +37,7 @@ public class SendersController(ISender sender) : ApiController
         var command = new SendEmailCommand(request, CurrentPlatform.Name, attachments);
         var response = await _sender.Send(command);
         
-        return Ok(response);
+        return response.ToActionResult();
     }
 
     [SwaggerOperation("Sends a general message notification (e.g., WhatsApp, Push) using a HTTP Client Provider")]
@@ -47,7 +47,7 @@ public class SendersController(ISender sender) : ApiController
         var command = new SendMessageCommand(request, CurrentPlatform.Name);
         var response = await _sender.Send(command);
         
-        return Ok(response);
+        return response.ToActionResult();
     }
 
     [SwaggerOperation("Sends an SMS notification to the specified phone number")]
@@ -57,6 +57,9 @@ public class SendersController(ISender sender) : ApiController
         var command = new SendSmsCommand(request, CurrentPlatform.Name);
         var response = await _sender.Send(command);
         
+        return response.ToActionResult();
+    }
+
     [SwaggerOperation("Sends a push notification")]
     [HttpPost("push/send")]
     public async Task<IActionResult> SendPush([FromBody] SendPushRequestDto request)
