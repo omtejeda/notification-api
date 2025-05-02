@@ -19,7 +19,7 @@ public class CatalogsController(ISender sender) : ApiController
 {
     private readonly ISender _sender = sender;
 
-    [SwaggerOperation("Retrieves a list of all available catalogs")]
+    [SwaggerOperation("Retrieve a list of all available catalogs")]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CatalogDto>>> GetAll([FromQuery] string name, bool? isActive, 
         string elementHasKey, string elementHasKeyValue, string elementHasLabelKey, string elementHasLabelKeyValue,
@@ -42,7 +42,7 @@ public class CatalogsController(ISender sender) : ApiController
         return Ok(response);
     }
 
-    [SwaggerOperation("Fetches details of a specific catalog by its ID")]
+    [SwaggerOperation("Fetch the details of a specific catalog by its identifier")]
     [HttpGet("{catalogId}")]
     public async Task<IActionResult> GetById([FromRoute] string catalogId, [FromQuery] string elementKey, string elementValue, string labelKey, string labelValue)
     {
@@ -60,7 +60,7 @@ public class CatalogsController(ISender sender) : ApiController
         return response.ToActionResult();
     }
 
-    [SwaggerOperation("Creates a new catalog with the provided information")]
+    [SwaggerOperation("Create a new catalog with the provided information")]
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateCatalogRequestDto request)
     {
@@ -77,7 +77,7 @@ public class CatalogsController(ISender sender) : ApiController
         return StatusCode(StatusCodes.Status201Created, response);
     }
 
-    [SwaggerOperation("Deletes a catalog identified by its ID")]
+    [SwaggerOperation("Delete a catalog identified by its identifier")]
     [HttpDelete("{catalogId}")]
     public async Task<IActionResult> Delete([FromRoute] string catalogId)
     {
