@@ -40,7 +40,7 @@ public class SendersController(ISender sender) : ApiController
         return response.ToActionResult();
     }
 
-    [SwaggerOperation("Send a general message notification (e.g., WhatsApp, Push) using a though HTTP / API calls")]
+    [SwaggerOperation("Send a general message notification (e.g., WhatsApp, Push) through HTTP / API calls")]
     [HttpPost("message/send")]
     public async Task<IActionResult> SendMessage([FromBody] SendMessageRequestDto request)
     {
