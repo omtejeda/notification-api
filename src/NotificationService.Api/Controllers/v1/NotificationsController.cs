@@ -19,7 +19,7 @@ public class NotificationsController(ISender sender) : ApiController
 {
     private readonly ISender _sender = sender;
 
-    [SwaggerOperation("Retrieves a list of all notifications")]
+    [SwaggerOperation("Retrieve a list of all notifications")]
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] GetAllNotificationsQuery query)
     {
@@ -28,7 +28,7 @@ public class NotificationsController(ISender sender) : ApiController
         
         return Ok(response);
     }
-    [SwaggerOperation("Fetches details of a specific notification by its ID")]
+    [SwaggerOperation("Fetch the details of a specific notification by its identifier")]
     [HttpGet("{notificationId}")]
     public async Task<IActionResult> GetById([FromRoute] string notificationId)
     {
@@ -38,7 +38,7 @@ public class NotificationsController(ISender sender) : ApiController
         return response.ToActionResult();
     }
 
-    [SwaggerOperation("Resends a notification based on the original notification with the specified ID")]
+    [SwaggerOperation("Resend a notification based on the original notification")]
     [HttpPost("{notificationId}/resend")]
     public async Task<IActionResult> Resend(string notificationId)
     {
@@ -48,7 +48,7 @@ public class NotificationsController(ISender sender) : ApiController
         return Ok(response);
     }
 
-    [SwaggerOperation("Retrieves the content of a specific notification")]
+    [SwaggerOperation("Retrieve the content of a specific notification")]
     [HttpGet("{notificationId}/content")]
     public async Task<IActionResult> GetContent(string notificationId)
     {
@@ -65,7 +65,7 @@ public class NotificationsController(ISender sender) : ApiController
         return contentResult;
     }
 
-    [SwaggerOperation("Downloads an attachment from a notification by its file name")]
+    [SwaggerOperation("Download an attachment from a notification by its file name")]
     [HttpGet("{notificationId}/attachments/{fileName}")]
     public async Task<IActionResult> GetAttachment(string notificationId, string fileName)
     {
@@ -75,7 +75,7 @@ public class NotificationsController(ISender sender) : ApiController
         return File(file, contentType);
     }
 
-    [SwaggerOperation("Exports a notification's data in the specified format (e.g., Eml)")]
+    [SwaggerOperation("Export notification's data in the specified format (e.g., Eml)")]
     [HttpGet("{notificationId}/exports/{format}")]
     public async Task<IActionResult> Export(string notificationId, [FromRoute] ExportFormat format)
     {

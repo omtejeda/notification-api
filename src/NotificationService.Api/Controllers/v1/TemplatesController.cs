@@ -20,7 +20,7 @@ public class TemplatesController(ISender sender) : ApiController
 {
     private readonly ISender _sender = sender;
 
-    [SwaggerOperation("Retrieves a list of all notification templates")]
+    [SwaggerOperation("Retrieve a list of all notification templates")]
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] string name, string subject, string platformName, int? page, int? pageSize)
     {
@@ -38,7 +38,7 @@ public class TemplatesController(ISender sender) : ApiController
         return Ok(response);
     }
 
-    [SwaggerOperation("Fetches the details of a specific notification template by its ID")]
+    [SwaggerOperation("Fetch the details of a specific notification template by its identifier")]
     [HttpGet("{templateId}")]
     public async Task<IActionResult> GetById([FromRoute] string templateId)
     {
@@ -47,7 +47,7 @@ public class TemplatesController(ISender sender) : ApiController
         return response.ToActionResult();
     }
 
-    [SwaggerOperation("Previews the content of a specific notification template")]
+    [SwaggerOperation("Preview the content of a specific notification template")]
     [HttpGet("{templateId}/preview")]
     public async Task<ContentResult> GetContent(string templateId)
     {
@@ -64,7 +64,7 @@ public class TemplatesController(ISender sender) : ApiController
         };
     }
 
-    [SwaggerOperation("Creates a new notification template with the provided content and metadata")]
+    [SwaggerOperation("Create a new notification template with the provided content and metadata")]
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateTemplateRequestDto request)
     {
@@ -74,7 +74,7 @@ public class TemplatesController(ISender sender) : ApiController
         return StatusCode(StatusCodes.Status201Created, response);
     }
 
-    [SwaggerOperation("Deletes a specific notification template by its ID")]
+    [SwaggerOperation("Delete a specific notification template by its identifier")]
     [HttpDelete("{templateId}")]
     public async Task<IActionResult> Delete([FromRoute] string templateId)
     {
@@ -84,7 +84,7 @@ public class TemplatesController(ISender sender) : ApiController
         return Ok();
     }
 
-    [SwaggerOperation("Updates the content of a specific notification template")]
+    [SwaggerOperation("Update the content of a specific notification template")]
     [HttpPatch("{templateId}/content")]
     public async Task<IActionResult> UpdateContent([FromRoute] string templateId, [FromBody] UpdateTemplateContentRequestDto request)
     {

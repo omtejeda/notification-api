@@ -21,7 +21,7 @@ public class ProvidersController(ISender sender) : ApiController
 {
     private readonly ISender _sender = sender;
 
-    [SwaggerOperation("Retrieves a list of all available providers for notification delivery")]
+    [SwaggerOperation("Retrieve a list of all available providers for notification delivery")]
     [HttpGet]
     public async Task<IActionResult> GetAll(string name, string type, int? page, int? pageSize)
     {
@@ -38,7 +38,7 @@ public class ProvidersController(ISender sender) : ApiController
         return Ok(response);
     }
 
-    [SwaggerOperation("Fetches details of a specific provider by its ID")]
+    [SwaggerOperation("Fetch the details of a specific provider by its identifier")]
     [HttpGet("{providerId}")]
     public async Task<IActionResult> GetById(string providerId)
     {
@@ -48,7 +48,7 @@ public class ProvidersController(ISender sender) : ApiController
         return response.ToActionResult();
     }
 
-    [SwaggerOperation("Retrieves a list of all provider types (e.g., SMTP, SendGrid, HttpClient)")]
+    [SwaggerOperation("Retrieve a list of all provider types (e.g., SMTP, SendGrid, HttpClient)")]
     [HttpGet("types")]
     public IActionResult GetProviderTypes()
     {
@@ -67,7 +67,7 @@ public class ProvidersController(ISender sender) : ApiController
         return StatusCode(StatusCodes.Status201Created, response);
     }
 
-    [SwaggerOperation("Deletes a notification provider identified by its ID")]
+    [SwaggerOperation("Delete a notification provider identified by its identifier")]
     [HttpDelete("{providerId}")]
     public async Task<IActionResult> Delete([FromRoute] string providerId)
     {
@@ -81,7 +81,7 @@ public class ProvidersController(ISender sender) : ApiController
         return Ok();
     }
 
-    [SwaggerOperation("Adds a recipient to the whitelist for sending notifications with a specific provider")]
+    [SwaggerOperation("Add a recipient to the whitelist for sending notifications with a specific provider")]
     [HttpPost("{providerId}/whitelist")]
     public async Task<ActionResult> AddToWhiteList([FromRoute] string providerId, [FromBody] AddToWhiteListRequestDto request)
     {
@@ -91,7 +91,7 @@ public class ProvidersController(ISender sender) : ApiController
         return StatusCode(StatusCodes.Status201Created);
     }
 
-    [SwaggerOperation("Removes a recipient from the whitelist")]
+    [SwaggerOperation("Remove a recipient from the whitelist")]
     [HttpDelete("{providerId}/whitelist")]
     public async Task<ActionResult> DeleteFromWhiteList([FromRoute] string providerId, [FromBody] DeleteFromWhiteListRequestDto request)
     {

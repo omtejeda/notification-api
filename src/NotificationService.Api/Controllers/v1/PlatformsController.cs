@@ -21,7 +21,7 @@ public class PlatformsController(ISender sender) : ApiController
 {
     private readonly ISender _sender = sender;
 
-    [SwaggerOperation("Retrieves a list of all platforms registered")]
+    [SwaggerOperation("Retrieve a list of all platforms registered")]
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] string name, bool? isActive, int? page, int? pageSize)
     {
@@ -38,7 +38,7 @@ public class PlatformsController(ISender sender) : ApiController
         return Ok(response);
     }
 
-    [SwaggerOperation("Fetches details of a specific platform by its ID")]
+    [SwaggerOperation("Fetch the details of a specific platform by its identifier")]
     [HttpGet("{platformId}")]
     public async Task<IActionResult> GetById([FromRoute] string platformId)
     {
@@ -48,7 +48,7 @@ public class PlatformsController(ISender sender) : ApiController
         return response.ToActionResult();
     }
 
-    [SwaggerOperation("Retrieves the platform information associated with the current apikey")]
+    [SwaggerOperation("Retrieve the platform information associated with the current apikey")]
     [HttpGet("me")]
     public IActionResult GetCurrent()
     {
@@ -74,7 +74,7 @@ public class PlatformsController(ISender sender) : ApiController
         return StatusCode(StatusCodes.Status201Created, response);
     }
 
-    [SwaggerOperation("Deletes a platform identified by its ID")]
+    [SwaggerOperation("Delete a platform identified by its identifier")]
     [HttpDelete("{platformId}")]
     public async Task<IActionResult> Delete([FromRoute] string platformId)
     {
