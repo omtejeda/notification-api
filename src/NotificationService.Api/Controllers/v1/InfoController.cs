@@ -21,7 +21,7 @@ public class InfoController(
     private readonly IEnvironmentService _environmentService = environmentService;
     private readonly IDateTimeService _dateTimeService = dateTimeService;
 
-    [SwaggerOperation("Retrieves general information about Notification API")]
+    [SwaggerOperation("Retrieve general information about Notification API")]
     [HttpGet]
     public ActionResult<BaseResponse<InfoDto>> GetInfo()
     {
@@ -37,7 +37,7 @@ public class InfoController(
         return Ok(response);
     }
 
-    [SwaggerOperation("Fetches a list of status or error codes used by Notification API")]
+    [SwaggerOperation("Fetch a list of status or error codes used by Notification API")]
     [HttpGet("codes")]
     public IActionResult Get([FromQuery] int? code)
     {
