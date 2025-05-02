@@ -3,10 +3,11 @@ using System.ComponentModel.DataAnnotations;
 using NotificationService.Domain.Enums;
 using NotificationService.Domain.Dtos;
 using NotificationService.Application.Features.Templates.Attributes;
+using NotificationService.Domain.Entities;
 
 namespace NotificationService.Application.Features.Senders.Dtos;
 
-public class SendEmailRequestDto : ISendRequest
+public class SendEmailRequestDto : BaseNotificationRequest
 {
     [Required]
     public string ToEmail { get; set; } = string.Empty;
@@ -22,7 +23,7 @@ public class SendEmailRequestDto : ISendRequest
     public TemplateDto Template { get; set; } = new();
 
     [JsonIgnore]
-    public string? ParentNotificationId { get; set; }
+    public override string? ParentNotificationId { get; set; }
 }
 
 public class TemplateDto

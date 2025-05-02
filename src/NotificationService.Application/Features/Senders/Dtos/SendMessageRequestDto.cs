@@ -2,10 +2,11 @@ using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using NotificationService.Domain.Enums;
 using NotificationService.Application.Features.Templates.Attributes;
+using NotificationService.Domain.Entities;
 
 namespace NotificationService.Application.Features.Senders.Dtos;
 
-public class SendMessageRequestDto : ISendRequest
+public class SendMessageRequestDto : BaseNotificationRequest
 {
     [Required]
     public string ToDestination { get; set; } = string.Empty;
@@ -22,5 +23,5 @@ public class SendMessageRequestDto : ISendRequest
     public TemplateDto Template { get; set; } = new();
 
     [JsonIgnore]
-    public string? ParentNotificationId { get; set; }
+    public override string? ParentNotificationId { get; set; }
 }

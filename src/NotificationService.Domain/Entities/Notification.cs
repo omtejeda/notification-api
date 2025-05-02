@@ -17,7 +17,7 @@ public class Notification : EntityBase
     public string Message { get; private set; } = string.Empty;
     public bool HasAttachments { get; private set; } 
     public ICollection<Attachment> Attachments { get; private set; } = [];
-    public object? Request { get; private set; }
+    public BaseNotificationRequest? Request { get; private set; }
     public string? ParentNotificationId { get; private set; }
     public string Content { get; private set; } = string.Empty;
     public string Subject { get; private set; } = string.Empty;
@@ -47,7 +47,7 @@ public class Notification : EntityBase
         private Notification _notification = new Notification();
         
         public static Builder NewNotification()
-            => new Builder();
+            => new();
         
         public Builder OfType(NotificationType notificationType)
         {
@@ -64,7 +64,7 @@ public class Notification : EntityBase
             return this;
         }
 
-        public Builder WithUserRequest(object request)
+        public Builder WithUserRequest(BaseNotificationRequest request)
         {
             _notification.Request = request;
             return this;
@@ -140,4 +140,9 @@ public class Notification : EntityBase
             return _notification;
         }
     }
+}
+
+public abstract class BaseNotificationRequest
+{
+    public virtual string? ParentNotificationId { get; set; }
 }
