@@ -19,7 +19,7 @@ public class SendersController(ISender sender) : ApiController
 {
     private readonly ISender _sender = sender;
     
-    [SwaggerOperation("Sends an email notification")]
+    [SwaggerOperation("Send an email notification")]
     [HttpPost("email/send")]
     public async Task<IActionResult> SendEmail([FromBody] SendEmailRequestDto request)
     {
@@ -29,7 +29,7 @@ public class SendersController(ISender sender) : ApiController
         return response.ToActionResult();
     }
 
-    [SwaggerOperation("Sends an email notification with attachments")]
+    [SwaggerOperation("Send an email notification with attachments")]
     [HttpPost("email/send/attachments")]
     public async Task<IActionResult> SendEmailWithAttachments([FromForm] SendEmailRequestDto request, List<IFormFile> attachments)
     {
@@ -40,7 +40,7 @@ public class SendersController(ISender sender) : ApiController
         return response.ToActionResult();
     }
 
-    [SwaggerOperation("Sends a general message notification (e.g., WhatsApp, Push) using a HTTP Client Provider")]
+    [SwaggerOperation("Send a general message notification (e.g., WhatsApp, Push) using a though HTTP / API calls")]
     [HttpPost("message/send")]
     public async Task<IActionResult> SendMessage([FromBody] SendMessageRequestDto request)
     {
@@ -50,7 +50,7 @@ public class SendersController(ISender sender) : ApiController
         return response.ToActionResult();
     }
 
-    [SwaggerOperation("Sends an SMS notification to the specified phone number")]
+    [SwaggerOperation("Send an SMS notification to the specified phone number")]
     [HttpPost("sms/send")]
     public async Task<IActionResult> SendSms([FromBody] SendSmsRequestDto request)
     {
