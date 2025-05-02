@@ -21,7 +21,7 @@ public class SendSmsCommandHandler(ISmsSender smsSender, IMediator mediator)
         await _mediator.Publish(new NotificationSentEvent
         {
             NotificationId = result.Data?.NotificationId, 
-            NotificationType = NotificationType.Email,
+            NotificationType = NotificationType.SMS,
             ToDestination = request?.RequestDto?.ToPhoneNumber,
             Success = result.Response.Success ?? false
         }, CancellationToken.None);
