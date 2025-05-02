@@ -60,7 +60,7 @@ public class SendersController(ISender sender) : ApiController
         return response.ToActionResult();
     }
 
-    [SwaggerOperation("Sends a push notification")]
+    [SwaggerOperation("Send a push notification")]
     [HttpPost("push/send")]
     public async Task<IActionResult> SendPush([FromBody] SendPushRequestDto request)
     {
