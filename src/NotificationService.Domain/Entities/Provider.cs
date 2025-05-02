@@ -25,6 +25,7 @@ public class ProviderSettings
     public SendGridSetting? SendGrid { get; set; }
     public SmtpSetting? Smtp { get; set; }
     public HttpClientSetting? HttpClient { get; set; }
+    public FirebaseSetting? Firebase { get; set; }
 }
 
 public class HttpClientSetting
@@ -95,4 +96,19 @@ public class JsonKey
     public string DataType { get; set; } = string.Empty;
     public bool IsRequired { get; set; }
     public List<JsonKey> Childs { get; set; } = new();
+}
+
+public class FirebaseSetting
+{
+    public string Type { get; set; } = string.Empty;
+    public string ProjectId { get; set; } = string.Empty;
+    public string PrivateKeyId { get; set; } = string.Empty;
+    public string PrivateKey { get; set; } = string.Empty;
+    public string ClientEmail { get; set; } = string.Empty;
+    public string ClientId { get; set; } = string.Empty;
+    public string AuthUri { get; set; } = string.Empty;
+    public string TokenUri { get; set; } = string.Empty;
+    public string AuthProviderX509CertUrl { get; set; } = string.Empty;
+    public string ClientX509CertUrl { get; set; } = string.Empty;
+    public string UniverseDomain { get; set; } = string.Empty;
 }

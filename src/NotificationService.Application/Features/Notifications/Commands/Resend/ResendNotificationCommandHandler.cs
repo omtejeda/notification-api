@@ -54,7 +54,7 @@ public class ResendNotificationCommandHandler(
 
     private static void SetParentNotificationId(object request, string notificationId)
     {
-        if (request is ISendRequest notificationRequest)
+        if (request is BaseNotificationRequest notificationRequest)
         {
             notificationRequest.ParentNotificationId = notificationId;
         }

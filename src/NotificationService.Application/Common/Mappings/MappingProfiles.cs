@@ -46,5 +46,9 @@ public class MappingProfiles : Profile
         CreateMap<JsonBody, Features.Providers.Libraries.JsonParser.JsonBody>();
         CreateMap<JsonKey, Features.Providers.Libraries.JsonParser.JsonKey>();
         CreateMap<MetadataDto, Features.Providers.Libraries.JsonParser.Metadata>();
+
+        CreateMap<FirebaseSetting, FirebaseSettingDto>()
+            .ForMember(dest => dest.PrivateKey, opt => opt.MapFrom(src => SecretMasker.Mask(src.PrivateKey)));
+        CreateMap<FirebaseSettingDto, FirebaseSetting>();
     }
 }

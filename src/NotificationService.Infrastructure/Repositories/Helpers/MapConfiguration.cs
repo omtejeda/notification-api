@@ -37,6 +37,7 @@ public static class MapConfiguration
         BsonClassMap.RegisterClassMap<SendEmailRequestDto>();
         BsonClassMap.RegisterClassMap<SendSmsRequestDto>();
         BsonClassMap.RegisterClassMap<SendMessageRequestDto>();
+        BsonClassMap.RegisterClassMap<Domain.Entities.BaseNotificationRequest>();
         return db;
     }
 }

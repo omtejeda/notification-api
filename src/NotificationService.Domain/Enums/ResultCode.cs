@@ -9,5 +9,6 @@ public enum ResultCode
     ValidationError = 4,
     EmailNotSent = 11,
     HttpRequestOK = 40,
-    HttpRequestNotSent = 41
+    HttpRequestNotSent = 41,
+    FirebaseNotificationFailed = 42
 }

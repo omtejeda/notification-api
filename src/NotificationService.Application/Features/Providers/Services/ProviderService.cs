@@ -14,47 +14,43 @@ using NotificationService.Application.Common.Models;
 
 namespace NotificationService.Application.Features.Providers.Services;
 
-public class ProviderService : IProviderService
+public class ProviderService(IRepository<Provider> providerRepository, IMapper mapper) : IProviderService
 {
-    private readonly IMapper _mapper;
-    private readonly IRepository<Provider> _providerRepository;
-
-    public ProviderService(IRepository<Provider> providerRepository, IMapper mapper)
-    {
-        _providerRepository = providerRepository;
-        _mapper = mapper;
-    }
+    private readonly IMapper _mapper = mapper;
+    private readonly IRepository<Provider> _providerRepository = providerRepository;
 
     public async Task<BaseResponse<ProviderDto>> CreateProvider(CreateProviderRequestDto request, string owner)
     {
-        Enum.TryParse(request.Type, out ProviderType providerType);
+        _ = Enum.TryParse(request.Type, out ProviderType providerType);
 
         Guard.ProviderTypeIsValid(providerType);
         
         var existingProvider = await _providerRepository.FindOneAsync(x => x.Name.Equals(request.Name, StringComparison.OrdinalIgnoreCase));
         Guard.ProviderNotExists(existingProvider);
-        
-        if (providerType == ProviderType.SMTP)
-        {
-            Guard.RequiredValueIsPresent(request.Settings?.Smtp?.Host, nameof(request.Settings.Smtp.Host));
-            Guard.RequiredValueIsPresent(request.Settings?.Smtp?.Port, nameof(request.Settings.Smtp.Port));
-            Guard.RequiredValueIsPresent(request.Settings?.Smtp?.Password, nameof(request.Settings.Smtp.Password));
-        }
 
-        if ( (request.Settings?.Smtp is not null && providerType != ProviderType.SMTP) 
+        if ((request.Settings?.Smtp is not null && providerType != ProviderType.SMTP) 
             || (request.Settings?.SendGrid is not null && providerType != ProviderType.SendGrid)
-            || (request.Settings?.HttpClient is not null && providerType != ProviderType.HttpClient))
+            || (request.Settings?.HttpClient is not null && providerType != ProviderType.HttpClient)
+            || (request.Settings?.Firebase is not null && providerType != ProviderType.Firebase))
+        {
             throw new RuleValidationException(string.Format(Messages.ProviderSettingsConflict, request.Type));
-
-        if (providerType == ProviderType.SendGrid)
-        {
-            Guard.RequiredValueIsPresent(request.Settings?.SendGrid?.ApiKey, nameof(request.Settings.SendGrid.ApiKey));
         }
 
-        if (providerType == ProviderType.HttpClient)
+        switch (providerType)
         {
-            HttpRequestHelper.CheckHTTPClientSettings(request.Settings?.HttpClient);
-        }
+            case ProviderType.SendGrid:
+                CheckSendGridSettings(request.Settings?.SendGrid);
+                break;
+            case ProviderType.HttpClient:
+                HttpRequestHelper.CheckHTTPClientSettings(request.Settings?.HttpClient);
+                break;
+            case ProviderType.Firebase:
+                CheckFirebaseSettings(request.Settings?.Firebase);
+                break;
+            case ProviderType.SMTP:
+                CheckSmtpSettings(request.Settings?.Smtp);
+                break;
+        };
 
         var provider = _mapper.Map<Provider>(request);
         provider.ProviderId = Guid.NewGuid().ToString();
@@ -130,5 +126,31 @@ public class ProviderService : IProviderService
         provider!.DevSettings.AllowedRecipients.Remove(existingRecipient);
         
         await _providerRepository.UpdateOneByIdAsync(provider.Id, provider);
+    }
+
+    private static void CheckFirebaseSettings(FirebaseSettingDto? firebaseSetting)
+    {
+        Guard.RequiredValueIsPresent(firebaseSetting?.Type, nameof(firebaseSetting.Type));
+        Guard.RequiredValueIsPresent(firebaseSetting?.ProjectId, nameof(firebaseSetting.ProjectId));
+        Guard.RequiredValueIsPresent(firebaseSetting?.PrivateKeyId, nameof(firebaseSetting.PrivateKeyId));
+        Guard.RequiredValueIsPresent(firebaseSetting?.PrivateKey, nameof(firebaseSetting.PrivateKey));
+        Guard.RequiredValueIsPresent(firebaseSetting?.ClientEmail, nameof(firebaseSetting.ClientEmail));
+        Guard.RequiredValueIsPresent(firebaseSetting?.ClientId, nameof(firebaseSetting.ClientId));
+        Guard.RequiredValueIsPresent(firebaseSetting?.AuthUri, nameof(firebaseSetting.AuthUri));
+        Guard.RequiredValueIsPresent(firebaseSetting?.TokenUri, nameof(firebaseSetting.TokenUri));
+        Guard.RequiredValueIsPresent(firebaseSetting?.AuthProviderX509CertUrl, nameof(firebaseSetting.AuthProviderX509CertUrl));
+        Guard.RequiredValueIsPresent(firebaseSetting?.ClientX509CertUrl, nameof(firebaseSetting.ClientX509CertUrl));
+    }
+
+    private static void CheckSmtpSettings(SmtpSettingDto? smtpSetting)
+    {
+        Guard.RequiredValueIsPresent(smtpSetting?.Host, nameof(smtpSetting.Host));
+        Guard.RequiredValueIsPresent(smtpSetting?.Port, nameof(smtpSetting.Port));
+        Guard.RequiredValueIsPresent(smtpSetting?.Password, nameof(smtpSetting.Password));
+    }
+
+    private static void CheckSendGridSettings(SendGridSettingDto? setting)
+    {
+        Guard.RequiredValueIsPresent(setting?.ApiKey, nameof(setting.ApiKey));
     }
 }
