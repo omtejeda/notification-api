@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.Application.Common.Models;
+using NotificationService.Application.Contracts.DTOs.Responses;
 
 namespace NotificationService.Api.Extensions;
 
@@ -26,5 +27,21 @@ public static class BaseResponseExtensions
             null => new NotFoundObjectResult(response),
             _ => new OkObjectResult(response)
         };
+    }
+
+    /// <summary>
+    /// Converts a <see cref="BaseResponse{NotificationSentResponseDto}"/> into an appropriate <see cref="ActionResult"/> 
+    /// to be returned by endpoints in the <c>SendersController</c>.
+    /// </summary>
+    /// <param name="response">The response to convert.</param>
+    /// <returns>
+    /// An <see cref="OkObjectResult"/> if <c>response.Response.Success</c> is true; 
+    /// otherwise, an <see cref="UnprocessableEntityObjectResult"/>.
+    /// </returns>
+    public static ActionResult ToActionResult(this BaseResponse<NotificationSentResponseDto> response)
+    {
+        return response.Response.Success == true 
+            ? new OkObjectResult(response) 
+            : new UnprocessableEntityObjectResult(response);
     }
 }
