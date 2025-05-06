@@ -12,7 +12,8 @@ and we adhere to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Architecture Tests
 - Support response messages in both English and Spanish based on the Accept-Language header
 - Guard clauses to improve code readability and enforce validation
+- Implement Push Notifications with Firebase
 
 ### Changed
 - Migration to .NET 8
-- Project restructuring following Clean Architecture
+- Reestructure project following Clean Architecture
