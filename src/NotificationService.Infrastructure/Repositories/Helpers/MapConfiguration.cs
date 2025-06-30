@@ -7,6 +7,7 @@ using MongoDB.Bson.Serialization.Conventions;
 using NotificationService.Domain.Models;
 using NotificationService.Application.Features.Senders.Dtos;
 using NotificationService.SharedKernel.Domain;
+using NotificationService.Domain.Entities;
 
 namespace NotificationService.Infrastructure.Repositories.Helpers;
 
@@ -26,6 +27,12 @@ public static class MapConfiguration
                 .SetIdGenerator(StringObjectIdGenerator.Instance);
         });
 
+        BsonClassMap.RegisterClassMap<Template>(cm =>
+        {
+            cm.AutoMap();
+            cm.SetIgnoreExtraElements(true);
+        });
+
         BsonClassMap.RegisterClassMap<Attachment>(cm =>
         {
             cm.AutoMap();
@@ -33,7 +40,6 @@ public static class MapConfiguration
         });
 
         // DTOs saved as part of Notification entity.
-
         BsonClassMap.RegisterClassMap<SendEmailRequestDto>();
         BsonClassMap.RegisterClassMap<SendSmsRequestDto>();
         BsonClassMap.RegisterClassMap<SendMessageRequestDto>();
