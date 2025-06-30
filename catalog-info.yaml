@@ -1,10 +1,18 @@
 apiVersion: backstage.io/v1alpha1
-kind: Component
+kind: API
 metadata:
   name: notification-api
-  annotations:
-    github.com/project-slug: omtejeda/notification-api
+  description: REST API to manage and send notifications.
+  tags:
+    - notifications
 spec:
-  type: service
+  type: openapi
   lifecycle: production
   owner: omtejeda
+  definition:
+    $text: |
+      openapi: 3.0.0
+      info:
+        title: Notification API
+        version: 1.0.0
+      paths: {}
