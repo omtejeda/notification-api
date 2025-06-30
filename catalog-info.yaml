@@ -9,10 +9,9 @@ spec:
   type: openapi
   lifecycle: production
   owner: omtejeda
-  definition:
-    $text: |
-      openapi: 3.0.0
-      info:
-        title: Notification API
-        version: 1.0.0
-      paths: {}
+  definition: |
+    openapi: 3.0.0
+    info:
+      title: Notification API
+      version: 1.0.0
+    paths: {}
